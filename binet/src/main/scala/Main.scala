@@ -1,25 +1,25 @@
-@main def hello: Unit = 
-  println("Hello world!")
-  println(msg)
+import net.mem_memov.binet._
 
-def msg = "I was compiled by Scala 3. :)"
+@main def hello: Unit =
+  val binet = Binet.empty[String]
+  val aBits = Bit.collect('a')
+  val a = binet.install(aBits, "A case")
+  val bBits = Bit.collect('b')
+  val b = binet.install(bBits, "B case")
+  val ab = a.install(bBits, "AB case")
+  val aa = a.install(aBits, "AA case")
+  val ba = b.install(aBits, "BA case")
+  val bb = b.install(bBits, "BB case")
+  println(s"$a")
+  println(s"$b")
+  println(s"$ab")
+  println(s"$ba")
 
-sealed trait Binet
 
-sealed trait Bit
-object Zero extends Bit
-object One extends Bit
 
-case class Sequence[A](previous: Option[A], next: Option[A])
 
-case class Number(bit: Bit, sequence: Sequence[Number])
-object Number:
-  def fromChar(char: Char) =
-    if ((char >> 1) << 1) == char then Zero else One
 
-//case class Word(characters: List[Character])
-//
-//case class Phrase(words: List[Word])
+
 
 
 
