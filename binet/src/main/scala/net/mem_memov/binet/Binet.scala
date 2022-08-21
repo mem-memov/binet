@@ -26,6 +26,17 @@ case class Binet[A](
               case None =>
                 Binet(left, Some(Binet.empty[A].install(tail, newValue)), value)
 
+  def draw: String =
+    val l = left match
+      case Some(binet) => binet.draw
+      case None => ""
+    val r = right match
+      case Some(binet) => binet.draw
+      case None => ""
+
+    val v = s"${value.getOrElse("v")}"
+    s"$l$v$r-\n"
+
 object Binet:
   def empty[A]: Binet[A] =
     Binet[A](None, None, None)
