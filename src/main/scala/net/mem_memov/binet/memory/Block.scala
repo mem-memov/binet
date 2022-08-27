@@ -7,10 +7,10 @@ class Block(
 ):
 
   def read(position: UnsignedByte): UnsignedByte =
-    space(position.toIndex)
+    space(position.toInt)
 
   def write(position: UnsignedByte, content: UnsignedByte): Unit =
-    space(position.toIndex) = content
+    space(position.toInt) = content
 
 object Block:
 
@@ -18,7 +18,7 @@ object Block:
     new Block(
       mutable.ArraySeq.make[UnsignedByte](
         new Array[UnsignedByte](
-          UnsignedByte.maximum.toIndex + 1
+          UnsignedByte.maximum.toInt + 1
         )
       )
     )

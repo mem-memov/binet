@@ -55,7 +55,7 @@ class Address(
       case _ => false
 
   override def toString: String =
-    indices.map(_.toIndex.toString()).mkString("Address(", ",", ")")
+    indices.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
   private[memory] def trimBig: Address =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
