@@ -29,10 +29,7 @@ class Address(
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
     new Address(resultIndices)
-
-  def foreach(f: Byte => Unit): Unit =
-    indices.foreach(index => f(index.value))
-
+  
   def isEmpty: Boolean =
     length == 0
 
@@ -61,13 +58,11 @@ class Address(
     indices.map(_.toIndex.toString()).mkString("Address(", ",", ")")
 
   private[memory] def trimBig: Address =
-
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
     new Address(nonEmptyIndices)
 
   private[memory] def padBig(target: Int): Option[Address] =
-
     if length == target then
       Some(this)
     else
@@ -91,3 +86,6 @@ class Address(
       Some(
         indices.head -> new Address(indices.tail)
       )
+  
+  private[memory] def foreach(f: UnsignedByte => Unit): Unit =
+    indices.foreach(f)

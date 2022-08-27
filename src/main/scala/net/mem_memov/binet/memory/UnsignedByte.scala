@@ -8,7 +8,7 @@ case class UnsignedByte(value: Byte) extends AnyVal:
 
   inline def atMaximum: Boolean = value == Byte.MaxValue
 
-  inline def toIndex: Int = value.toInt
+  inline def toIndex: Int = value.toInt + Byte.MaxValue.toInt + 1
 
   inline def increment: UnsignedByte = UnsignedByte((value + 1).toByte)
   

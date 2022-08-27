@@ -3,34 +3,22 @@ package net.mem_memov.binet.memory
 import scala.collection.mutable
 
 class Block(
-  private var current: UnsignedByte,
   private val space: mutable.ArraySeq[UnsignedByte]
 ):
 
-  def read(position: UnsignedByte): Option[UnsignedByte] = 
+  def read(position: UnsignedByte): UnsignedByte =
+    space(position.toIndex)
 
-    if position > current then
-      None
-    else
-      Some(space(position.toIndex))
-
-  def append(content: UnsignedByte): Option[UnsignedByte] = 
-
-    if current.atMaximum then
-      None
-    else
-      current = current.increment
-      space(current.toIndex) = content
-      Some(current)
+  def write(position: UnsignedByte, content: UnsignedByte): Unit =
+    space(position.toIndex) = content
 
 object Block:
 
-  def apply: Block =
+  def apply(): Block =
     new Block(
-      UnsignedByte.minimum,
       mutable.ArraySeq.make[UnsignedByte](
         new Array[UnsignedByte](
-          UnsignedByte.maximum.toIndex
+          UnsignedByte.maximum.toIndex + 1
         )
       )
     )
