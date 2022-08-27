@@ -84,9 +84,6 @@ class AddressSuite extends munit.FunSuite:
 
       original.padBig(target) match
         case Some(padded) =>
-          println(target)
-          println(original)
-          println(padded)
           assert(padded == expected)
           assert(failure.isEmpty)
         case None =>
