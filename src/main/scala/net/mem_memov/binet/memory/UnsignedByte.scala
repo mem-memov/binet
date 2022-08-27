@@ -35,3 +35,5 @@ object UnsignedByte:
   def minimum: UnsignedByte = UnsignedByte(Byte.MinValue)
 
   def maximum: UnsignedByte = UnsignedByte(Byte.MaxValue)
+  
+  def fromInt(value: Int): UnsignedByte = UnsignedByte((value - Byte.MaxValue - 1).toByte)

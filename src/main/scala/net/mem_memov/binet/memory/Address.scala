@@ -75,7 +75,7 @@ class Address(
         else
           Some(
             new Address(
-              indices.padTo(target, UnsignedByte.minimum)
+              List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
             )
           )
 
