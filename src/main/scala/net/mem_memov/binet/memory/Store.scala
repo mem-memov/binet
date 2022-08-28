@@ -15,10 +15,9 @@ class Store(
 
     for {
       _ <- if !content.hasLength(blocks.length) then ZIO.fail(Exception("Destination not written: content to large")) else ZIO.unit
-      updatedBlocks <- ZIO.collectAll {
+      updatedBlocks <- ZIO.succeed {
           content.indices.zip(blocks).map { case (part, block) =>
-              val blockUpdate: Task[Block] = block.write(destination, part)
-              blockUpdate
+              block.write(destination, part)
           }
         }
     } yield Store(updatedBlocks.toVector)

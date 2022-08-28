@@ -15,8 +15,8 @@ class Block(
   def read(position: UnsignedByte): UnsignedByte =
     space(position.toInt)
 
-  def write(position: UnsignedByte, content: UnsignedByte): Task[Block] =
-    ZIO.succeed(Block(space.updated(position.toInt, content)))
+  def write(position: UnsignedByte, content: UnsignedByte): Block =
+    Block(space.updated(position.toInt, content))
 
 object Block:
 
