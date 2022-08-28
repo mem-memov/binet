@@ -1,5 +1,6 @@
 package net.mem_memov.binet.hexagon
 
+import zio.*
 import net.mem_memov.binet.memory
 
 class Dot(
@@ -9,43 +10,76 @@ class Dot(
 ):
 
   def previousDot: Option[Dot] =
-    for {
-      dotEntry <- inventory.read(entry.address1)
-    } yield new Dot(inventory, entry.address1, dotEntry)
+    Option.unless(entry.address1.isZero) {
+      new Dot(
+        inventory,
+        entry.address1,
+        inventory.read(entry.address1)
+      )
+    }
 
   def nextDot: Option[Dot] =
-    for {
-      dotEntry <- inventory.read(entry.address2)
-    } yield new Dot(inventory, entry.address2, dotEntry)
+    Option.unless(entry.address2.isZero) {
+      new Dot(
+        inventory,
+        entry.address2,
+        inventory.read(entry.address2)
+      )
+    }
 
-  def incrementSourceCount: Option[Dot] =
+  def incrementSourceCount: Task[Dot] =
+    for {
+      newEntry <- entry.copy(address3 = entry.address3.increment)
+    } yield
     val newEntry = entry.copy(address3 = entry.address3.increment)
-    Option.when(inventory.update(address, newEntry))(new Dot(inventory, address, newEntry))
+    inventory.update(address, newEntry)
+    new Dot(
+      inventory,
+      address,
+      newEntry
+    )
 
-  def decrementSourceCount: Option[Dot] =
-    for {
-      count <- entry.address3.decrement
-      newEntry = entry.copy(address3 = count)
-      dot <- Option.when(inventory.update(address, newEntry))(new Dot(inventory, address, newEntry))
-    } yield dot
+  def decrementSourceCount: Dot =
+    val newEntry = entry.copy(address3 = entry.address3.decrement)
+    inventory.update(address, newEntry)
+    new Dot(
+      inventory,
+      address,
+      newEntry
+    )
 
-  def incrementTargetCount: Option[Dot] =
+  def incrementTargetCount: Dot =
     val newEntry = entry.copy(address4 = entry.address4.increment)
-    Option.when(inventory.update(address, newEntry))(new Dot(inventory, address, newEntry))
+    inventory.update(address, newEntry)
+    new Dot(
+      inventory,
+      address,
+      newEntry
+    )
 
-  def decrementTargetCount: Option[Dot] =
-    for {
-      count <- entry.address4.decrement
-      newEntry = entry.copy(address4 = count)
-      dot <- Option.when(inventory.update(address, newEntry))(new Dot(inventory, address, newEntry))
-    } yield dot
+  def decrementTargetCount: Dot =
+    val newEntry = entry.copy(address4 = entry.address3.decrement)
+    inventory.update(address, newEntry)
+    new Dot(
+      inventory,
+      address,
+      newEntry
+    )
 
   def sourceArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address5)
-    } yield new Arrow(inventory, entry.address5, arrowEntry)
+    Option.unless(entry.address5.isZero) {
+      new Arrow(
+        inventory,
+        entry.address5,
+        inventory.read(entry.address5)
+      )
+    }
 
   def targetArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address6)
-    } yield new Arrow(inventory, entry.address6, arrowEntry)
+    Option.unless(entry.address6.isZero) {
+      new Arrow(
+        inventory,
+        entry.address6,
+        inventory.read(entry.address6)
+      )
+    }

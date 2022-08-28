@@ -8,11 +8,8 @@ class InventorySuite extends munit.FunSuite:
 
     val start = inventory.start
 
-    inventory.append(start) match
-      case Some(destination) =>
-        assert(destination == start)
-      case _ =>
-        fail("failed appending")
+    val destination = inventory.append(start)
+    assert(destination == start)
   }
 
 //  test("Append and read addresses") {

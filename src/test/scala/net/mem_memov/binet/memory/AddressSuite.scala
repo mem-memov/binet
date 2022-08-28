@@ -78,16 +78,19 @@ class AddressSuite extends munit.FunSuite:
         new Address(List(high, high, high)),
         2,
         new Address(List.empty),
-        Some("NotPaddedBigAlreadyGreater")
+        Option("requirement failed: Address not padded: already too long")
       )
     ).foreach { case (original, target, expected, failure) =>
 
-      original.padBig(target) match
-        case Some(padded) =>
+      failure match
+        case None =>
+          val padded = original.padBig(target)
           assert(padded == expected)
           assert(failure.isEmpty)
-        case None =>
-          assert(failure.contains("NotPaddedBigAlreadyGreater"))
+        case Some(message) =>
+          interceptMessage[Throwable](message) {
+            original.padBig(target)
+          }
     }
   }
 

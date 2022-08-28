@@ -7,33 +7,64 @@ class Arrow(
   val address: memory.Address,
   private val entry: Entry
 ):
+
+  def hasSourceDot(source: Dot): Boolean =
+    entry.address1 == source.address
   
   def sourceDot: Option[Dot] =
-    for {
-      dotEntry <- inventory.read(entry.address1)
-    } yield new Dot(inventory, entry.address1, dotEntry)
+    Option.unless(entry.address1.isZero) {
+      new Dot(
+        inventory,
+        entry.address1,
+        inventory.read(entry.address1)
+      )
+    }
 
   def previousSourceArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address2)
-    } yield new Arrow(inventory, entry.address2, arrowEntry)
+    Option.unless(entry.address2.isZero) {
+      new Arrow(
+        inventory,
+        entry.address2,
+        inventory.read(entry.address2)
+      )
+    }
+
 
   def nextSourceArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address3)
-    } yield new Arrow(inventory, entry.address3, arrowEntry)
-    
+    Option.unless(entry.address3.isZero) {
+      new Arrow(
+        inventory,
+        entry.address3,
+        inventory.read(entry.address3)
+      )
+    }
+
+  def hasTargetDot(target: Dot): Boolean =
+    entry.address4 == target.address
+
   def targetDot: Option[Dot] =
-    for {
-      dotEntry <- inventory.read(entry.address4)
-    } yield new Dot(inventory, entry.address4, dotEntry)
+    Option.unless(entry.address4.isZero) {
+      new Dot(
+        inventory,
+        entry.address4,
+        inventory.read(entry.address4)
+      )
+    }
 
   def previousTargetArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address5)
-    } yield new Arrow(inventory, entry.address5, arrowEntry)
+    Option.unless(entry.address5.isZero) {
+      new Arrow(
+        inventory,
+        entry.address5,
+        inventory.read(entry.address5)
+      )
+    }
 
   def nextTargetArrow: Option[Arrow] =
-    for {
-      arrowEntry <- inventory.read(entry.address6)
-    } yield new Arrow(inventory, entry.address6, arrowEntry)
+    Option.unless(entry.address6.isZero) {
+      new Arrow(
+        inventory,
+        entry.address6,
+        inventory.read(entry.address6)
+      )
+    }
