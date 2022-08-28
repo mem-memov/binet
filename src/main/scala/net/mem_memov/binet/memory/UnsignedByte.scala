@@ -12,6 +12,8 @@ case class UnsignedByte(value: Byte) extends AnyVal:
 
   inline def increment: UnsignedByte = UnsignedByte((value + 1).toByte)
   
+  inline def decrement: UnsignedByte = UnsignedByte((value - 1).toByte)
+  
   @targetName("nonEqual")
   inline def !=(that: UnsignedByte): Boolean = this.value != that.value
 

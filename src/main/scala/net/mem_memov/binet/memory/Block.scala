@@ -2,6 +2,10 @@ package net.mem_memov.binet.memory
 
 import scala.collection.mutable
 
+/**
+ * Block has the property that it provides content at any possible position.
+ * The possibilities are limited by the position type.
+ */
 class Block(
   private val space: mutable.ArraySeq[UnsignedByte]
 ):

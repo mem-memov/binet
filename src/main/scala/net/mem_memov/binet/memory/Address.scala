@@ -1,5 +1,9 @@
 package net.mem_memov.binet.memory
 
+/**
+ * Address has the property that it can be incremented infinitely without overflow.
+ * An address consists on indices which are used to retrieve data at different levels of a tree structure.
+ */
 class Address(
   private[Address] val indices: List[UnsignedByte]
 ) extends Ordered[Address]:
@@ -29,6 +33,28 @@ class Address(
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
     new Address(resultIndices)
+
+  def decrement: Option[Address] =
+
+    def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
+
+    val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
+      case ((accumulator, isStart, hasOverflow), index) =>
+        if isStart then
+          val (decrementedIndex, overflow) = minusOne(index)
+          (decrementedIndex :: accumulator, false, overflow)
+        else
+          if hasOverflow then
+            val (decrementedIndex, overflow) = minusOne(index)
+            (decrementedIndex :: accumulator, false, overflow)
+          else
+            (index :: accumulator, false, false)
+    }
+
+    if hasOverflow then
+      None
+    else
+      Some(Address(accumulator.reverse))
   
   def isEmpty: Boolean =
     length == 0
@@ -89,3 +115,7 @@ class Address(
   
   private[memory] def foreach(f: UnsignedByte => Unit): Unit =
     indices.foreach(f)
+
+object Address:
+
+  val empty: Address = new Address(List(UnsignedByte.minimum))
