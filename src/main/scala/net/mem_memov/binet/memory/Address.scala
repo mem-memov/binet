@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 /**
  * Address has the property that it can be incremented infinitely without overflow.
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
@@ -18,7 +16,7 @@ class Address private (
 
     this.length == length
 
-  def increment: Task[Address] =
+  def increment: Either[Throwable, Address] =
 
     def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
 
@@ -37,15 +35,15 @@ class Address private (
 
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
-    ZIO.succeed(Address(resultIndices))
+    Right(Address(resultIndices))
 
-  def decrement: Task[Address] =
+  def decrement: Either[Throwable, Address] =
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
       if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
 
     if length <= 0 then
-      ZIO.fail(Exception("Address not decremented: malformed"))
+      Left(Exception("Address not decremented: malformed"))
     else
       val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
         case ((accumulator, isStart, hasOverflow), index) =>
@@ -61,9 +59,9 @@ class Address private (
       }
 
       if hasOverflow then
-        ZIO.fail(Exception("Address not decremented: already at minimum"))
+        Left(Exception("Address not decremented: already at minimum"))
       else
-        ZIO.succeed(Address(accumulator.reverse))
+        Right(Address(accumulator.reverse))
 
   def isZero: Boolean =
 
@@ -111,28 +109,29 @@ class Address private (
     new Address(nonEmptyIndices)
 
   private[memory]
-  def padBig(target: Int ): Task[Address] =
+  def padBig(target: Int ): Either[Throwable, Address] =
 
     if length == target then
-      ZIO.succeed(this)
+     Right(this)
     else
       val trimmed = this.trimBig
       if trimmed.length == target then
-        ZIO.succeed(trimmed)
+        Right(trimmed)
       else
         if trimmed.length > target then
-          ZIO.fail(Exception("Address not padded: already too long"))
+          Left(Exception("Address not padded: already too long"))
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
-          ZIO.succeed(Address(newIndices))
+          Right(Address(newIndices))
 
 
   private[memory]
-  def shorten: Task[Option[(UnsignedByte, Address)]] =
+  def shorten: Option[(UnsignedByte, Address)] =
 
-    ZIO.when(length > 0) {
-      ZIO.succeed(indices.head -> Address(indices.tail))
-    }
+    if length > 0 then
+      Some(indices.head -> Address(indices.tail))
+    else
+      None
 
 //  private[memory]
 //  def foreach(f: UnsignedByte => Unit): Unit =

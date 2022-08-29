@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 /**
  * Store is capable of storing any address of its level and the levels above.
  * All stores have the same height, but a different width which depends on the level.
@@ -11,16 +9,15 @@ class Store(
   private val blocks: Vector[Block]
 ):
 
-  def write(destination: UnsignedByte, content: Address): Task[Store] =
+  def write(destination: UnsignedByte, content: Address): Either[Throwable, Store] =
 
-    for {
-      _ <- if !content.hasLength(blocks.length) then ZIO.fail(Exception("Destination not written: content to large")) else ZIO.unit
-      updatedBlocks <- ZIO.succeed {
-          content.indices.zip(blocks).map { case (part, block) =>
-              block.write(destination, part)
-          }
-        }
-    } yield Store(updatedBlocks.toVector)
+    if !content.hasLength(blocks.length) then 
+      Left(Exception("Destination not written: content to large"))
+    else
+      val updatedBlocks = content.indices.zip(blocks).map { case (part, block) => 
+        block.write(destination, part)
+      }
+      Right(Store(updatedBlocks.toVector))
 
 
   def read(origin: UnsignedByte): Address =

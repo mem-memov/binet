@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 import scala.annotation.tailrec
 
 /**
@@ -14,24 +12,30 @@ class Inventory(
   val root: Element
 ):
 
-  def append(content: Address): Task[Inventory] =
+  def append(content: Address): Either[Throwable, Inventory] =
     val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
-    for {
-      _ <- if trimmedContent >= next then ZIO.fail(Exception("Inventory not appended: content out of boundary")) else ZIO.succeed(trimmedContent)
-      updatedRoot <- root.write(next, trimmedContent)
-      newNext <- next.increment
-    } yield Inventory(newNext, updatedRoot)
+    if trimmedContent >= next then
+      Left(Exception("Inventory not appended: content out of boundary"))
+    else
+      for {
+        updatedRoot <- root.write(next, trimmedContent)
+        newNext <- next.increment
+      } yield Inventory(newNext, updatedRoot)
 
-  def update(destination: Address, content: Address): Task[Inventory] =
+  def update(destination: Address, content: Address): Either[Throwable, Inventory] =
     val trimmedDestination = if content.isEmpty then Address.zero else destination.trimBig
     val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
-    for {
-      _ <- if trimmedDestination >= next then ZIO.fail(Exception("Inventory not appended: destination out of boundary")) else ZIO.succeed(trimmedDestination)
-      _ <- if trimmedContent >= next then ZIO.fail(Exception("Inventory not appended: content out of boundary")) else ZIO.succeed(trimmedContent)
-      updatedRoot <- root.write(next, content)
-    } yield Inventory(next, updatedRoot)
+    if trimmedDestination >= next then
+      Left(Exception("Inventory not appended: destination out of boundary"))
+    else
+      if trimmedContent >= next then
+        Left(Exception("Inventory not appended: content out of boundary"))
+      else
+        for {
+          updatedRoot <- root.write(next, content)
+        } yield Inventory(next, updatedRoot)
 
-  def read(origin: Address): Task[Address] =
+  def read(origin: Address): Either[Throwable, Address] =
     val trimmedOrigin = if origin.isEmpty then Address.zero else origin.trimBig
     for {
       content <- root.read(trimmedOrigin)

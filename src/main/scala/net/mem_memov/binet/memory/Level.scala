@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 private[memory] class Level(
   private[Level] val number: Int = 0
 ) extends Ordered[Level]:
@@ -17,7 +15,7 @@ private[memory] class Level(
       Vector.fill[Element](Level.size)(Element(nextLevel, Option.empty, Option.empty))
     )
 
-  def padBig(content: Address): Task[Address] =
+  def padBig(content: Address): Either[Throwable, Address] =
     content.padBig(number + 1)
 
   override def compare(that: Level): Int =

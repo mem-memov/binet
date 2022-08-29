@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 /**
  * Elements build a tree-like structure.
  * Child elements are kept in a stock.
@@ -12,43 +10,37 @@ private[memory] class Element(
   private val stock: Option[Stock]
 ):
 
-  def write(destination: Address, content: Address): Task[Element] =
+  def write(destination: Address, content: Address): Either[Throwable, Element] =
 
-    for {
-      indexAndRest <- destination.shorten
-      updatedElement <- indexAndRest match
-        case None =>
-          ZIO.fail(Exception("Destination not written"))
-        case Some((index, rest)) =>
-          if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore)
-            for {
-              padded <- level.padBig(content)
-              updatedStore <- presentStore.write(index, padded)
-            } yield Element(level, Option(updatedStore), stock)
-          else
-            val presentStock = stock.getOrElse(level.createStock)
-            for {
-              updatedStock <- presentStock.write(index, rest, content)
-            } yield Element(level, store, Option(updatedStock))
+    destination.shorten match
+      case None =>
+        Left(Exception("Destination not written"))
+      case Some((index, rest)) =>
+        if rest.isEmpty then
+          val presentStore = store.getOrElse(level.createStore)
+          for {
+            padded <- level.padBig(content)
+            updatedStore <- presentStore.write(index, padded)
+          } yield Element(level, Option(updatedStore), stock)
+        else
+          val presentStock = stock.getOrElse(level.createStock)
+          for {
+            updatedStock <- presentStock.write(index, rest, content)
+          } yield Element(level, store, Option(updatedStock))
 
-    } yield updatedElement
 
-  def read(origin: Address): Task[Address] =
+  def read(origin: Address): Either[Throwable, Address] =
 
-    for {
-      indexAndRest <- origin.shorten
-      content <- indexAndRest match
-        case None =>
-          ZIO.fail(Exception("Origin not read"))
-        case Some((index, rest)) =>
-          if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore)
-            ZIO.succeed(presentStore.read(index))
-          else
-            val presentStock = stock.getOrElse(level.createStock)
-            presentStock.read(index, rest)
-    } yield content
+    origin.shorten match
+      case None =>
+        Left(Exception("Origin not read"))
+      case Some((index, rest)) =>
+        if rest.isEmpty then
+          val presentStore = store.getOrElse(level.createStore)
+          Right(presentStore.read(index))
+        else
+          val presentStock = stock.getOrElse(level.createStock)
+          presentStock.read(index, rest)
 
 object Element:
 

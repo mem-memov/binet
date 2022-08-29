@@ -1,6 +1,5 @@
 package net.mem_memov.binet.hexagon
 
-import zio.*
 import net.mem_memov.binet.memory
 
 private[hexagon] class Inventory(
@@ -14,10 +13,10 @@ private[hexagon] class Inventory(
   private val inventory6: memory.Inventory,
 ):
 
-  def append(entry: Entry): Task[Inventory] = ???
+  def append(entry: Entry): Either[Throwable, Inventory] = ???
 
-  def update(destination: memory.Address, content: Entry): Task[Inventory] = ???
+  def update(destination: memory.Address, content: Entry): Either[Throwable, Inventory] = ???
 
-  def read(origin: memory.Address): Entry = ???
+  def read(origin: memory.Address):Either[Throwable, Entry] = ???
 
 
