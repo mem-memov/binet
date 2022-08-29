@@ -1,7 +1,5 @@
 package net.mem_memov.binet.memory
 
-import zio.*
-
 /**
  * Block has the property that it provides content at any possible position.
  * The possibilities are limited by the position type.

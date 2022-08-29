@@ -4,15 +4,16 @@ import zio.*
 import net.mem_memov.binet.memory
 
 class Graph(
-  private val network: Network,
-  val lastVertex: Option[Vertex]
+  private val network: Network
 ):
 
-  def vertex: Task[Graph] =
+  def vertex: Task[Vertex] =
     for {
-      updatedNetwork <- network.dot
-    } yield new Graph(updatedNetwork, Option(new Vertex(network, network.lastDot)))
+      dot <- network.dot
+    } yield new Vertex(network, dot)
 
 
-  def vertex(address: memory.Address): Vertex =
-    new Vertex(network, network.dot(address))
+  def vertex(address: memory.Address): Task[Vertex] =
+    for {
+      dot <- network.dot(address)
+    } yield new Vertex(network, dot)

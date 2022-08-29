@@ -9,106 +9,82 @@ class Dot(
   private val entry: Entry
 ):
 
-  def previousDot: Option[Dot] =
-    Option.unless(entry.address1.isZero) {
-      new Dot(
-        inventory,
-        entry.address1,
-        inventory.read(entry.address1)
-      )
-    }
+  def previousDot: Task[Option[Dot]] =
+    Dot.getDot(entry.address1, inventory)
 
-  def nextDot: Option[Dot] =
-    Option.unless(entry.address2.isZero) {
-      new Dot(
-        inventory,
-        entry.address2,
-        inventory.read(entry.address2)
-      )
-    }
+  def nextDot: Task[Option[Dot]] =
+    Dot.getDot(entry.address2, inventory)
 
   def incrementSourceCount: Task[Dot] =
     entry.address3.increment match
-      case Right(error) =>
+      case Left(error) =>
         ZIO.fail(error)
-      case Left(incrementedAddress) =>
+      case Right(incrementedAddress) =>
         val newEntry = entry.copy(address3 = incrementedAddress)
         for {
           _ <- inventory.modify { inventory =>
-            inventory.update(address, newEntry) match {
-              case Left(updatedInventory) =>
-                (ZIO.unit, updatedInventory)
-              case Right(error) =>
-                (ZIO.fail(error), inventory)
-            }
+            inventory.update(address, newEntry) match
+              case Left(error) => (ZIO.fail(error), inventory)
+              case Right(updatedInventory) => (ZIO.unit, updatedInventory)
           }
         } yield new Dot(inventory, address, newEntry)
 
   def decrementSourceCount: Task[Dot] =
     entry.address3.decrement match
-      case Right(error) =>
+      case Left(error) =>
         ZIO.fail(error)
-      case Left(decrementedAddress) =>
+      case Right(decrementedAddress) =>
         val newEntry = entry.copy(address3 = decrementedAddress)
         for {
           _ <- inventory.modify { inventory =>
-            inventory.update(address, newEntry) match {
-              case Left(updatedInventory) =>
-                (ZIO.unit, updatedInventory)
-              case Right(error) =>
-                (ZIO.fail(error), inventory)
-            }
+            inventory.update(address, newEntry) match
+              case Left(error) => (ZIO.fail(error), inventory)
+              case Right(updatedInventory) => (ZIO.unit, updatedInventory)
           }
         } yield new Dot(inventory, address, newEntry)
 
   def incrementTargetCount: Task[Dot] =
     entry.address4.increment match
-      case Right(error) =>
+      case Left(error) =>
         ZIO.fail(error)
-      case Left(incrementedAddress) =>
+      case Right(incrementedAddress) =>
         val newEntry = entry.copy(address4 = incrementedAddress)
         for {
           _ <- inventory.modify { inventory =>
-            inventory.update(address, newEntry) match {
-              case Left(updatedInventory) =>
-                (ZIO.unit, updatedInventory)
-              case Right(error) =>
-                (ZIO.fail(error), inventory)
-            }
+            inventory.update(address, newEntry) match
+              case Left(error) => (ZIO.fail(error), inventory)
+              case Right(updatedInventory) => (ZIO.unit, updatedInventory)
           }
         } yield new Dot(inventory, address, newEntry)
 
   def decrementTargetCount: Task[Dot] =
     entry.address4.decrement match
-      case Right(error) =>
+      case Left(error) =>
         ZIO.fail(error)
-      case Left(decrementedAddress) =>
+      case Right(decrementedAddress) =>
         val newEntry = entry.copy(address4 = decrementedAddress)
         for {
           _ <- inventory.modify { inventory =>
-            inventory.update(address, newEntry) match {
-              case Left(updatedInventory) =>
-                (ZIO.unit, updatedInventory)
-              case Right(error) =>
-                (ZIO.fail(error), inventory)
-            }
+            inventory.update(address, newEntry) match
+              case Left(error) => (ZIO.fail(error), inventory)
+              case Right(updatedInventory) => (ZIO.unit, updatedInventory)
           }
         } yield new Dot(inventory, address, newEntry)
 
-  def sourceArrow: Option[Arrow] =
-    Option.unless(entry.address5.isZero) {
-      new Arrow(
-        inventory,
-        entry.address5,
-        inventory.read(entry.address5)
-      )
-    }
+  def sourceArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address5, inventory)
 
-  def targetArrow: Option[Arrow] =
-    Option.unless(entry.address6.isZero) {
-      new Arrow(
-        inventory,
-        entry.address6,
-        inventory.read(entry.address6)
-      )
-    }
+  def targetArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address6, inventory)
+
+object Dot:
+
+  def getDot(address: memory.Address, inventory: Ref[Inventory]): Task[Option[Dot]] =
+    if address.isZero then
+      ZIO.succeed(None)
+    else
+      for {
+        foundEntry <- inventory.get.flatMap { inventory =>
+          ZIO.fromEither(inventory.read(address))
+        }
+      } yield Some(new Dot(inventory, address, foundEntry))

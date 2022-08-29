@@ -1,9 +1,10 @@
 package net.mem_memov.binet.hexagon
 
 import net.mem_memov.binet.memory
+import zio.*
 
 class Arrow(
-  private val inventory: Inventory,
+  private val inventory: Ref[Inventory],
   val address: memory.Address,
   private val entry: Entry
 ):
@@ -11,60 +12,35 @@ class Arrow(
   def hasSourceDot(source: Dot): Boolean =
     entry.address1 == source.address
   
-  def sourceDot: Option[Dot] =
-    Option.unless(entry.address1.isZero) {
-      new Dot(
-        inventory,
-        entry.address1,
-        inventory.read(entry.address1)
-      )
-    }
+  def sourceDot: Task[Option[Dot]] =
+    Dot.getDot(entry.address1, inventory)
 
-  def previousSourceArrow: Option[Arrow] =
-    Option.unless(entry.address2.isZero) {
-      new Arrow(
-        inventory,
-        entry.address2,
-        inventory.read(entry.address2)
-      )
-    }
+  def previousSourceArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address2, inventory)
 
-
-  def nextSourceArrow: Option[Arrow] =
-    Option.unless(entry.address3.isZero) {
-      new Arrow(
-        inventory,
-        entry.address3,
-        inventory.read(entry.address3)
-      )
-    }
+  def nextSourceArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address3, inventory)
 
   def hasTargetDot(target: Dot): Boolean =
     entry.address4 == target.address
 
-  def targetDot: Option[Dot] =
-    Option.unless(entry.address4.isZero) {
-      new Dot(
-        inventory,
-        entry.address4,
-        inventory.read(entry.address4)
-      )
-    }
+  def targetDot: Task[Option[Dot]] =
+    Dot.getDot(entry.address4, inventory)
 
-  def previousTargetArrow: Option[Arrow] =
-    Option.unless(entry.address5.isZero) {
-      new Arrow(
-        inventory,
-        entry.address5,
-        inventory.read(entry.address5)
-      )
-    }
+  def previousTargetArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address5, inventory)
 
-  def nextTargetArrow: Option[Arrow] =
-    Option.unless(entry.address6.isZero) {
-      new Arrow(
-        inventory,
-        entry.address6,
-        inventory.read(entry.address6)
-      )
-    }
+  def nextTargetArrow: Task[Option[Arrow]] =
+    Arrow.getArrow(entry.address6, inventory)
+
+object Arrow:
+
+  def getArrow(address: memory.Address, inventory: Ref[Inventory]): Task[Option[Arrow]] =
+    if address.isZero then
+      ZIO.succeed(None)
+    else
+      for {
+        foundEntry <- inventory.get.flatMap { inventory =>
+          ZIO.fromEither(inventory.read(address))
+        }
+      } yield Some(new Arrow(inventory, address, foundEntry))

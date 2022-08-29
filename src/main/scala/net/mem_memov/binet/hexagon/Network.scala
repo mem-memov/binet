@@ -4,22 +4,24 @@ import zio.*
 import net.mem_memov.binet.memory
 
 class Network(
-  private val inventory: Ref[Inventory],
-  val lastDot: Dot
+  private val inventory: Ref[Inventory]
 ):
 
-  def dot: Task[Network] =
+  def dot: Task[Dot] =
     for {
-      m <- inventory.modify { inventory =>
-        val modifiedInventory: Task[Inventory] = inventory.append(Entry.empty)
-        (modifiedInventory, modifiedInventory)
-      }
-    } yield new Network(
-      updatedInventory,
-      new Dot(updatedInventory, updatedInventory.address, updatedInventory.entry)
-    )
+      result <- inventory.modify { inventory =>
+        inventory.append(Entry.empty) match
+          case Left(error) =>
+            (ZIO.fail(Exception("Dot not created")), inventory)
+          case Right(modifiedInventory) =>
+            (ZIO.succeed(modifiedInventory.resultAddress -> Entry.empty), modifiedInventory)
+      }.flatten
+      (address, entry) = result
+    } yield new Dot(inventory, address, entry)
 
   def dot(address: memory.Address): Task[Dot] =
     for {
-      entry <- inventory.get.map(_.read(address))
+      entry <- inventory.get.flatMap { inventory =>
+        ZIO.fromEither(inventory.read(address))
+      }
     } yield new Dot(inventory, address, entry)
