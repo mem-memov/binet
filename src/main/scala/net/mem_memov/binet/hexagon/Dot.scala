@@ -77,6 +77,23 @@ class Dot(
   def targetArrow: Task[Option[Arrow]] =
     Arrow.getArrow(entry.address6, inventory)
 
+  def createArrowOnSourceDot(targetDot: Dot): Task[Arrow] =
+
+    val newArrowEntry = Entry(
+      address,
+      memory.Address.zero,
+      previousSourceArrow.address,
+      targetDot.address,
+      memory.Address.zero,
+      memory.Address.zero,
+    )
+    for {
+      _ <-
+    } yield ???
+
+  def createArrowOnTargetDot(entry: Entry): Task[Arrow] =
+
+
 object Dot:
 
   def getDot(address: memory.Address, inventory: Ref[Inventory]): Task[Option[Dot]] =

@@ -16,11 +16,11 @@ class Vertex(
     for {
       sourceEdge <- hasSource(source)
     } yield sourceEdge match {
-      case option @ Some(edge) => option
+      case optionEdge @ Some(_) => optionEdge
       case None => for {
         sourceArrow <- dot.sourceArrow
         _ <- sourceArrow match {
-          case Some(arrow) => ???
+          case Some(arrow) => Edge(network, arrow).injectSourceVertex(source.dot, dot)
           case None => ???
         }
       } yield ???

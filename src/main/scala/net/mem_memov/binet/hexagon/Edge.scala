@@ -1,5 +1,6 @@
 package net.mem_memov.binet.hexagon
 
+import net.mem_memov.binet.memory
 import zio.*
 
 class Edge(
@@ -28,6 +29,20 @@ class Edge(
           case Some(nextArrow) => Edge(network, nextArrow).findByTargetDot(targetDot)
           case None => ZIO.succeed(Option.empty[Edge])
       } yield nextTargetEdge
+
+  def injectSourceVertex(sourceDot: Dot, targetDot: Dot): Task[Edge] =
+    val combinationZIO = for {
+      sourceDotTargetArrow <- sourceDot.targetArrow
+      targetDotSourceArrow <- targetDot.sourceArrow
+    } yield (sourceDotTargetArrow, targetDotSourceArrow)
+
+    combinationZIO.flatMap {
+      case ((Some(incomingArrow), Some(outgoingArrow))) => ??? // in -> E -> out
+      case ((None, Some(outgoingArrow))) => ???
+      case ((Some(incomingArrow), None)) => ???
+      case ((None, None)) => ???
+    }
+    ???
 
 
 object Edge:
