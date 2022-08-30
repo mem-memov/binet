@@ -1,29 +1,34 @@
 package net.mem_memov.binet.hexagon
 
-import scala.annotation.tailrec
+import zio.*
 
 class Edge(
   private val network: Network,
   private val arrow: Arrow
-)
+):
   
-//  def findSource(f: Arrow => Boolean): Unit =
-//    var found = false
-//    var next = Option(arrow)
-//    while !found || next.isEmpty do
-//      found = next.exists(f)
-//      next = if !found then next.flatMap(_.nextSourceArrow) else next
-//
-//  def hasSourceDot(source: Dot): Boolean =
-//
-//    if arrow.hasSourceDot(source) then
-//      true
-//    else
-//      var has = false
-//      var next: Option[Arrow] = arrow.nextSourceArrow
-//      while !has || next.nonEmpty do
-//        has = next.exists(arrow => arrow.hasSourceDot(source))
-//      has
+  def findBySourceDot(sourceDot: Dot): Task[Option[Edge]] =
+    if arrow.hasSourceDot(sourceDot) then
+      ZIO.succeed(Some(this))
+    else
+      for {
+        nextSourceArrow <- arrow.nextSourceArrow
+        nextSourceEdge <- nextSourceArrow match
+          case Some(nextArrow) => Edge(network, nextArrow).findBySourceDot(sourceDot)
+          case None => ZIO.succeed(Option.empty[Edge])
+      } yield nextSourceEdge
+  
+  def findByTargetDot(targetDot: Dot): Task[Option[Edge]] =
+    if arrow.hasTargetDot(targetDot) then
+      ZIO.succeed(Some(this))
+    else
+      for {
+        nextTargetArrow <- arrow.nextTargetArrow
+        nextTargetEdge <- nextTargetArrow match
+          case Some(nextArrow) => Edge(network, nextArrow).findByTargetDot(targetDot)
+          case None => ZIO.succeed(Option.empty[Edge])
+      } yield nextTargetEdge
+
 
 object Edge:
 

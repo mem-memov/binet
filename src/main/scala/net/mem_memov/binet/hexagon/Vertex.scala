@@ -1,18 +1,30 @@
 package net.mem_memov.binet.hexagon
 
+import zio.*
+
 class Vertex(
   private val network: Network,
   private[Vertex] val dot: Dot
 ):
 
-  def hasSource(source: Vertex): Boolean = ???
-//    dot.sourceArrow.map(Edge(network, _)).map { arrow =>
-//      arrow.findSource { arrow =>
-//        arrow.hasSourceDot(source.dot)
-//      }
-//    }
+  def hasSource(source: Vertex): Task[Option[Edge]] =
+    for {
+      sourceArrow <- dot.sourceArrow
+    } yield sourceArrow.map(Edge(network, _))
 
-  def addSource(source: Vertex): Option[Vertex] = ???
+  def addSource(source: Vertex): Task[Option[Edge]] =
+    for {
+      sourceEdge <- hasSource(source)
+    } yield sourceEdge match {
+      case option @ Some(edge) => option
+      case None => for {
+        sourceArrow <- dot.sourceArrow
+        _ <- sourceArrow match {
+          case Some(arrow) => ???
+          case None => ???
+        }
+      } yield ???
+    }
 //    if hasSource(source) then
 //      Some(this)
 //    else
@@ -28,3 +40,8 @@ class Vertex(
 
   def removeTarget(target: Vertex): Option[Vertex] = ???
 
+
+object Vertex:
+
+  def apply(network: Network, dot: Dot): Vertex =
+    new Vertex(network, dot)
