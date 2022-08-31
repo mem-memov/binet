@@ -2,6 +2,9 @@ package net.mem_memov.binet.hexagon
 
 import zio.*
 
+/**
+ * A vertex of a graph.
+ */
 class Vertex(
   private val network: Network,
   private[Vertex] val dot: Dot

@@ -7,7 +7,7 @@ class Network(
   private val inventory: Ref[Inventory]
 ):
 
-  def dot: Task[Dot] =
+  def createDot: Task[Dot] =
     for {
       result <- inventory.modify { inventory =>
         inventory.append(Entry.empty) match
@@ -19,9 +19,33 @@ class Network(
       (address, entry) = result
     } yield new Dot(inventory, address, entry)
 
-  def dot(address: memory.Address): Task[Dot] =
+  def getDot(address: memory.Address): Task[Dot] =
     for {
       entry <- inventory.get.flatMap { inventory =>
         ZIO.fromEither(inventory.read(address))
       }
     } yield new Dot(inventory, address, entry)
+
+  def createArrow(entry: Entry): Task[Arrow] =
+    for {
+      address <- inventory.append(entry)
+    } yield new Arrow(inventory, address, entry)
+
+object Network:
+
+  def getEntry(inventory: Ref[Inventory], address: memory.Address): Task[Option[Entry]] =
+    if address.isZero then
+      ZIO.succeed(None)
+    else
+      for {
+        foundEntry <- inventory.get.flatMap { inventory =>
+          ZIO.fromEither(inventory.read(address))
+        }
+      } yield Some(Entry)
+  
+  def updateEntry(inventory: Ref[Inventory], address: memory.Address, entry: Entry): Task[Unit] =
+    for {
+      entry <- inventory.get.flatMap { inventory =>
+        ZIO.fromEither(inventory.update(address, entry))
+      }
+    } yield ()

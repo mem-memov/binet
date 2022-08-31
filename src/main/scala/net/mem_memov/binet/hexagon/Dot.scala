@@ -3,6 +3,10 @@ package net.mem_memov.binet.hexagon
 import zio.*
 import net.mem_memov.binet.memory
 
+/**
+ * A dot in a network.
+ * It has 3 parts.
+ */
 class Dot(
   private val inventory: Ref[Inventory],
   val address: memory.Address,
@@ -10,10 +14,10 @@ class Dot(
 ):
 
   def previousDot: Task[Option[Dot]] =
-    Dot.getDot(entry.address1, inventory)
+    Dot.getDot(inventory, entry.address1)
 
   def nextDot: Task[Option[Dot]] =
-    Dot.getDot(entry.address2, inventory)
+    Dot.getDot(inventory, entry.address2)
 
   def incrementSourceCount: Task[Dot] =
     entry.address3.increment match
@@ -72,10 +76,10 @@ class Dot(
         } yield new Dot(inventory, address, newEntry)
 
   def sourceArrow: Task[Option[Arrow]] =
-    Arrow.getArrow(entry.address5, inventory)
+    Arrow.getArrow(inventory, entry.address5)
 
   def targetArrow: Task[Option[Arrow]] =
-    Arrow.getArrow(entry.address6, inventory)
+    Arrow.getArrow(inventory, entry.address6)
 
   def createArrowOnSourceDot(targetDot: Dot): Task[Arrow] =
 
@@ -96,12 +100,12 @@ class Dot(
 
 object Dot:
 
-  def getDot(address: memory.Address, inventory: Ref[Inventory]): Task[Option[Dot]] =
-    if address.isZero then
-      ZIO.succeed(None)
-    else
-      for {
-        foundEntry <- inventory.get.flatMap { inventory =>
-          ZIO.fromEither(inventory.read(address))
-        }
-      } yield Some(new Dot(inventory, address, foundEntry))
+  def getDot(inventory: Ref[Inventory], address: memory.Address): Task[Option[Dot]] =
+    Network.getEntry(address).map { entryOption =>
+      entryOption.map { entry =>
+        new Dot(inventory, address, entry)
+      }
+    }
+
+  def updateDot(inventory: Ref[Inventory], address: memory.Address, entry: Entry): Task[Unit] =
+    Network.updateEntry(inventory, address, entry)

@@ -2,6 +2,9 @@ package net.mem_memov.binet.hexagon
 
 import net.mem_memov.binet.memory
 
+/**
+ * Inventory keeps entries of arrows and dots
+ */
 private[hexagon] class Inventory(
   val resultAddress: memory.Address,
   val resultEntry: Entry,

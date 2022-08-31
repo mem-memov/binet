@@ -3,6 +3,9 @@ package net.mem_memov.binet.hexagon
 import net.mem_memov.binet.memory
 import zio.*
 
+/**
+ * An edge of a graph.
+ */
 class Edge(
   private val network: Network,
   private val arrow: Arrow
@@ -36,12 +39,68 @@ class Edge(
       targetDotSourceArrow <- targetDot.sourceArrow
     } yield (sourceDotTargetArrow, targetDotSourceArrow)
 
-    combinationZIO.flatMap {
-      case ((Some(incomingArrow), Some(outgoingArrow))) => ??? // in -> E -> out
-      case ((None, Some(outgoingArrow))) => ???
-      case ((Some(incomingArrow), None)) => ???
-      case ((None, None)) => ???
+    val connectStrategyZIO = combinationZIO.flatMap {
+      case ((Some(sourceDotTargetArrow), Some(targetDotSourceArrow))) =>
+        BothDotsNonEmpty(
+          sourceDotTargetArrow,
+          targetDotSourceArrow
+        )
+      case ((None, Some(targetDotSourceArrow))) =>
+        TargetDotNonEmpty(
+          targetDotSourceArrow
+        )
+      case ((Some(sourceDotTargetArrow), None)) =>
+        SourceDotNonEmpty(
+          sourceDotTargetArrow
+        )
+      case ((None, None)) =>
+        BothDotsEmpty
     }
+
+    // in -> E -> out
+    val entryZIO = combinationZIO.flatMap {
+      case ((Some(incomingArrow), Some(outgoingArrow))) =>
+        val entry = Entry(
+          sourceDot.address,
+          incomingArrow.address,
+          memory.Address.zero,
+          targetDot.address,
+          outgoingArrow.address,
+          memory.Address.zero
+        )
+      case ((None, Some(outgoingArrow))) =>
+        val entry = Entry(
+          sourceDot.address,
+          memory.Address.zero,
+          memory.Address.zero,
+          targetDot.address,
+          outgoingArrow.address,
+          memory.Address.zero
+        )
+      case ((Some(incomingArrow), None)) =>
+        val entry = Entry(
+          sourceDot.address,
+          incomingArrow.address,
+          memory.Address.zero,
+          targetDot.address,
+          memory.Address.zero,
+          memory.Address.zero
+        )
+      case ((None, None)) =>
+        val entry = Entry(
+          sourceDot.address,
+          memory.Address.zero,
+          memory.Address.zero,
+          targetDot.address,
+          memory.Address.zero,
+          memory.Address.zero
+        )
+    }
+
+    val arrowZIO = for {
+      newEntry <- entryZIO
+      newArrow <- network.createArrow(entry)
+    } yield newArrow match
     ???
 
 
