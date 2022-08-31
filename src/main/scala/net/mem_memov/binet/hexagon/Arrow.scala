@@ -1,11 +1,18 @@
 package net.mem_memov.binet.hexagon
 
+import net.mem_memov.binet.hexagon.Arrow.updateArrow
 import net.mem_memov.binet.memory
 import zio.*
 
 /**
  * An arrow in a network connects two dots.
- * It consists of two parts.
+ * It consists of two parts. One pints to a source dot. Another to a target dot.
+ * 1) source dot
+ * 2) previous source arrow
+ * 3) next source arrow
+ * 4) target dot
+ * 5) previous target arrow
+ * 6) next target arrow
  */
 class Arrow(
   private val inventory: Ref[Inventory],
@@ -35,12 +42,24 @@ class Arrow(
     Arrow.getArrow(inventory, entry.address5)
 
   def nextTargetArrow: Task[Option[Arrow]] =
-    Arrow.getArrow(inventory, entry.address6, inventory)
+    Arrow.getArrow(inventory, entry.address6)
+
+  def setNextSourceArrow(arrow: Arrow): Task[Arrow] =
+    val newEntry = entry.copy(address3 = arrow.address)
+    for {
+      _ <- updateArrow(inventory, address, newEntry)
+    } yield new Arrow(inventory, address, newEntry)
+
+  def setNextTargetArrow(arrow: Arrow): Task[Arrow] =
+    val newEntry = entry.copy(address6 = arrow.address)
+    for {
+      _ <- updateArrow(inventory, address, newEntry)
+    } yield new Arrow(inventory, address, newEntry)
 
 object Arrow:
 
   def getArrow(inventory: Ref[Inventory], address: memory.Address): Task[Option[Arrow]] =
-    Network.getEntry(address).map { entryOption =>
+    Network.getEntry(inventory, address).map { entryOption =>
       entryOption.map { entry =>
         new Arrow(inventory, address, entry)
       }

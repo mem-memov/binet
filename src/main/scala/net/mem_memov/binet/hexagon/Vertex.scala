@@ -28,11 +28,7 @@ class Vertex(
         }
       } yield ???
     }
-//    if hasSource(source) then
-//      Some(this)
-//    else
-//
-//      ???
+
 
   def removeSource(source: Vertex): Option[Vertex] = ???
 

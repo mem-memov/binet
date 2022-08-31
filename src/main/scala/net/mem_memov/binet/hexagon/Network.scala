@@ -28,7 +28,14 @@ class Network(
 
   def createArrow(entry: Entry): Task[Arrow] =
     for {
-      address <- inventory.append(entry)
+      result <- inventory.modify { inventory =>
+        inventory.append(Entry.empty) match
+          case Left(error) =>
+            (ZIO.fail(Exception("Arrow not created")), inventory)
+          case Right(modifiedInventory) =>
+            (ZIO.succeed(modifiedInventory.resultAddress -> Entry.empty), modifiedInventory)
+      }.flatten
+      (address, entry) = result
     } yield new Arrow(inventory, address, entry)
 
 object Network:
@@ -41,7 +48,7 @@ object Network:
         foundEntry <- inventory.get.flatMap { inventory =>
           ZIO.fromEither(inventory.read(address))
         }
-      } yield Some(Entry)
+      } yield Some(foundEntry)
   
   def updateEntry(inventory: Ref[Inventory], address: memory.Address, entry: Entry): Task[Unit] =
     for {

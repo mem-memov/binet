@@ -39,70 +39,38 @@ class Edge(
       targetDotSourceArrow <- targetDot.sourceArrow
     } yield (sourceDotTargetArrow, targetDotSourceArrow)
 
-    val connectStrategyZIO = combinationZIO.flatMap {
+    combinationZIO.flatMap {
       case ((Some(sourceDotTargetArrow), Some(targetDotSourceArrow))) =>
-        BothDotsNonEmpty(
+        connecting.BothDotsNonEmpty(
+          network: Network,
+          sourceDot,
+          targetDot,
           sourceDotTargetArrow,
           targetDotSourceArrow
-        )
+        ).connect
       case ((None, Some(targetDotSourceArrow))) =>
-        TargetDotNonEmpty(
+        connecting.SourceDotEmpty(
+          network: Network,
+          sourceDot,
+          targetDot,
           targetDotSourceArrow
-        )
+        ).connect
       case ((Some(sourceDotTargetArrow), None)) =>
-        SourceDotNonEmpty(
+        connecting.TargetDotEmpty(
+          network: Network,
+          sourceDot,
+          targetDot,
           sourceDotTargetArrow
-        )
+        ).connect
       case ((None, None)) =>
-        BothDotsEmpty
+        connecting.BothDotsEmpty(
+          network: Network,
+          sourceDot,
+          targetDot,
+        ).connect
+    }.map { connection =>
+      Edge(network, connection.arrow)
     }
-
-    // in -> E -> out
-    val entryZIO = combinationZIO.flatMap {
-      case ((Some(incomingArrow), Some(outgoingArrow))) =>
-        val entry = Entry(
-          sourceDot.address,
-          incomingArrow.address,
-          memory.Address.zero,
-          targetDot.address,
-          outgoingArrow.address,
-          memory.Address.zero
-        )
-      case ((None, Some(outgoingArrow))) =>
-        val entry = Entry(
-          sourceDot.address,
-          memory.Address.zero,
-          memory.Address.zero,
-          targetDot.address,
-          outgoingArrow.address,
-          memory.Address.zero
-        )
-      case ((Some(incomingArrow), None)) =>
-        val entry = Entry(
-          sourceDot.address,
-          incomingArrow.address,
-          memory.Address.zero,
-          targetDot.address,
-          memory.Address.zero,
-          memory.Address.zero
-        )
-      case ((None, None)) =>
-        val entry = Entry(
-          sourceDot.address,
-          memory.Address.zero,
-          memory.Address.zero,
-          targetDot.address,
-          memory.Address.zero,
-          memory.Address.zero
-        )
-    }
-
-    val arrowZIO = for {
-      newEntry <- entryZIO
-      newArrow <- network.createArrow(entry)
-    } yield newArrow match
-    ???
-
 
 object Edge:
 
