@@ -68,8 +68,8 @@ class Edge(
           sourceDot,
           targetDot,
         ).connect
-    }.map { connection =>
-      Edge(network, connection.arrow)
+    }.map { newArrow =>
+      Edge(network, newArrow)
     }
 
 object Edge:

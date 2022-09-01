@@ -15,14 +15,20 @@ class Vertex(
       sourceArrow <- dot.sourceArrow
     } yield sourceArrow.map(Edge(network, _))
 
-  def addSource(source: Vertex): Task[Option[Edge]] =
+
+  def hasTarget(source: Vertex): Task[Option[Edge]] =
     for {
-      sourceEdge <- hasSource(source)
-    } yield sourceEdge match {
+      targetArrow <- dot.targetArrow
+    } yield targetArrow.map(Edge(network, _))
+
+  def addTarget(target: Vertex): Task[Option[Edge]] =
+    for {
+      targetEdge <- hasTarget(target)
+    } yield targetEdge match {
       case optionEdge @ Some(_) => optionEdge
       case None => for {
-        sourceArrow <- dot.sourceArrow
-        _ <- sourceArrow match {
+        targetArrow <- dot.targetArrow
+        _ <- targetArrow match {
           case Some(arrow) => Edge(network, arrow).injectSourceVertex(source.dot, dot)
           case None => ???
         }

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.connecting
 
-import net.mem_memov.binet.hexagon.{Arrow, Connecting, Connection, Dot, Entry, Network}
+import net.mem_memov.binet.hexagon.{Arrow, Connecting, Dot, Entry, Network}
 import net.mem_memov.binet.memory
 import zio.*
 
@@ -11,7 +11,7 @@ class TargetDotEmpty(
   sourceDotTargetArrow: Arrow
 ) extends Connecting:
 
-  override def connect: Task[Connection] =
+  override def connect: Task[Arrow] =
     val entry = Entry(
       sourceDot.address,
       sourceDotTargetArrow.address,
@@ -22,7 +22,7 @@ class TargetDotEmpty(
     )
     for {
       newArrow <- network.createArrow(entry)
-      newSourceDot <- sourceDot.setTargetArrow(newArrow)
-      newTargetDot <- targetDot.setSourceArrow(newArrow)
+      _ <- sourceDot.setTargetArrow(newArrow)
+      _ <- targetDot.setSourceArrow(newArrow)
       _ <- sourceDotTargetArrow.setNextSourceArrow(newArrow)
-    } yield Connection(newSourceDot, newTargetDot, newArrow)
+    } yield newArrow
