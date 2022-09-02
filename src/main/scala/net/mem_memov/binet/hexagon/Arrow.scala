@@ -22,9 +22,14 @@ class Arrow(
 
   def hasSourceDot(source: Dot): Boolean =
     entry.address1 == source.address
-  
-  def sourceDot: Task[Option[Dot]] =
-    Dot.getDot(inventory, entry.address1)
+
+  def sourceDot: Task[Dot] =
+    for {
+      dotOption <- Dot.getDot(inventory, entry.address1)
+      dot <- dotOption match
+        case Some(dot) => ZIO.succeed(dot)
+        case None => ZIO.fail(Exception("Arrow without source."))
+    } yield dot
 
   def previousSourceArrow: Task[Option[Arrow]] =
     Arrow.getArrow(inventory, entry.address2)
@@ -32,11 +37,16 @@ class Arrow(
   def nextSourceArrow: Task[Option[Arrow]] =
     Arrow.getArrow(inventory, entry.address3)
 
-  def hasTargetDot(target: Dot): Boolean =
-    entry.address4 == target.address
+  def hasTargetDot(source: Dot): Boolean =
+    entry.address4 == source.address
 
-  def targetDot: Task[Option[Dot]] =
-    Dot.getDot(inventory, entry.address4)
+  def targetDot: Task[Dot] =
+    for {
+      dotOption <- Dot.getDot(inventory, entry.address4)
+      dot <- dotOption match
+        case Some(dot) => ZIO.succeed(dot)
+        case None => ZIO.fail(Exception("Arrow without target."))
+    } yield dot
 
   def previousTargetArrow: Task[Option[Arrow]] =
     Arrow.getArrow(inventory, entry.address5)
@@ -55,6 +65,9 @@ class Arrow(
     for {
       _ <- updateArrow(inventory, address, newEntry)
     } yield new Arrow(inventory, address, newEntry)
+
+  def search: Search =
+    new Search(this)
 
 object Arrow:
 
