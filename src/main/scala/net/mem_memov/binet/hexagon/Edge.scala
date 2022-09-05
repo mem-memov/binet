@@ -33,7 +33,12 @@ class Edge(
           case None => ZIO.succeed(Option.empty[Edge])
       } yield nextTargetEdge
 
-  def injectSourceVertex(sourceDot: Dot, targetDot: Dot): Task[Edge] =
+object Edge:
+
+  def apply(network: Network, arrow: Arrow): Edge =
+    new Edge(network, arrow)
+
+  def injectVertex(network: Network, sourceDot: Dot, targetDot: Dot): Task[Edge] =
     val combinationZIO = for {
       sourceDotTargetArrow <- sourceDot.targetArrow
       targetDotSourceArrow <- targetDot.sourceArrow
@@ -42,37 +47,32 @@ class Edge(
     combinationZIO.flatMap {
       case ((Some(sourceDotTargetArrow), Some(targetDotSourceArrow))) =>
         connecting.BothDotsNonEmpty(
-          network: Network,
-          sourceDot,
-          targetDot,
-          sourceDotTargetArrow,
-          targetDotSourceArrow
+          network = network,
+          sourceDot = sourceDot,
+          targetDot = targetDot,
+          sourceDotTargetArrow = sourceDotTargetArrow,
+          targetDotSourceArrow = targetDotSourceArrow
         ).connect
       case ((None, Some(targetDotSourceArrow))) =>
         connecting.SourceDotEmpty(
-          network: Network,
-          sourceDot,
-          targetDot,
-          targetDotSourceArrow
+          network = network,
+          sourceDot = sourceDot,
+          targetDot = targetDot,
+          targetDotSourceArrow = targetDotSourceArrow
         ).connect
       case ((Some(sourceDotTargetArrow), None)) =>
         connecting.TargetDotEmpty(
-          network: Network,
-          sourceDot,
-          targetDot,
-          sourceDotTargetArrow
+          network = network,
+          sourceDot = sourceDot,
+          targetDot = targetDot,
+          sourceDotTargetArrow = sourceDotTargetArrow,
         ).connect
       case ((None, None)) =>
         connecting.BothDotsEmpty(
-          network: Network,
-          sourceDot,
-          targetDot,
+          network = network,
+          sourceDot = sourceDot,
+          targetDot = targetDot,
         ).connect
     }.map { newArrow =>
       Edge(network, newArrow)
     }
-
-object Edge:
-
-  def apply(network: Network, arrow: Arrow): Edge =
-    new Edge(network, arrow)

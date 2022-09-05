@@ -22,8 +22,6 @@ class Vertex(
         case None => ZIO.succeed(None)
     }
 
-  def removeSource(source: Vertex): Option[Vertex] = ???
-
   def hasTarget(target: Vertex): Task[Option[Edge]] =
     dot.targetArrow.flatMap { firstTargetArrowOption =>
       firstTargetArrowOption match
@@ -36,19 +34,23 @@ class Vertex(
         case None => ZIO.succeed(None)
     }
 
-  def addTarget(target: Vertex): Task[Option[Edge]] = ???
-//    for {
-//      targetEdge <- hasTarget(target)
-//    } yield targetEdge match {
-//      case optionEdge @ Some(_) => optionEdge
-//      case None => for {
-//        targetArrow <- dot.targetArrow
-//        _ <- targetArrow match {
-//          case Some(arrow) => Edge(network, arrow).injectSourceVertex(source.dot, dot)
-//          case None => ???
-//        }
-//      } yield ???
-//    }
+  def addTarget(target: Vertex): Task[Edge] =
+    for {
+      targetEdgeOption <- hasTarget(target)
+      targetEdge <- targetEdgeOption match
+        case Some(targetEdge) => ZIO.succeed(targetEdge)
+        case None => Edge.injectVertex(network, dot, target.dot)
+    } yield targetEdge
+
+  def addSource(source: Vertex): Task[Edge] =
+    for {
+      sourceEdgeOption <- hasSource(source)
+      sourceEdge <- sourceEdgeOption match
+        case Some(sourceEdge) => ZIO.succeed(sourceEdge)
+        case None => Edge.injectVertex(network, source.dot, dot)
+    } yield sourceEdge
+
+  def removeSource(source: Vertex): Option[Vertex] = ???
 
   def removeTarget(target: Vertex): Option[Vertex] = ???
 
@@ -57,3 +59,4 @@ object Vertex:
 
   def apply(network: Network, dot: Dot): Vertex =
     new Vertex(network, dot)
+
