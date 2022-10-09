@@ -1,5 +1,8 @@
 package net.mem_memov.binet.memory
 
+import zio.stm._
+import scala.collection.mutable
+
 /**
  * Block has the property that it provides content at any possible position.
  * The possibilities are limited by the position type.
@@ -7,21 +10,21 @@ package net.mem_memov.binet.memory
  * At each level blocks are organized into stores.
  */
 class Block(
-  private val space: Vector[UnsignedByte]
+  private val space: TArray[UnsignedByte]
 ):
 
-  def read(position: UnsignedByte): UnsignedByte =
+  def read(position: UnsignedByte): USTM[UnsignedByte] =
     space(position.toInt)
 
-  def write(position: UnsignedByte, content: UnsignedByte): Block =
-    Block(space.updated(position.toInt, content))
+  def write(position: UnsignedByte, content: UnsignedByte): USTM[Unit] =
+    space.update(position.toInt, _ => content)
 
 object Block:
 
-  def apply(): Block =
-    new Block(
-      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
-    )
+  def apply(): USTM[Block] =
+    TArray.fromIterable(mutable.ArraySeq.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)).map { space =>
+      new Block(space)
+    }
 
-  def apply(space: Vector[UnsignedByte]): Block =
-    new Block(space)
+  def apply(space: TArray[UnsignedByte]): USTM[Block] =
+    STM.succeed(new Block(space))
