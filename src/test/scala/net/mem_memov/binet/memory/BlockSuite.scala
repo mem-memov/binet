@@ -1,18 +1,22 @@
 package net.mem_memov.binet.memory
 
-class BlockSuite extends munit.FunSuite:
+import zio.test._
 
-  test("Read a byte from a block") {
+class BlockSuite extends ZIOSpecDefault:
+
+  def spec = test("Read a byte from a block") {
     val block = Block()
-    (
+    val zio = (
       for {
         position <- Byte.MinValue to Byte.MaxValue
         content <- Byte.MinValue to Byte.MaxValue
       } yield (UnsignedByte(position.toByte), UnsignedByte(content.toByte))
     ).foreach {
       case (position, content) =>
-        block.write(position, content)
-        val result = block.read(position)
-        assert(result == content)
+        for {
+          _ <- block.write(position, content)
+          result <- block.read(position)
+        } yield result == content
     }
+    assertZIO()
   }
