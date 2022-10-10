@@ -1,12 +1,10 @@
 package net.mem_memov.binet.memory
 
-import zio.stm._
-
 private[memory] class Stock(
-  private val elements: TArray[Element]
+  private val elements: Vector[Element]
 ):
 
-  def write(index: UnsignedByte, destination: Address, content: Address): STM[String, Unit] =
+  def write(index: UnsignedByte, destination: Address, content: Address): Either[Throwable, Stock] =
     for {
       updatedElement <- elements(index.toInt).write(destination, content)
       updatedElements <- Right(elements.updated(index.toInt, updatedElement))

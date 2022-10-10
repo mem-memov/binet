@@ -1,16 +1,13 @@
 package net.mem_memov.binet.memory
 
-import zio.stm._
-import scala.collection.mutable
-
 private[memory] class Level(
   private[Level] val number: Int = 0
 ) extends Ordered[Level]:
 
-  def createStore: USTM[Store] =
-    TArray.fromIterable(mutable.ArraySeq.fill[Block](number + 1)(Block())).map { blocks =>
-      new Store(blocks)
-    }
+  def createStore: Store =
+    new Store(
+      Vector.fill[Block](number + 1)(Block())
+    )
 
   def createStock: Stock =
     val nextLevel = new Level(number + 1)

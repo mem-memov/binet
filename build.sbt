@@ -1,5 +1,4 @@
-lazy val scala3Version = "3.1.3"
-lazy val zioVersion = "2.0.2"
+val scala3Version = "3.1.3"
 
 lazy val root = project
   .in(file("."))
@@ -9,8 +8,6 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "dev.zio" %% "zio" % zioVersion,
-    libraryDependencies += "dev.zio" %% "zio-test-junit" % zioVersion,
-
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
+    libraryDependencies += "dev.zio" %% "zio" % "2.0.1"
   )

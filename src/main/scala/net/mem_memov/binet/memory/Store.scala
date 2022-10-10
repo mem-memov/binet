@@ -16,14 +16,19 @@ class Store(
     if !content.hasLength(blocks.size) then
       STM.fail("Destination not written: content to large")
     else
-      blocks.fold(content.indices) { (indices, block) =>
-        block.write(destination, indices.head)
-        indices.tail
+      val updatedBlocks2 = blocks.zip
+      val updatedBlocks = content.indices.zip(blocks).map { case (part, block) =>
+        block.update(destination, part)
       }
+      Right(Store(updatedBlocks.toVector))
+
 
   def read(origin: UnsignedByte): USTM[Address] =
 
-    blocks.foldSTM(List.empty[UnsignedByte]) { (indices, block) =>
-      block.read(origin).map(_ :: indices)
-    } map(Address(_))
+    val parts = blocks.foldLeft(List.empty[UnsignedByte]) {
+      case(parts, block) =>
+        block.read(origin) :: parts
+    }
+
+    Address(parts)
 
