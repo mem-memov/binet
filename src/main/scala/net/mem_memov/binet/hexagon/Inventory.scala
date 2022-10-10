@@ -16,7 +16,7 @@ private[hexagon] class Inventory(
   private val inventory6: memory.Inventory,
 ):
 
-  def append(entry: Entry): Either[Throwable, Inventory] =
+  def append(entry: Entry): Either[String, Inventory] =
     for {
       modifiedInventory1 <- inventory1.append(entry.address1)
       modifiedInventory2 <- inventory2.append(entry.address2)
@@ -35,7 +35,7 @@ private[hexagon] class Inventory(
       modifiedInventory6,
     )
 
-  def update(destination: memory.Address, content: Entry): Either[Throwable, Inventory] =
+  def update(destination: memory.Address, content: Entry): Either[String, Inventory] =
     for {
       modifiedInventory1 <- inventory1.update(destination, content.address1)
       modifiedInventory2 <- inventory2.update(destination, content.address2)
@@ -54,7 +54,7 @@ private[hexagon] class Inventory(
       modifiedInventory6,
     )
 
-  def read(origin: memory.Address):Either[Throwable, Entry] =
+  def read(origin: memory.Address): Either[String, Entry] =
     for {
       address1 <- inventory1.read(origin)
       address2 <- inventory2.read(origin)

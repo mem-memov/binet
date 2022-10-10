@@ -12,30 +12,30 @@ class Inventory(
   val root: Element
 ):
 
-  def append(content: Address): Either[Throwable, Inventory] =
+  def append(content: Address): Either[String, Inventory] =
     val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
     if trimmedContent >= next then
-      Left(Exception("Inventory not appended: content out of boundary"))
+      Left("Inventory not appended: content out of boundary")
     else
       for {
         updatedRoot <- root.write(next, trimmedContent)
-        newNext <- next.increment
+        newNext <- Right(next.increment)
       } yield Inventory(newNext, updatedRoot)
 
-  def update(destination: Address, content: Address): Either[Throwable, Inventory] =
+  def update(destination: Address, content: Address): Either[String, Inventory] =
     val trimmedDestination = if content.isEmpty then Address.zero else destination.trimBig
     val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
     if trimmedDestination >= next then
-      Left(Exception("Inventory not appended: destination out of boundary"))
+      Left("Inventory not appended: destination out of boundary")
     else
       if trimmedContent >= next then
-        Left(Exception("Inventory not appended: content out of boundary"))
+        Left("Inventory not appended: content out of boundary")
       else
         for {
           updatedRoot <- root.write(next, content)
         } yield Inventory(next, updatedRoot)
 
-  def read(origin: Address): Either[Throwable, Address] =
+  def read(origin: Address): Either[String, Address] =
     val trimmedOrigin = if origin.isEmpty then Address.zero else origin.trimBig
     for {
       content <- root.read(trimmedOrigin)

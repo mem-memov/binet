@@ -22,7 +22,7 @@ class Network(
   def getDot(address: memory.Address): Task[Dot] =
     for {
       entry <- inventory.get.flatMap { inventory =>
-        ZIO.fromEither(inventory.read(address))
+        ZIO.fromEither[String, Entry](inventory.read(address)).mapError(Exception(_))
       }
     } yield new Dot(inventory, address, entry)
 
@@ -46,13 +46,13 @@ object Network:
     else
       for {
         foundEntry <- inventory.get.flatMap { inventory =>
-          ZIO.fromEither(inventory.read(address))
+          ZIO.fromEither[String, Entry](inventory.read(address)).mapError(Exception(_))
         }
       } yield Some(foundEntry)
   
   def updateEntry(inventory: Ref[Inventory], address: memory.Address, entry: Entry): Task[Unit] =
     for {
       entry <- inventory.get.flatMap { inventory =>
-        ZIO.fromEither(inventory.update(address, entry))
+        ZIO.fromEither[String, Inventory](inventory.update(address, entry)).mapError(Exception(_))
       }
     } yield ()

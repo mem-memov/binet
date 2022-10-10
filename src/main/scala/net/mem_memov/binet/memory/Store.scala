@@ -9,10 +9,10 @@ class Store(
   private val blocks: Vector[Block]
 ):
 
-  def write(destination: UnsignedByte, content: Address): Either[Throwable, Store] =
+  def write(destination: UnsignedByte, content: Address): Either[String, Store] =
 
     if !content.hasLength(blocks.length) then 
-      Left(Exception("Destination not written: content to large"))
+      Left("Destination not written: content to large")
     else
       val updatedBlocks = content.indices.zip(blocks).map { case (part, block) => 
         block.write(destination, part)

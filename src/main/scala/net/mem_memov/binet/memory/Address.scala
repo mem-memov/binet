@@ -4,8 +4,7 @@ package net.mem_memov.binet.memory
  * Address has the property that it can be incremented infinitely without overflow.
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
  */
-class Address private (
-//  private[Address] val indices: List[UnsignedByte]
+class Address private[memory] (
   val indices: List[UnsignedByte]
 ) extends Ordered[Address]:
   
@@ -16,7 +15,7 @@ class Address private (
 
     this.length == length
 
-  def increment: Either[Throwable, Address] =
+  def increment: Address =
 
     def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
 
@@ -35,15 +34,15 @@ class Address private (
 
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
-    Right(Address(resultIndices))
+    Address(resultIndices)
 
-  def decrement: Either[Throwable, Address] =
+  def decrement: Either[String, Address] =
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
       if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
 
     if length <= 0 then
-      Left(Exception("Address not decremented: malformed"))
+      Left("Address not decremented: malformed")
     else
       val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
         case ((accumulator, isStart, hasOverflow), index) =>
@@ -59,7 +58,7 @@ class Address private (
       }
 
       if hasOverflow then
-        Left(Exception("Address not decremented: already at minimum"))
+        Left("Address not decremented: already at minimum")
       else
         Right(Address(accumulator.reverse))
 
@@ -109,7 +108,7 @@ class Address private (
     new Address(nonEmptyIndices)
 
   private[memory]
-  def padBig(target: Int ): Either[Throwable, Address] =
+  def padBig(target: Int ): Either[String, Address] =
 
     if length == target then
      Right(this)
@@ -119,7 +118,7 @@ class Address private (
         Right(trimmed)
       else
         if trimmed.length > target then
-          Left(Exception("Address not padded: already too long"))
+          Left("Address not padded: already too long")
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
           Right(Address(newIndices))

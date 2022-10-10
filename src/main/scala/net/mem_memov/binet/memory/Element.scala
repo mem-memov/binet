@@ -10,11 +10,11 @@ private[memory] class Element(
   private val stock: Option[Stock]
 ):
 
-  def write(destination: Address, content: Address): Either[Throwable, Element] =
+  def write(destination: Address, content: Address): Either[String, Element] =
 
     destination.shorten match
       case None =>
-        Left(Exception("Destination not written"))
+        Left("Destination not written")
       case Some((index, rest)) =>
         if rest.isEmpty then
           val presentStore = store.getOrElse(level.createStore)
@@ -29,11 +29,11 @@ private[memory] class Element(
           } yield Element(level, store, Option(updatedStock))
 
 
-  def read(origin: Address): Either[Throwable, Address] =
+  def read(origin: Address): Either[String, Address] =
 
     origin.shorten match
       case None =>
-        Left(Exception("Origin not read"))
+        Left("Origin not read")
       case Some((index, rest)) =>
         if rest.isEmpty then
           val presentStore = store.getOrElse(level.createStore)

@@ -11,8 +11,8 @@ class BlockSuite extends munit.FunSuite:
       } yield (UnsignedByte(position.toByte), UnsignedByte(content.toByte))
     ).foreach {
       case (position, content) =>
-        block.write(position, content)
-        val result = block.read(position)
+        val writtenBlock = block.write(position, content)
+        val result = writtenBlock.read(position)
         assert(result == content)
     }
   }
