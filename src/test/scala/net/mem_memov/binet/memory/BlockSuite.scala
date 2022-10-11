@@ -16,3 +16,16 @@ class BlockSuite extends munit.FunSuite:
         assert(result == content)
     }
   }
+
+  test("Read a byte from a fresh block") {
+    val block = Block()
+    (
+      for {
+        position <- Byte.MinValue to Byte.MaxValue
+      } yield (UnsignedByte(position.toByte))
+    ).foreach {
+      case (position) =>
+        val result = block.read(position)
+        assert(result == UnsignedByte.minimum)
+    }
+  }
