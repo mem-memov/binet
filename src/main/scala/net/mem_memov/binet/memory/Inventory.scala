@@ -14,7 +14,7 @@ class Inventory(
 
   def append(content: Address): Either[String, Inventory] =
     val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
-    if trimmedContent >= next then
+    if trimmedContent >= next && next != Address.zero then
       Left("Inventory not appended: content out of boundary")
     else
       for {
@@ -45,7 +45,7 @@ object Inventory:
 
   val start: Address = Address.zero
 
-  def apply: Inventory =
+  def apply(): Inventory =
     new Inventory(Address.zero, Element.root)
 
   def apply(next: Address, root: Element): Inventory =

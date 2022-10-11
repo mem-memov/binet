@@ -44,7 +44,7 @@ private[memory] class Element(
 
 object Element:
 
-  val root: Element = Element.root
+  val root: Element = Element(Level.top, None, None)
 
   def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element =
     new Element(level, store, stock)

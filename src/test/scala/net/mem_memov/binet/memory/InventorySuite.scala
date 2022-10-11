@@ -1,46 +1,48 @@
 package net.mem_memov.binet.memory
 
-class InventorySuite extends munit.FunSuite {}
+class InventorySuite extends munit.FunSuite:
 
-//  test("Append and read the first address") {
-//
-//    val inventory = new Inventory(Address.zero, Element.root)
-//
-//    val start = inventory.start
-//
-//    val destination = inventory.append(start)
-//    assert(destination == start)
-//  }
+  test("Append and read the first address") {
+
+    val inventory = Inventory()
+
+    val start = Inventory.start
+
+    val result = for {
+      inventory <- inventory.append(start)
+      destination <- inventory.read(start)
+    } yield destination
+
+    result match {
+      case Right(destination) => assert(destination == start)
+      case Left(error) => fail(error)
+    }
+  }
 
 //  test("Append and read addresses") {
 //
-//    val memory = new Memory
+//    val inventory = Inventory()
 //
-//    val start = memory.start
+//    val start = Inventory.start
 //
-//    val addresses: List[Address] = (0 to 5).foldLeft((start, List(start))) {
+//    val (_, addresses) = (0 to 5).foldLeft((start, List(start))) {
 //      case ((previous, addresses), _) =>
 //        val next = previous.increment
 //        (next, next :: addresses)
-//    }._2.reverse
+//    }
 //
-//    val destinations = addresses.map { content =>
-//      memory.append(content) match
-//        case memory.Appended(destination) =>
-//          destination
-//        case problem =>
-//          println(content)
-//          println(problem)
-//          fail()
+//    val (inventoryWitDestinations, destinations) = addresses.foldLeft((inventory, List.empty[Address])) {
+//      case ((inventory, destinations), content) =>
+//        for {
+//          destination <- Right(inventory.next)
+//          updatedInventory <- inventory.append(content)
+//        } yield (updatedInventory, destination :: destinations)
 //    }
 //
 //    destinations.zip(addresses).foreach {
 //      case (origin, expected) =>
-//        memory.read(origin) match
-//          case memory.ReadResult(content) =>
-//            assert(content != expected)
-//          case _ =>
-//            fail()
+//        for {
+//          content <- inventoryWitDestinations.read(origin)
+//        } yield assert(content == expected)
 //    }
-//
 //  }
