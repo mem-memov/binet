@@ -58,7 +58,7 @@ class UnsignedByteSuite extends munit.FunSuite:
     assert(0 == incremented.toInt)
   }
 
-  test("UnsignedByte overflows when decremented at its minimum value") {
+  test("UnsignedByte underflows when decremented at its minimum value") {
     val unsignedByte = UnsignedByte.minimum
     val decremented = unsignedByte.decrement
     assert(255 == decremented.toInt)
@@ -153,4 +153,14 @@ class UnsignedByteSuite extends munit.FunSuite:
         assert(x <= y.decrement)
         assert(x <= y)
     }
+  }
+
+  test("UnsignedBytes created with over-sized integers overflow") {
+    val unsignedByte = UnsignedByte.fromInt(256)
+    assert(unsignedByte.toInt == 0)
+  }
+
+  test("UnsignedBytes created with negative integers underflow") {
+    val unsignedByte = UnsignedByte.fromInt(-1)
+    assert(unsignedByte.toInt == 255)
   }
