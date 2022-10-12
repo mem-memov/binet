@@ -1,5 +1,8 @@
 package net.mem_memov.binet.memory
 
+/**
+ * Stock connects an element with other elements on a lower level building a tree-like structure.
+ */
 private[memory] class Stock(
   private val elements: Vector[Element]
 ):

@@ -1,6 +1,10 @@
 package net.mem_memov.binet.memory
 
-private[memory] class Level(
+/**
+ * Level corresponds to an index of an address.
+ * Elements are organized in levels.
+ */
+private[memory] class Level private (
   private[Level] val number: Int = 0
 ) extends Ordered[Level]:
 
@@ -31,3 +35,4 @@ object Level:
   private lazy val size: Int = UnsignedByte.maximum.toInt + 1
 
   val top: Level = new Level
+
