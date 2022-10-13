@@ -12,7 +12,7 @@ class Store(
   def write(destination: UnsignedByte, content: Address): Either[String, Store] =
 
     if !content.hasLength(blocks.length) then 
-      Left("Destination not written: content to large")
+      Left("Destination not written: content has wrong number of indices")
     else
       val updatedBlocks = content.indices.zip(blocks).map { case (part, block) =>
         block.write(destination, part)
