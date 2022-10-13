@@ -3,7 +3,7 @@ package net.mem_memov.binet.memory
 /**
  * Store is capable of storing any address of its level and the levels above.
  * All stores have the same height, but a different width which depends on the level.
- * The deeper the level the wider are the stores.
+ * The deeper the level the wider are the stores in order to accommodate larger addresses.
  */
 class Store(
   private val blocks: Vector[Block]
@@ -14,7 +14,7 @@ class Store(
     if !content.hasLength(blocks.length) then 
       Left("Destination not written: content to large")
     else
-      val updatedBlocks = content.indices.zip(blocks).map { case (part, block) => 
+      val updatedBlocks = content.indices.zip(blocks).map { case (part, block) =>
         block.write(destination, part)
       }
       Right(Store(updatedBlocks.toVector))
@@ -27,4 +27,4 @@ class Store(
         block.read(origin) :: parts
     }
 
-    Address(parts)
+    Address(parts.reverse)
