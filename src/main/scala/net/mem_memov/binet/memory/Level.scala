@@ -8,15 +8,22 @@ private[memory] class Level private (
   private[Level] val number: Int = 0
 ) extends Ordered[Level]:
 
+  private val nextLevel: Option[Level] = None
+
   def createStore: Store =
     new Store(
       Vector.fill[Block](number + 1)(Block())
     )
 
   def createStock: Stock =
-    val nextLevel = new Level(number + 1)
     Stock(
-      Vector.fill[Element](Level.size)(Element(nextLevel, Option.empty, Option.empty))
+      Vector.fill[Element](Level.size)(
+        Element(
+          nextLevel.getOrElse(new Level(number + 1)),
+          Option.empty,
+          Option.empty
+        )
+      )
     )
 
   def padBig(content: Address): Either[String, Address] =
