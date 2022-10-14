@@ -5,20 +5,20 @@ class AddressSuite extends munit.FunSuite:
   test("Address gets incremented") {
     List(
       (
-        new Address(List(UnsignedByte.minimum)),
-        new Address(List(UnsignedByte.fromInt(1)))
+        Address(List(UnsignedByte.minimum)),
+        Address(List(UnsignedByte.fromInt(1)))
       ),
       (
-        new Address(List(UnsignedByte.fromInt(254))),
-        new Address(List(UnsignedByte.fromInt(255)))
+        Address(List(UnsignedByte.fromInt(254))),
+        Address(List(UnsignedByte.fromInt(255)))
       ),
       (
-        new Address(List(UnsignedByte.fromInt(255))),
-        new Address(List(UnsignedByte.fromInt(1), UnsignedByte.minimum))
+        Address(List(UnsignedByte.fromInt(255))),
+        Address(List(UnsignedByte.fromInt(1), UnsignedByte.minimum))
       ),
       (
-        new Address(List(UnsignedByte.fromInt(255), UnsignedByte.fromInt(255))),
-        new Address(List(UnsignedByte.fromInt(1), UnsignedByte.minimum, UnsignedByte.minimum))
+        Address(List(UnsignedByte.fromInt(255), UnsignedByte.fromInt(255))),
+        Address(List(UnsignedByte.fromInt(1), UnsignedByte.minimum, UnsignedByte.minimum))
       ),
     ).foreach{ case(original, expected) =>
       assert(
@@ -33,7 +33,7 @@ class AddressSuite extends munit.FunSuite:
       .padTo(n * 100, UnsignedByte.fromInt(n)))
       .foreach { indices =>
           assert(
-            new Address(indices).hasLength(indices.length)
+            Address(indices).hasLength(indices.length)
           )
         }
   }
@@ -45,39 +45,39 @@ class AddressSuite extends munit.FunSuite:
 
     List(
       (
-        new Address(List.empty),
+        Address(List.empty),
         2,
-        new Address(List(low, low)),
+        Address(List(low, low)),
         Option.empty[String]
       ),
       (
-        new Address(List(low)),
+        Address(List(low)),
         3,
-        new Address(List(low, low ,low)),
+        Address(List(low, low ,low)),
         Option.empty[String]
       ),
       (
-        new Address(List(high)),
+        Address(List(high)),
         1,
-        new Address(List(high)),
+        Address(List(high)),
         Option.empty[String]
       ),
       (
-        new Address(List(high)),
+        Address(List(high)),
         3,
-        new Address(List(low, low, high)),
+        Address(List(low, low, high)),
         Option.empty[String]
       ),
       (
-        new Address(List(high, low)),
+        Address(List(high, low)),
         3,
-        new Address(List(low, low, high, low)),
+        Address(List(low, low, high, low)),
         Option.empty[String]
       ),
       (
-        new Address(List(high, high, high)),
+        Address(List(high, high, high)),
         2,
-        new Address(List.empty),
+        Address(List.empty),
         Option("Address not padded: already too long")
       )
     ).foreach { case (original, target, expected, failure) =>
@@ -103,40 +103,40 @@ class AddressSuite extends munit.FunSuite:
 
     List(
       (
-        new Address(List()),
-        new Address(List())
+        Address(List()),
+        Address(List())
       ),
       (
-        new Address(List(low, low, low, low)),
-        new Address(List(low))
+        Address(List(low, low, low, low)),
+        Address(List(low))
       ),
       (
-        new Address(List(high)),
-        new Address(List(high))
+        Address(List(high)),
+        Address(List(high))
       ),
       (
-        new Address(List(low, high)),
-        new Address(List(high))
+        Address(List(low, high)),
+        Address(List(high))
       ),
       (
-        new Address(List(low, low, low, high)),
-        new Address(List(high))
+        Address(List(low, low, low, high)),
+        Address(List(high))
       ),
       (
-        new Address(List(low, high, low)),
-        new Address(List(high, low))
+        Address(List(low, high, low)),
+        Address(List(high, low))
       ),
       (
-        new Address(List(high, low, low)),
-        new Address(List(high, low, low))
+        Address(List(high, low, low)),
+        Address(List(high, low, low))
       ),
       (
-        new Address(List()),
-        new Address(List())
+        Address(List()),
+        Address(List())
       ),
       (
-        new Address(List(low, low, low)),
-        new Address(List())
+        Address(List(low, low, low)),
+        Address(List())
       ),
     ).foreach { case (original, expected) =>
       assert(

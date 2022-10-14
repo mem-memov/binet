@@ -6,7 +6,7 @@ class StoreSuite extends munit.FunSuite:
     (
       for {
         size <- (1 to 10)
-        store = new Store(
+        store = Store(
           Vector.fill[Block](size)(Block())
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
@@ -31,7 +31,7 @@ class StoreSuite extends munit.FunSuite:
     (
       for {
         size <- (1 to 10)
-        store = new Store(
+        store = Store(
           Vector.fill[Block](size)(Block())
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
@@ -52,7 +52,7 @@ class StoreSuite extends munit.FunSuite:
     (
       for {
         size <- (2 to 10)
-        store = new Store(
+        store = Store(
           Vector.fill[Block](size)(Block())
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)

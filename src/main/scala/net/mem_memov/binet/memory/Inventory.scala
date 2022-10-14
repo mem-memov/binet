@@ -7,46 +7,51 @@ import scala.annotation.tailrec
  * It grows only by adding addresses that are already in use.
  * It rejects addresses outside its boundary.
  */
-class Inventory(
-  val next: Address,
-  val root: Element
-):
+trait Inventory:
 
-  def append(content: Address): Either[String, Inventory] =
-    val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
-    if trimmedContent >= next && next != Address.zero then
-      Left("Inventory not appended: content out of boundary")
-    else
-      for {
-        updatedRoot <- root.write(next, trimmedContent)
-        newNext <- Right(next.increment)
-      } yield Inventory(newNext, updatedRoot)
+  val next: Address
 
-  def update(destination: Address, content: Address): Either[String, Inventory] =
-    val trimmedDestination = if content.isEmpty then Address.zero else destination.trimBig
-    val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
-    if trimmedDestination >= next then
-      Left("Inventory not appended: destination out of boundary")
-    else
-      if trimmedContent >= next then
-        Left("Inventory not appended: content out of boundary")
-      else
-        for {
-          updatedRoot <- root.write(next, content)
-        } yield Inventory(next, updatedRoot)
+  def append(content: Address): Either[String, Inventory]
 
-  def read(origin: Address): Either[String, Address] =
-    val trimmedOrigin = if origin.isEmpty then Address.zero else origin.trimBig
-    for {
-      content <- root.read(trimmedOrigin)
-    } yield content.trimBig
+  def update(destination: Address, content: Address): Either[String, Inventory]
+
+  def read(origin: Address): Either[String, Address]
 
 object Inventory:
 
   val start: Address = Address.zero
 
-  def apply(): Inventory =
-    new Inventory(Address.zero, Element.root)
+  def apply(): Inventory = Inventory(Address.zero, Element.root)
 
-  def apply(next: Address, root: Element): Inventory =
-    new Inventory(next, root)
+  def apply(nextAddress: Address, root: Element): Inventory = new Inventory:
+
+    val next: Address = nextAddress
+
+    def append(content: Address): Either[String, Inventory] =
+      val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
+      if trimmedContent >= next && next != Address.zero then
+        Left("Inventory not appended: content out of boundary")
+      else
+        for {
+          updatedRoot <- root.write(next, trimmedContent)
+          newNext <- Right(next.increment)
+        } yield Inventory(newNext, updatedRoot)
+
+    def update(destination: Address, content: Address): Either[String, Inventory] =
+      val trimmedDestination = if content.isEmpty then Address.zero else destination.trimBig
+      val trimmedContent = if content.isEmpty then Address.zero else content.trimBig
+      if trimmedDestination >= next then
+        Left("Inventory not appended: destination out of boundary")
+      else
+        if trimmedContent >= next then
+          Left("Inventory not appended: content out of boundary")
+        else
+          for {
+            updatedRoot <- root.write(next, content)
+          } yield Inventory(next, updatedRoot)
+
+    def read(origin: Address): Either[String, Address] =
+      val trimmedOrigin = if origin.isEmpty then Address.zero else origin.trimBig
+      for {
+        content <- root.read(trimmedOrigin)
+      } yield content.trimBig
