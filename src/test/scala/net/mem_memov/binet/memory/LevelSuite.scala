@@ -4,7 +4,7 @@ class LevelSuite extends munit.FunSuite:
 
   test("Level creates stores for keeping addresses") {
     val level = Level.top
-    val store = level.createStore
+    val store = level.createStore()
 
     val destination = UnsignedByte.fromInt(7)
     val content = Address.apply(List(UnsignedByte.fromInt(32)))
@@ -18,6 +18,6 @@ class LevelSuite extends munit.FunSuite:
 
   test("Level creates stocks for connection to child elements") {
     val level = Level.top
-    val stock = level.createStock
+    val stock = level.createStock()
     assert(stock.isInstanceOf[Stock])
   }

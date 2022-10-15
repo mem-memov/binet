@@ -4,13 +4,11 @@ package net.mem_memov.binet.memory
  * Level corresponds to an index of an address.
  * Elements are organized in levels.
  */
-trait Level extends Ordered[Level]:
+trait Level:
 
-  protected val number: Int
+  def createStore(): Store
 
-  def createStore: Store
-
-  def createStock: Stock
+  def createStock(): Stock
 
   def padBig(content: Address): Either[String, Address]
 
@@ -20,36 +18,24 @@ object Level:
 
   val top: Level = Level(0)
 
-  def apply(depth: Int): Level = new Level:
+  def apply(number: Int): Implementation = new Implementation(number)
 
-    override 
-    protected val number: Int = depth
+  class Implementation(number: Int) extends Level:
 
-    override 
-    def createStore: Store =
+    override
+    def createStore(): Store =
       Store(
         Vector.fill[Block](number + 1)(Block())
       )
 
-    override 
-    def createStock: Stock =
-      val nextLevel = Level(number + 1)
+    override
+    def createStock(): Stock =
+      val nextLevel = new Implementation(number + 1)
       Stock(
         Vector.fill[Element](Level.size)(Element(nextLevel, Option.empty, Option.empty))
       )
 
-    override 
+    override
     def padBig(content: Address): Either[String, Address] =
       content.padBig(number + 1)
-
-    override 
-    def compare(that: Level): Int =
-      this.number - that.number
-
-    override 
-    def equals(that: Any): Boolean =
-      that match
-        case that: Level => compare(that) == 0
-        case _ => false
-
 

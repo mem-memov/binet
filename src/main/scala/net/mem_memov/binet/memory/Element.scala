@@ -35,13 +35,13 @@ object Element:
           Left("Destination not written")
         case Some((index, rest)) =>
           if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore)
+            val presentStore = store.getOrElse(level.createStore())
             for {
               padded <- level.padBig(content)
               updatedStore <- presentStore.write(index, padded)
             } yield Element(level, Option(updatedStore), stock)
           else
-            val presentStock = stock.getOrElse(level.createStock)
+            val presentStock = stock.getOrElse(level.createStock())
             for {
               updatedStock <- presentStock.write(index, rest, content)
             } yield Element(level, store, Option(updatedStock))
@@ -56,8 +56,8 @@ object Element:
           Left("Origin not read")
         case Some((index, rest)) =>
           if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore)
+            val presentStore = store.getOrElse(level.createStore())
             Right(presentStore.read(index))
           else
-            val presentStock = stock.getOrElse(level.createStock)
+            val presentStock = stock.getOrElse(level.createStock())
             presentStock.read(index, rest)
