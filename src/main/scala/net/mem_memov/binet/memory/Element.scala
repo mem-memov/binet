@@ -1,5 +1,7 @@
 package net.mem_memov.binet.memory
 
+import net.mem_memov.binet.memory.element.StoreElement
+
 /**
  * Elements build a tree-like structure.
  * Child elements are kept in a stock.
@@ -10,54 +12,17 @@ package net.mem_memov.binet.memory
 trait Element:
   
   def write(
-    destination: Address,
-    content: Address
+    destination: ShrinkableAddress,
+    content: CompoundAddress
   ): Either[String, Element]
 
   def read(
-    origin: Address
+    origin: ShrinkableAddress
   ): Either[String, Address]
 
 object Element:
 
-  val root: Element = Element(Level.top, None, None)
+  val root: Element = Element(Level.top, Level.top.createStore())
 
-  def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element = new Element:
+  def apply(level: Level, store: Store): Element = new StoreElement(level, store)
 
-    override
-    def write(
-      destination: Address,
-      content: Address
-    ): Either[String, Element] =
-
-      destination.shorten match
-        case None =>
-          Left("Destination not written")
-        case Some((index, rest)) =>
-          if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore())
-            for {
-              padded <- level.padBig(content)
-              updatedStore <- presentStore.write(index, padded)
-            } yield Element(level, Option(updatedStore), stock)
-          else
-            val presentStock = stock.getOrElse(level.createStock())
-            for {
-              updatedStock <- presentStock.write(index, rest, content)
-            } yield Element(level, store, Option(updatedStock))
-
-    override
-    def read(
-      origin: Address
-    ): Either[String, Address] =
-
-      origin.shorten match
-        case None =>
-          Left("Origin not read")
-        case Some((index, rest)) =>
-          if rest.isEmpty then
-            val presentStore = store.getOrElse(level.createStore())
-            Right(presentStore.read(index))
-          else
-            val presentStock = stock.getOrElse(level.createStock())
-            presentStock.read(index, rest)

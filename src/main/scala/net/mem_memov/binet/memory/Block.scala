@@ -1,5 +1,7 @@
 package net.mem_memov.binet.memory
 
+import net.mem_memov.binet.memory.block.DefaultBlock
+
 /**
  * Block has the property that it provides content at any possible position.
  * The possibilities are limited by the position type.
@@ -19,10 +21,4 @@ object Block:
       Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
     )
 
-  def apply(space: Vector[UnsignedByte]): Block = new Block:
-
-    def read(position: UnsignedByte): UnsignedByte =
-      space(position.toInt)
-
-    def write(position: UnsignedByte, content: UnsignedByte): Block =
-      Block(space.updated(position.toInt, content))
+  def apply(space: Vector[UnsignedByte]): Block = new DefaultBlock(space)
