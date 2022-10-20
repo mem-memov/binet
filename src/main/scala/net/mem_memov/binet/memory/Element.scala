@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory
 
-import net.mem_memov.binet.memory.element.StoreElement
+import net.mem_memov.binet.memory.element.DefaultElement
 
 /**
  * Elements build a tree-like structure.
@@ -10,19 +10,19 @@ import net.mem_memov.binet.memory.element.StoreElement
  * The level determines the number of parts of addresses in the store.
  */
 trait Element:
-  
+
   def write(
-    destination: ShrinkableAddress,
-    content: CompoundAddress
+    destination: Address,
+    content: Address
   ): Either[String, Element]
 
   def read(
-    origin: ShrinkableAddress
+    origin: Address
   ): Either[String, Address]
 
 object Element:
 
-  val root: Element = Element(Level.top, Level.top.createStore())
+  val root: Element = Element(Level.top, None, None)
 
-  def apply(level: Level, store: Store): Element = new StoreElement(level, store)
+  def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element = new DefaultElement(level, store, stock)
 

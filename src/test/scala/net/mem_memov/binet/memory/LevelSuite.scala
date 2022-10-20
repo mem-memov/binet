@@ -18,6 +18,6 @@ class LevelSuite extends munit.FunSuite:
 
   test("Level creates stocks for connection to child elements") {
     val level = Level.top
-    val stock = level.createStock(Store(1))
+    val stock = level.createStock()
     assert(stock.isInstanceOf[Stock])
   }

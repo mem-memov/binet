@@ -4,18 +4,14 @@ import net.mem_memov.binet.memory.{Address, UnsignedByte}
 
 class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
-  override
   val indices: List[UnsignedByte] = parts
 
-  override
   lazy val length: Int = indices.length
 
-  override
   def hasLength(length: Int): Boolean =
 
     this.length == length
 
-  override
   def increment: Address =
 
     def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
@@ -37,7 +33,6 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
     Address(resultIndices)
 
-  override
   def decrement: Either[String, Address] =
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
@@ -64,7 +59,6 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
       else
         Right(Address(accumulator.reverse))
 
-  override
   def isZero: Boolean =
 
     length == 1 && indices.head == UnsignedByte.minimum
@@ -99,20 +93,17 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
     indices.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
-  override
   private[memory]
   def isEmpty: Boolean =
 
     length == 0
 
-  override
   private[memory]
   def trimBig: Address =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
     Address(nonEmptyIndices)
 
-  override
   private[memory]
   def padBig(target: Int ): Either[String, Address] =
 
@@ -130,7 +121,6 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
           Right(Address(newIndices))
 
 
-  override
   private[memory]
   def shorten: Option[(UnsignedByte, Address)] =
 
@@ -139,14 +129,6 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
     else
       None
 
-  override
-  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]] =
+  def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)] =
 
-    if indices.length > elements.length then
-      Left("Address too long")
-    else
-      val difference = elements.length - indices.length
-      val paddedIndices = indices.toVector.prependedAll(
-        Vector.fill[UnsignedByte](difference)(UnsignedByte.minimum)
-      )
-      Right(paddedIndices.zip(elements))
+    indices.toVector.zip(elements)

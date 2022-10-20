@@ -10,11 +10,9 @@ trait Level:
 
   def createStore(): Store
 
-  def createStock(store: Store): Stock
+  def createStock(): Stock
 
   def padBig(content: Address): Either[String, Address]
-
-  def increment(): Level
 
 object Level:
 

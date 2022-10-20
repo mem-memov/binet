@@ -1,20 +1,22 @@
 package net.mem_memov.binet.memory.store
 
-import net.mem_memov.binet.memory.{Address, Block, CompoundAddress, Store, UnsignedByte}
+import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
 
 class DefaultStore(blocks: Vector[Block]) extends Store:
 
-  override
   def write(
     destination: UnsignedByte,
-    content: CompoundAddress
+    content: Address
   ): Either[String, Store] =
 
-    for {
-      updatedBlocks <- content.zipIndices(blocks).map { case (part, block) => block.write(destination, part) }
-    } yield Store(updatedBlocks)
+    if !content.hasLength(blocks.length) then
+      Left("Destination not written: content has wrong number of indices")
+    else
+      val updatedBlocks = content.zipIndices(blocks).map { case (part, block) =>
+        block.write(destination, part)
+      }
+      Right(Store(updatedBlocks.toVector))
 
-  override
   def read(
     origin: UnsignedByte
   ): Address =
@@ -25,7 +27,3 @@ class DefaultStore(blocks: Vector[Block]) extends Store:
     }
 
     Address(parts.reverse)
-
-  override
-  def enlarge(): Store =
-    Store(blocks.prepended(Block()))

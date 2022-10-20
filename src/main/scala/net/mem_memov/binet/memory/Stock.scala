@@ -9,13 +9,13 @@ trait Stock:
 
   def write(
     index: UnsignedByte,
-    destination: ShrinkableAddress,
-    content: CompoundAddress
+    destination: Address,
+    content: Address
   ): Either[String, Stock]
 
   def read(
     index: UnsignedByte,
-    origin: ShrinkableAddress
+    origin: Address
   ): Either[String, Address]
 
 object Stock:

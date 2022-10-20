@@ -11,15 +11,12 @@ trait Store:
 
   def write(
     destination: UnsignedByte,
-    content: CompoundAddress
+    content: Address
   ): Either[String, Store]
 
   def read(
     origin: UnsignedByte
   ): Address
-
-  def enlarge(): Store
-
 
 object Store:
 
