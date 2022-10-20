@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.address
 
 import net.mem_memov.binet.memory.{Address, UnsignedByte}
 
-class DefaultAddress(parts: List[UnsignedByte]) extends Address:
+case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
   val indices: List[UnsignedByte] = parts
 
@@ -31,7 +31,7 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
-    Address(resultIndices)
+    this.copy(parts = resultIndices)
 
   def decrement: Either[String, Address] =
 
@@ -57,7 +57,7 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
       if hasOverflow then
         Left("Address not decremented: already at minimum")
       else
-        Right(Address(accumulator.reverse))
+        Right(this.copy(parts = accumulator.reverse))
 
   def isZero: Boolean =
 
@@ -102,7 +102,7 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
   def trimBig: Address =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
-    Address(nonEmptyIndices)
+    this.copy(parts = nonEmptyIndices)
 
   private[memory]
   def padBig(target: Int ): Either[String, Address] =
@@ -118,17 +118,23 @@ class DefaultAddress(parts: List[UnsignedByte]) extends Address:
           Left("Address not padded: already too long")
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
-          Right(Address(newIndices))
+          Right(this.copy(parts = newIndices))
 
 
   private[memory]
   def shorten: Option[(UnsignedByte, Address)] =
 
     if length > 0 then
-      Some(indices.head -> Address(indices.tail))
+      Some(indices.head -> this.copy(parts = indices.tail))
     else
       None
 
   def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)] =
 
     indices.toVector.zip(elements)
+
+object DefaultAddress:
+
+  val zero: Address = DefaultAddress(List(UnsignedByte.minimum))
+
+

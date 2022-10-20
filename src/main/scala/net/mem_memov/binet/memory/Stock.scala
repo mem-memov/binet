@@ -20,8 +20,6 @@ trait Stock:
 
 object Stock:
 
-  def apply(elements: Vector[Element]): Stock = DefaultStock(elements)
-  
   case class Write(stock: Stock, depth: Depth)
 
 

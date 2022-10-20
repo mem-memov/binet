@@ -22,9 +22,5 @@ trait Element:
 
 object Element:
 
-  val root: Element = Element(Level.top, None, None)
-
-  def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element = DefaultElement(level, store, stock)
-  
   case class Write(element: Element, depth: Depth)
 

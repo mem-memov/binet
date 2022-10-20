@@ -19,11 +19,3 @@ trait Block:
     content: UnsignedByte
   ): Block
 
-object Block:
-
-  def apply(): Block =
-    Block(
-      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
-    )
-
-  def apply(space: Vector[UnsignedByte]): Block = DefaultBlock(space)

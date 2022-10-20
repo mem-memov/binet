@@ -1,12 +1,14 @@
-package net.mem_memov.binet.memory
+package net.mem_memov.binet.memory.inventory
 
-class InventorySuite extends munit.FunSuite:
+import net.mem_memov.binet.memory.Inventory
+
+class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
 
-    val inventory = Inventory()
+    val inventory = DefaultInventory.empty
 
-    val start = Inventory.start
+    val start = DefaultInventory.start
 
     val result = for {
       inventory <- inventory.append(start)

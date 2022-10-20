@@ -1,20 +1,24 @@
-package net.mem_memov.binet.memory
+package net.mem_memov.binet.memory.store
 
-class StoreSuite extends munit.FunSuite:
+import net.mem_memov.binet.memory.block.DefaultBlock
+import net.mem_memov.binet.memory.address.DefaultAddress
+import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
+
+class DefaultStoreSuite extends munit.FunSuite:
 
   test("Store keeps addresses at indices") {
     (
       for {
         size <- (1 to 10)
-        store = Store(
-          Vector.fill[Block](size)(Block())
+        store = DefaultStore(
+          Vector.fill[Block](size)(DefaultBlock.empty)
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
         content <- List(
-          Address.apply(List.fill(size)(UnsignedByte.maximum)),
-          Address.apply(List.fill(size)(UnsignedByte.maximum.decrement)),
-          Address.apply(List.fill(size)(UnsignedByte.minimum)),
-          Address.apply(List.fill(size)(UnsignedByte.minimum.increment)),
+          DefaultAddress(List.fill(size)(UnsignedByte.maximum)),
+          DefaultAddress(List.fill(size)(UnsignedByte.maximum.decrement)),
+          DefaultAddress(List.fill(size)(UnsignedByte.minimum)),
+          DefaultAddress(List.fill(size)(UnsignedByte.minimum.increment)),
         )
       } yield (store, destination, content)
       ).foreach { case (store, destination, content) =>
@@ -31,13 +35,13 @@ class StoreSuite extends munit.FunSuite:
     (
       for {
         size <- (1 to 10)
-        store = Store(
-          Vector.fill[Block](size)(Block())
+        store = DefaultStore(
+          Vector.fill[Block](size)(DefaultBlock.empty)
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
         content <- List(
-          Address.apply(List.fill(size + 1)(UnsignedByte.maximum)),
-          Address.apply(List.fill(size + 2)(UnsignedByte.maximum.decrement)),
+          DefaultAddress(List.fill(size + 1)(UnsignedByte.maximum)),
+          DefaultAddress(List.fill(size + 2)(UnsignedByte.maximum.decrement)),
         )
       } yield (store, destination, content)
       ).foreach { case (store, destination, content) =>
@@ -52,13 +56,13 @@ class StoreSuite extends munit.FunSuite:
     (
       for {
         size <- (2 to 10)
-        store = Store(
-          Vector.fill[Block](size)(Block())
+        store = DefaultStore(
+          Vector.fill[Block](size)(DefaultBlock.empty)
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
         content <- List(
-          Address.apply(List.fill(size - 1)(UnsignedByte.maximum)),
-          Address.apply(List.fill(size - 2)(UnsignedByte.maximum.decrement)),
+          DefaultAddress(List.fill(size - 1)(UnsignedByte.maximum)),
+          DefaultAddress(List.fill(size - 2)(UnsignedByte.maximum.decrement)),
         )
       } yield (store, destination, content)
       ).foreach { case (store, destination, content) =>

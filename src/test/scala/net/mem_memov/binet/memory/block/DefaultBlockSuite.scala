@@ -1,9 +1,11 @@
-package net.mem_memov.binet.memory
+package net.mem_memov.binet.memory.block
 
-class BlockSuite extends munit.FunSuite:
+import net.mem_memov.binet.memory.{Block, UnsignedByte}
+
+class DefaultBlockSuite extends munit.FunSuite:
 
   test("Read a byte from a block") {
-    val block = Block()
+    val block = DefaultBlock.empty
     (
       for {
         position <- Byte.MinValue to Byte.MaxValue
@@ -18,7 +20,7 @@ class BlockSuite extends munit.FunSuite:
   }
 
   test("Read a byte from a fresh block") {
-    val block = Block()
+    val block = DefaultBlock.empty
     (
       for {
         position <- Byte.MinValue to Byte.MaxValue

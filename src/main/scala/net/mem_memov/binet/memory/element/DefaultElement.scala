@@ -21,7 +21,7 @@ case class DefaultElement(
         if rest.isEmpty then
           val presentStore = storeOption.getOrElse(level.createStore())
           for {
-            padded <- level.padBig(content)
+            padded <- presentStore.padBig(content)
             updatedStore <- presentStore.write(index, padded)
           } yield
             val updatedElement = this.copy(storeOption = Some(updatedStore))
@@ -51,3 +51,7 @@ case class DefaultElement(
         else
           val presentStock = stockOption.getOrElse(level.createStock())
           presentStock.read(index, rest)
+
+object DefaultElement:
+
+  val root: Element = DefaultElement(Level.top, None, None)

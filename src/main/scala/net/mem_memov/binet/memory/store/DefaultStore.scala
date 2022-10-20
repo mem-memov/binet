@@ -1,11 +1,14 @@
 package net.mem_memov.binet.memory.store
 
+import net.mem_memov.binet.memory.address.DefaultAddress
+import net.mem_memov.binet.memory.block.DefaultBlock
 import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
 
 case class DefaultStore(
   blocks: Vector[Block]
 ) extends Store:
 
+  override
   def write(
     destination: UnsignedByte,
     content: Address
@@ -19,6 +22,7 @@ case class DefaultStore(
       }
       Right(this.copy(blocks = updatedBlocks))
 
+  override
   def read(
     origin: UnsignedByte
   ): Address =
@@ -28,8 +32,9 @@ case class DefaultStore(
         block.read(origin) :: parts
     }
 
-    Address(parts.reverse)
+    DefaultAddress(parts.reverse)
 
+  override
   def expand(
     minimumLength: Int
   ): Store =
@@ -37,5 +42,16 @@ case class DefaultStore(
     if blocks.length >= minimumLength then
       this
     else
-      val prependedBlocks = (0 to minimumLength - blocks.length).map(_ => Block())
+      val prependedBlocks = (0 to minimumLength - blocks.length).map(_ => DefaultBlock.empty)
       this.copy(blocks = blocks.prependedAll(prependedBlocks))
+
+  override
+  def padBig(
+    content: Address
+  ): Either[String, Address] =
+    content.padBig(blocks.length)
+
+object DefaultStore:
+
+  def empty(number: Int): Store =
+    DefaultStore(Vector.fill[Block](number + 1)(DefaultBlock.empty))

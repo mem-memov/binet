@@ -16,10 +16,10 @@ class BothDotsNonEmpty(
     val entry = Entry(
       sourceDot.address,
       sourceDotTargetArrow.address,
-      memory.Address.zero,
+      memory.address.DefaultAddress.zero,
       targetDot.address,
       targetDotSourceArrow.address,
-      memory.Address.zero
+      memory.address.DefaultAddress.zero
     )
     for {
       newArrow <- network.createArrow(entry)

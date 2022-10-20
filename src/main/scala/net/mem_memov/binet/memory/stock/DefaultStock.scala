@@ -23,3 +23,4 @@ case class DefaultStock(elements: Vector[Element]) extends Stock:
     origin: Address
   ): Either[String, Address] =
     elements(index.toInt).read(origin)
+

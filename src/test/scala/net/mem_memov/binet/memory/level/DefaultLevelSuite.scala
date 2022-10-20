@@ -1,13 +1,16 @@
-package net.mem_memov.binet.memory
+package net.mem_memov.binet.memory.level
 
-class LevelSuite extends munit.FunSuite:
+import net.mem_memov.binet.memory.{Level, Stock, UnsignedByte}
+import net.mem_memov.binet.memory.address.DefaultAddress
+
+class DefaultLevelSuite extends munit.FunSuite:
 
   test("Level creates stores for keeping addresses") {
     val level = Level.top
     val store = level.createStore()
 
     val destination = UnsignedByte.fromInt(7)
-    val content = Address.apply(List(UnsignedByte.fromInt(32)))
+    val content = DefaultAddress(List(UnsignedByte.fromInt(32)))
     store.write(destination, content) match {
       case Left(error) => fail(error)
       case Right(updatedStore) =>

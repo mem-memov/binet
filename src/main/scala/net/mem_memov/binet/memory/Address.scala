@@ -38,11 +38,5 @@ trait Address extends Ordered[Address]:
   def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)]
 
 
-object Address:
-
-  val zero: Address = Address(List(UnsignedByte.minimum))
-
-  def apply(parts: List[UnsignedByte]): Address = new DefaultAddress(parts)
-
 
 

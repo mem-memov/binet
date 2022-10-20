@@ -14,11 +14,11 @@ class SourceDotEmpty(
   override def connect: Task[Arrow] =
     val entry = Entry(
       sourceDot.address,
-      memory.Address.zero,
-      memory.Address.zero,
+      memory.address.DefaultAddress.zero,
+      memory.address.DefaultAddress.zero,
       targetDot.address,
       targetDotSourceArrow.address,
-      memory.Address.zero
+      memory.address.DefaultAddress.zero
     )
     for {
       newArrow <- network.createArrow(entry)

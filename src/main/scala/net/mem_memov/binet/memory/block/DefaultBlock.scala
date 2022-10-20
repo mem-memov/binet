@@ -18,3 +18,10 @@ case class DefaultBlock(
     content: UnsignedByte
   ): Block =
     this.copy(space = space.updated(position.toInt, content))
+
+object DefaultBlock:
+
+  val empty: Block =
+    DefaultBlock(
+      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
+    )

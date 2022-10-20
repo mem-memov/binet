@@ -14,10 +14,10 @@ private[hexagon] case class Entry(
 private[hexagon] object Entry:
 
   val empty: Entry = Entry(
-    memory.Address.zero,
-    memory.Address.zero,
-    memory.Address.zero,
-    memory.Address.zero,
-    memory.Address.zero,
-    memory.Address.zero
+    memory.address.DefaultAddress.zero,
+    memory.address.DefaultAddress.zero,
+    memory.address.DefaultAddress.zero,
+    memory.address.DefaultAddress.zero,
+    memory.address.DefaultAddress.zero,
+    memory.address.DefaultAddress.zero,
   )

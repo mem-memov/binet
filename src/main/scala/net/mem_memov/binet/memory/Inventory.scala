@@ -17,11 +17,4 @@ trait Inventory:
 
   def read(origin: Address): Either[String, Address]
 
-object Inventory:
-
-  val start: Address = Address.zero
-
-  def apply(): Inventory = Inventory(Address.zero, Element.root)
-
-  def apply(nextAddress: Address, root: Element): Inventory = new DefaultInventory(nextAddress, root)
 
