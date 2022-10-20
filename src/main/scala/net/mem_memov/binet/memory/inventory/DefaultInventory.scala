@@ -12,9 +12,9 @@ class DefaultInventory(nextAddress: Address, root: Element) extends Inventory:
       Left("Inventory not appended: content out of boundary")
     else
       for {
-        updatedRoot <- root.write(next, trimmedContent)
+        rootWrite <- root.write(next, trimmedContent)
         newNext <- Right(next.increment)
-      } yield Inventory(newNext, updatedRoot)
+      } yield Inventory(newNext, rootWrite.element)
 
   def update(destination: Address, content: Address): Either[String, Inventory] =
     val trimmedDestination = if content.isEmpty then Address.zero else destination.trimBig
@@ -26,8 +26,8 @@ class DefaultInventory(nextAddress: Address, root: Element) extends Inventory:
         Left("Inventory not appended: content out of boundary")
       else
         for {
-          updatedRoot <- root.write(next, content)
-        } yield Inventory(next, updatedRoot)
+          rootWrite <- root.write(next, content)
+        } yield Inventory(next, rootWrite.element)
 
   def read(origin: Address): Either[String, Address] =
     val trimmedOrigin = if origin.isEmpty then Address.zero else origin.trimBig

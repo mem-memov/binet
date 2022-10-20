@@ -2,7 +2,9 @@ package net.mem_memov.binet.memory.store
 
 import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
 
-class DefaultStore(blocks: Vector[Block]) extends Store:
+case class DefaultStore(
+  blocks: Vector[Block]
+) extends Store:
 
   def write(
     destination: UnsignedByte,
@@ -15,7 +17,7 @@ class DefaultStore(blocks: Vector[Block]) extends Store:
       val updatedBlocks = content.zipIndices(blocks).map { case (part, block) =>
         block.write(destination, part)
       }
-      Right(Store(updatedBlocks.toVector))
+      Right(this.copy(blocks = updatedBlocks))
 
   def read(
     origin: UnsignedByte
@@ -27,3 +29,13 @@ class DefaultStore(blocks: Vector[Block]) extends Store:
     }
 
     Address(parts.reverse)
+
+  def expand(
+    minimumLength: Int
+  ): Store =
+
+    if blocks.length >= minimumLength then
+      this
+    else
+      val prependedBlocks = (0 to minimumLength - blocks.length).map(_ => Block())
+      this.copy(blocks = blocks.prependedAll(prependedBlocks))

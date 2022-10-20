@@ -13,6 +13,8 @@ trait Level:
   def createStock(): Stock
 
   def padBig(content: Address): Either[String, Address]
+  
+  def toDepth: Depth
 
 object Level:
 
@@ -20,4 +22,4 @@ object Level:
 
   val top: Level = Level(0)
 
-  def apply(number: Int): Level = new DefaultLevel(number)
+  def apply(number: Int): Level = DefaultLevel(number)

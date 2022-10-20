@@ -18,8 +18,12 @@ trait Store:
     origin: UnsignedByte
   ): Address
 
+  def expand(
+    minimumLength: Int
+  ): Store
+
 object Store:
 
   def apply(number: Int): Store = Store(Vector.fill[Block](number + 1)(Block()))
 
-  def apply(blocks: Vector[Block]): Store = new DefaultStore(blocks)
+  def apply(blocks: Vector[Block]): Store = DefaultStore(blocks)

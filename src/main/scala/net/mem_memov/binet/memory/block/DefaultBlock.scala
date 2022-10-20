@@ -2,10 +2,19 @@ package net.mem_memov.binet.memory.block
 
 import net.mem_memov.binet.memory.{Block, UnsignedByte}
 
-class DefaultBlock(space: Vector[UnsignedByte]) extends Block:
+case class DefaultBlock(
+  space: Vector[UnsignedByte]
+) extends Block:
 
-  def read(position: UnsignedByte): UnsignedByte =
+  override
+  def read(
+    position: UnsignedByte
+  ): UnsignedByte =
     space(position.toInt)
 
-  def write(position: UnsignedByte, content: UnsignedByte): Block =
-    Block(space.updated(position.toInt, content))
+  override
+  def write(
+    position: UnsignedByte,
+    content: UnsignedByte
+  ): Block =
+    this.copy(space = space.updated(position.toInt, content))

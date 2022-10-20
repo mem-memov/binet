@@ -1,31 +1,40 @@
 package net.mem_memov.binet.memory.element
 
-import net.mem_memov.binet.memory.{Address, Element, Level, Store, Stock}
+import net.mem_memov.binet.memory.{Address, Depth, Element, Level, Store, Stock}
 
-class DefaultElement(level: Level, store: Option[Store], stock: Option[Stock]) extends Element:
-
+case class DefaultElement(
+  level: Level,
+  storeOption: Option[Store],
+  stockOption: Option[Stock]
+) extends Element:
 
   override
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element] =
+  ): Either[String, Element.Write] =
 
     destination.shorten match
       case None =>
         Left("Destination not written")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = store.getOrElse(level.createStore())
+          val presentStore = storeOption.getOrElse(level.createStore())
           for {
             padded <- level.padBig(content)
             updatedStore <- presentStore.write(index, padded)
-          } yield Element(level, Option(updatedStore), stock)
+          } yield
+            val updatedElement = this.copy(storeOption = Some(updatedStore))
+            Element.Write(updatedElement, level.toDepth)
         else
-          val presentStock = stock.getOrElse(level.createStock())
+          val presentStock = stockOption.getOrElse(level.createStock())
           for {
-            updatedStock <- presentStock.write(index, rest, content)
-          } yield Element(level, store, Option(updatedStock))
+            stockWrite <- presentStock.write(index, rest, content)
+          } yield
+            val presentStore = storeOption.getOrElse(level.createStore())
+            val expandedStore = stockWrite.depth.expandStore(presentStore)
+            val updatedElement = this.copy(storeOption = Option(expandedStore), stockOption = Some(stockWrite.stock))
+            Element.Write(updatedElement, stockWrite.depth)
 
   override
   def read(
@@ -37,8 +46,8 @@ class DefaultElement(level: Level, store: Option[Store], stock: Option[Stock]) e
         Left("Origin not read")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = store.getOrElse(level.createStore())
+          val presentStore = storeOption.getOrElse(level.createStore())
           Right(presentStore.read(index))
         else
-          val presentStock = stock.getOrElse(level.createStock())
+          val presentStock = stockOption.getOrElse(level.createStock())
           presentStock.read(index, rest)

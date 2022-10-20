@@ -11,7 +11,7 @@ trait Stock:
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock]
+  ): Either[String, Stock.Write]
 
   def read(
     index: UnsignedByte,
@@ -20,6 +20,8 @@ trait Stock:
 
 object Stock:
 
-  def apply(elements: Vector[Element]): Stock = new DefaultStock(elements)
+  def apply(elements: Vector[Element]): Stock = DefaultStock(elements)
+  
+  case class Write(stock: Stock, depth: Depth)
 
 

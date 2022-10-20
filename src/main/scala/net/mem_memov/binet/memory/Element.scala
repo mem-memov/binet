@@ -14,7 +14,7 @@ trait Element:
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element]
+  ): Either[String, Element.Write]
 
   def read(
     origin: Address
@@ -24,5 +24,7 @@ object Element:
 
   val root: Element = Element(Level.top, None, None)
 
-  def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element = new DefaultElement(level, store, stock)
+  def apply(level: Level, store: Option[Store], stock: Option[Stock]): Element = DefaultElement(level, store, stock)
+  
+  case class Write(element: Element, depth: Depth)
 

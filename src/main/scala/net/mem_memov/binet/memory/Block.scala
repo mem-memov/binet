@@ -10,9 +10,14 @@ import net.mem_memov.binet.memory.block.DefaultBlock
  */
 trait Block:
 
-  def read(position: UnsignedByte): UnsignedByte
+  def read(
+    position: UnsignedByte
+  ): UnsignedByte
 
-  def write(position: UnsignedByte, content: UnsignedByte): Block
+  def write(
+    position: UnsignedByte,
+    content: UnsignedByte
+  ): Block
 
 object Block:
 
@@ -21,4 +26,4 @@ object Block:
       Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
     )
 
-  def apply(space: Vector[UnsignedByte]): Block = new DefaultBlock(space)
+  def apply(space: Vector[UnsignedByte]): Block = DefaultBlock(space)

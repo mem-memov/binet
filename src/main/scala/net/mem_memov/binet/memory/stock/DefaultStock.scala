@@ -1,19 +1,21 @@
 package net.mem_memov.binet.memory.stock
 
-import net.mem_memov.binet.memory.{Address, Element, Stock, UnsignedByte}
+import net.mem_memov.binet.memory.{Address, Depth, Element, Stock, UnsignedByte}
 
-class DefaultStock(elements: Vector[Element]) extends Stock:
+case class DefaultStock(elements: Vector[Element]) extends Stock:
 
   override
   def write(
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock] =
+  ): Either[String, Stock.Write] =
     for {
-      updatedElement <- elements(index.toInt).write(destination, content)
-      updatedElements <- Right(elements.updated(index.toInt, updatedElement))
-    } yield Stock(updatedElements)
+      elementWrite <- elements(index.toInt).write(destination, content)
+      updatedElements <- Right(elements.updated(index.toInt, elementWrite.element))
+    } yield
+      val updatedStock = this.copy(elements = updatedElements)
+      Stock.Write(updatedStock, elementWrite.depth)
 
   override
   def read(
