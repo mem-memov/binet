@@ -13,11 +13,3 @@ trait Level:
   def createStock(): Stock
   
   def toDepth: Depth
-
-object Level:
-
-  lazy val size: Int = UnsignedByte.maximum.toInt + 1
-
-  val top: Level = Level(0)
-
-  def apply(number: Int): Level = DefaultLevel(number)
