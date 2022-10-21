@@ -1,10 +1,13 @@
 package net.mem_memov.binet.memory.inventory
 
-import net.mem_memov.binet.memory.Inventory
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.factory.DefaultFactory
 
 class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
+
+    given DefaultFactory = DefaultFactory()
 
     val inventory = DefaultInventory.empty
 

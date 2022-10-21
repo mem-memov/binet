@@ -11,5 +11,5 @@ trait Level:
   def createStore(): Store
 
   def createStock(): Stock
-  
+
   def toDepth: Depth

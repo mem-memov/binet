@@ -1,7 +1,8 @@
 package net.mem_memov.binet.memory.element
 
 import net.mem_memov.binet.memory.level.DefaultLevel
-import net.mem_memov.binet.memory.{Address, Depth, Element, Level, Stock, Store}
+import net.mem_memov.binet.memory.factory.DefaultFactory
+import net.mem_memov.binet.memory._
 
 case class DefaultElement(
   level: Level,
@@ -55,4 +56,4 @@ case class DefaultElement(
 
 object DefaultElement:
 
-  val root: Element = DefaultElement(DefaultLevel.top, None, None)
+  def root(using DefaultFactory): Element = DefaultElement(DefaultLevel.top, None, None)

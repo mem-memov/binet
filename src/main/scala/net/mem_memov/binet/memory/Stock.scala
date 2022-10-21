@@ -21,5 +21,7 @@ trait Stock:
 object Stock:
 
   case class Write(stock: Stock, depth: Depth)
+  
+
 
 

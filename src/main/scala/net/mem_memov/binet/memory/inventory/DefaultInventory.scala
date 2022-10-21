@@ -1,8 +1,9 @@
 package net.mem_memov.binet.memory.inventory
 
-import net.mem_memov.binet.memory.{Address, Element, Inventory}
 import net.mem_memov.binet.memory.address.DefaultAddress
 import net.mem_memov.binet.memory.element.DefaultElement
+import net.mem_memov.binet.memory.factory.DefaultFactory
+import net.mem_memov.binet.memory._
 
 case class DefaultInventory(next: Address, root: Element) extends Inventory:
 
@@ -44,4 +45,4 @@ object DefaultInventory:
 
   val start: Address = DefaultAddress.zero
 
-  val empty: Inventory = DefaultInventory(DefaultAddress.zero, DefaultElement.root)
+  def empty(using DefaultFactory): Inventory = DefaultInventory(DefaultAddress.zero, DefaultElement.root)
