@@ -9,7 +9,7 @@ trait LevelFactory:
 
 object LevelFactory:
 
-  def apply()(using StockFactory, StoreFactory): LevelFactory =
+  def apply()(using DepthFactory, StockFactory, StoreFactory): LevelFactory =
     new LevelFactory:
       override def makeLevel(number: Int): Level =
         given LevelFactory = this

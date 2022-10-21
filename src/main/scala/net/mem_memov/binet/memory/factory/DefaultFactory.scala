@@ -7,6 +7,7 @@ import net.mem_memov.binet.memory.factory.defaultFactory._
 
 trait DefaultFactory
   extends BlockFactory
+  with DepthFactory
   with ElementFactory
   with LevelFactory
   with StockFactory
@@ -17,6 +18,7 @@ object DefaultFactory:
   def apply(): DefaultFactory = new DefaultFactory:
 
     given blockFactory: BlockFactory = BlockFactory()
+    given depthFactory: DepthFactory = DepthFactory()
     given elementFactory: ElementFactory = ElementFactory()
     given levelFactory: LevelFactory = LevelFactory()
     given stockFactory: StockFactory = StockFactory()
@@ -24,6 +26,9 @@ object DefaultFactory:
 
     override def makeBlock(space: Vector[UnsignedByte]): Block =
       blockFactory.makeBlock(space)
+
+    override def makeDepth(number: Int): Depth =
+      depthFactory.makeDepth(number)
 
     override def makeElement(level: Level): Element =
       elementFactory.makeElement(level)

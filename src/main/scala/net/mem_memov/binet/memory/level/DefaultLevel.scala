@@ -12,6 +12,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 case class DefaultLevel(
   number: Int
 )(using
+  depthFactory: DepthFactory,
   levelFactory: LevelFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory
@@ -28,7 +29,7 @@ case class DefaultLevel(
 
   override
   def toDepth: Depth =
-    DefaultDepth(number)
+    depthFactory.makeDepth(number)
 
 object DefaultLevel:
 

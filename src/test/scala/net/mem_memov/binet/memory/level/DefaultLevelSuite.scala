@@ -9,6 +9,9 @@ class DefaultLevelSuite extends munit.FunSuite:
 
   test("Level creates stores for keeping addresses") {
 
+    given DepthFactory with
+      override def makeDepth(number: Int): Depth = fail("unexpected")
+
     given LevelFactory with
       override def makeLevel(number: Int): Level = fail("unexpected")
 
@@ -34,6 +37,9 @@ class DefaultLevelSuite extends munit.FunSuite:
   }
 
   test("Level creates stocks for connection to child elements") {
+
+    given DepthFactory with
+      override def makeDepth(number: Int): Depth = fail("unexpected")
 
     val levelStub = new Level {
       override def createStore(): Store = ???
@@ -65,4 +71,29 @@ class DefaultLevelSuite extends munit.FunSuite:
     val stock = level.createStock()
 
     assert(stock == stockStub)
+  }
+
+  test("Level created a depth") {
+
+    val depthStub = new Depth {
+      override def expandStore(store: Store): Store = fail("unexpected")
+    }
+
+    given DepthFactory with
+      override def makeDepth(number: Int): Depth =
+        assert(number == 3)
+        depthStub
+
+    given LevelFactory with
+      override def makeLevel(number: Int): Level = fail("unexpected")
+
+    given StockFactory with
+      override def makeStock(size: Int, level: Level): Stock = fail("unexpected")
+
+    given StoreFactory with
+      override def makeStore(size: Int): Store = fail("unexpected")
+
+    val level = DefaultLevel(3)
+
+    val depth = level.toDepth
   }
