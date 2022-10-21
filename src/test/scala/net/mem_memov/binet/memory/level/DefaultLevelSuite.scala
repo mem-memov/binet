@@ -96,4 +96,6 @@ class DefaultLevelSuite extends munit.FunSuite:
     val level = DefaultLevel(3)
 
     val depth = level.toDepth
+
+    assert(depth == depthStub)
   }
