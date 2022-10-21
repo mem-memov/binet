@@ -12,6 +12,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 case class DefaultLevel(
   number: Int
 )(using
+  levelFactory: LevelFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory
 ) extends Level:
@@ -22,7 +23,7 @@ case class DefaultLevel(
 
   override
   def createStock(): Stock =
-    val nextLevel = this.copy(number = number + 1)
+    val nextLevel = levelFactory.makeLevel(number + 1)
     stockFactory.makeStock(DefaultLevel.size, nextLevel)
 
   override

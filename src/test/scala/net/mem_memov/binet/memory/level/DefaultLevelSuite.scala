@@ -9,6 +9,9 @@ class DefaultLevelSuite extends munit.FunSuite:
 
   test("Level creates stores for keeping addresses") {
 
+    given LevelFactory with
+      override def makeLevel(number: Int): Level = fail("unexpected")
+
     given StockFactory with
       override def makeStock(size: Int, level: Level): Stock = fail("unexpected")
 
@@ -21,16 +24,27 @@ class DefaultLevelSuite extends munit.FunSuite:
 
     given StoreFactory with
       override def makeStore(size: Int): Store =
-        assert(size == 6)
+        assert(size == 4)
         storeStub
 
-    val level = DefaultLevel(5)
+    val level = DefaultLevel(3)
     val store = level.createStore()
 
     assert(store == storeStub)
   }
 
   test("Level creates stocks for connection to child elements") {
+
+    val levelStub = new Level {
+      override def createStore(): Store = ???
+      override def createStock(): Stock = ???
+      override def toDepth: Depth = ???
+    }
+
+    given LevelFactory with
+      override def makeLevel(number: Int): Level =
+        assert(number == 4)
+        levelStub
 
     val stockStub = new Stock {
       override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock.Write] = fail("unexpected")
@@ -40,6 +54,7 @@ class DefaultLevelSuite extends munit.FunSuite:
     given StockFactory with
       override def makeStock(size: Int, level: Level): Stock =
         assert(size == 256)
+        assert(level == levelStub)
         stockStub
 
     given StoreFactory with

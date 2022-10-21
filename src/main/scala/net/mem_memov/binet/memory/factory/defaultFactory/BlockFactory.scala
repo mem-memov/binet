@@ -9,4 +9,4 @@ trait BlockFactory:
 
 object BlockFactory:
 
-  def apply(): BlockFactory = (space: Vector[UnsignedByte]) => DefaultBlock(space)
+  def apply(): BlockFactory = DefaultBlock(_)

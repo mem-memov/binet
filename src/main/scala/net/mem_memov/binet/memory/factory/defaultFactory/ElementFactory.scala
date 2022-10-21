@@ -9,4 +9,4 @@ trait ElementFactory:
 
 object ElementFactory:
   
-  def apply(): ElementFactory = (level: Level) => DefaultElement(level, None, None)
+  def apply(): ElementFactory = DefaultElement(_, None, None)
