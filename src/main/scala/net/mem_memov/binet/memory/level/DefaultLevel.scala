@@ -18,16 +18,12 @@ case class DefaultLevel(
 
   override
   def createStore(): Store =
-    storeFactory.makeStore(
-      Vector.fill[Block](number + 1)(DefaultBlock.empty)
-    )
+    storeFactory.makeStore(number + 1)
 
   override
   def createStock(): Stock =
     val nextLevel = this.copy(number = number + 1)
-    stockFactory.makeStock(
-      Vector.fill[Element](DefaultLevel.size)(DefaultElement(nextLevel, Option.empty, Option.empty))
-    )
+    stockFactory.makeStock(DefaultLevel.size, nextLevel)
 
   override
   def toDepth: Depth =

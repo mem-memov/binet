@@ -5,14 +5,29 @@ import net.mem_memov.binet.memory.store.DefaultStore
 import net.mem_memov.binet.memory._
 import net.mem_memov.binet.memory.factory.defaultFactory._
 
-trait DefaultFactory extends StockFactory with StoreFactory
+trait DefaultFactory
+  extends BlockFactory
+  with ElementFactory
+  with StockFactory
+  with StoreFactory
 
 object DefaultFactory:
 
   def apply(): DefaultFactory = new DefaultFactory:
 
-    val stockFactory: StockFactory = StockFactory()
-    def makeStock(elements: Vector[Element]): Stock = stockFactory.makeStock(elements)
+    given blockFactory: BlockFactory = BlockFactory()
+    given elementFactory: ElementFactory = ElementFactory()
+    given stockFactory: StockFactory = StockFactory()
+    given storeFactory: StoreFactory = StoreFactory()
 
-    val storeFactory: StoreFactory = StoreFactory()
-    def makeStore(blocks: Vector[Block]): Store = storeFactory.makeStore(blocks)
+    override def makeBlock(space: Vector[UnsignedByte]): Block =
+      blockFactory.makeBlock(space)
+
+    override def makeElement(level: Level): Element =
+      elementFactory.makeElement(level)
+
+    override def makeStock(size: Int, level: Level): Stock =
+      stockFactory.makeStock(size, level)
+
+    override def makeStore(size: Int): Store =
+      storeFactory.makeStore(size)
