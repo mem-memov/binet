@@ -5,8 +5,20 @@ import net.mem_memov.binet.memory.block.DefaultBlock
 
 trait BlockFactory:
 
-  def makeBlock(space: Vector[UnsignedByte]): Block
+  def makeEmptyBlock(): Block
 
 object BlockFactory:
 
-  def apply(): BlockFactory = DefaultBlock(_)
+  val cachedFactory: Option[BlockFactory] = None
+
+  def apply(): BlockFactory = cachedFactory.getOrElse {
+    
+    new BlockFactory:
+      
+      override def makeEmptyBlock(): Block =
+        DefaultBlock(
+          Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
+        )
+  }
+
+

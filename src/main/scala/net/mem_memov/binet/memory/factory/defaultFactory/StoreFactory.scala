@@ -9,9 +9,17 @@ trait StoreFactory:
   def makeStore(size: Int): Store
 
 object StoreFactory:
+
+  val cachedFactory: Option[StoreFactory] = None
   
-  def apply()(using blockFactory: BlockFactory): StoreFactory = (size: Int) =>
+  def apply()(using blockFactory: BlockFactory): StoreFactory = cachedFactory.getOrElse {
 
-    val blocks = Vector.fill[Block](size)(DefaultBlock.empty)
+    new StoreFactory:
 
-    DefaultStore(blocks)
+      override def makeStore(size: Int): Store =
+
+        val blocks = Vector.fill[Block](size)(DefaultBlock.empty)
+
+        DefaultStore(blocks)
+  }
+

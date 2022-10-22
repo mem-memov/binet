@@ -37,6 +37,8 @@ trait Address extends Ordered[Address]:
 
   def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)]
 
+  def expandStore(store: Store): Store
+
 
 
 

@@ -12,7 +12,6 @@ import net.mem_memov.binet.memory.element.DefaultElement
 case class DefaultLevel(
   number: Int
 )(using
-  depthFactory: DepthFactory,
   levelFactory: LevelFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory
@@ -27,12 +26,7 @@ case class DefaultLevel(
     val nextLevel = levelFactory.makeLevel(number + 1)
     stockFactory.makeStock(DefaultLevel.size, nextLevel)
 
-  override
-  def toDepth: Depth =
-    depthFactory.makeDepth(number)
-
 object DefaultLevel:
 
   lazy val size: Int = UnsignedByte.maximum.toInt + 1
 
-  def top(using factory: DefaultFactory): Level = DefaultLevel(0)(using factory, factory)

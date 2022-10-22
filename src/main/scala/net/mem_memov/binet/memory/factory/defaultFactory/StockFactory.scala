@@ -11,10 +11,19 @@ trait StockFactory:
 
 object StockFactory:
 
-  def apply()(using elementFactory: ElementFactory): StockFactory = (size: Int, level: Level) =>
+  val cachedFactory: Option[StockFactory] = None
 
-    val emptyElement = elementFactory.makeElement(level)
+  def apply()(using elementFactory: ElementFactory): StockFactory = cachedFactory.getOrElse {
 
-    val elements = Vector.fill[Element](DefaultLevel.size)(emptyElement)
+    new StockFactory:
 
-    DefaultStock(elements)
+      override def makeStock(size: Int, level: Level): Stock =
+
+        val emptyElement = elementFactory.makeElement(level)
+
+        val elements = Vector.fill[Element](DefaultLevel.size)(emptyElement)
+
+        DefaultStock(elements)
+  }
+
+

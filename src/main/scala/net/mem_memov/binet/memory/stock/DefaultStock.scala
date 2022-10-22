@@ -9,13 +9,11 @@ case class DefaultStock(elements: Vector[Element]) extends Stock:
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock.Write] =
+  ): Either[String, Stock] =
     for {
-      elementWrite <- elements(index.toInt).write(destination, content)
-      updatedElements <- Right(elements.updated(index.toInt, elementWrite.element))
-    } yield
-      val updatedStock = this.copy(elements = updatedElements)
-      Stock.Write(updatedStock, elementWrite.depth)
+      updatedElement <- elements(index.toInt).write(destination, content)
+      updatedElements <- Right(elements.updated(index.toInt, updatedElement))
+    } yield this.copy(elements = updatedElements)
 
   override
   def read(

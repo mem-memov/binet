@@ -7,6 +7,21 @@ trait ElementFactory:
 
   def makeElement(level: Level): Element
 
+  lazy val rootElement: Element
+
 object ElementFactory:
+
+  val cachedFactory: Option[ElementFactory] = None
   
-  def apply(): ElementFactory = DefaultElement(_, None, None)
+  def apply()(using levelFactory: LevelFactory): ElementFactory = cachedFactory.getOrElse {
+    
+    new ElementFactory:
+      
+      override def makeElement(level: Level): Element = 
+        DefaultElement(level, None, None)
+        
+      override lazy val rootElement: Element = 
+        DefaultElement(levelFactory.emptyLevel, None, None)
+  }
+
+

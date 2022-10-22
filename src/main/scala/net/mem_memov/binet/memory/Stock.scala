@@ -11,16 +11,13 @@ trait Stock:
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock.Write]
+  ): Either[String, Stock]
 
   def read(
     index: UnsignedByte,
     origin: Address
   ): Either[String, Address]
 
-object Stock:
-
-  case class Write(stock: Stock, depth: Depth)
   
 
 

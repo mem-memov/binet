@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.address
 
-import net.mem_memov.binet.memory.{Address, UnsignedByte}
+import net.mem_memov.binet.memory._
 
 case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
@@ -132,6 +132,10 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
   def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)] =
 
     indices.toVector.zip(elements)
+    
+  def expandStore(store: Store): Store =
+
+    store.expand(length)
 
 object DefaultAddress:
 

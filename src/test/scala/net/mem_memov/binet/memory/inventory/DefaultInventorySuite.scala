@@ -7,9 +7,9 @@ class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
 
-    given DefaultFactory = DefaultFactory()
+    val factory = DefaultFactory()
 
-    val inventory = DefaultInventory.empty
+    val inventory = factory.makeEmptyInventory()
 
     val start = DefaultInventory.start
 

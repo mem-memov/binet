@@ -5,8 +5,17 @@ import net.mem_memov.binet.memory.depth.DefaultDepth
 
 trait DepthFactory:
 
-  def makeDepth(number: Int): Depth
+  lazy val emptyDepth: Depth
 
 object DepthFactory:
 
-  def apply(): DepthFactory = DefaultDepth(_)
+  val cachedFactory: Option[DepthFactory] = None
+
+  def apply(): DepthFactory = cachedFactory.getOrElse {
+    
+    new DepthFactory:
+      
+      override lazy val emptyDepth: Depth = DefaultDepth(0)
+  }
+
+

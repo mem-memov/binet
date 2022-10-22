@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 import net.mem_memov.binet.memory.factory.DefaultFactory
 import net.mem_memov.binet.memory._
 
-case class DefaultInventory(next: Address, root: Element) extends Inventory:
+case class DefaultInventory(next: Address, root: Element, depth: Depth) extends Inventory:
 
   def append(content: Address): Either[String, Inventory] =
     val trimmedContent = if content.isEmpty then DefaultAddress.zero else content.trimBig
@@ -13,12 +13,9 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
       Left("Inventory not appended: content out of boundary")
     else
       for {
-        rootWrite <- root.write(next, trimmedContent)
+        updatedRoot <- root.write(next, trimmedContent)
         newNext <- Right(next.increment)
-      } yield this.copy(
-        next = newNext,
-        root = rootWrite.element
-      )
+      } yield this.copy(next = newNext, root = updatedRoot)
 
   def update(destination: Address, content: Address): Either[String, Inventory] =
     val trimmedDestination = if content.isEmpty then DefaultAddress.zero else destination.trimBig
@@ -30,10 +27,8 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
         Left("Inventory not appended: content out of boundary")
       else
         for {
-          rootWrite <- root.write(next, content)
-        } yield this.copy(
-          root = rootWrite.element
-        )
+          updatedRoot <- root.write(next, content)
+        } yield this.copy(root = updatedRoot)
 
   def read(origin: Address): Either[String, Address] =
     val trimmedOrigin = if origin.isEmpty then DefaultAddress.zero else origin.trimBig
@@ -44,5 +39,3 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
 object DefaultInventory:
 
   val start: Address = DefaultAddress.zero
-
-  def empty(using DefaultFactory): Inventory = DefaultInventory(DefaultAddress.zero, DefaultElement.root)

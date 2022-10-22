@@ -10,10 +10,11 @@ class DefaultLevelSuite extends munit.FunSuite:
   test("Level creates stores for keeping addresses") {
 
     given DepthFactory with
-      override def makeDepth(number: Int): Depth = fail("unexpected")
+      override lazy val emptyDepth: Depth = fail("unexpected")
 
     given LevelFactory with
       override def makeLevel(number: Int): Level = fail("unexpected")
+      override lazy val emptyLevel: Level = fail("unexpected")
 
     given StockFactory with
       override def makeStock(size: Int, level: Level): Stock = fail("unexpected")
@@ -39,21 +40,21 @@ class DefaultLevelSuite extends munit.FunSuite:
   test("Level creates stocks for connection to child elements") {
 
     given DepthFactory with
-      override def makeDepth(number: Int): Depth = fail("unexpected")
+      override lazy val emptyDepth: Depth = fail("unexpected")
 
     val levelStub = new Level {
       override def createStore(): Store = ???
       override def createStock(): Stock = ???
-      override def toDepth: Depth = ???
     }
 
     given LevelFactory with
       override def makeLevel(number: Int): Level =
         assert(number == 4)
         levelStub
+      override lazy val emptyLevel: Level = fail("unexpected")
 
     val stockStub = new Stock {
-      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock.Write] = fail("unexpected")
+      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock] = fail("unexpected")
       override def read(index: UnsignedByte, origin: Address): Either[String, Address] = fail("unexpected")
     }
 
@@ -73,29 +74,3 @@ class DefaultLevelSuite extends munit.FunSuite:
     assert(stock == stockStub)
   }
 
-  test("Level created a depth") {
-
-    val depthStub = new Depth {
-      override def expandStore(store: Store): Store = fail("unexpected")
-    }
-
-    given DepthFactory with
-      override def makeDepth(number: Int): Depth =
-        assert(number == 3)
-        depthStub
-
-    given LevelFactory with
-      override def makeLevel(number: Int): Level = fail("unexpected")
-
-    given StockFactory with
-      override def makeStock(size: Int, level: Level): Stock = fail("unexpected")
-
-    given StoreFactory with
-      override def makeStore(size: Int): Store = fail("unexpected")
-
-    val level = DefaultLevel(3)
-
-    val depth = level.toDepth
-
-    assert(depth == depthStub)
-  }

@@ -7,10 +7,21 @@ trait LevelFactory:
 
   def makeLevel(number: Int): Level
 
+  lazy val emptyLevel: Level
+
 object LevelFactory:
 
-  def apply()(using DepthFactory, StockFactory, StoreFactory): LevelFactory =
+  val cachedFactory: Option[LevelFactory] = None
+
+  def apply()(using StockFactory, StoreFactory): LevelFactory = cachedFactory.getOrElse {
+
     new LevelFactory:
+
       override def makeLevel(number: Int): Level =
         given LevelFactory = this
         DefaultLevel(number)
+
+      override lazy val emptyLevel: Level = makeLevel(0)
+  }
+
+

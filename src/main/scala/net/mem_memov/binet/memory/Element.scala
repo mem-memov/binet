@@ -14,13 +14,10 @@ trait Element:
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element.Write]
+  ): Either[String, Element]
 
   def read(
     origin: Address
   ): Either[String, Address]
 
-object Element:
-
-  case class Write(element: Element, depth: Depth)
 

@@ -14,7 +14,7 @@ case class DefaultElement(
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element.Write] =
+  ): Either[String, Element] =
 
     destination.shorten match
       case None =>
@@ -23,20 +23,14 @@ case class DefaultElement(
         if rest.isEmpty then
           val presentStore = storeOption.getOrElse(level.createStore())
           for {
-            padded <- presentStore.padBig(content)
-            updatedStore <- presentStore.write(index, padded)
-          } yield
-            val updatedElement = this.copy(storeOption = Some(updatedStore))
-            Element.Write(updatedElement, level.toDepth)
+            expandedStore <- Right(content.expandStore(presentStore))
+            updatedStore <- expandedStore.write(index, content)
+          } yield this.copy(storeOption = Some(updatedStore))
         else
           val presentStock = stockOption.getOrElse(level.createStock())
           for {
-            stockWrite <- presentStock.write(index, rest, content)
-          } yield
-            val presentStore = storeOption.getOrElse(level.createStore())
-            val expandedStore = stockWrite.depth.expandStore(presentStore)
-            val updatedElement = this.copy(storeOption = Option(expandedStore), stockOption = Some(stockWrite.stock))
-            Element.Write(updatedElement, stockWrite.depth)
+            updatedStock <- presentStock.write(index, rest, content)
+          } yield this.copy(stockOption = Some(updatedStock))
 
   override
   def read(
@@ -53,7 +47,3 @@ case class DefaultElement(
         else
           val presentStock = stockOption.getOrElse(level.createStock())
           presentStock.read(index, rest)
-
-object DefaultElement:
-
-  def root(using DefaultFactory): Element = DefaultElement(DefaultLevel.top, None, None)
