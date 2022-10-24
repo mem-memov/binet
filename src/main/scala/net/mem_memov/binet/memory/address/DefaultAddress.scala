@@ -120,7 +120,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
           Right(this.copy(indices = newIndices))
-  
+
   private[memory]
   override
   def shorten: Option[(UnsignedByte, Address)] =
@@ -131,7 +131,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
       None
 
   override
-  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]] =
+  def zipIndices(elements: Vector[WritableBlock]): Either[String, Vector[(UnsignedByte, WritableBlock)]] =
 
     if elements.length != indices.length then
       Left("Lengths differ")

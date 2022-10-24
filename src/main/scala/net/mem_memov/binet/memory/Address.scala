@@ -37,7 +37,7 @@ trait Address extends Ordered[Address] with ZippingAddress:
 
 trait ZippingAddress:
 
-  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]]
+  def zipIndices(elements: Vector[WritableBlock]): Either[String, Vector[(UnsignedByte, WritableBlock)]]
 
 
 

@@ -8,14 +8,17 @@ import net.mem_memov.binet.memory.block.DefaultBlock
  * Blocks are for storing separate indices of an address.
  * At each level blocks are organized into stores.
  */
-trait Block:
+trait Block extends WritableBlock with ReadableBlock
 
-  def read(
-    position: UnsignedByte
-  ): UnsignedByte
+trait WritableBlock:
 
   def write(
     position: UnsignedByte,
     content: UnsignedByte
   ): Block
 
+trait ReadableBlock:
+
+  def read(
+    position: UnsignedByte
+  ): UnsignedByte

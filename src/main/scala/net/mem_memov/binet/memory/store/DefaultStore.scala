@@ -16,7 +16,7 @@ case class DefaultStore(
   def write(
     destination: UnsignedByte,
     content: ZippingAddress
-  ): Either[String, Store] =
+  ): Either[String, DefaultStore] =
 
     for {
       pairs <- content.zipIndices(blocks)

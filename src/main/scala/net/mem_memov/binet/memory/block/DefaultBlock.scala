@@ -1,10 +1,10 @@
 package net.mem_memov.binet.memory.block
 
-import net.mem_memov.binet.memory.{Block, UnsignedByte}
+import net.mem_memov.binet.memory._
 
 case class DefaultBlock(
   space: Vector[UnsignedByte]
-) extends Block:
+) extends Block with WritableBlock with ReadableBlock:
 
   override
   def read(
@@ -16,12 +16,5 @@ case class DefaultBlock(
   def write(
     position: UnsignedByte,
     content: UnsignedByte
-  ): Block =
+  ): DefaultBlock =
     this.copy(space = space.updated(position.toInt, content))
-
-object DefaultBlock:
-
-  val empty: Block =
-    DefaultBlock(
-      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
-    )

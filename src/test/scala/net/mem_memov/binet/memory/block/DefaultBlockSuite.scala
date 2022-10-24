@@ -1,11 +1,12 @@
 package net.mem_memov.binet.memory.block
 
-import net.mem_memov.binet.memory.{Block, UnsignedByte}
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.factory.defaultFactory._
 
 class DefaultBlockSuite extends munit.FunSuite:
 
   test("Read a byte from a block") {
-    val block = DefaultBlock.empty
+    val block = BlockFactory().emptyBlock
     (
       for {
         position <- Byte.MinValue to Byte.MaxValue
@@ -20,7 +21,7 @@ class DefaultBlockSuite extends munit.FunSuite:
   }
 
   test("Read a byte from a fresh block") {
-    val block = DefaultBlock.empty
+    val block = BlockFactory().emptyBlock
     (
       for {
         position <- Byte.MinValue to Byte.MaxValue
