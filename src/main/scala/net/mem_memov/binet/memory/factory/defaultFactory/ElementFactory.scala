@@ -10,18 +10,16 @@ trait ElementFactory:
   lazy val rootElement: Element
 
 object ElementFactory:
-
-  val cachedFactory: Option[ElementFactory] = None
   
-  def apply()(using levelFactory: LevelFactory): ElementFactory = cachedFactory.getOrElse {
+  def apply()(using levelFactory: LevelFactory): ElementFactory =
     
     new ElementFactory:
       
       override def makeElement(level: Level): Element = 
         DefaultElement(level, None, None)
         
-      override lazy val rootElement: Element = 
-        DefaultElement(levelFactory.emptyLevel, None, None)
-  }
+      override lazy val rootElement: Element =
+        DefaultElement(levelFactory.emptyLevel(this), None, None)
+
 
 

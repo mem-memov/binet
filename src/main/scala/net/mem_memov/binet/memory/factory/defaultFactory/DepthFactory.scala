@@ -9,13 +9,11 @@ trait DepthFactory:
 
 object DepthFactory:
 
-  val cachedFactory: Option[DepthFactory] = None
+  def apply(): DepthFactory =
 
-  def apply(): DepthFactory = cachedFactory.getOrElse {
-    
     new DepthFactory:
-      
+
       override lazy val emptyDepth: Depth = DefaultDepth(0)
-  }
+
 
 

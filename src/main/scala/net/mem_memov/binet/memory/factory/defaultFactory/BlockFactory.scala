@@ -11,7 +11,7 @@ object BlockFactory:
 
   val cachedFactory: Option[BlockFactory] = None
 
-  def apply(): BlockFactory = cachedFactory.getOrElse {
+  def apply(): BlockFactory = 
     
     new BlockFactory:
       
@@ -19,6 +19,6 @@ object BlockFactory:
         DefaultBlock(
           Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
         )
-  }
+
 
 

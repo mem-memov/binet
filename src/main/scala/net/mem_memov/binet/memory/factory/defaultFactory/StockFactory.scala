@@ -7,23 +7,21 @@ import net.mem_memov.binet.memory.level.DefaultLevel
 
 trait StockFactory:
 
-  def makeStock(size: Int, level: Level): Stock
+  def makeStock(size: Int, level: Level)(using elementFactory: ElementFactory): Stock
 
 object StockFactory:
 
-  val cachedFactory: Option[StockFactory] = None
-
-  def apply()(using elementFactory: ElementFactory): StockFactory = cachedFactory.getOrElse {
+  def apply(): StockFactory =
 
     new StockFactory:
 
-      override def makeStock(size: Int, level: Level): Stock =
+      override def makeStock(size: Int, level: Level)(using elementFactory: ElementFactory): Stock =
 
         val emptyElement = elementFactory.makeElement(level)
 
         val elements = Vector.fill[Element](DefaultLevel.size)(emptyElement)
 
         DefaultStock(elements)
-  }
+
 
 

@@ -10,9 +10,7 @@ trait StoreFactory:
 
 object StoreFactory:
 
-  val cachedFactory: Option[StoreFactory] = None
-  
-  def apply()(using blockFactory: BlockFactory): StoreFactory = cachedFactory.getOrElse {
+  def apply()(using blockFactory: BlockFactory): StoreFactory = 
 
     new StoreFactory:
 
@@ -21,5 +19,5 @@ object StoreFactory:
         val blocks = Vector.fill[Block](size)(DefaultBlock.empty)
 
         DefaultStore(blocks)
-  }
+
 

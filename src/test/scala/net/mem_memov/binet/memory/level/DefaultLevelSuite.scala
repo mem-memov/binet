@@ -12,12 +12,16 @@ class DefaultLevelSuite extends munit.FunSuite:
     given DepthFactory with
       override lazy val emptyDepth: Depth = fail("unexpected")
 
+    given ElementFactory with
+      override def makeElement(level: Level): Element = ???
+      override lazy val rootElement: Element = ???
+
     given LevelFactory with
-      override def makeLevel(number: Int): Level = fail("unexpected")
-      override lazy val emptyLevel: Level = fail("unexpected")
+      override def makeLevel(number: Int)(using elementFactory: ElementFactory): Level = fail("unexpected")
+      override def emptyLevel(elementFactory: ElementFactory): Level = fail("unexpected")
 
     given StockFactory with
-      override def makeStock(size: Int, level: Level): Stock = fail("unexpected")
+      override def makeStock(size: Int, level: Level)(using elementFactory: ElementFactory): Stock = fail("unexpected")
 
     val storeStub = new Store {
       override def write(destination: UnsignedByte, content: Address): Either[String, Store] = fail("unexpected")
@@ -47,11 +51,15 @@ class DefaultLevelSuite extends munit.FunSuite:
       override def createStock(): Stock = ???
     }
 
+    given ElementFactory with
+      override def makeElement(level: Level): Element = ???
+      override lazy val rootElement: Element = ???
+
     given LevelFactory with
-      override def makeLevel(number: Int): Level =
+      override def makeLevel(number: Int)(using elementFactory: ElementFactory): Level =
         assert(number == 4)
         levelStub
-      override lazy val emptyLevel: Level = fail("unexpected")
+      override def emptyLevel(elementFactory: ElementFactory): Level = fail("unexpected")
 
     val stockStub = new Stock {
       override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock] = fail("unexpected")
@@ -59,7 +67,7 @@ class DefaultLevelSuite extends munit.FunSuite:
     }
 
     given StockFactory with
-      override def makeStock(size: Int, level: Level): Stock =
+      override def makeStock(size: Int, level: Level)(using elementFactory: ElementFactory): Stock =
         assert(size == 256)
         assert(level == levelStub)
         stockStub

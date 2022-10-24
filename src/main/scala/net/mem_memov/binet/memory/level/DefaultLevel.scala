@@ -12,6 +12,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 case class DefaultLevel(
   number: Int
 )(using
+  elementFactory: ElementFactory,
   levelFactory: LevelFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory

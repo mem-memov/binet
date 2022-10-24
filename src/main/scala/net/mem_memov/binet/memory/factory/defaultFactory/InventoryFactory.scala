@@ -9,13 +9,11 @@ trait InventoryFactory:
 
 object InventoryFactory:
 
-  val cachedFactory: Option[InventoryFactory] = None
-
   def apply()(using
     addressFactory: AddressFactory,
     depthFactory: DepthFactory,
     elementFactory: ElementFactory
-  ): InventoryFactory = cachedFactory.getOrElse {
+  ): InventoryFactory = 
 
     new InventoryFactory:
 
@@ -26,6 +24,6 @@ object InventoryFactory:
           elementFactory.rootElement,
           depthFactory.emptyDepth
         )
-  }
+
 
 

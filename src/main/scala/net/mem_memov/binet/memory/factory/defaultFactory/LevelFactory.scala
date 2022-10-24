@@ -5,23 +5,21 @@ import net.mem_memov.binet.memory.level.DefaultLevel
 
 trait LevelFactory:
 
-  def makeLevel(number: Int): Level
+  def makeLevel(number: Int)(using elementFactory: ElementFactory): Level
 
-  lazy val emptyLevel: Level
+  def emptyLevel(elementFactory: ElementFactory): Level
 
 object LevelFactory:
 
-  val cachedFactory: Option[LevelFactory] = None
-
-  def apply()(using StockFactory, StoreFactory): LevelFactory = cachedFactory.getOrElse {
-
+  def apply()(using StockFactory, StoreFactory): LevelFactory = 
+    
     new LevelFactory:
 
-      override def makeLevel(number: Int): Level =
+      override def makeLevel(number: Int)(using elementFactory: ElementFactory): Level =
         given LevelFactory = this
         DefaultLevel(number)
 
-      override lazy val emptyLevel: Level = makeLevel(0)
-  }
+      override def emptyLevel(using elementFactory: ElementFactory): Level = makeLevel(0)
+
 
 

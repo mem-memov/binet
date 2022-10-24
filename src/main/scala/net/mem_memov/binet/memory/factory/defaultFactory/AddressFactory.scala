@@ -9,13 +9,11 @@ trait AddressFactory:
 
 object AddressFactory:
 
-  val cachedFactory: Option[AddressFactory] = None
-
-  def apply(): AddressFactory = cachedFactory.getOrElse {
+  def apply(): AddressFactory = 
     
     new AddressFactory:
       
       override lazy val zeroAddress: Address =
         DefaultAddress(List(UnsignedByte.minimum))
-  }
+
 
