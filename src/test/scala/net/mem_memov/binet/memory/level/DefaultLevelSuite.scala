@@ -13,8 +13,8 @@ class DefaultLevelSuite extends munit.FunSuite:
       override lazy val emptyDepth: Depth = fail("unexpected")
 
     given ElementFactory with
-      override def makeElement(level: Level): Element = ???
-      override lazy val rootElement: Element = ???
+      override def makeElement(level: Level): Element = fail("unexpected")
+      override lazy val rootElement: Element = fail("unexpected")
 
     given LevelFactory with
       override def makeLevel(number: Int)(using elementFactory: ElementFactory): Level = fail("unexpected")
@@ -47,13 +47,13 @@ class DefaultLevelSuite extends munit.FunSuite:
       override lazy val emptyDepth: Depth = fail("unexpected")
 
     val levelStub = new Level {
-      override def createStore(): Store = ???
-      override def createStock(): Stock = ???
+      override def createStore(): Store = fail("unexpected")
+      override def createStock(): Stock = fail("unexpected")
     }
 
     given ElementFactory with
-      override def makeElement(level: Level): Element = ???
-      override lazy val rootElement: Element = ???
+      override def makeElement(level: Level): Element = fail("unexpected")
+      override lazy val rootElement: Element = fail("unexpected")
 
     given LevelFactory with
       override def makeLevel(number: Int)(using elementFactory: ElementFactory): Level =
