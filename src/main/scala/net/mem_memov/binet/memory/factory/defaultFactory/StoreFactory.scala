@@ -6,17 +6,17 @@ import net.mem_memov.binet.memory.store.DefaultStore
 
 trait StoreFactory:
   
-  def makeStore(size: Int): Store
+  def makeStore(): Store
 
 object StoreFactory:
 
-  def apply()(using blockFactory: BlockFactory): StoreFactory = 
+  def apply()(using blockFactory: BlockFactory): StoreFactory =
 
     new StoreFactory:
 
-      override def makeStore(size: Int): Store =
+      override def makeStore(): Store =
 
-        val blocks = Vector.fill[Block](size)(DefaultBlock.empty)
+        val blocks = Vector(DefaultBlock.empty)
 
         DefaultStore(blocks)
 

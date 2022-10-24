@@ -21,7 +21,7 @@ object InventoryFactory:
 
         DefaultInventory(
           addressFactory.zeroAddress,
-          elementFactory.rootElement,
+          elementFactory.emptyElement,
           depthFactory.emptyDepth
         )
 

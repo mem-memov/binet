@@ -19,7 +19,6 @@ object DefaultFactory:
     given depthFactory: DepthFactory = DepthFactory()
     given elementFactory: ElementFactory = ElementFactory()
     given inventoryFactory: InventoryFactory = InventoryFactory()
-    given levelFactory: LevelFactory = LevelFactory()
     given stockFactory: StockFactory = StockFactory()
     given storeFactory: StoreFactory = StoreFactory()
 

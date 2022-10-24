@@ -1,13 +1,15 @@
 package net.mem_memov.binet.memory.element
 
-import net.mem_memov.binet.memory.level.DefaultLevel
-import net.mem_memov.binet.memory.factory.DefaultFactory
 import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.factory.defaultFactory._
 
 case class DefaultElement(
-  level: Level,
   storeOption: Option[Store],
   stockOption: Option[Stock]
+)(using
+  elementFactory: ElementFactory,
+  stockFactory: StockFactory,
+  storeFactory: StoreFactory
 ) extends Element:
 
   override
@@ -21,13 +23,13 @@ case class DefaultElement(
         Left("Destination not written")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(level.createStore())
+          val presentStore = storeOption.getOrElse(storeFactory.makeStore())
           for {
             expandedStore <- Right(content.expandStore(presentStore))
             updatedStore <- expandedStore.write(index, content)
           } yield this.copy(storeOption = Some(updatedStore))
         else
-          val presentStock = stockOption.getOrElse(level.createStock())
+          val presentStock = stockOption.getOrElse(stockFactory.makeStock())
           for {
             updatedStock <- presentStock.write(index, rest, content)
           } yield this.copy(stockOption = Some(updatedStock))
@@ -42,8 +44,8 @@ case class DefaultElement(
         Left("Origin not read")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(level.createStore())
+          val presentStore = storeOption.getOrElse(storeFactory.makeStore())
           Right(presentStore.read(index))
         else
-          val presentStock = stockOption.getOrElse(level.createStock())
+          val presentStock = stockOption.getOrElse(stockFactory.makeStock())
           presentStock.read(index, rest)

@@ -22,3 +22,7 @@ case class DefaultStock(elements: Vector[Element]) extends Stock:
   ): Either[String, Address] =
     elements(index.toInt).read(origin)
 
+
+object DefaultStock:
+
+  lazy val size: Int = UnsignedByte.maximum.toInt + 1

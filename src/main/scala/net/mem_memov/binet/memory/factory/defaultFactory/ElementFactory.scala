@@ -5,21 +5,17 @@ import net.mem_memov.binet.memory.element.DefaultElement
 
 trait ElementFactory:
 
-  def makeElement(level: Level): Element
-
-  lazy val rootElement: Element
+  val emptyElement: Element
 
 object ElementFactory:
-  
-  def apply()(using levelFactory: LevelFactory): ElementFactory =
-    
+
+  def apply()(using StockFactory, StoreFactory): ElementFactory =
+
     new ElementFactory:
-      
-      override def makeElement(level: Level): Element = 
-        DefaultElement(level, None, None)
-        
-      override lazy val rootElement: Element =
-        DefaultElement(levelFactory.emptyLevel(this), None, None)
+
+      override val emptyElement: Element =
+        given ElementFactory = this
+        DefaultElement(None, None)
 
 
 
