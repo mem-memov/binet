@@ -2,7 +2,9 @@ package net.mem_memov.binet.memory.stock
 
 import net.mem_memov.binet.memory._
 
-case class DefaultStock(elements: Vector[Element]) extends Stock:
+case class DefaultStock(
+  elements: Vector[Element]
+) extends Stock with WritableStock with ReadableStock:
 
   override
   def write(

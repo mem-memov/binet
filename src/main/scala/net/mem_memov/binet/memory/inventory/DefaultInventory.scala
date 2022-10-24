@@ -5,9 +5,12 @@ import net.mem_memov.binet.memory.element.DefaultElement
 import net.mem_memov.binet.memory.factory.DefaultFactory
 import net.mem_memov.binet.memory._
 
-case class DefaultInventory(next: Address, root: Element) extends Inventory:
+case class DefaultInventory(
+  next: Address,
+  root: Element
+) extends Inventory with NextAddressInventory with AppendableInventory with UpdatableInventory with ReadableInventory:
 
-  def append(content: Address): Either[String, Inventory] =
+  def append(content: Address): Either[String, DefaultInventory] =
     val trimmedContent = if content.isEmpty then DefaultAddress.zero else content.trimBig
     if trimmedContent >= next && next != DefaultAddress.zero then
       Left("Inventory not appended: content out of boundary")
@@ -17,7 +20,7 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
         newNext <- Right(next.increment)
       } yield this.copy(next = newNext, root = updatedRoot)
 
-  def update(destination: Address, content: Address): Either[String, Inventory] =
+  def update(destination: Address, content: Address): Either[String, DefaultInventory] =
     val trimmedDestination = if content.isEmpty then DefaultAddress.zero else destination.trimBig
     val trimmedContent = if content.isEmpty then DefaultAddress.zero else content.trimBig
     if trimmedDestination >= next then
@@ -38,7 +41,3 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
       for {
         content <- root.read(trimmedOrigin)
       } yield content.trimBig
-
-object DefaultInventory:
-
-  val start: Address = DefaultAddress.zero

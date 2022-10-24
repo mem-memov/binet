@@ -8,7 +8,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
   lazy val length: Int = indices.length
 
   override
-  def increment: Address =
+  def increment: DefaultAddress =
 
     def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
 
@@ -30,7 +30,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
     this.copy(indices = resultIndices)
 
   override
-  def decrement: Either[String, Address] =
+  def decrement: Either[String, DefaultAddress] =
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
       if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
@@ -99,14 +99,14 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
 
   private[memory]
   override
-  def trimBig: Address =
+  def trimBig: DefaultAddress =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
     this.copy(indices = nonEmptyIndices)
 
   private[memory]
   override
-  def padBig(target: Int ): Either[String, Address] =
+  def padBig(target: Int ): Either[String, DefaultAddress] =
 
     if length == target then
       Right(this)
@@ -123,7 +123,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
 
   private[memory]
   override
-  def shorten: Option[(UnsignedByte, Address)] =
+  def shorten: Option[(UnsignedByte, DefaultAddress)] =
 
     if length > 0 then
       Some(indices.head -> this.copy(indices = indices.tail))

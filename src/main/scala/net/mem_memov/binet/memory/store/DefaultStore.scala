@@ -10,7 +10,7 @@ case class DefaultStore(
 )(using
   addressFactory: AddressFactory,
   blockFactory: BlockFactory
-) extends Store:
+) extends Store with WritableStore with ReadableStore with ExpandableStore:
 
   override
   def write(
@@ -42,7 +42,7 @@ case class DefaultStore(
   override
   def expand(
     minimumLength: Int
-  ): Store =
+  ): DefaultStore =
 
     if blocks.length >= minimumLength then
       this

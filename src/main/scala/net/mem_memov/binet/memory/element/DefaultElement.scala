@@ -10,13 +10,13 @@ case class DefaultElement(
   elementFactory: ElementFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory
-) extends Element:
+) extends Element with WritableElement with ReadableElement:
 
   override
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element] =
+  ): Either[String, DefaultElement] =
 
     destination.shorten match
       case None =>
