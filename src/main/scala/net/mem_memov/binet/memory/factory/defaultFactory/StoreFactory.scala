@@ -10,7 +10,10 @@ trait StoreFactory:
 
 object StoreFactory:
 
-  def apply()(using blockFactory: BlockFactory): StoreFactory =
+  def apply()(
+    using addressFactory: AddressFactory, 
+    blockFactory: BlockFactory
+  ): StoreFactory =
 
     new StoreFactory:
 

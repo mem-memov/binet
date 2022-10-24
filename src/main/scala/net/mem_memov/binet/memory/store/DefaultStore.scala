@@ -2,12 +2,13 @@ package net.mem_memov.binet.memory.store
 
 import net.mem_memov.binet.memory.address.DefaultAddress
 import net.mem_memov.binet.memory.block.DefaultBlock
-import net.mem_memov.binet.memory.factory.defaultFactory.BlockFactory
+import net.mem_memov.binet.memory.factory.defaultFactory._
 import net.mem_memov.binet.memory._
 
 case class DefaultStore(
   blocks: Vector[Block]
 )(using
+  addressFactory: AddressFactory,
   blockFactory: BlockFactory
 ) extends Store:
 
@@ -36,7 +37,7 @@ case class DefaultStore(
         block.read(origin) :: parts
     }
 
-    DefaultAddress(parts.reverse)
+    addressFactory.makeAddress(parts.reverse)
 
   override
   def expand(
