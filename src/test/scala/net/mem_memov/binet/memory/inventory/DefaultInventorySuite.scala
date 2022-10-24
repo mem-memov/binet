@@ -7,9 +7,7 @@ class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
 
-    val factory = DefaultFactory()
-
-    val inventory = factory.makeEmptyInventory()
+    val inventory = DefaultFactory().makeEmptyInventory()
 
     val start = DefaultInventory.start
 
@@ -24,30 +22,17 @@ class DefaultInventorySuite extends munit.FunSuite:
     }
   }
 
-//  test("Append and read addresses") {
-//
-//    val inventory = Inventory()
-//
-//    val start = Inventory.start
-//
-//    val (_, addresses) = (0 to 5).foldLeft((start, List(start))) {
-//      case ((previous, addresses), _) =>
-//        val next = previous.increment
-//        (next, next :: addresses)
-//    }
-//
-//    val (inventoryWitDestinations, destinations) = addresses.foldLeft((inventory, List.empty[Address])) {
-//      case ((inventory, destinations), content) =>
-//        for {
-//          destination <- Right(inventory.next)
-//          updatedInventory <- inventory.append(content)
-//        } yield (updatedInventory, destination :: destinations)
-//    }
-//
-//    destinations.zip(addresses).foreach {
-//      case (origin, expected) =>
-//        for {
-//          content <- inventoryWitDestinations.read(origin)
-//        } yield assert(content == expected)
-//    }
-//  }
+  test("Append and read the first address") {
+
+    val inventory = DefaultFactory().makeEmptyInventory()
+
+    val start = inventory.next
+
+    for {
+      updatedInventory <- inventory.append(start)
+      result <- updatedInventory.read(start)
+    } yield updatedInventory match {
+      case DefaultInventory(next, root) => assert(result == start)
+      case _ => fail("unexpected")
+    }
+  }

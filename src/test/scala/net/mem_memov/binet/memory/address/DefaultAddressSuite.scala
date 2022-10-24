@@ -35,7 +35,7 @@ class DefaultAddressSuite extends munit.FunSuite:
       .padTo(n * 100, UnsignedByte.fromInt(n)))
       .foreach { indices =>
           assert(
-            DefaultAddress(indices).hasLength(indices.length)
+            DefaultAddress(indices).length == (indices.length)
           )
         }
   }

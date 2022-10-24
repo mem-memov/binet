@@ -2,16 +2,12 @@ package net.mem_memov.binet.memory.address
 
 import net.mem_memov.binet.memory._
 
-case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
+case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
 
-  val indices: List[UnsignedByte] = parts
-
+  override
   lazy val length: Int = indices.length
 
-  def hasLength(length: Int): Boolean =
-
-    this.length == length
-
+  override
   def increment: Address =
 
     def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
@@ -31,8 +27,9 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
 
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
-    this.copy(parts = resultIndices)
+    this.copy(indices = resultIndices)
 
+  override
   def decrement: Either[String, Address] =
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
@@ -57,8 +54,9 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
       if hasOverflow then
         Left("Address not decremented: already at minimum")
       else
-        Right(this.copy(parts = accumulator.reverse))
+        Right(this.copy(indices = accumulator.reverse))
 
+  override
   def isZero: Boolean =
 
     length == 1 && indices.head == UnsignedByte.minimum
@@ -94,17 +92,20 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
     indices.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
   private[memory]
+  override
   def isEmpty: Boolean =
 
     length == 0
 
   private[memory]
+  override
   def trimBig: Address =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
-    this.copy(parts = nonEmptyIndices)
+    this.copy(indices = nonEmptyIndices)
 
   private[memory]
+  override
   def padBig(target: Int ): Either[String, Address] =
 
     if length == target then
@@ -118,21 +119,26 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
           Left("Address not padded: already too long")
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
-          Right(this.copy(parts = newIndices))
-
-
+          Right(this.copy(indices = newIndices))
+  
   private[memory]
+  override
   def shorten: Option[(UnsignedByte, Address)] =
 
     if length > 0 then
-      Some(indices.head -> this.copy(parts = indices.tail))
+      Some(indices.head -> this.copy(indices = indices.tail))
     else
       None
 
-  def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)] =
+  override
+  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]] =
 
-    indices.toVector.zip(elements)
-    
+    if elements.length != indices.length then
+      Left("Lengths differ")
+    else
+      Right(indices.toVector.zip(elements))
+
+  override
   def expandStore(store: Store): Store =
 
     store.expand(length)

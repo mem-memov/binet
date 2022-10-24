@@ -17,13 +17,14 @@ case class DefaultStore(
     content: Address
   ): Either[String, Store] =
 
-    if !content.hasLength(blocks.length) then
-      Left("Destination not written: content has wrong number of indices")
-    else
-      val updatedBlocks = content.zipIndices(blocks).map { case (part, block) =>
-        block.write(destination, part)
-      }
-      Right(this.copy(blocks = updatedBlocks))
+    for {
+      pairs <- content.zipIndices(blocks)
+      updatedBlocks <- Right(
+        pairs.map { case (part, block) =>
+          block.write(destination, part)
+        }
+      )
+    } yield this.copy(blocks = updatedBlocks)
 
   override
   def read(

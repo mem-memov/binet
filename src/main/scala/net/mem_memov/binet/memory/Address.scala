@@ -12,8 +12,6 @@ trait Address extends Ordered[Address]:
 
   lazy val length: Int
 
-  def hasLength(length: Int): Boolean
-
   def increment: Address
 
   def decrement: Either[String, Address]
@@ -35,7 +33,7 @@ trait Address extends Ordered[Address]:
   private[memory]
   def shorten: Option[(UnsignedByte, Address)]
 
-  def zipIndices[A](elements: Vector[A]): Vector[(UnsignedByte, A)]
+  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]]
 
   def expandStore(store: Store): Store
 

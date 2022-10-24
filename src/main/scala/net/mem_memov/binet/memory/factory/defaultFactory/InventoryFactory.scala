@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.inventory.DefaultInventory
 
 trait InventoryFactory:
 
-  def makeEmptyInventory(): DefaultInventory
+  def makeEmptyInventory(): Inventory
 
 object InventoryFactory:
 
@@ -16,7 +16,7 @@ object InventoryFactory:
 
     new InventoryFactory:
 
-      override def makeEmptyInventory(): DefaultInventory =
+      override def makeEmptyInventory(): Inventory =
 
         DefaultInventory(
           addressFactory.zeroAddress,
