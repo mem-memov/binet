@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.stock
 
-import net.mem_memov.binet.memory.{Address, Depth, Element, Stock, UnsignedByte}
+import net.mem_memov.binet.memory._
 
 case class DefaultStock(elements: Vector[Element]) extends Stock:
 

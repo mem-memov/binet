@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 import net.mem_memov.binet.memory.factory.DefaultFactory
 import net.mem_memov.binet.memory._
 
-case class DefaultInventory(next: Address, root: Element, depth: Depth) extends Inventory:
+case class DefaultInventory(next: Address, root: Element) extends Inventory:
 
   def append(content: Address): Either[String, Inventory] =
     val trimmedContent = if content.isEmpty then DefaultAddress.zero else content.trimBig

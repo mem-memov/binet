@@ -11,9 +11,8 @@ object InventoryFactory:
 
   def apply()(using
     addressFactory: AddressFactory,
-    depthFactory: DepthFactory,
     elementFactory: ElementFactory
-  ): InventoryFactory = 
+  ): InventoryFactory =
 
     new InventoryFactory:
 
@@ -21,8 +20,7 @@ object InventoryFactory:
 
         DefaultInventory(
           addressFactory.zeroAddress,
-          elementFactory.emptyElement,
-          depthFactory.emptyDepth
+          elementFactory.emptyElement
         )
 
 

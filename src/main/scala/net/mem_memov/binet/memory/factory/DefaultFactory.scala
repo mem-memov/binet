@@ -16,7 +16,6 @@ object DefaultFactory:
 
     given addressFactory: AddressFactory = AddressFactory()
     given blockFactory: BlockFactory = BlockFactory()
-    given depthFactory: DepthFactory = DepthFactory()
     given elementFactory: ElementFactory = ElementFactory()
     given inventoryFactory: InventoryFactory = InventoryFactory()
     given stockFactory: StockFactory = StockFactory()
