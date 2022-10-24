@@ -15,7 +15,7 @@ case class DefaultStore(
   override
   def write(
     destination: UnsignedByte,
-    content: Address
+    content: ZippingAddress
   ): Either[String, Store] =
 
     for {

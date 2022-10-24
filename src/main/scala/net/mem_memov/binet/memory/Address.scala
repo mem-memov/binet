@@ -6,7 +6,7 @@ import net.mem_memov.binet.memory.address.DefaultAddress
  * Address has the property that it can be incremented infinitely without overflow.
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
  */
-trait Address extends Ordered[Address]:
+trait Address extends Ordered[Address] with ZippingAddress:
 
   val indices: List[UnsignedByte]
 
@@ -33,10 +33,11 @@ trait Address extends Ordered[Address]:
   private[memory]
   def shorten: Option[(UnsignedByte, Address)]
 
-  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]]
-
   def expandStore(store: Store): Store
 
+trait ZippingAddress:
+
+  def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]]
 
 
 

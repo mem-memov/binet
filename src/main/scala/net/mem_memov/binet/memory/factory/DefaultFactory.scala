@@ -21,4 +21,4 @@ object DefaultFactory:
     given stockFactory: StockFactory = StockFactory()
     given storeFactory: StoreFactory = StoreFactory()
 
-    export inventoryFactory.*
+    lazy val emptyInventory: Inventory = inventoryFactory.emptyInventory

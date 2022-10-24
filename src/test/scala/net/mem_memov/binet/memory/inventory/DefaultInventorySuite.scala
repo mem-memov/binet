@@ -7,7 +7,7 @@ class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
 
-    val inventory = DefaultFactory().makeEmptyInventory()
+    val inventory = DefaultFactory().emptyInventory
 
     val start = DefaultInventory.start
 
@@ -24,7 +24,7 @@ class DefaultInventorySuite extends munit.FunSuite:
 
   test("Append and read the first address") {
 
-    val inventory = DefaultFactory().makeEmptyInventory()
+    val inventory = DefaultFactory().emptyInventory
 
     val start = inventory.next
 

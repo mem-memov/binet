@@ -10,7 +10,7 @@ trait Store:
 
   def write(
     destination: UnsignedByte,
-    content: Address
+    content: ZippingAddress
   ): Either[String, Store]
 
   def read(

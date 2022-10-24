@@ -23,7 +23,7 @@ case class DefaultElement(
         Left("Destination not written")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(storeFactory.makeStore())
+          val presentStore = storeOption.getOrElse(storeFactory.emptyStore)
           for {
             expandedStore <- Right(content.expandStore(presentStore))
             updatedStore <- expandedStore.write(index, content)
@@ -44,7 +44,7 @@ case class DefaultElement(
         Left("Origin not read")
       case Some((index, rest)) =>
         if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(storeFactory.makeStore())
+          val presentStore = storeOption.getOrElse(storeFactory.emptyStore)
           Right(presentStore.read(index))
         else
           val presentStock = stockOption.getOrElse(stockFactory.makeStock())

@@ -3,9 +3,27 @@ package net.mem_memov.binet.memory.store
 import net.mem_memov.binet.memory.block.DefaultBlock
 import net.mem_memov.binet.memory.address.DefaultAddress
 import net.mem_memov.binet.memory.factory.defaultFactory.{AddressFactory, BlockFactory}
-import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
+import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte, ZippingAddress}
 
 class DefaultStoreSuite extends munit.FunSuite:
+
+  test("Store writes addresses") {
+
+    given AddressFactory = new AddressFactory:
+      override def makeAddress(indices: List[UnsignedByte]): Address = fail("unexpected")
+      override lazy val zeroAddress: Address = fail("unexpected")
+
+    given BlockFactory = new BlockFactory:
+      override lazy val emptyBlock: Block = fail("unexpected")
+
+    val store = DefaultStore(Vector(DefaultBlock.empty))
+
+    val content = new ZippingAddress {
+      override def zipIndices[A](elements: Vector[A]): Either[String, Vector[(UnsignedByte, A)]] = ???
+    }
+
+//    store.write()
+  }
 
   test("Store keeps addresses at indices") {
     given AddressFactory = AddressFactory()

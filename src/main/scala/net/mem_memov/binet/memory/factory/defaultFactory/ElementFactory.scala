@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.element.DefaultElement
 
 trait ElementFactory:
 
-  val emptyElement: Element
+  lazy val emptyElement: Element
 
 object ElementFactory:
 
@@ -13,7 +13,7 @@ object ElementFactory:
 
     new ElementFactory:
 
-      override val emptyElement: Element =
+      override lazy val emptyElement: Element =
         given ElementFactory = this
         DefaultElement(None, None)
 

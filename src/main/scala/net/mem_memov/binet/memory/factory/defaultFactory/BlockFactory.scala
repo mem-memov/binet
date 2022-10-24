@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.block.DefaultBlock
 
 trait BlockFactory:
 
-  val emptyBlock: Block
+  lazy val emptyBlock: Block
 
 object BlockFactory:
 
@@ -13,7 +13,7 @@ object BlockFactory:
 
     new BlockFactory:
 
-      override val emptyBlock: Block =
+      override lazy val emptyBlock: Block =
         DefaultBlock(
           Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
         )

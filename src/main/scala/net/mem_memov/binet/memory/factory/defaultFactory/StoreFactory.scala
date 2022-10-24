@@ -6,18 +6,18 @@ import net.mem_memov.binet.memory.store.DefaultStore
 
 trait StoreFactory:
   
-  def makeStore(): Store
+  lazy val emptyStore: Store
 
 object StoreFactory:
 
   def apply()(
-    using addressFactory: AddressFactory, 
+    using addressFactory: AddressFactory,
     blockFactory: BlockFactory
   ): StoreFactory =
 
     new StoreFactory:
 
-      override def makeStore(): Store =
+      override lazy val emptyStore: Store =
 
         val blocks = Vector(blockFactory.emptyBlock)
 
