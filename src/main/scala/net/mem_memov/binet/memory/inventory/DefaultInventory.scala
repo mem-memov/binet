@@ -32,9 +32,12 @@ case class DefaultInventory(next: Address, root: Element) extends Inventory:
 
   def read(origin: Address): Either[String, Address] =
     val trimmedOrigin = if origin.isEmpty then DefaultAddress.zero else origin.trimBig
-    for {
-      content <- root.read(trimmedOrigin)
-    } yield content.trimBig
+    if trimmedOrigin >= next then
+      Left("Reading failed: origin out of boundary")
+    else
+      for {
+        content <- root.read(trimmedOrigin)
+      } yield content.trimBig
 
 object DefaultInventory:
 

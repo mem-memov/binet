@@ -16,7 +16,7 @@ object StoreFactory:
 
       override def makeStore(): Store =
 
-        val blocks = Vector(DefaultBlock.empty)
+        val blocks = Vector(blockFactory.emptyBlock)
 
         DefaultStore(blocks)
 

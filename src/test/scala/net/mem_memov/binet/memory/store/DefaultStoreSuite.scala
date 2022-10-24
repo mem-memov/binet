@@ -2,11 +2,13 @@ package net.mem_memov.binet.memory.store
 
 import net.mem_memov.binet.memory.block.DefaultBlock
 import net.mem_memov.binet.memory.address.DefaultAddress
+import net.mem_memov.binet.memory.factory.defaultFactory.BlockFactory
 import net.mem_memov.binet.memory.{Address, Block, Store, UnsignedByte}
 
 class DefaultStoreSuite extends munit.FunSuite:
 
   test("Store keeps addresses at indices") {
+    given BlockFactory = BlockFactory()
     (
       for {
         size <- (1 to 10)
@@ -32,6 +34,7 @@ class DefaultStoreSuite extends munit.FunSuite:
   }
 
   test("Store rejects addresses that are too large (too many indices)") {
+    given BlockFactory = BlockFactory()
     (
       for {
         size <- (1 to 10)
@@ -53,6 +56,7 @@ class DefaultStoreSuite extends munit.FunSuite:
   }
 
   test("Store rejects addresses that are too small (to few indices)") {
+    given BlockFactory = BlockFactory()
     (
       for {
         size <- (2 to 10)
