@@ -10,13 +10,57 @@ case class DefaultStore(
 )(using
   addressFactory: AddressFactory,
   blockFactory: BlockFactory
-) extends Store with WritableStore with ReadableStore with ExpandableStore:
+) extends Store:
 
   override
   def write(
     destination: UnsignedByte,
     content: ZippingAddress
-  ): Either[String, DefaultStore] =
+  ): Either[String, Store] =
+
+    DefaultStore.write(
+      destination,
+      content,
+      blocks,
+      updateWithBlocks
+    )
+
+  override
+  def read(
+    origin: UnsignedByte
+  ): Address =
+
+    DefaultStore.read(
+      origin,
+      blocks,
+      addressFactory
+    )
+
+  override
+  def expand(
+    minimumLength: Int
+  ): Store =
+
+    DefaultStore.expand(
+      minimumLength,
+      blocks,
+      blockFactory,
+      updateWithBlocks,
+      this
+    )
+
+  def updateWithBlocks(updatedBlocks: Vector[Block]): Store =
+
+    this.copy(blocks = updatedBlocks)
+
+object DefaultStore:
+
+  def write(
+    destination: UnsignedByte,
+    content: ZippingAddress,
+    blocks: Vector[WritableBlock],
+    updateWithBlocks: Vector[Block] => Store
+  ): Either[String, Store] =
 
     for {
       pairs <- content.zipIndices(blocks)
@@ -25,11 +69,12 @@ case class DefaultStore(
           block.write(destination, part)
         }
       )
-    } yield this.copy(blocks = updatedBlocks)
+    } yield updateWithBlocks(updatedBlocks)
 
-  override
   def read(
-    origin: UnsignedByte
+    origin: UnsignedByte,
+    blocks: Vector[ReadableBlock],
+    addressFactory: MakingAddressFactory
   ): Address =
 
     val parts = blocks.foldLeft(List.empty[UnsignedByte]) {
@@ -39,13 +84,16 @@ case class DefaultStore(
 
     addressFactory.makeAddress(parts.reverse)
 
-  override
   def expand(
-    minimumLength: Int
-  ): DefaultStore =
+    minimumLength: Int,
+    blocks: Vector[Block],
+    blockFactory: BlockFactory,
+    updateWithBlocks: Vector[Block] => Store,
+    originalStore: Store
+  ): Store =
 
     if blocks.length >= minimumLength then
-      this
+      originalStore
     else
-      val prependedBlocks = (0 to minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
-      this.copy(blocks = blocks.prependedAll(prependedBlocks))
+      val prependedBlocks = (0 until minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
+      updateWithBlocks(blocks.prependedAll(prependedBlocks))

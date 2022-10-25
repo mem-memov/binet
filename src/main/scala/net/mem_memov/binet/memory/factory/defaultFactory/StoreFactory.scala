@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.block.DefaultBlock
 import net.mem_memov.binet.memory.store.DefaultStore
 
 trait StoreFactory:
-  
+
   lazy val emptyStore: Store
 
 object StoreFactory:

@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory._
 
 case class DefaultBlock(
   space: Vector[UnsignedByte]
-) extends Block with WritableBlock with ReadableBlock:
+) extends Block:
 
   override
   def read(

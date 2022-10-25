@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory._
 
 case class DefaultStock(
   elements: Vector[Element]
-) extends Stock with WritableStock with ReadableStock:
+) extends Stock:
 
   override
   def write(

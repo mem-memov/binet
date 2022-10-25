@@ -10,7 +10,7 @@ case class DefaultElement(
   elementFactory: ElementFactory,
   stockFactory: StockFactory,
   storeFactory: StoreFactory
-) extends Element with WritableElement with ReadableElement:
+) extends Element:
 
   override
   def write(

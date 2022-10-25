@@ -2,7 +2,10 @@ package net.mem_memov.binet.memory.address
 
 import net.mem_memov.binet.memory._
 
-case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
+case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
+
+  override
+  lazy val indices: List[UnsignedByte] = parts
 
   override
   lazy val length: Int = indices.length
@@ -27,7 +30,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
 
     val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
 
-    this.copy(indices = resultIndices)
+    this.copy(parts = resultIndices)
 
   override
   def decrement: Either[String, DefaultAddress] =
@@ -54,7 +57,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
       if hasOverflow then
         Left("Address not decremented: already at minimum")
       else
-        Right(this.copy(indices = accumulator.reverse))
+        Right(this.copy(parts = accumulator.reverse))
 
   override
   def isZero: Boolean =
@@ -102,7 +105,7 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
   def trimBig: DefaultAddress =
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
-    this.copy(indices = nonEmptyIndices)
+    this.copy(parts = nonEmptyIndices)
 
   private[memory]
   override
@@ -119,14 +122,14 @@ case class DefaultAddress(indices: List[UnsignedByte]) extends Address:
           Left("Address not padded: already too long")
         else
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
-          Right(this.copy(indices = newIndices))
+          Right(this.copy(parts = newIndices))
 
   private[memory]
   override
   def shorten: Option[(UnsignedByte, DefaultAddress)] =
 
     if length > 0 then
-      Some(indices.head -> this.copy(indices = indices.tail))
+      Some(indices.head -> this.copy(parts = indices.tail))
     else
       None
 
