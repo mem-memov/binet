@@ -10,6 +10,7 @@ case class DefaultBlock(
   def read(
     position: UnsignedByte
   ): UnsignedByte =
+    
     space(position.toInt)
 
   override
@@ -17,4 +18,5 @@ case class DefaultBlock(
     position: UnsignedByte,
     content: UnsignedByte
   ): DefaultBlock =
+    
     this.copy(space = space.updated(position.toInt, content))

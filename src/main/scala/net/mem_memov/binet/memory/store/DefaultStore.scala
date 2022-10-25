@@ -15,7 +15,7 @@ case class DefaultStore(
   override
   def write(
     destination: UnsignedByte,
-    content: ZippingAddress
+    content: Address
   ): Either[String, Store] =
 
     DefaultStore.write(
@@ -49,7 +49,9 @@ case class DefaultStore(
       this
     )
 
-  def updateWithBlocks(updatedBlocks: Vector[Block]): Store =
+  def updateWithBlocks(
+    updatedBlocks: Vector[Block]
+  ): Store =
 
     this.copy(blocks = updatedBlocks)
 
@@ -57,8 +59,8 @@ object DefaultStore:
 
   def write(
     destination: UnsignedByte,
-    content: ZippingAddress,
-    blocks: Vector[WritableBlock],
+    content: Address,
+    blocks: Vector[Block],
     updateWithBlocks: Vector[Block] => Store
   ): Either[String, Store] =
 
@@ -73,8 +75,8 @@ object DefaultStore:
 
   def read(
     origin: UnsignedByte,
-    blocks: Vector[ReadableBlock],
-    addressFactory: MakingAddressFactory
+    blocks: Vector[Block],
+    addressFactory: AddressFactory
   ): Address =
 
     val parts = blocks.foldLeft(List.empty[UnsignedByte]) {

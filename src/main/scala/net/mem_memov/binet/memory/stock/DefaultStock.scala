@@ -12,19 +12,42 @@ case class DefaultStock(
     destination: Address,
     content: Address
   ): Either[String, Stock] =
-    for {
-      updatedElement <- elements(index.toInt).write(destination, content)
-      updatedElements <- Right(elements.updated(index.toInt, updatedElement))
-    } yield this.copy(elements = updatedElements)
+
+    DefaultStock.write(index, destination, content, elements, updateWithElements)
 
   override
   def read(
     index: UnsignedByte,
     origin: Address
   ): Either[String, Address] =
-    elements(index.toInt).read(origin)
 
+    DefaultStock.read(index, origin, elements)
+
+  def updateWithElements(
+    updatedElements: Vector[Element]
+  ): Stock =
+
+    this.copy(elements = updatedElements)
 
 object DefaultStock:
 
-  lazy val size: Int = UnsignedByte.maximum.toInt + 1
+  def write(
+    index: UnsignedByte,
+    destination: Address,
+    content: Address,
+    elements: Vector[Element],
+    updateWithElements: Vector[Element] => Stock,
+  ): Either[String, Stock] =
+
+    for {
+      updatedElement <- elements(index.toInt).write(destination, content)
+      updatedElements <- Right(elements.updated(index.toInt, updatedElement))
+    } yield updateWithElements(updatedElements)
+
+  def read(
+    index: UnsignedByte,
+    origin: Address,
+    elements: Vector[Element]
+  ): Either[String, Address] =
+
+    elements(index.toInt).read(origin)

@@ -10,13 +10,15 @@ trait StockFactory:
 
 object StockFactory:
 
+  lazy val size: Int = UnsignedByte.maximum.toInt + 1
+
   def apply(): StockFactory =
 
     new StockFactory:
 
       override def makeStock()(using elementFactory: ElementFactory): Stock =
 
-        val elements = Vector.fill[Element](DefaultStock.size)(elementFactory.emptyElement)
+        val elements = Vector.fill[Element](size)(elementFactory.emptyElement)
 
         DefaultStock(elements)
 

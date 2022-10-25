@@ -6,22 +6,16 @@ import net.mem_memov.binet.memory.store.DefaultStore
 /**
  * Store is capable of storing addresses.
  */
-trait Store extends WritableStore with ReadableStore with ExpandableStore
-
-trait WritableStore:
+trait Store:
 
   def write(
     destination: UnsignedByte,
-    content: ZippingAddress
+    content: Address
   ): Either[String, Store]
-
-trait ReadableStore:
 
   def read(
     origin: UnsignedByte
   ): Address
-
-trait ExpandableStore:
 
   def expand(
     minimumLength: Int

@@ -134,7 +134,7 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
       None
 
   override
-  def zipIndices(elements: Vector[WritableBlock]): Either[String, Vector[(UnsignedByte, WritableBlock)]] =
+  def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
 
     if elements.length != indices.length then
       Left("Lengths differ")

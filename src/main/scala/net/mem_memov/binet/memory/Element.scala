@@ -9,16 +9,12 @@ import net.mem_memov.binet.memory.element.DefaultElement
  * The number of addresses in the store and the number of references to other elements in the stock are the same.
  * The level determines the number of parts of addresses in the store.
  */
-trait Element extends WritableElement with ReadableElement
-
-trait WritableElement:
+trait Element:
 
   def write(
     destination: Address,
     content: Address
   ): Either[String, Element]
-
-trait ReadableElement:
 
   def read(
     origin: Address

@@ -1,6 +1,5 @@
 package net.mem_memov.binet.memory.store
 
-import net.mem_memov.binet.memory.block.DefaultBlock
 import net.mem_memov.binet.memory.address.DefaultAddress
 import net.mem_memov.binet.memory.factory.defaultFactory._
 import net.mem_memov.binet.memory._
@@ -24,7 +23,7 @@ class DefaultStoreSuite extends munit.FunSuite:
     }
 
     val content = new UnusedAddress(failMethod):
-      override def zipIndices(elements: Vector[WritableBlock]): Either[String, Vector[(UnsignedByte, WritableBlock)]] =
+      override def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
         assert(elements(0) == writableBlock)
         Right(Vector(contentIndex -> writableBlock))
 
@@ -53,13 +52,13 @@ class DefaultStoreSuite extends munit.FunSuite:
       override lazy val indices: List[UnsignedByte] =
         List(contentIndex)
 
-    val addressFactory = new MakingAddressFactory:
+    val addressFactory = new UnusedAddressFactory(failMethod):
       override def makeAddress(indices: List[UnsignedByte]): Address =
         assert(indices.head == contentIndex)
         readAddress
 
     val result = DefaultStore.read(origin, Vector(readableBlock), addressFactory)
-    assert(true)
+    assert(result == readAddress)
   }
 
   test("Store gets expanded") {
