@@ -16,53 +16,7 @@ case class DefaultStore(
   def write(
     destination: UnsignedByte,
     content: Address
-  ): Either[String, Store] =
-
-    DefaultStore.write(
-      destination,
-      content,
-      blocks,
-      updateWithBlocks
-    )
-
-  override
-  def read(
-    origin: UnsignedByte
-  ): Address =
-
-    DefaultStore.read(
-      origin,
-      blocks,
-      addressFactory
-    )
-
-  override
-  def expand(
-    minimumLength: Int
-  ): Store =
-
-    DefaultStore.expand(
-      minimumLength,
-      blocks,
-      blockFactory,
-      updateWithBlocks,
-      this
-    )
-
-  def updateWithBlocks(
-    updatedBlocks: Vector[Block]
-  ): Store =
-
-    this.copy(blocks = updatedBlocks)
-
-object DefaultStore:
-
-  def write(
-    destination: UnsignedByte,
-    content: Address,
-    blocks: Vector[Block],
-    updateWithBlocks: Vector[Block] => Store
-  ): Either[String, Store] =
+  ): Either[String, DefaultStore] =
 
     for {
       pairs <- content.zipIndices(blocks)
@@ -71,12 +25,11 @@ object DefaultStore:
           block.write(destination, part)
         }
       )
-    } yield updateWithBlocks(updatedBlocks)
+    } yield this.copy(blocks = updatedBlocks)
 
+  override
   def read(
-    origin: UnsignedByte,
-    blocks: Vector[Block],
-    addressFactory: AddressFactory
+    origin: UnsignedByte
   ): Address =
 
     val parts = blocks.foldLeft(List.empty[UnsignedByte]) {
@@ -86,16 +39,13 @@ object DefaultStore:
 
     addressFactory.makeAddress(parts.reverse)
 
+  override
   def expand(
-    minimumLength: Int,
-    blocks: Vector[Block],
-    blockFactory: BlockFactory,
-    updateWithBlocks: Vector[Block] => Store,
-    originalStore: Store
-  ): Store =
+    minimumLength: Int
+  ): DefaultStore =
 
     if blocks.length >= minimumLength then
-      originalStore
+      this
     else
       val prependedBlocks = (0 until minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
-      updateWithBlocks(blocks.prependedAll(prependedBlocks))
+      this.copy(blocks = blocks.prependedAll(prependedBlocks))

@@ -15,7 +15,7 @@ class DefaultStoreSuite extends munit.FunSuite:
 
     val updatedBlock = new UnusedBlock(failMethod) {}
 
-    val writableBlock = new UnusedBlock(failMethod) {
+    val block = new UnusedBlock(failMethod) {
       override def write(position: UnsignedByte, content: UnsignedByte): Block =
         assert(position == destination)
         assert(content == contentIndex)
@@ -24,18 +24,17 @@ class DefaultStoreSuite extends munit.FunSuite:
 
     val content = new UnusedAddress(failMethod):
       override def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
-        assert(elements(0) == writableBlock)
-        Right(Vector(contentIndex -> writableBlock))
+        assert(elements(0) == block)
+        Right(Vector(contentIndex -> block))
 
-    val updatedStore = new UnusedStore(failMethod) {}
+    given AddressFactory = new UnusedAddressFactory(failMethod) {}
+    given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    def updateWithBlocks(updatedBlocks: Vector[Block]): Store =
-      assert(updatedBlocks(0) == updatedBlock)
-      updatedStore
+    val store = DefaultStore(Vector(block))
 
     for {
-      result <- DefaultStore.write(destination, content, Vector(writableBlock), updateWithBlocks)
-    } yield assert(result == updatedStore)
+      result <- store.write(destination, content)
+    } yield assert(result.blocks(0) == updatedBlock)
   }
 
   test("Store reads addresses") {
@@ -43,7 +42,7 @@ class DefaultStoreSuite extends munit.FunSuite:
     val origin = UnsignedByte.fromInt(5)
     val contentIndex = UnsignedByte.fromInt(11)
 
-    val readableBlock = new UnusedBlock(failMethod):
+    val block = new UnusedBlock(failMethod):
       override def read(position: UnsignedByte): UnsignedByte =
         assert(position == origin)
         contentIndex
@@ -52,12 +51,16 @@ class DefaultStoreSuite extends munit.FunSuite:
       override lazy val indices: List[UnsignedByte] =
         List(contentIndex)
 
-    val addressFactory = new UnusedAddressFactory(failMethod):
+    given AddressFactory = new UnusedAddressFactory(failMethod):
       override def makeAddress(indices: List[UnsignedByte]): Address =
         assert(indices.head == contentIndex)
         readAddress
 
-    val result = DefaultStore.read(origin, Vector(readableBlock), addressFactory)
+    given BlockFactory = new UnusedBlockFactory(failMethod) {}
+
+    val store = DefaultStore(Vector(block))
+
+    val result = store.read(origin)
     assert(result == readAddress)
   }
 
@@ -66,35 +69,30 @@ class DefaultStoreSuite extends munit.FunSuite:
     val oldBlock = new UnusedBlock(failMethod) {}
     val newBlock = new UnusedBlock(failMethod) {}
 
-    val blockFactory = new BlockFactory:
+    given AddressFactory = new UnusedAddressFactory(failMethod) {}
+
+    given BlockFactory = new UnusedBlockFactory(failMethod):
       override lazy val emptyBlock: Block = newBlock
 
-    val originalStore = new UnusedStore(failMethod) {}
-    val updatedStore = new UnusedStore(failMethod) {}
+    val store = DefaultStore(Vector(oldBlock))
 
-    def updateWithBlocks(updatedBlocks: Vector[Block]): Store =
-      assert(updatedBlocks(0) == newBlock && updatedBlocks(1) == oldBlock)
-      updatedStore
+    val result = store.expand(2)
 
-    val result = DefaultStore.expand(2, Vector(oldBlock), blockFactory, updateWithBlocks, originalStore)
-
-    assert(result == updatedStore)
+    assert(result.blocks(0) == newBlock && result.blocks(1) == oldBlock)
   }
 
   test("Store doesn't get expanded if already at desired length") {
 
     val oldBlock = new UnusedBlock(failMethod) {}
 
-    val blockFactory = new BlockFactory:
-      override lazy val emptyBlock: Block = fail("unexpected")
+    given AddressFactory = new UnusedAddressFactory(failMethod) {}
+    given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val originalStore = new UnusedStore(failMethod) {}
+    val store = DefaultStore(Vector(oldBlock))
 
-    def updateWithBlocks(updatedBlocks: Vector[Block]): Store = fail("unexpected")
+    val result = store.expand(1)
 
-    val result = DefaultStore.expand(1, Vector(oldBlock), blockFactory, updateWithBlocks, originalStore)
-
-    assert(result == originalStore)
+    assert(result == store)
   }
 
   test("Store doesn't get expanded if greater than desired length") {
@@ -102,16 +100,14 @@ class DefaultStoreSuite extends munit.FunSuite:
     val firstBlock = new UnusedBlock(failMethod) {}
     val secondBlock = new UnusedBlock(failMethod) {}
 
-    val blockFactory = new BlockFactory:
-      override lazy val emptyBlock: Block = fail("unexpected")
+    given AddressFactory = new UnusedAddressFactory(failMethod) {}
+    given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val originalStore = new UnusedStore(failMethod) {}
+    val store = DefaultStore(Vector(firstBlock, secondBlock))
 
-    def updateWithBlocks(updatedBlocks: Vector[Block]): Store = fail("unexpected")
+    val result = store.expand(1)
 
-    val result = DefaultStore.expand(1, Vector(firstBlock, secondBlock), blockFactory, updateWithBlocks, originalStore)
-
-    assert(result == originalStore)
+    assert(result == store)
   }
 
   test("Store keeps addresses at indices") {

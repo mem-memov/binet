@@ -22,13 +22,28 @@ class DefaultStockSuite extends munit.FunSuite:
         assert(content.equals(contentAddress))
         Right(updatedElement)
 
-    val updatedStock = new UnusedStock(failMethod) {}
-
-    def updateWithElements(updatedElements: Vector[Element]): Stock =
-      assert(updatedElements(0) == updatedElement)
-      updatedStock
+    val stock = DefaultStock(Vector(element))
 
     for {
-      result <- DefaultStock.write(index, destinationAddress, contentAddress, Vector(element), updateWithElements)
-    } yield assert(result == updatedStock)
+      result <- stock.write(index, destinationAddress, contentAddress)
+    } yield assert(result.elements(0) == updatedElement)
+  }
+
+  test("Stock reads address at index") {
+
+    val index = UnsignedByte.fromInt(0)
+
+    val originAddress = new UnusedAddress(failMethod) {}
+    val contentAddress = new UnusedAddress(failMethod) {}
+
+    val element = new UnusedElement(failMethod):
+      override def read(origin: Address): Either[String, Address] =
+        assert(origin.equals(originAddress))
+        Right(contentAddress)
+
+    val stock = DefaultStock(Vector(element))
+
+    for {
+      result <- stock.read(index, originAddress)
+    } yield assert(result == contentAddress)
   }
