@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.factory.defaultFactory
 
 import net.mem_memov.binet.memory._
 import net.mem_memov.binet.memory.address.DefaultAddress
+import net.mem_memov.binet.memory.address.defaultAddress._
 
 trait AddressFactory:
 
@@ -15,10 +16,12 @@ object AddressFactory:
 
     new AddressFactory:
 
+      val ordering = Ordering()
+
       def makeAddress(indices: List[UnsignedByte]): Address =
-        DefaultAddress(indices)
+        DefaultAddress(indices, ordering)
 
       override lazy val zeroAddress: Address =
-        DefaultAddress(List(UnsignedByte.minimum))
+        makeAddress(List(UnsignedByte.minimum))
 
 

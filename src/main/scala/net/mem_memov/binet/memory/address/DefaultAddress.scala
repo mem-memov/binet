@@ -1,8 +1,9 @@
 package net.mem_memov.binet.memory.address
 
 import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.address.defaultAddress._
 
-case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
+case class DefaultAddress(parts: List[UnsignedByte], ordering: Ordering) extends Address:
 
   override
   lazy val indices: List[UnsignedByte] = parts
@@ -65,31 +66,6 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
     length == 1 && indices.head == UnsignedByte.minimum
 
   override
-  def compare(that: Address): Int =
-
-    val trimmedThis = this.trimBig
-    val trimmedThat = that.trimBig
-    if trimmedThis.length != trimmedThat.length then
-      trimmedThis.length - trimmedThat.length
-    else
-      val difference = trimmedThis.indices.zip(trimmedThat.indices)
-        .dropWhile { case (thisIndex, thatIndex) =>
-          thisIndex == thatIndex
-        }
-      if difference.isEmpty then
-        0
-      else
-        val (thisIndex, thatIndex) = difference(0)
-        if thisIndex > thatIndex then 1 else -1
-
-  override
-  def equals(that: Any): Boolean =
-
-    that match
-      case that: Address => compare(that) == 0
-      case _ => false
-
-  override
   def toString: String =
 
     indices.map(_.toInt.toString()).mkString("Address(", ",", ")")
@@ -103,13 +79,14 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
   private[memory]
   override
   def trimBig: DefaultAddress =
+    
     val trimmedIndices = indices.dropWhile(_.atMinimum)
     val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
     this.copy(parts = nonEmptyIndices)
 
   private[memory]
   override
-  def padBig(target: Int ): Either[String, DefaultAddress] =
+  def padBig(target: Int): Either[String, DefaultAddress] =
 
     if length == target then
       Right(this)
@@ -145,3 +122,19 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
   def expandStore(store: Store): Store =
 
     store.expand(length)
+    
+  override
+  def canCompare(that: Address): Boolean =
+    that.isInstanceOf[DefaultAddress]
+  
+  override
+  def isEqual(that: Address): Boolean =
+    ordering.compare(this, that) == 0
+  
+  override
+  def isGreater(that: Address): Boolean =
+    ordering.compare(this, that) == 1
+
+  override
+  def isGreaterOrEqual(that: Address): Boolean =
+    ordering.compare(this, that) >= 0

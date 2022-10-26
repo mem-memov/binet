@@ -14,37 +14,49 @@ case class DefaultInventory(
 
   def append(content: Address): Either[String, DefaultInventory] =
 
-    val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
-
-    if trimmedContent >= next && next != addressFactory.zeroAddress then
-      Left("Inventory not appended: content out of boundary")
+    if !next.canCompare(content) then
+      Left("Inventory not appended: wrong address type")
     else
-      for {
-        updatedRoot <- root.write(next, trimmedContent)
-        newNext <- Right(next.increment)
-      } yield this.copy(next = newNext, root = updatedRoot)
 
-  def update(destination: Address, content: Address): Either[String, DefaultInventory] =
+      val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
 
-    val trimmedDestination = if content.isEmpty then addressFactory.zeroAddress else destination.trimBig
-    val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
-
-    if trimmedDestination >= next then
-      Left("Inventory not appended: destination out of boundary")
-    else
-      if trimmedContent >= next then
+      if trimmedContent.isGreaterOrEqual(next) && !next.isEqual(addressFactory.zeroAddress) then
         Left("Inventory not appended: content out of boundary")
       else
         for {
-          updatedRoot <- root.write(next, content)
-        } yield this.copy(root = updatedRoot)
+          updatedRoot <- root.write(next, trimmedContent)
+          newNext <- Right(next.increment)
+        } yield this.copy(next = newNext, root = updatedRoot)
+
+  def update(destination: Address, content: Address): Either[String, DefaultInventory] =
+
+    if !next.canCompare(destination) || !next.canCompare(content) then
+      Left("Inventory not updated: wrong address type")
+    else
+
+      val trimmedDestination = if content.isEmpty then addressFactory.zeroAddress else destination.trimBig
+      val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
+
+      if trimmedDestination.isGreaterOrEqual(next) then
+        Left("Inventory not updated: destination out of boundary")
+      else
+        if trimmedContent.isGreaterOrEqual(next) then
+          Left("Inventory not updated: content out of boundary")
+        else
+          for {
+            updatedRoot <- root.write(next, content)
+          } yield this.copy(root = updatedRoot)
 
   def read(origin: Address): Either[String, Address] =
 
-    val trimmedOrigin = if origin.isEmpty then addressFactory.zeroAddress else origin.trimBig
-    if trimmedOrigin >= next then
-      Left("Reading failed: origin out of boundary")
+    if !next.canCompare(origin) then
+      Left("Inventory reading failed: wrong address type")
     else
-      for {
-        content <- root.read(trimmedOrigin)
-      } yield content.trimBig
+
+      val trimmedOrigin = if origin.isEmpty then addressFactory.zeroAddress else origin.trimBig
+      if trimmedOrigin.isGreaterOrEqual(next) then
+        Left("Inventory reading failed: origin out of boundary")
+      else
+        for {
+          content <- root.read(trimmedOrigin)
+        } yield content.trimBig

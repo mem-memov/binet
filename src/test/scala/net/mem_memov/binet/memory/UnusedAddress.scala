@@ -2,10 +2,6 @@ package net.mem_memov.binet.memory
 
 trait UnusedAddress(fail: String => Nothing) extends Address:
 
-  override def compare(that: Address): Int =
-
-    fail("unexpected")
-
   override lazy val indices: List[UnsignedByte] =
 
     fail("unexpected")
@@ -55,5 +51,21 @@ trait UnusedAddress(fail: String => Nothing) extends Address:
     fail("unexpected")
 
   override def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
+
+    fail("unexpected")
+
+  def canCompare(that: Address): Boolean =
+
+    fail("unexpected")
+
+  override def isEqual(that: Address): Boolean =
+
+    fail("unexpected")
+
+  override def isGreater(that: Address): Boolean =
+
+    fail("unexpected")
+
+  override def isGreaterOrEqual(that: Address): Boolean =
 
     fail("unexpected")
