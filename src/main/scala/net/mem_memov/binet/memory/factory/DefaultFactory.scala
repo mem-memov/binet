@@ -1,9 +1,6 @@
 package net.mem_memov.binet.memory.factory
 
-import net.mem_memov.binet.memory.stock.DefaultStock
-import net.mem_memov.binet.memory.store.DefaultStore
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.address.DefaultAddress
 import net.mem_memov.binet.memory.factory.defaultFactory._
 
 /**
@@ -13,7 +10,7 @@ trait DefaultFactory extends InventoryFactory
 
 object DefaultFactory:
 
-  val start: Address = DefaultAddress.zero
+  val emptyAddress: Address = AddressFactory().zeroAddress
 
   def apply(): DefaultFactory = new DefaultFactory:
 

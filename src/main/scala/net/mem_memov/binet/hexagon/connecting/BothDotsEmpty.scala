@@ -13,11 +13,11 @@ class BothDotsEmpty(
   override def connect: Task[Arrow] =
     val entry = Entry(
       sourceDot.address,
-      memory.address.DefaultAddress.zero,
-      memory.address.DefaultAddress.zero,
+      memory.factory.DefaultFactory.emptyAddress,
+      memory.factory.DefaultFactory.emptyAddress,
       targetDot.address,
-      memory.address.DefaultAddress.zero,
-      memory.address.DefaultAddress.zero
+      memory.factory.DefaultFactory.emptyAddress,
+      memory.factory.DefaultFactory.emptyAddress
     )
     for {
       newArrow <- network.createArrow(entry)

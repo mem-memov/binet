@@ -9,7 +9,7 @@ class DefaultInventorySuite extends munit.FunSuite:
 
     val inventory = DefaultFactory().emptyInventory
 
-    val start = DefaultFactory.start
+    val start = DefaultFactory.emptyAddress
 
     val result = for {
       inventory <- inventory.append(start)

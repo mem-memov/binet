@@ -145,9 +145,3 @@ case class DefaultAddress(parts: List[UnsignedByte]) extends Address:
   def expandStore(store: Store): Store =
 
     store.expand(length)
-
-object DefaultAddress:
-
-  val zero: Address = DefaultAddress(List(UnsignedByte.minimum))
-
-
