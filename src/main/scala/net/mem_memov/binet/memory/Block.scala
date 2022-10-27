@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory
 
-import net.mem_memov.binet.memory.tree.DefaultBlock
+import net.mem_memov.binet.memory.tree.TreeBlock
 
 /**
  * Block has the property that it provides content at any possible position.
