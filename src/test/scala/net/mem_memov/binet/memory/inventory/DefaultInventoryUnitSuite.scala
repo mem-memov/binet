@@ -12,22 +12,30 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
 
   test("Inventory appends content") {
 
+    val addressEmpty = new UnusedAddress(failMethod) {}
+
+    val trimmedContentAddress = new UnusedAddress(failMethod) {}
+
+    lazy val contentAddress = new UnusedAddress(failMethod):
+      override def isEmpty: Boolean =
+        false
+      override def trimBig: Address =
+        trimmedContentAddress
+
     val newNextAddress = new UnusedAddress(failMethod) {}
 
     val nextAddress = new UnusedAddress(failMethod):
       override def canCompare(that: Address): Boolean =
+        assert(that.equals(contentAddress))
         true
-      override def increment: Address = newNextAddress
-
-    val trimmedContentAddress = new UnusedAddress(failMethod):
-      override def isGreaterOrEqual(that: Address): Boolean =
+      override def isLessOrEqual(that: Address): Boolean =
+        assert(that.equals(trimmedContentAddress))
         false
-
-    lazy val contentAddress = new UnusedAddress(failMethod):
-      private[memory]
-      override def isEmpty = false
-      private[memory]
-      override def trimBig = trimmedContentAddress
+//      override def isEqual(that: Address): Boolean =
+//        assert(that.equals(addressEmpty))
+//        true
+      override def increment: Address =
+        newNextAddress
 
     val updatedRootElement = new UnusedElement(failMethod) {}
 
@@ -36,6 +44,9 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
         assert(destination.equals(nextAddress))
         assert(content.equals(trimmedContentAddress))
         Right(updatedRootElement)
+
+    given AddressFactory = new UnusedAddressFactory(failMethod) :
+      override lazy val zeroAddress: Address = addressEmpty
 
     val inventory = DefaultInventory(nextAddress, rootElement)
 
@@ -48,25 +59,29 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
 
     val addressEmpty = new UnusedAddress(failMethod) {}
 
+    val trimmedContentAddress = new UnusedAddress(failMethod) {}
+
+    lazy val contentAddress = new UnusedAddress(failMethod) :
+      override def isEmpty: Boolean =
+        false
+
+      override def trimBig: Address =
+        trimmedContentAddress
+
     val newNextAddress = new UnusedAddress(failMethod) {}
 
-    val trimmedContentAddress: Address = new UnusedAddress(failMethod) :
-      override def isGreaterOrEqual(that: Address): Boolean =
-//        assert(that.equals(nextAddress))
-        true
-
-    val contentAddress = new UnusedAddress(failMethod) :
-      override def isEmpty = false
-      override def trimBig: Address = trimmedContentAddress
-
-    val nextAddress = new UnusedAddress(failMethod):
+    val nextAddress = new UnusedAddress(failMethod) :
       override def canCompare(that: Address): Boolean =
         assert(that.equals(contentAddress))
         true
-      override def increment: Address = newNextAddress
+      override def isLessOrEqual(that: Address): Boolean =
+        assert(that.equals(trimmedContentAddress))
+        true
       override def isEqual(that: Address): Boolean =
         assert(that.equals(addressEmpty))
         true
+      override def increment: Address =
+        newNextAddress
 
     val updatedRootElement = new UnusedElement(failMethod) {}
 
@@ -76,7 +91,7 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
         assert(content.equals(trimmedContentAddress))
         Right(updatedRootElement)
 
-    given AddressFactory = new UnusedAddressFactory(failMethod):
+    given AddressFactory = new UnusedAddressFactory(failMethod) :
       override lazy val zeroAddress: Address = addressEmpty
 
     val inventory = DefaultInventory(nextAddress, rootElement)

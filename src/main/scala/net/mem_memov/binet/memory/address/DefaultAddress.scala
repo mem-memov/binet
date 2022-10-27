@@ -138,3 +138,13 @@ case class DefaultAddress(parts: List[UnsignedByte], ordering: Ordering) extends
   override
   def isGreaterOrEqual(that: Address): Boolean =
     ordering.compare(this, that) >= 0
+
+  override
+  def isLess(that: Address): Boolean =
+
+    ordering.compare(this, that) == -1
+
+  override
+  def isLessOrEqual(that: Address): Boolean =
+
+    ordering.compare(this, that) <= 0

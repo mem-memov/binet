@@ -44,6 +44,10 @@ trait Address:
   def isGreater(that: Address): Boolean
 
   def isGreaterOrEqual(that: Address): Boolean
+  
+  def isLess(that: Address): Boolean
+  
+  def isLessOrEqual(that: Address): Boolean
 
 
 

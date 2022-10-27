@@ -20,7 +20,7 @@ case class DefaultInventory(
 
       val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
 
-      if trimmedContent.isGreaterOrEqual(next) && !next.isEqual(addressFactory.zeroAddress) then
+      if next.isLessOrEqual(trimmedContent) && !next.isEqual(addressFactory.zeroAddress) then
         Left("Inventory not appended: content out of boundary")
       else
         for {

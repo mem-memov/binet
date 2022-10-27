@@ -69,3 +69,11 @@ trait UnusedAddress(fail: String => Nothing) extends Address:
   override def isGreaterOrEqual(that: Address): Boolean =
 
     fail("unexpected")
+
+  override def isLess(that: Address): Boolean =
+
+    fail("unexpected")
+
+  override def isLessOrEqual(that: Address): Boolean =
+
+    fail("unexpected")
