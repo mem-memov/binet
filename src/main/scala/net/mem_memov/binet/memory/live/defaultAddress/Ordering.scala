@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.address.defaultAddress
 
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.address.DefaultAddress
+import net.mem_memov.binet.memory.live.DefaultAddress
 
 trait Ordering:
 
