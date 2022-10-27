@@ -1,6 +1,6 @@
-package net.mem_memov.binet.memory.block
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.*
 
 case class DefaultBlock(
   space: Vector[UnsignedByte]

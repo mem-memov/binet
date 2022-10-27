@@ -1,8 +1,7 @@
 package net.mem_memov.binet.memory.factory.defaultFactory
 
-import net.mem_memov.binet.memory.stock.DefaultStock
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.element.DefaultElement
+import net.mem_memov.binet.memory.live.{DefaultElement, DefaultStock}
 
 trait StockFactory:
 

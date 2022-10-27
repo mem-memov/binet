@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory
 
-import net.mem_memov.binet.memory.block.DefaultBlock
+import net.mem_memov.binet.memory.live.DefaultBlock
 
 /**
  * Block has the property that it provides content at any possible position.

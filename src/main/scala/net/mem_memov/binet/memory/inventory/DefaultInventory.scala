@@ -1,13 +1,13 @@
 package net.mem_memov.binet.memory.inventory
 
-import net.mem_memov.binet.memory.address.DefaultAddress
-import net.mem_memov.binet.memory.element.DefaultElement
 import net.mem_memov.binet.memory._
 import net.mem_memov.binet.memory.factory.defaultFactory._
+import net.mem_memov.binet.memory.inventory.defaultInventory._
 
 case class DefaultInventory(
   next: Address,
-  root: Element
+  root: Element,
+  argumentChecking: ArgumentChecking
 )(
   using addressFactory: AddressFactory
 ) extends Inventory:

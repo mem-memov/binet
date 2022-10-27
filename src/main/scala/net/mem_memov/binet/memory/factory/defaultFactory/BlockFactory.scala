@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.factory.defaultFactory
 
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.block.DefaultBlock
+import net.mem_memov.binet.memory.live.DefaultBlock
 
 trait BlockFactory:
 

@@ -1,8 +1,9 @@
 package net.mem_memov.binet.memory.inventory
 
-import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.factory.DefaultFactory
-import net.mem_memov.binet.memory.factory.defaultFactory._
+import net.mem_memov.binet.memory.factory.defaultFactory.*
+import net.mem_memov.binet.memory.inventory.defaultInventory._
 
 class DefaultInventoryUnitSuite extends munit.FunSuite:
 
@@ -31,9 +32,6 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
       override def isLessOrEqual(that: Address): Boolean =
         assert(that.equals(trimmedContentAddress))
         false
-//      override def isEqual(that: Address): Boolean =
-//        assert(that.equals(addressEmpty))
-//        true
       override def increment: Address =
         newNextAddress
 
@@ -48,7 +46,9 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
     given AddressFactory = new UnusedAddressFactory(failMethod) :
       override lazy val zeroAddress: Address = addressEmpty
 
-    val inventory = DefaultInventory(nextAddress, rootElement)
+    val argumentChecking = ArgumentChecking()
+
+    val inventory = DefaultInventory(nextAddress, rootElement, argumentChecking)
 
     for {
       result <- inventory.append(contentAddress)
@@ -94,7 +94,9 @@ class DefaultInventoryUnitSuite extends munit.FunSuite:
     given AddressFactory = new UnusedAddressFactory(failMethod) :
       override lazy val zeroAddress: Address = addressEmpty
 
-    val inventory = DefaultInventory(nextAddress, rootElement)
+    val argumentChecking = ArgumentChecking()
+
+    val inventory = DefaultInventory(nextAddress, rootElement, argumentChecking)
 
     for {
       result <- inventory.append(contentAddress)
