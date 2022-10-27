@@ -7,7 +7,7 @@ import net.mem_memov.binet.memory.tree.treeInventory._
 case class TreeInventory(
   next: Address,
   root: Element,
-  argumentChecking: PreparingContent
+  argument: Argument
 )(
   using addressFactory: AddressFactory
 ) extends Inventory:
@@ -15,40 +15,22 @@ case class TreeInventory(
   def append(content: Address): Either[String, TreeInventory] =
 
     for {
-      trimmedContent <- argumentChecking.checkAndTrim(next, content)
+      trimmedContent <- argument.checkAndTrimPermissive(next, content)
       updatedRoot <- root.write(next, trimmedContent)
       newNext <- Right(next.increment)
     } yield this.copy(next = newNext, root = updatedRoot)
 
   def update(destination: Address, content: Address): Either[String, TreeInventory] =
 
-    if !next.canCompare(destination) || !next.canCompare(content) then
-      Left("Inventory not updated: wrong address type")
-    else
-
-      val trimmedDestination = if content.isEmpty then addressFactory.zeroAddress else destination.trimBig
-      val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
-
-      if trimmedDestination.isGreaterOrEqual(next) then
-        Left("Inventory not updated: destination out of boundary")
-      else
-        if trimmedContent.isGreaterOrEqual(next) then
-          Left("Inventory not updated: content out of boundary")
-        else
-          for {
-            updatedRoot <- root.write(next, content)
-          } yield this.copy(root = updatedRoot)
+    for {
+      trimmedDestination <- argument.checkAndTrimRestrictive(next, destination)
+      trimmedContent <- argument.checkAndTrimRestrictive(next, content)
+      updatedRoot <- root.write(trimmedDestination, trimmedContent)
+    } yield this.copy(root = updatedRoot)
 
   def read(origin: Address): Either[String, Address] =
 
-    if !next.canCompare(origin) then
-      Left("Inventory reading failed: wrong address type")
-    else
-
-      val trimmedOrigin = if origin.isEmpty then addressFactory.zeroAddress else origin.trimBig
-      if trimmedOrigin.isGreaterOrEqual(next) then
-        Left("Inventory reading failed: origin out of boundary")
-      else
-        for {
-          content <- root.read(trimmedOrigin)
-        } yield content.trimBig
+    for {
+      trimmedOrigin <- argument.checkAndTrimRestrictive(next, origin)
+      content <- root.read(trimmedOrigin)
+    } yield content.trimBig

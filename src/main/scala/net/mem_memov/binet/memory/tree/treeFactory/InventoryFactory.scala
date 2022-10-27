@@ -1,8 +1,9 @@
 package net.mem_memov.binet.memory.tree.treeFactory
 
 import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.tree.treeInventory._
-import net.mem_memov.binet.memory.tree._
+import net.mem_memov.binet.memory.tree.treeInventory.*
+import net.mem_memov.binet.memory.tree.*
+import net.mem_memov.binet.memory.tree.treeInventory.argument.ArgumentService
 
 trait InventoryFactory:
 
@@ -10,7 +11,7 @@ trait InventoryFactory:
 
 object InventoryFactory:
 
-  val argumentChecking: PreparingContent = PreparingContent()
+  val argumentService: ArgumentService = ArgumentService()
 
   def apply()(using
     addressFactory: AddressFactory,
@@ -24,7 +25,7 @@ object InventoryFactory:
         TreeInventory(
           addressFactory.zeroAddress,
           elementFactory.emptyElement,
-          argumentChecking
+          argumentService
         )
 
 
