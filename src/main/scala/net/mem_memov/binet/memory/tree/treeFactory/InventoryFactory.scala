@@ -10,7 +10,7 @@ trait InventoryFactory:
 
 object InventoryFactory:
 
-  val argumentChecking: ArgumentChecking = ArgumentChecking()
+  val argumentChecking: PreparingContent = PreparingContent()
 
   def apply()(using
     addressFactory: AddressFactory,

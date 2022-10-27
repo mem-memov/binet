@@ -7,7 +7,7 @@ import net.mem_memov.binet.memory.tree.treeInventory._
 case class TreeInventory(
   next: Address,
   root: Element,
-  argumentChecking: ArgumentChecking
+  argumentChecking: PreparingContent
 )(
   using addressFactory: AddressFactory
 ) extends Inventory:
@@ -15,7 +15,7 @@ case class TreeInventory(
   def append(content: Address): Either[String, TreeInventory] =
 
     for {
-      trimmedContent <- argumentChecking.checkContentAndTrim(next, content)
+      trimmedContent <- argumentChecking.checkAndTrim(next, content)
       updatedRoot <- root.write(next, trimmedContent)
       newNext <- Right(next.increment)
     } yield this.copy(next = newNext, root = updatedRoot)

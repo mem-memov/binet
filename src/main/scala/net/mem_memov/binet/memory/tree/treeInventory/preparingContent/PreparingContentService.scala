@@ -1,13 +1,13 @@
-package net.mem_memov.binet.memory.tree.treeInventory.argumentChecking
+package net.mem_memov.binet.memory.tree.treeInventory.preparingContent
 
 import net.mem_memov.binet.memory._
 import net.mem_memov.binet.memory.tree.treeFactory._
 import net.mem_memov.binet.memory.tree.treeInventory._
 
-class InventoryArgumentChecking extends ArgumentChecking:
+class PreparingContentService extends PreparingContent:
 
   override
-  def checkContentAndTrim(
+  def checkAndTrim(
     next: Address,
     content: Address
   )(using

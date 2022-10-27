@@ -30,8 +30,8 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
         assert(content.equals(trimmedContentAddress))
         Right(updatedRootElement)
 
-    val argumentChecking = new UnusedArgumentChecking(failMethod):
-      override def checkContentAndTrim(next: Address, content: Address)(using addressFactory: AddressFactory): Either[String, Address] =
+    val argumentChecking = new UnusedPreparingContent(failMethod):
+      override def checkAndTrim(next: Address, content: Address)(using addressFactory: AddressFactory): Either[String, Address] =
         assert(next.equals(nextAddress))
         assert(content.equals(contentAddress))
         Right(trimmedContentAddress)
