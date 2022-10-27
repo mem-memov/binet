@@ -1,7 +1,7 @@
-package net.mem_memov.binet.memory.block
+package net.mem_memov.binet.memory.live
 
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.factory.defaultFactory._
+import net.mem_memov.binet.memory.live.defaultFactory._
 
 class DefaultBlockSuite extends munit.FunSuite:
 

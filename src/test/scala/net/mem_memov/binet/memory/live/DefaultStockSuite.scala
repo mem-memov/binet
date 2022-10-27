@@ -1,8 +1,7 @@
-package net.mem_memov.binet.memory.stock
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory.factory.defaultFactory.*
-import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.live.DefaultStock
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.live.defaultFactory._
 
 class DefaultStockSuite extends munit.FunSuite:
 

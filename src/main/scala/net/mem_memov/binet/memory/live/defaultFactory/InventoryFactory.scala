@@ -1,8 +1,8 @@
-package net.mem_memov.binet.memory.factory.defaultFactory
+package net.mem_memov.binet.memory.live.defaultFactory
 
 import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.inventory.defaultInventory._
-import net.mem_memov.binet.memory.live.{DefaultAddress, DefaultInventory}
+import net.mem_memov.binet.memory.live.defaultInventory._
+import net.mem_memov.binet.memory.live._
 
 trait InventoryFactory:
 

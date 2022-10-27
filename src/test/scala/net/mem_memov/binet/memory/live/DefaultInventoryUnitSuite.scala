@@ -1,10 +1,8 @@
-package net.mem_memov.binet.memory.inventory
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.factory.DefaultFactory
-import net.mem_memov.binet.memory.factory.defaultFactory.*
-import net.mem_memov.binet.memory.inventory.defaultInventory.*
-import net.mem_memov.binet.memory.live.DefaultInventory
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.live.defaultFactory._
+import net.mem_memov.binet.memory.live.defaultInventory._
 
 class DefaultInventoryUnitSuite extends munit.FunSuite:
 

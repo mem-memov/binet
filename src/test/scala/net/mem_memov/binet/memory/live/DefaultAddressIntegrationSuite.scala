@@ -1,7 +1,7 @@
-package net.mem_memov.binet.memory.address
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory.UnsignedByte
-import net.mem_memov.binet.memory.factory.defaultFactory.AddressFactory
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.live.defaultFactory._
 
 class DefaultAddressIntegrationSuite extends munit.FunSuite:
 

@@ -1,7 +1,7 @@
-package net.mem_memov.binet.memory.factory
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.factory.defaultFactory._
+import net.mem_memov.binet.memory.*
+import net.mem_memov.binet.memory.live.defaultFactory._
 
 /**
  * API for library clients to start with

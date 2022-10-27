@@ -1,8 +1,7 @@
-package net.mem_memov.binet.memory.element
+package net.mem_memov.binet.memory.live
 
-import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.factory.defaultFactory.*
-import net.mem_memov.binet.memory.live.DefaultElement
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.live.defaultFactory._
 
 class DefaultElementSuite extends munit.FunSuite:
 
