@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory._
 import net.mem_memov.binet.memory.tree.treeFactory._
 import net.mem_memov.binet.memory.tree.treeInventory._
 
-class DefaultArgumentChecking extends ArgumentChecking:
+class InventoryArgumentChecking extends ArgumentChecking:
 
   override
   def checkContentAndTrim(

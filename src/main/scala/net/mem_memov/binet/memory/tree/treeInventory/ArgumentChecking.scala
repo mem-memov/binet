@@ -15,4 +15,4 @@ trait ArgumentChecking:
 
 object ArgumentChecking:
 
-  def apply(): ArgumentChecking = new DefaultArgumentChecking()
+  def apply(): ArgumentChecking = new InventoryArgumentChecking()
