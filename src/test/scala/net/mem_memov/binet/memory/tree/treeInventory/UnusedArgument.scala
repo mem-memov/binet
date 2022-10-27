@@ -8,8 +8,6 @@ trait UnusedArgument(fail: String => Nothing) extends Argument:
   def checkAndTrimPermissive(
     next: Address,
     address: Address
-  )(using
-    addressFactory: AddressFactory
   ): Either[String, Address] =
 
     fail("unexpected")
@@ -17,8 +15,6 @@ trait UnusedArgument(fail: String => Nothing) extends Argument:
   def checkAndTrimRestrictive(
     next: Address,
     address: Address
-  )(using
-    addressFactory: AddressFactory
   ): Either[String, Address] =
 
     fail("unexpected")
