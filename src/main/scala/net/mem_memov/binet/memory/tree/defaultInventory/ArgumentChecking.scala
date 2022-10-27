@@ -1,11 +1,12 @@
 package net.mem_memov.binet.memory.tree.defaultInventory
 
-import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.tree.defaultFactory.AddressFactory
+import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.tree.defaultFactory._
+import net.mem_memov.binet.memory.tree.defaultInventory.argumentChecking._
 
 trait ArgumentChecking:
 
-  def checkAndTrim(
+  def checkContentAndTrim(
     next: Address,
     content: Address
   )(using
@@ -14,23 +15,4 @@ trait ArgumentChecking:
 
 object ArgumentChecking:
 
-  def apply(): ArgumentChecking = new ArgumentChecking:
-
-    override
-    def checkAndTrim(
-      next: Address,
-      content: Address
-    )(using
-      addressFactory: AddressFactory
-    ): Either[String, Address] =
-
-      if !next.canCompare(content) then
-        Left("Inventory not appended: wrong address type")
-      else
-
-        val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
-
-        if next.isLessOrEqual(trimmedContent) && !next.isEqual(addressFactory.zeroAddress) then
-          Left("Inventory not appended: content out of boundary")
-        else
-          Right(trimmedContent)
+  def apply(): ArgumentChecking = new DefaultArgumentChecking()

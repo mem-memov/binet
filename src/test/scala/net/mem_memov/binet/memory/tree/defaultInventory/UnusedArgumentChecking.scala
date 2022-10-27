@@ -5,7 +5,7 @@ import net.mem_memov.binet.memory.tree.defaultFactory._
 
 trait UnusedArgumentChecking(fail: String => Nothing) extends ArgumentChecking:
 
-  def checkAndTrim(
+  def checkContentAndTrim(
     next: Address,
     content: Address
   )(using

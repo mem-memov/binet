@@ -14,19 +14,11 @@ case class DefaultInventory(
 
   def append(content: Address): Either[String, DefaultInventory] =
 
-    if !next.canCompare(content) then
-      Left("Inventory not appended: wrong address type")
-    else
-
-      val trimmedContent = if content.isEmpty then addressFactory.zeroAddress else content.trimBig
-
-      if next.isLessOrEqual(trimmedContent) && !next.isEqual(addressFactory.zeroAddress) then
-        Left("Inventory not appended: content out of boundary")
-      else
-        for {
-          updatedRoot <- root.write(next, trimmedContent)
-          newNext <- Right(next.increment)
-        } yield this.copy(next = newNext, root = updatedRoot)
+    for {
+      trimmedContent <- argumentChecking.checkContentAndTrim(next, content)
+      updatedRoot <- root.write(next, trimmedContent)
+      newNext <- Right(next.increment)
+    } yield this.copy(next = newNext, root = updatedRoot)
 
   def update(destination: Address, content: Address): Either[String, DefaultInventory] =
 
