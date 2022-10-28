@@ -14,7 +14,7 @@ trait Element:
   def write(
     destination: Address,
     content: Address
-  ): Either[String, Element]
+  ): Either[String, (Element, Option[Element])]
 
   def read(
     origin: Address

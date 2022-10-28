@@ -6,7 +6,7 @@ trait UnusedStock(fail: String => Nothing) extends Stock:
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock] =
+  ): Either[String, (Stock, Option[Element])] =
     
     fail("unexpected")
 

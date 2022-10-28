@@ -15,7 +15,7 @@ object ElementFactory:
 
       override lazy val emptyElement: Element =
         given ElementFactory = this
-        TreeElement(None, None)
+        TreeElement(None, None, None)
 
 
 

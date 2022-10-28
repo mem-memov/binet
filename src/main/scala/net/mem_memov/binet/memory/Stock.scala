@@ -11,7 +11,7 @@ trait Stock:
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, Stock]
+  ): Either[String, (Stock, Option[Element])]
 
   def read(
     index: UnsignedByte,

@@ -5,7 +5,8 @@ import net.mem_memov.binet.memory.tree.treeFactory._
 
 case class TreeElement(
   storeOption: Option[Store],
-  stockOption: Option[Stock]
+  stockOption: Option[Stock],
+  nextOption: Option[Element]
 )(using
   elementFactory: ElementFactory,
   stockFactory: StockFactory,
@@ -16,7 +17,7 @@ case class TreeElement(
   def write(
     destination: Address,
     content: Address
-  ): Either[String, TreeElement] =
+  ): Either[String, (TreeElement, Option[Element])] =
 
     destination.shorten match
       case None =>
@@ -26,13 +27,19 @@ case class TreeElement(
           val presentStore = storeOption.getOrElse(storeFactory.emptyStore)
           for {
             expandedStore <- Right(content.expandStore(presentStore))
-            updatedStore <- expandedStore.write(index, content)
-          } yield this.copy(storeOption = Some(updatedStore))
+            modifiedStore <- expandedStore.write(index, content)
+          } yield
+            val modifiedElement = this.copy(storeOption = Some(modifiedStore))
+            val initiatedElementOption = if storeOption.isEmpty then Some(modifiedElement) else None
+            (modifiedElement, initiatedElementOption)
         else
           val presentStock = stockOption.getOrElse(stockFactory.makeStock())
           for {
-            updatedStock <- presentStock.write(index, rest, content)
-          } yield this.copy(stockOption = Some(updatedStock))
+            writeResult <- presentStock.write(index, rest, content)
+            (modifiedStock, initiatedElementOption) = writeResult
+          } yield
+            val modifiedElement = this.copy(stockOption = Some(modifiedStock))
+            (modifiedElement, initiatedElementOption)
 
   override
   def read(

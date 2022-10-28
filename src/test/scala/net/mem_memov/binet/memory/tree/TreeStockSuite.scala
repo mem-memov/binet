@@ -17,16 +17,17 @@ class TreeStockSuite extends munit.FunSuite:
     val updatedElement = new UnusedElement(failMethod) {}
 
     val element = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, Element] =
+      override def write(destination: Address, content: Address): Either[String, (Element, Option[Element])] =
         assert(destination.equals(destinationAddress))
         assert(content.equals(contentAddress))
-        Right(updatedElement)
+        Right((updatedElement, None))
 
     val stock = TreeStock(Vector(element))
 
     for {
       result <- stock.write(index, destinationAddress, contentAddress)
-    } yield assert(result.elements(0) == updatedElement)
+      (modifiedStock, initiatedElementOption) = result
+    } yield assert(modifiedStock.elements(0) == updatedElement)
   }
 
   test("Stock reads address at index") {
