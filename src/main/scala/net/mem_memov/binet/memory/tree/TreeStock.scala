@@ -11,15 +11,12 @@ case class TreeStock(
     index: UnsignedByte,
     destination: Address,
     content: Address
-  ): Either[String, (TreeStock, Option[Element])] =
+  ): Either[String, TreeStock] =
 
     for {
-      writeResult <- elements(index.toInt).write(destination, content)
-      (updatedElement, initiatedElementOption) = writeResult
+      updatedElement <- elements(index.toInt).write(destination, content)
       updatedElements <- Right(elements.updated(index.toInt, updatedElement))
-    } yield
-      val modifiedStock = this.copy(elements = updatedElements)
-      (modifiedStock, initiatedElementOption)
+    } yield this.copy(elements = updatedElements)
 
   override
   def read(

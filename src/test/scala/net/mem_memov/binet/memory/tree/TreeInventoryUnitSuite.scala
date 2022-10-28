@@ -24,10 +24,10 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
     val updatedRootElement = new UnusedElement(failMethod) {}
 
     val rootElement = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, (Element, Option[Element])] =
+      override def write(destination: Address, content: Address): Either[String, Element] =
         assert(destination.equals(nextAddress))
         assert(content.equals(trimmedContentAddress))
-        Right((updatedRootElement, None))
+        Right(updatedRootElement)
 
     val argument = new UnusedArgument(failMethod):
       override def checkAndTrimPermissive(next: Address, content: Address): Either[String, Address] =
@@ -55,10 +55,10 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
     val updatedRootElement = new UnusedElement(failMethod) {}
 
     val rootElement = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, (Element, Option[Element])] =
+      override def write(destination: Address, content: Address): Either[String, Element] =
         assert(destination.equals(trimmedDestinationAddress))
         assert(content.equals(trimmedContentAddress))
-        Right((updatedRootElement, None))
+        Right(updatedRootElement)
 
     val argument = new UnusedArgument(failMethod):
       override def checkAndTrimRestrictive(next: Address, content: Address): Either[String, Address] =

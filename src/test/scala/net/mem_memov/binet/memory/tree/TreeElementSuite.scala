@@ -38,12 +38,11 @@ class TreeElementSuite extends munit.FunSuite:
     given StoreFactory = new UnusedStoreFactory(failMethod):
       override lazy val emptyStore: Store = store
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
-      (modifiedElement, initiatedElementOption) = result
-    } yield assert(modifiedElement.storeOption.contains(updatedStore))
+    } yield assert(result.storeOption.contains(updatedStore))
   }
 
   test("Element writes content to the available store") {
@@ -70,12 +69,11 @@ class TreeElementSuite extends munit.FunSuite:
 
     val store = new UnusedStore(failMethod) {}
 
-    val element = TreeElement(Some(store), None, None)
+    val element = TreeElement(Some(store), None)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
-      (modifiedElement, initiatedElementOption) = result
-    } yield assert(modifiedElement.storeOption.contains(updatedStore))
+    } yield assert(result.storeOption.contains(updatedStore))
   }
 
   test("Element doesn't write content if destination empty") {
@@ -86,7 +84,7 @@ class TreeElementSuite extends munit.FunSuite:
 
     val contentAddress = new UnusedAddress(failMethod) {}
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     val result = element.write(destinationAddress, contentAddress)
 
@@ -110,22 +108,21 @@ class TreeElementSuite extends munit.FunSuite:
     val updatedStock = new UnusedStock(failMethod) {}
 
     val stock = new UnusedStock(failMethod):
-      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, (Stock, Option[Element])] =
+      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock] =
         assert(index == destinationIndex)
         assert(destination == restAddress)
         assert(content == contentAddress)
-        Right((updatedStock, None))
+        Right(updatedStock)
 
     given StockFactory = new UnusedStockFactory(failMethod):
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
-      (modifiedElement, initiatedElementOption) = result
-    } yield assert(modifiedElement.stockOption.contains(updatedStock))
+    } yield assert(result.stockOption.contains(updatedStock))
   }
 
   test("Element writes content to the available stock if destination not reached") {
@@ -145,18 +142,17 @@ class TreeElementSuite extends munit.FunSuite:
     val updatedStock = new UnusedStock(failMethod) {}
 
     val stock = new UnusedStock(failMethod):
-      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, (Stock, Option[Element])] =
+      override def write(index: UnsignedByte, destination: Address, content: Address): Either[String, Stock] =
         assert(index == destinationIndex)
         assert(destination == restAddress)
         assert(content == contentAddress)
-        Right(updatedStock, None)
+        Right(updatedStock)
 
-    val element = TreeElement(None, Some(stock), None)
+    val element = TreeElement(None, Some(stock))
 
     for {
       result <- element.write(destinationAddress, contentAddress)
-      (modifiedElement, initiatedElementOption) = result
-    } yield assert(modifiedElement.stockOption.contains(updatedStock))
+    } yield assert(result.stockOption.contains(updatedStock))
   }
 
   test("Element reads content from a new store") {
@@ -182,7 +178,7 @@ class TreeElementSuite extends munit.FunSuite:
       override lazy val emptyStore: Store =
         store
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     for {
       result <- element.read(originAddress)
@@ -208,7 +204,7 @@ class TreeElementSuite extends munit.FunSuite:
         assert(origin == originIndex)
         contentAddress
 
-    val element = TreeElement(Some(store), None, None)
+    val element = TreeElement(Some(store), None)
 
     for {
       result <- element.read(originAddress)
@@ -237,7 +233,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     for {
       result <- element.read(originAddress)
@@ -266,7 +262,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     for {
       result <- element.read(originAddress)
@@ -291,7 +287,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def read(index: UnsignedByte, origin: Address): Either[String, Address] =
         Right(contentAddress)
 
-    val element = TreeElement(None, Some(stock), None)
+    val element = TreeElement(None, Some(stock))
 
     for {
       result <- element.read(originAddress)
@@ -304,7 +300,7 @@ class TreeElementSuite extends munit.FunSuite:
       private[memory]
       override def shorten = None
 
-    val element = TreeElement(None, None, None)
+    val element = TreeElement(None, None)
 
     val result = element.read(originAddress)
 

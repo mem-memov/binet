@@ -16,8 +16,7 @@ case class TreeInventory(
 
     for {
       trimmedContent <- argument.checkAndTrimPermissive(next, content)
-      writeResult <- root.write(next, trimmedContent)
-      (updatedRoot, initiatedElementOption) = writeResult
+      updatedRoot <- root.write(next, trimmedContent)
       newNext <- Right(next.increment)
     } yield this.copy(next = newNext, root = updatedRoot)
 
@@ -26,8 +25,7 @@ case class TreeInventory(
     for {
       trimmedDestination <- argument.checkAndTrimRestrictive(next, destination)
       trimmedContent <- argument.checkAndTrimRestrictive(next, content)
-      writeResult <- root.write(trimmedDestination, trimmedContent)
-      (updatedRoot, _) = writeResult
+      updatedRoot <- root.write(trimmedDestination, trimmedContent)
     } yield this.copy(root = updatedRoot)
 
   def read(origin: Address): Either[String, Address] =

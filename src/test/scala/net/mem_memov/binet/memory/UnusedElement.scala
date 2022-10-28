@@ -5,7 +5,7 @@ trait UnusedElement(fail: String => Nothing) extends Element:
   def write(
     destination: Address,
     content: Address
-  ): Either[String, (Element, Option[Element])] =
+  ): Either[String, Element] =
     
     fail("unexpected")
 
