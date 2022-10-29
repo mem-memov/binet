@@ -20,5 +20,6 @@ object TreeFactory:
     given inventoryFactory: InventoryFactory = InventoryFactory()
     given stockFactory: StockFactory = StockFactory()
     given storeFactory: StoreFactory = StoreFactory()
+    given traversalFactory: TraversalFactory = TraversalFactory()
 
     lazy val emptyInventory: Inventory = inventoryFactory.emptyInventory

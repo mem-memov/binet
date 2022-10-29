@@ -1,7 +1,9 @@
 package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.tree.treeFactory._
+import net.mem_memov.binet.memory.tree.treeFactory.*
+
+import scala.collection.immutable.Queue
 
 case class TreeElement(
   storeOption: Option[Store],
@@ -49,3 +51,24 @@ case class TreeElement(
         else
           val presentStock = stockOption.getOrElse(stockFactory.makeStock())
           presentStock.read(index, rest)
+
+  override
+  def enqueueStock(
+    queue: Queue[Element]
+  ): Queue[Element] =
+
+    stockOption match
+      case Some(stock) => stock.enqueueElements(queue)
+      case None => queue
+
+  override
+  def foreachSlice(
+    f: Array[Byte] => Unit
+  ): Unit =
+
+    storeOption match
+      case Some(store) =>
+        store.foreachSlice(f)
+      case None =>
+        ()
+

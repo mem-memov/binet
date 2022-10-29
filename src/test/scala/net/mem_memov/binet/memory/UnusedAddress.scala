@@ -2,78 +2,96 @@ package net.mem_memov.binet.memory
 
 trait UnusedAddress(fail: String => Nothing) extends Address:
 
-  override lazy val indices: List[UnsignedByte] =
+  override
+  lazy val indices: List[UnsignedByte] =
 
     fail("unexpected")
 
-  override lazy val length: Int =
+  override
+  lazy val length: Int =
 
     fail("unexpected")
 
-  override def increment: Address =
+  override
+  def increment: Address =
 
     fail("unexpected")
 
-  override def decrement: Either[String, Address] =
+  override
+  def decrement: Either[String, Address] =
 
     fail("unexpected")
 
-  override def isZero: Boolean =
+  override
+  def isZero: Boolean =
 
     fail("unexpected")
 
-  override def toString: String =
-
-    fail("unexpected")
-
-  private[memory]
-  override def isEmpty: Boolean =
-
-    fail("unexpected")
-
-  private[memory]
-  override def trimBig: Address =
+  override
+  def toString: String =
 
     fail("unexpected")
 
   private[memory]
-  override def padBig(target: Int ): Either[String, Address] =
+  override
+  def isEmpty: Boolean =
 
     fail("unexpected")
 
   private[memory]
-  override def shorten: Option[(UnsignedByte, Address)] =
+  override
+  def trimBig: Address =
 
     fail("unexpected")
 
-  override def expandStore(store: Store): Store =
+  private[memory]
+  override
+  def padBig(target: Int ): Either[String, Address] =
 
     fail("unexpected")
 
-  override def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
+  private[memory]
+  override
+  def shorten: Option[(UnsignedByte, Address)] =
 
     fail("unexpected")
 
+  override
+  def expandStore(store: Store): Store =
+
+    fail("unexpected")
+
+  override
+  def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
+
+    fail("unexpected")
+
+  override
   def canCompare(that: Address): Boolean =
 
     fail("unexpected")
 
-  override def isEqual(that: Address): Boolean =
+  override
+  def isEqual(that: Address): Boolean =
 
     fail("unexpected")
 
-  override def isGreater(that: Address): Boolean =
+  override
+  def isGreater(that: Address): Boolean =
 
     fail("unexpected")
 
-  override def isGreaterOrEqual(that: Address): Boolean =
+  override
+  def isGreaterOrEqual(that: Address): Boolean =
 
     fail("unexpected")
 
-  override def isLess(that: Address): Boolean =
+  override
+  def isLess(that: Address): Boolean =
 
     fail("unexpected")
 
-  override def isLessOrEqual(that: Address): Boolean =
+  override
+  def isLessOrEqual(that: Address): Boolean =
 
     fail("unexpected")

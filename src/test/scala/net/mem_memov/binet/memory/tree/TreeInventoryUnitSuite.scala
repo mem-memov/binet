@@ -9,6 +9,7 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
   def failMethod(message: String): Nothing = fail(message)
 
   given AddressFactory = new UnusedAddressFactory(failMethod) {}
+  given TraversalFactory = new UnusedTraversalFactory(failMethod) {}
 
   test("Inventory appends content") {
 

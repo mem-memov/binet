@@ -1,18 +1,24 @@
 package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.tree.treeFactory._
-import net.mem_memov.binet.memory.tree.treeInventory._
+import net.mem_memov.binet.memory.tree.treeFactory.*
+import net.mem_memov.binet.memory.tree.treeInventory.*
+
+import scala.annotation.tailrec
 
 case class TreeInventory(
   next: Address,
   root: Element,
   argument: Argument
-)(
-  using addressFactory: AddressFactory
+)(using
+  addressFactory: AddressFactory,
+  traversalFactory: TraversalFactory
 ) extends Inventory:
 
-  def append(content: Address): Either[String, TreeInventory] =
+  override
+  def append(
+    content: Address
+  ): Either[String, TreeInventory] =
 
     for {
       trimmedContent <- argument.checkAndTrimPermissive(next, content)
@@ -20,7 +26,11 @@ case class TreeInventory(
       newNext <- Right(next.increment)
     } yield this.copy(next = newNext, root = updatedRoot)
 
-  def update(destination: Address, content: Address): Either[String, TreeInventory] =
+  override
+  def update(
+    destination: Address, 
+    content: Address
+  ): Either[String, TreeInventory] =
 
     for {
       trimmedDestination <- argument.checkAndTrimRestrictive(next, destination)
@@ -28,9 +38,32 @@ case class TreeInventory(
       updatedRoot <- root.write(trimmedDestination, trimmedContent)
     } yield this.copy(root = updatedRoot)
 
-  def read(origin: Address): Either[String, Address] =
+  override
+  def read(
+    origin: Address
+  ): Either[String, Address] =
 
     for {
       trimmedOrigin <- argument.checkAndTrimRestrictive(next, origin)
       content <- root.read(trimmedOrigin)
     } yield content.trimBig
+
+  override
+  def foreachSlice(
+    f: Array[Byte] => Unit
+  ): Unit =
+
+    val traversal = traversalFactory.createFirst(root)
+    
+    @tailrec
+    def t(traversal: Traversal, f: Array[Byte] => Unit): Unit =
+
+      traversal.next match 
+        case Some((nextElement, modifiedTraversal)) => 
+          nextElement.foreachSlice(f)
+          t(modifiedTraversal, f)
+        case None =>
+          ()
+          
+    t(traversal, f)
+      

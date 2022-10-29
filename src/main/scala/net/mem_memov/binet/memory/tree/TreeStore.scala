@@ -1,7 +1,9 @@
 package net.mem_memov.binet.memory.tree
 
-import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.tree.treeFactory._
+import net.mem_memov.binet.memory.*
+import net.mem_memov.binet.memory.tree.treeFactory.*
+
+import scala.annotation.tailrec
 
 case class TreeStore(
   blocks: Vector[Block]
@@ -47,3 +49,34 @@ case class TreeStore(
     else
       val prependedBlocks = (0 until minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
       this.copy(blocks = blocks.prependedAll(prependedBlocks))
+
+  override
+  def foreachSlice(
+    f: Array[Byte] => Unit
+  ): Unit =
+    
+    def d(
+      origin: UnsignedByte, 
+      f: Array[Byte] => Unit
+    ): Unit =
+      val parts = blocks.foldLeft(List.empty[UnsignedByte]) { // TODO: merge repetitive code
+        case(parts, block) =>
+          block.read(origin) :: parts
+      }
+
+      val slice = parts.reverse.map(_.value).toArray
+      f(slice)
+    
+    @tailrec
+    def t(
+      origin: UnsignedByte,
+      f: Array[Byte] => Unit
+    ): Unit =
+
+      if origin < UnsignedByte.maximum then
+        d(origin, f)
+        t(origin.increment, f)
+      else
+        d(origin, f)
+
+    t(UnsignedByte.minimum, f)

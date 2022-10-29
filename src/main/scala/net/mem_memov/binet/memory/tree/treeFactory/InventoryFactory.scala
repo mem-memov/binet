@@ -15,7 +15,8 @@ object InventoryFactory:
 
   def apply()(using
     addressFactory: AddressFactory,
-    elementFactory: ElementFactory
+    elementFactory: ElementFactory,
+    traversalFactory: TraversalFactory
   ): InventoryFactory =
 
     val argumentService: ArgumentService = ArgumentService(

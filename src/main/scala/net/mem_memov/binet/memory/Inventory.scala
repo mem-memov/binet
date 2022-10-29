@@ -11,10 +11,21 @@ trait Inventory:
 
   val next: Address
 
-  def append(content: Address): Either[String, Inventory]
+  def append(
+    content: Address
+  ): Either[String, Inventory]
 
-  def update(destination: Address, content: Address): Either[String, Inventory]
+  def update(
+    destination: Address,
+    content: Address
+  ): Either[String, Inventory]
 
-  def read(origin: Address): Either[String, Address]
+  def read(
+    origin: Address
+  ): Either[String, Address]
+
+  def foreachSlice(
+    f: Array[Byte] => Unit
+  ): Unit
 
 

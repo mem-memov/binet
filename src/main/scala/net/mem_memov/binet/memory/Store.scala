@@ -19,3 +19,7 @@ trait Store:
   def expand(
     minimumLength: Int
   ): Store
+
+  def foreachSlice(
+    f: Array[Byte] => Unit
+  ): Unit

@@ -2,6 +2,8 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
 
+import scala.collection.immutable.Queue
+
 case class TreeStock(
   elements: Vector[Element]
 ) extends Stock:
@@ -25,3 +27,10 @@ case class TreeStock(
   ): Either[String, Address] =
 
     elements(index.toInt).read(origin)
+
+  override
+  def enqueueElements(
+    queue: Queue[Element]
+  ): Queue[Element] =
+
+    queue.enqueueAll(elements)
