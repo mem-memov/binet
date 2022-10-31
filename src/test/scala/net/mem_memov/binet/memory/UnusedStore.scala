@@ -10,6 +10,13 @@ trait UnusedStore(fail: String => Nothing) extends Store:
 
     fail("unexpected")
 
+  def write(
+    destination: UnsignedByte,
+    content: Vector[UnsignedByte]
+  ): Store =
+
+    fail("unexpected")
+
   override 
   def read(
     origin: UnsignedByte

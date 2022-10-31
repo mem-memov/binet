@@ -28,6 +28,30 @@ case class TreeStore(
     } yield this.copy(blocks = updatedBlocks)
 
   override
+  def write(
+    destination: UnsignedByte,
+    content: Vector[UnsignedByte]
+  ): Store =
+
+    val expandedBlocks = if  blocks.length < content.length then
+      val prependedBlocks = (0 to content.length - blocks.length).map(_ => blockFactory.emptyBlock)
+      blocks.prependedAll(prependedBlocks)
+    else
+      blocks
+
+    val expandedContent = if content.length < blocks.length then
+      val prependedBlocks = (0 to blocks.length - content.length).map(_ => UnsignedByte.minimum).toVector
+      content.prependedAll(prependedBlocks)
+    else
+      content
+
+    val modifiedBlocks = expandedContent.zip(expandedBlocks).map { case (part, block) =>
+      block.write(destination, part)
+    }
+
+    this.copy(blocks = modifiedBlocks)
+
+  override
   def read(
     origin: UnsignedByte
   ): Address =
@@ -54,9 +78,9 @@ case class TreeStore(
   def foreachSlice(
     f: Array[Byte] => Unit
   ): Unit =
-    
+
     def d(
-      origin: UnsignedByte, 
+      origin: UnsignedByte,
       f: Array[Byte] => Unit
     ): Unit =
       val parts = blocks.foldLeft(List.empty[UnsignedByte]) { // TODO: merge repetitive code
@@ -66,7 +90,7 @@ case class TreeStore(
 
       val slice = parts.reverse.map(_.value).toArray
       f(slice)
-    
+
     @tailrec
     def t(
       origin: UnsignedByte,

@@ -32,3 +32,10 @@ trait UnusedElement(fail: String => Nothing) extends Element:
   ): Unit =
 
     fail("unexpected")
+
+  override
+  def withStore(
+    store: Store
+  ): Element =
+
+    fail("unexpected")

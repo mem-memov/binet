@@ -30,5 +30,9 @@ trait Element:
     f: Array[Byte] => Unit
   ): Unit
 
+  def withStore(
+    store: Store
+  ): Element
+
 
 

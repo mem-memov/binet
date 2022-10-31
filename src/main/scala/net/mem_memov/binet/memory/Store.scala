@@ -12,6 +12,11 @@ trait Store:
     content: Address
   ): Either[String, Store]
 
+  def write(
+    destination: UnsignedByte,
+    content: Vector[UnsignedByte]
+  ): Store
+
   def read(
     origin: UnsignedByte
   ): Address

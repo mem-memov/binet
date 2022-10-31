@@ -72,3 +72,9 @@ case class TreeElement(
       case None =>
         ()
 
+  override
+  def withStore(
+    store: Store
+  ): Element =
+
+    this.copy(storeOption = Some(store))
