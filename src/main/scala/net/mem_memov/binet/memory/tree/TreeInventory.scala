@@ -53,17 +53,16 @@ case class TreeInventory(
     f: Array[Byte] => Unit
   ): Unit =
 
-    val traversal = traversalFactory.createFirst(root)
-    
+    val traversal = traversalFactory.createFirst(root, next)
+
     @tailrec
     def t(traversal: Traversal, f: Array[Byte] => Unit): Unit =
 
-      traversal.next match 
-        case Some((nextElement, modifiedTraversal)) => 
-          nextElement.foreachSlice(f)
+      traversal.next match
+        case Left(message) => () // TODO: handle error
+        case Right(None) => ()
+        case Right(Some((content, modifiedTraversal))) =>
           t(modifiedTraversal, f)
-        case None =>
-          ()
-          
+
     t(traversal, f)
       

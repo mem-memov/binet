@@ -5,6 +5,6 @@ import net.mem_memov.binet.memory._
 trait UnusedTraversalFactory(fail: String => Nothing) extends TraversalFactory:
 
   override
-  def createFirst(element: Element): Traversal =
+  def createFirst(element: Element, newPath: Address): Traversal =
 
     fail("unexpected")

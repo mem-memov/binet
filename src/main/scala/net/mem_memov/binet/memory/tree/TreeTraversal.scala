@@ -1,22 +1,20 @@
 package net.mem_memov.binet.memory.tree
 
-import scala.collection.immutable.Queue
 import net.mem_memov.binet.memory._
 
-case class TreeTraversal(queue: Queue[Element]) extends Traversal:
+case class TreeTraversal(root: Element, nextPath: Address, newPath: Address) extends Traversal:
 
   override 
-  def next: Option[(Element, Traversal)] =
+  def next: Either[String, Option[(Address, Traversal)]] =
 
-    if queue.isEmpty then
+    if nextPath.isEqual(newPath) then
       
-      None
+      Right(None)
 
     else
-      
-      val (nextElement, dequeuedQueue) = queue.dequeue
-      
-      val enqueuedQueue = nextElement.enqueueStock(dequeuedQueue)
 
-      Some((nextElement, TreeTraversal(enqueuedQueue)))
+      for {
+        content <- root.read(nextPath)
+      } yield Some((content, this.copy(nextPath = nextPath.increment)))
+
       
