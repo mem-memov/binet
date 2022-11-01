@@ -15,10 +15,21 @@ trait Stock:
     content: Address
   ): Either[String, Stock]
 
+  def write(
+    index: UnsignedByte,
+    destination: Path,
+    content: Content
+  ): Either[String, Stock]
+
   def read(
     index: UnsignedByte,
     origin: Address
   ): Either[String, Address]
+
+  def read(
+    index: UnsignedByte,
+    origin: Path
+  ): Either[String, Content]
 
 
 

@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.tree.treeFactory
 
 import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.tree.{TreeElement, TreeStock}
+import net.mem_memov.binet.memory.tree.{treeElement, TreeStock}
 
 trait StockFactory:
 

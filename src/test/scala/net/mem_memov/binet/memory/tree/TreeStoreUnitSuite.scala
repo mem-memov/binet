@@ -1,11 +1,14 @@
 package net.mem_memov.binet.memory.tree
 
-import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.tree.treeFactory._
+import net.mem_memov.binet.memory.*
+import net.mem_memov.binet.memory.tree.treeFactory.*
+import net.mem_memov.binet.memory.tree.treeStore.UnusedTrimmer
 
 class TreeStoreUnitSuite extends munit.FunSuite:
 
   def failMethod(message: String): Nothing = fail(message)
+
+  val trimmer = new UnusedTrimmer(failMethod) {}
 
   test("Store writes addresses") {
 
@@ -29,7 +32,7 @@ class TreeStoreUnitSuite extends munit.FunSuite:
     given AddressFactory = new UnusedAddressFactory(failMethod) {}
     given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val store = TreeStore(Vector(block))
+    val store = TreeStore(Vector(block), trimmer)
 
     for {
       result <- store.write(destination, content)
@@ -57,7 +60,7 @@ class TreeStoreUnitSuite extends munit.FunSuite:
 
     given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val store = TreeStore(Vector(block))
+    val store = TreeStore(Vector(block), trimmer)
 
     val result = store.read(origin)
     assert(result == readAddress)
@@ -73,7 +76,7 @@ class TreeStoreUnitSuite extends munit.FunSuite:
     given BlockFactory = new UnusedBlockFactory(failMethod):
       override lazy val emptyBlock: Block = newBlock
 
-    val store = TreeStore(Vector(oldBlock))
+    val store = TreeStore(Vector(oldBlock), trimmer)
 
     val result = store.expand(2)
 
@@ -87,7 +90,7 @@ class TreeStoreUnitSuite extends munit.FunSuite:
     given AddressFactory = new UnusedAddressFactory(failMethod) {}
     given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val store = TreeStore(Vector(oldBlock))
+    val store = TreeStore(Vector(oldBlock), trimmer)
 
     val result = store.expand(1)
 
@@ -102,7 +105,7 @@ class TreeStoreUnitSuite extends munit.FunSuite:
     given AddressFactory = new UnusedAddressFactory(failMethod) {}
     given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val store = TreeStore(Vector(firstBlock, secondBlock))
+    val store = TreeStore(Vector(firstBlock, secondBlock), trimmer)
 
     val result = store.expand(1)
 

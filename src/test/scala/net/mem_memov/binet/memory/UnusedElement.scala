@@ -13,8 +13,23 @@ trait UnusedElement(fail: String => Nothing) extends Element:
     fail("unexpected")
 
   override
+  def write(
+    destination: Path,
+    content: Content
+  ): Either[String, Element] =
+
+    fail("unexpected")
+
+  override
   def read(
     origin: Address
   ): Either[String, Address] =
     
+    fail("unexpected")
+
+  override
+  def read(
+    origin: Path
+  ): Either[String, Content] =
+
     fail("unexpected")

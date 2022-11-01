@@ -4,4 +4,8 @@ trait Path:
 
   def isEmpty: Boolean
 
-  def shorten: Option[(UnsignedByte, Path)]
+  def shorten: Either[String, Path.Split]
+
+object Path:
+
+  case class Split(index: UnsignedByte, rest: Path)

@@ -1,7 +1,8 @@
 package net.mem_memov.binet.memory.tree
 
-import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.tree.treeFactory._
+import net.mem_memov.binet.memory.*
+import net.mem_memov.binet.memory.tree.treeElement._
+import net.mem_memov.binet.memory.tree.treeFactory.*
 
 class TreeElementSuite extends munit.FunSuite:
 
@@ -10,6 +11,9 @@ class TreeElementSuite extends munit.FunSuite:
   given ElementFactory = new UnusedElementFactory(failMethod) {}
   given StockFactory = new UnusedStockFactory(failMethod) {}
   given StoreFactory = new UnusedStoreFactory(failMethod) {}
+
+  val writer: Writer = new UnusedWriter(failMethod) {}
+  val reader: Reader = new UnusedReader(failMethod) {}
 
   test("Element writes address to a new store") {
 
@@ -38,7 +42,7 @@ class TreeElementSuite extends munit.FunSuite:
     given StoreFactory = new UnusedStoreFactory(failMethod):
       override lazy val emptyStore: Store = store
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
@@ -69,7 +73,7 @@ class TreeElementSuite extends munit.FunSuite:
 
     val store = new UnusedStore(failMethod) {}
 
-    val element = TreeElement(Some(store), None)
+    val element = TreeElement(Some(store), None, writer, reader)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
@@ -84,7 +88,7 @@ class TreeElementSuite extends munit.FunSuite:
 
     val contentAddress = new UnusedAddress(failMethod) {}
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     val result = element.write(destinationAddress, contentAddress)
 
@@ -118,7 +122,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
@@ -148,7 +152,7 @@ class TreeElementSuite extends munit.FunSuite:
         assert(content == contentAddress)
         Right(updatedStock)
 
-    val element = TreeElement(None, Some(stock))
+    val element = TreeElement(None, Some(stock), writer, reader)
 
     for {
       result <- element.write(destinationAddress, contentAddress)
@@ -178,7 +182,7 @@ class TreeElementSuite extends munit.FunSuite:
       override lazy val emptyStore: Store =
         store
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     for {
       result <- element.read(originAddress)
@@ -204,7 +208,7 @@ class TreeElementSuite extends munit.FunSuite:
         assert(origin == originIndex)
         contentAddress
 
-    val element = TreeElement(Some(store), None)
+    val element = TreeElement(Some(store), None, writer, reader)
 
     for {
       result <- element.read(originAddress)
@@ -233,7 +237,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     for {
       result <- element.read(originAddress)
@@ -262,7 +266,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def makeStock()(using elementFactory: ElementFactory): Stock =
         stock
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     for {
       result <- element.read(originAddress)
@@ -287,7 +291,7 @@ class TreeElementSuite extends munit.FunSuite:
       override def read(index: UnsignedByte, origin: Address): Either[String, Address] =
         Right(contentAddress)
 
-    val element = TreeElement(None, Some(stock))
+    val element = TreeElement(None, Some(stock), writer, reader)
 
     for {
       result <- element.read(originAddress)
@@ -300,7 +304,7 @@ class TreeElementSuite extends munit.FunSuite:
       private[memory]
       override def shorten = None
 
-    val element = TreeElement(None, None)
+    val element = TreeElement(None, None, writer, reader)
 
     val result = element.read(originAddress)
 

@@ -10,9 +10,14 @@ case class TreePath(indices: Vector[UnsignedByte]) extends Path:
     indices.isEmpty
 
   override
-  def shorten: Option[(UnsignedByte, Path)] =
+  def shorten: Either[String, Path.Split] =
 
     if indices.nonEmpty then
-      Some(indices.head -> this.copy(indices = indices.tail))
+      Right(
+        Path.Split(
+          index = indices.head,
+          rest = this.copy(indices = indices.tail)
+        )
+      )
     else
-      None
+      Left("Path couldn't be used")

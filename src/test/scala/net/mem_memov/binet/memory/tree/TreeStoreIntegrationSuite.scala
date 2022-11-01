@@ -1,7 +1,8 @@
 package net.mem_memov.binet.memory.tree
 
-import net.mem_memov.binet.memory._
-import net.mem_memov.binet.memory.tree.treeFactory._
+import net.mem_memov.binet.memory.*
+import net.mem_memov.binet.memory.tree.treeFactory.*
+import net.mem_memov.binet.memory.tree.treeStore.trimmer.TrimmerService
 
 class TreeStoreIntegrationSuite extends munit.FunSuite:
 
@@ -15,7 +16,8 @@ class TreeStoreIntegrationSuite extends munit.FunSuite:
       for {
         size <- (1 to 10)
         store = TreeStore(
-          Vector.fill[Block](size)(blockFactory.emptyBlock)
+          Vector.fill[Block](size)(blockFactory.emptyBlock),
+          new TrimmerService
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
         content <- List(

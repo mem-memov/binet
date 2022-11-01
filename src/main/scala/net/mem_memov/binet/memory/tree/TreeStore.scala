@@ -2,11 +2,13 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.tree.treeFactory.*
+import net.mem_memov.binet.memory.tree.treeStore.Trimmer
 
 import scala.annotation.tailrec
 
 case class TreeStore(
-  blocks: Vector[Block]
+  blocks: Vector[Block],
+  trimmer: Trimmer
 )(using
   addressFactory: AddressFactory,
   blockFactory: BlockFactory
@@ -39,17 +41,7 @@ case class TreeStore(
       content.write(index, destination, block)
     }
 
-    @tailrec
-    def trimRight(blocks: Vector[Block]): Vector[Block] =
-      if blocks.isEmpty then
-        blocks
-      else
-        if blocks.last.isEmpty then
-          trimRight(blocks.dropRight(1))
-        else
-          blocks
-
-    val contractedBlocks = trimRight(modifiedBlocks)
+    val contractedBlocks = trimmer.trimRight(modifiedBlocks)
 
     this.copy(blocks = contractedBlocks)
 

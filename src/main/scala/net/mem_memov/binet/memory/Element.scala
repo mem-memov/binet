@@ -1,9 +1,5 @@
 package net.mem_memov.binet.memory
 
-import net.mem_memov.binet.memory.tree.TreeElement
-
-import scala.collection.immutable.Queue
-
 /**
  * Elements build a tree-like structure.
  * Child elements are kept in a stock.
@@ -18,9 +14,18 @@ trait Element:
     content: Address
   ): Either[String, Element]
 
+  def write(
+    destination: Path,
+    content: Content
+  ): Either[String, Element]
+
   def read(
     origin: Address
   ): Either[String, Address]
+
+  def read(
+    origin: Path
+  ): Either[String, Content]
 
 
 

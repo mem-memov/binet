@@ -1,7 +1,8 @@
 package net.mem_memov.binet.memory.tree.treeFactory
 
-import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.tree.TreeElement
+import net.mem_memov.binet.memory.tree.treeElement.service.{ReaderService, WriterService}
 
 trait ElementFactory:
 
@@ -18,10 +19,20 @@ object ElementFactory:
 
     new ElementFactory:
 
+      given ElementFactory = this
+      val writerService: WriterService = new WriterService()
+      val readerService: ReaderService = new ReaderService()
+
       override
       lazy val emptyElement: Element =
+
         given ElementFactory = this
-        TreeElement(None, None)
+        TreeElement(
+          None,
+          None,
+          writerService,
+          readerService
+        )
 
       override
       def create(
@@ -29,6 +40,11 @@ object ElementFactory:
         stock: Stock
       ): Element =
         given ElementFactory = this
-        TreeElement(Some(store), Some(stock))
+        TreeElement(
+          Some(store),
+          Some(stock),
+          writerService,
+          readerService
+        )
 
         
