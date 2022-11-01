@@ -48,6 +48,10 @@ trait Address:
   def isLess(that: Address): Boolean
   
   def isLessOrEqual(that: Address): Boolean
+  
+  def toPath: Path
+  
+  def toContent: Content
 
 
 

@@ -22,17 +22,6 @@ trait Element:
     origin: Address
   ): Either[String, Address]
 
-  def enqueueStock(
-    queue: Queue[Element]
-  ): Queue[Element]
-
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit
-
-  def withStore(
-    store: Store
-  ): Element
 
 
 

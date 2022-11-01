@@ -20,10 +20,3 @@ trait UnusedStock(fail: String => Nothing) extends Stock:
   ): Either[String, Address] =
     
     fail("unexpected")
-
-  override
-  def enqueueElements(
-    queue: Queue[Element]
-  ): Queue[Element] =
-
-    fail("unexpected")

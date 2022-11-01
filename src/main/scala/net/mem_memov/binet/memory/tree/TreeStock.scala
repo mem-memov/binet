@@ -27,10 +27,3 @@ case class TreeStock(
   ): Either[String, Address] =
 
     elements(index.toInt).read(origin)
-
-  override
-  def enqueueElements(
-    queue: Queue[Element]
-  ): Queue[Element] =
-
-    queue.enqueueAll(elements)

@@ -14,7 +14,7 @@ trait Store:
 
   def write(
     destination: UnsignedByte,
-    content: Vector[UnsignedByte]
+    content: Content
   ): Store
 
   def read(
@@ -24,7 +24,3 @@ trait Store:
   def expand(
     minimumLength: Int
   ): Store
-
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit

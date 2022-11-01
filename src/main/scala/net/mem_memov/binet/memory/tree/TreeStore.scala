@@ -27,29 +27,31 @@ case class TreeStore(
       )
     } yield this.copy(blocks = updatedBlocks)
 
-  override
   def write(
     destination: UnsignedByte,
-    content: Vector[UnsignedByte]
-  ): Store =
+    content: Content
+  ): TreeStore =
 
-    val expandedBlocks = if  blocks.length < content.length then
-      val prependedBlocks = (0 to content.length - blocks.length).map(_ => blockFactory.emptyBlock)
-      blocks.prependedAll(prependedBlocks)
-    else
-      blocks
+    val appendedBlocks = content.supplementBlocks(blocks.length)
+    val expandedBlocks = blocks.appendedAll(appendedBlocks)
 
-    val expandedContent = if content.length < blocks.length then
-      val prependedBlocks = (0 to blocks.length - content.length).map(_ => UnsignedByte.minimum).toVector
-      content.prependedAll(prependedBlocks)
-    else
-      content
-
-    val modifiedBlocks = expandedContent.zip(expandedBlocks).map { case (part, block) =>
-      block.write(destination, part)
+    val modifiedBlocks = expandedBlocks.zipWithIndex.map { case (block, index) =>
+      content.write(index, destination, block)
     }
 
-    this.copy(blocks = modifiedBlocks)
+    @tailrec
+    def trimRight(blocks: Vector[Block]): Vector[Block] =
+      if blocks.isEmpty then
+        blocks
+      else
+        if blocks.last.isEmpty then
+          trimRight(blocks.dropRight(1))
+        else
+          blocks
+
+    val contractedBlocks = trimRight(modifiedBlocks)
+
+    this.copy(blocks = contractedBlocks)
 
   override
   def read(
@@ -73,34 +75,3 @@ case class TreeStore(
     else
       val prependedBlocks = (0 until minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
       this.copy(blocks = blocks.prependedAll(prependedBlocks))
-
-  override
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit =
-
-    def d(
-      origin: UnsignedByte,
-      f: Array[Byte] => Unit
-    ): Unit =
-      val parts = blocks.foldLeft(List.empty[UnsignedByte]) { // TODO: merge repetitive code
-        case(parts, block) =>
-          block.read(origin) :: parts
-      }
-
-      val slice = parts.reverse.map(_.value).toArray
-      f(slice)
-
-    @tailrec
-    def t(
-      origin: UnsignedByte,
-      f: Array[Byte] => Unit
-    ): Unit =
-
-      if origin < UnsignedByte.maximum then
-        d(origin, f)
-        t(origin.increment, f)
-      else
-        d(origin, f)
-
-    t(UnsignedByte.minimum, f)

@@ -7,6 +7,11 @@ case class TreeBlock(
 ) extends Block:
 
   override
+  def isEmpty: Boolean =
+
+    space.forall(_.atMinimum)
+
+  override
   def read(
     position: UnsignedByte
   ): UnsignedByte =

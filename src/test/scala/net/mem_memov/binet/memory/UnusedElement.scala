@@ -18,24 +18,3 @@ trait UnusedElement(fail: String => Nothing) extends Element:
   ): Either[String, Address] =
     
     fail("unexpected")
-
-  override
-  def enqueueStock(
-    queue: Queue[Element]
-  ): Queue[Element] =
-
-    fail("unexpected")
-
-  override
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit =
-
-    fail("unexpected")
-
-  override
-  def withStore(
-    store: Store
-  ): Element =
-
-    fail("unexpected")

@@ -20,9 +20,6 @@ trait Stock:
     origin: Address
   ): Either[String, Address]
 
-  def enqueueElements(
-    queue: Queue[Element]
-  ): Queue[Element]
 
 
 

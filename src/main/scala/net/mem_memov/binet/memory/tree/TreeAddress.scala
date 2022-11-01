@@ -148,3 +148,11 @@ case class TreeAddress(parts: List[UnsignedByte], ordering: Ordering) extends Ad
   def isLessOrEqual(that: Address): Boolean =
 
     ordering.compare(this, that) <= 0
+
+  override
+  def toPath: Path = ???
+    
+    
+
+  override
+  def toContent: Content = ???

@@ -12,7 +12,7 @@ trait UnusedStore(fail: String => Nothing) extends Store:
 
   def write(
     destination: UnsignedByte,
-    content: Vector[UnsignedByte]
+    content: Content
   ): Store =
 
     fail("unexpected")
@@ -31,10 +31,4 @@ trait UnusedStore(fail: String => Nothing) extends Store:
 
     fail("unexpected")
 
-  override
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit =
-
-    fail("unexpected")
     

@@ -10,6 +10,8 @@ import net.mem_memov.binet.memory.tree.TreeBlock
  */
 trait Block:
 
+  def isEmpty: Boolean
+
   def write(
     position: UnsignedByte,
     content: UnsignedByte

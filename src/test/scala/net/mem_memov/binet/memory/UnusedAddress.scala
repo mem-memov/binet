@@ -95,3 +95,13 @@ trait UnusedAddress(fail: String => Nothing) extends Address:
   def isLessOrEqual(that: Address): Boolean =
 
     fail("unexpected")
+
+  override
+  def toPath: Path =
+
+    fail("unexpected")
+
+  override
+  def toContent: Content =
+
+    fail("unexpected")
