@@ -50,12 +50,6 @@ trait UnusedAddress(fail: String => Nothing) extends Address:
 
     fail("unexpected")
 
-  private[memory]
-  override
-  def shorten: Option[(UnsignedByte, Address)] =
-
-    fail("unexpected")
-
   override
   def canCompare(that: Address): Boolean =
 

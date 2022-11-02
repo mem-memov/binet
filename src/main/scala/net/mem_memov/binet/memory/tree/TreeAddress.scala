@@ -109,15 +109,6 @@ case class TreeAddress(
           val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
           Right(this.copy(parts = newIndices))
 
-  private[memory]
-  override
-  def shorten: Option[(UnsignedByte, TreeAddress)] =
-
-    if length > 0 then
-      Some(indices.head -> this.copy(parts = indices.tail))
-    else
-      None
-
   override
   def canCompare(that: Address): Boolean =
     that.isInstanceOf[TreeAddress]

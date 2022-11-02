@@ -30,9 +30,6 @@ trait Address:
   private[memory]
   def padBig(target: Int ): Either[String, Address]
 
-  private[memory]
-  def shorten: Option[(UnsignedByte, Address)]
-
   def canCompare(that: Address): Boolean
   
   def isEqual(that: Address): Boolean
