@@ -69,50 +69,5 @@ class TreeStoreUnitSuite extends munit.FunSuite:
     assert(result == readAddress)
   }
 
-  test("Store gets expanded") {
-
-    val oldBlock = new UnusedBlock(failMethod) {}
-    val newBlock = new UnusedBlock(failMethod) {}
-
-    given AddressFactory = new UnusedAddressFactory(failMethod) {}
-
-    given BlockFactory = new UnusedBlockFactory(failMethod):
-      override lazy val emptyBlock: Block = newBlock
-
-    val store = TreeStore(Vector(oldBlock), trimmer)
-
-    val result = store.expand(2)
-
-    assert(result.blocks(0) == newBlock && result.blocks(1) == oldBlock)
-  }
-
-  test("Store doesn't get expanded if already at desired length") {
-
-    val oldBlock = new UnusedBlock(failMethod) {}
-
-    given AddressFactory = new UnusedAddressFactory(failMethod) {}
-    given BlockFactory = new UnusedBlockFactory(failMethod) {}
-
-    val store = TreeStore(Vector(oldBlock), trimmer)
-
-    val result = store.expand(1)
-
-    assert(result == store)
-  }
-
-  test("Store doesn't get expanded if greater than desired length") {
-
-    val firstBlock = new UnusedBlock(failMethod) {}
-    val secondBlock = new UnusedBlock(failMethod) {}
-
-    given AddressFactory = new UnusedAddressFactory(failMethod) {}
-    given BlockFactory = new UnusedBlockFactory(failMethod) {}
-
-    val store = TreeStore(Vector(firstBlock, secondBlock), trimmer)
-
-    val result = store.expand(1)
-
-    assert(result == store)
-  }
 
 

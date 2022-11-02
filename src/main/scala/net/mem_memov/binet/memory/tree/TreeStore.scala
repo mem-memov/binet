@@ -42,13 +42,3 @@ case class TreeStore(
 
     addressFactory.makeAddress(parts.reverse)
 
-  override
-  def expand(
-    minimumLength: Int
-  ): TreeStore =
-
-    if blocks.length >= minimumLength then
-      this
-    else
-      val prependedBlocks = (0 until minimumLength - blocks.length).map(_ => blockFactory.emptyBlock)
-      this.copy(blocks = blocks.prependedAll(prependedBlocks))

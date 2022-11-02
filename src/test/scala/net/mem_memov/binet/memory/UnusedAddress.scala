@@ -57,11 +57,6 @@ trait UnusedAddress(fail: String => Nothing) extends Address:
     fail("unexpected")
 
   override
-  def expandStore(store: Store): Store =
-
-    fail("unexpected")
-
-  override
   def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
 
     fail("unexpected")

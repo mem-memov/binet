@@ -16,11 +16,5 @@ trait UnusedStore(fail: String => Nothing) extends Store:
 
     fail("unexpected")
 
-  override 
-  def expand(
-    minimumLength: Int
-  ): Store =
-
-    fail("unexpected")
 
     

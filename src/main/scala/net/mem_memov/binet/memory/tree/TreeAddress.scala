@@ -127,11 +127,6 @@ case class TreeAddress(
       Right(indices.toVector.zip(elements))
 
   override
-  def expandStore(store: Store): Store =
-
-    store.expand(length)
-
-  override
   def canCompare(that: Address): Boolean =
     that.isInstanceOf[TreeAddress]
   

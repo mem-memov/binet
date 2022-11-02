@@ -16,6 +16,3 @@ trait Store:
     origin: UnsignedByte
   ): Address
 
-  def expand(
-    minimumLength: Int
-  ): Store
