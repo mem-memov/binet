@@ -22,7 +22,7 @@ case class TreeInventory(
 
     for {
       trimmedContent <- argument.checkAndTrimPermissive(next, content)
-      updatedRoot <- root.write(next, trimmedContent)
+      updatedRoot <- root.write(next.toPath, trimmedContent.toContent)
       newNext <- Right(next.increment)
     } yield this.copy(next = newNext, root = updatedRoot)
 
@@ -35,7 +35,7 @@ case class TreeInventory(
     for {
       trimmedDestination <- argument.checkAndTrimRestrictive(next, destination)
       trimmedContent <- argument.checkAndTrimRestrictive(next, content)
-      updatedRoot <- root.write(trimmedDestination, trimmedContent)
+      updatedRoot <- root.write(trimmedDestination.toPath, trimmedContent.toContent)
     } yield this.copy(root = updatedRoot)
 
   override

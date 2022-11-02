@@ -10,11 +10,6 @@ package net.mem_memov.binet.memory
 trait Element:
 
   def write(
-    destination: Address,
-    content: Address
-  ): Either[String, Element]
-
-  def write(
     destination: Path,
     content: Content
   ): Either[String, Element]

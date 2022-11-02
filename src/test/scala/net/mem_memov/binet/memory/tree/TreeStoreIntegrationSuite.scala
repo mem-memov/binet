@@ -23,19 +23,18 @@ class TreeStoreIntegrationSuite extends munit.FunSuite:
         )
         destination <- (0 to 255).map(UnsignedByte.fromInt)
         content <- List(
-          factory.makeAddress(List.fill(size)(UnsignedByte.maximum)),
-          factory.makeAddress(List.fill(size)(UnsignedByte.maximum.decrement)),
-          factory.makeAddress(List.fill(size)(UnsignedByte.minimum)),
-          factory.makeAddress(List.fill(size)(UnsignedByte.minimum.increment)),
+          factory.makeAddress(List.fill(size)(UnsignedByte.maximum)).toContent,
+          factory.makeAddress(List.fill(size)(UnsignedByte.maximum.decrement)).toContent,
+          factory.makeAddress(List.fill(size)(UnsignedByte.minimum)).toContent,
+          factory.makeAddress(List.fill(size)(UnsignedByte.minimum.increment)).toContent,
         )
       } yield (store, destination, content)
       ).foreach { case (store, destination, content) =>
 
-      store.write(destination, content) match
-        case Left(error) => fail(error)
-        case Right(updatedStore) =>
-          val result = updatedStore.read(destination)
-          assert(result.isEqual(content))
+      val modifiedStore = store.write(destination, content)
+      val result = modifiedStore.read(destination)
+      assert(result.isEqual(content.toAddress))
+
     }
   }
 

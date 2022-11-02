@@ -12,31 +12,34 @@ class TreeStoreUnitSuite extends munit.FunSuite:
 
   test("Store writes addresses") {
 
-    val destination = UnsignedByte.fromInt(5)
+    val destinationIndex = UnsignedByte.fromInt(5)
     val contentIndex = UnsignedByte.fromInt(11)
-
     val updatedBlock = new UnusedBlock(failMethod) {}
 
-    val block = new UnusedBlock(failMethod) {
-      override def write(position: UnsignedByte, content: UnsignedByte): Block =
-        assert(position == destination)
-        assert(content == contentIndex)
-        updatedBlock
-    }
+    val originalBlock = new UnusedBlock(failMethod) {}
 
-    val content = new UnusedAddress(failMethod):
-      override def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
-        assert(elements(0) == block)
-        Right(Vector(contentIndex -> block))
+    val writtenContent = new UnusedContent(failMethod):
+      override def supplementBlocks(targetLength: Int): Vector[Block] =
+        assert(targetLength == 1)
+        Vector()
+      override def write(contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+        assert(contentIndex == 0)
+        assert(blockIndex == destinationIndex)
+        assert(block.equals(originalBlock))
+        updatedBlock
+
+    val trimmer = new UnusedTrimmer(failMethod):
+      override def trimRight(blocks: Vector[Block]): Vector[Block] =
+        assert(blocks(0) == updatedBlock)
+        Vector(updatedBlock)
 
     given AddressFactory = new UnusedAddressFactory(failMethod) {}
     given BlockFactory = new UnusedBlockFactory(failMethod) {}
 
-    val store = TreeStore(Vector(block), trimmer)
+    val store = TreeStore(Vector(originalBlock), trimmer)
 
-    for {
-      result <- store.write(destination, content)
-    } yield assert(result.blocks(0) == updatedBlock)
+    val result = store.write(destinationIndex, writtenContent)
+    assert(result.blocks(0) == updatedBlock)
   }
 
   test("Store reads addresses") {

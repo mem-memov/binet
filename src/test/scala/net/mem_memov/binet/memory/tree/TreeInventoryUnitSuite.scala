@@ -13,21 +13,29 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
 
   test("Inventory appends content") {
 
-    val trimmedContentAddress = new UnusedAddress(failMethod) {}
+    val writtenContent = new UnusedContent(failMethod) {}
+
+    val trimmedContentAddress = new UnusedAddress(failMethod):
+      override def toContent: Content =
+        writtenContent
+
     val contentAddress = new UnusedAddress(failMethod) {}
 
+    val destinationPath = new UnusedPath(failMethod) {}
     val newNextAddress = new UnusedAddress(failMethod) {}
 
     val nextAddress = new UnusedAddress(failMethod):
       override def increment: Address =
         newNextAddress
+      override def toPath: Path =
+        destinationPath
 
     val updatedRootElement = new UnusedElement(failMethod) {}
 
     val rootElement = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, Element] =
-        assert(destination.equals(nextAddress))
-        assert(content.equals(trimmedContentAddress))
+      override def write(destination: Path, content: Content): Either[String, Element] =
+        assert(destination.equals(destinationPath))
+        assert(content.equals(writtenContent))
         Right(updatedRootElement)
 
     val argument = new UnusedArgument(failMethod):
@@ -46,19 +54,28 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
   test("Inventory updates content") {
 
     val contentAddress = new UnusedAddress(failMethod) {}
-    val trimmedContentAddress = new UnusedAddress(failMethod) {}
+
+    val writtenContent = new UnusedContent(failMethod) {}
+
+    val trimmedContentAddress = new UnusedAddress(failMethod):
+      override def toContent: Content =
+        writtenContent
 
     val destinationAddress = new UnusedAddress(failMethod) {}
-    val trimmedDestinationAddress = new UnusedAddress(failMethod) {}
+
+    val destinationPath = new UnusedPath(failMethod) {}
+    val trimmedDestinationAddress = new UnusedAddress(failMethod):
+      override def toPath: Path =
+        destinationPath
 
     val nextAddress = new UnusedAddress(failMethod) {}
 
     val updatedRootElement = new UnusedElement(failMethod) {}
 
     val rootElement = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, Element] =
-        assert(destination.equals(trimmedDestinationAddress))
-        assert(content.equals(trimmedContentAddress))
+      override def write(destination: Path, content: Content): Either[String, Element] =
+        assert(destination.equals(destinationPath))
+        assert(content.equals(writtenContent))
         Right(updatedRootElement)
 
     val argument = new UnusedArgument(failMethod):

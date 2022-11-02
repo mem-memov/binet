@@ -14,21 +14,6 @@ case class TreeStore(
   blockFactory: BlockFactory
 ) extends Store:
 
-  override
-  def write(
-    destination: UnsignedByte,
-    content: Address
-  ): Either[String, TreeStore] =
-
-    for {
-      pairs <- content.zipIndices(blocks)
-      updatedBlocks <- Right(
-        pairs.map { case (part, block) =>
-          block.write(destination, part)
-        }
-      )
-    } yield this.copy(blocks = updatedBlocks)
-
   def write(
     destination: UnsignedByte,
     content: Content

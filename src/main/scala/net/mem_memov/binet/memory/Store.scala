@@ -9,11 +9,6 @@ trait Store:
 
   def write(
     destination: UnsignedByte,
-    content: Address
-  ): Either[String, Store]
-
-  def write(
-    destination: UnsignedByte,
     content: Content
   ): Store
 

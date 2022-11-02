@@ -19,28 +19,6 @@ case class TreeElement(
 
   override
   def write(
-    destination: Address,
-    content: Address
-  ): Either[String, TreeElement] =
-
-    destination.shorten match
-      case None =>
-        Left("Destination not written")
-      case Some((index, rest)) =>
-        if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(storeFactory.emptyStore)
-          for {
-            expandedStore <- Right(content.expandStore(presentStore))
-            updatedStore <- expandedStore.write(index, content)
-          } yield this.copy(storeOption = Some(updatedStore))
-        else
-          val presentStock = stockOption.getOrElse(stockFactory.makeStock())
-          for {
-            updatedStock <- presentStock.write(index, rest, content)
-          } yield this.copy(stockOption = Some(updatedStock))
-
-  override
-  def write(
     destination: Path,
     content: Content
   ): Either[String, TreeElement] =

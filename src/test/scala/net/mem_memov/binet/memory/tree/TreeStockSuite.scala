@@ -11,13 +11,13 @@ class TreeStockSuite extends munit.FunSuite:
 
     val index = UnsignedByte.fromInt(0)
 
-    val destinationAddress = new UnusedAddress(failMethod) {}
-    val contentAddress = new UnusedAddress(failMethod) {}
+    val destinationAddress = new UnusedPath(failMethod) {}
+    val contentAddress = new UnusedContent(failMethod) {}
 
     val updatedElement = new UnusedElement(failMethod) {}
 
     val element = new UnusedElement(failMethod):
-      override def write(destination: Address, content: Address): Either[String, Element] =
+      override def write(destination: Path, content: Content): Either[String, Element] =
         assert(destination.equals(destinationAddress))
         assert(content.equals(contentAddress))
         Right(updatedElement)

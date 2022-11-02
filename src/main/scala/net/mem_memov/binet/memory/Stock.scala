@@ -11,12 +11,6 @@ trait Stock:
 
   def write(
     index: UnsignedByte,
-    destination: Address,
-    content: Address
-  ): Either[String, Stock]
-
-  def write(
-    index: UnsignedByte,
     destination: Path,
     content: Content
   ): Either[String, Stock]
