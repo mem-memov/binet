@@ -12,9 +12,7 @@ case class TreeElement(
   writerService: Writer,
   readerService: Reader
 )(using
-  elementFactory: ElementFactory,
-  stockFactory: StockFactory,
-  storeFactory: StoreFactory
+  elementFactory: ElementFactory
 ) extends Element:
 
   override

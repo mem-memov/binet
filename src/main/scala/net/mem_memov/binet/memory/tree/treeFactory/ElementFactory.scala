@@ -26,7 +26,6 @@ object ElementFactory:
       override
       lazy val emptyElement: Element =
 
-        given ElementFactory = this
         TreeElement(
           None,
           None,
@@ -39,7 +38,7 @@ object ElementFactory:
         store: Store,
         stock: Stock
       ): Element =
-        given ElementFactory = this
+
         TreeElement(
           Some(store),
           Some(stock),
