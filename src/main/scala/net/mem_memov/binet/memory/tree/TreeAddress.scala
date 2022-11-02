@@ -119,14 +119,6 @@ case class TreeAddress(
       None
 
   override
-  def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]] =
-
-    if elements.length != indices.length then
-      Left("Lengths differ")
-    else
-      Right(indices.toVector.zip(elements))
-
-  override
   def canCompare(that: Address): Boolean =
     that.isInstanceOf[TreeAddress]
   

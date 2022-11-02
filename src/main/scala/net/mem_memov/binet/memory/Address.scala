@@ -33,8 +33,6 @@ trait Address:
   private[memory]
   def shorten: Option[(UnsignedByte, Address)]
 
-  def zipIndices(elements: Vector[Block]): Either[String, Vector[(UnsignedByte, Block)]]
-
   def canCompare(that: Address): Boolean
   
   def isEqual(that: Address): Boolean
