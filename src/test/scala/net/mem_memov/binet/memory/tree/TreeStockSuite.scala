@@ -31,19 +31,19 @@ class TreeStockSuite extends munit.FunSuite:
 
   test("Stock reads address at index") {
 
-    val index = UnsignedByte.fromInt(0)
+    val elementIndex = UnsignedByte.fromInt(0)
 
-    val originAddress = new UnusedAddress(failMethod) {}
-    val contentAddress = new UnusedAddress(failMethod) {}
+    val originPath = new UnusedPath(failMethod) {}
+    val retrievedContent = new UnusedContent(failMethod) {}
 
     val element = new UnusedElement(failMethod):
-      override def read(origin: Address): Either[String, Address] =
-        assert(origin.equals(originAddress))
-        Right(contentAddress)
+      override def read(origin: Path): Either[String, Content] =
+        assert(origin.equals(originPath))
+        Right(retrievedContent)
 
     val stock = TreeStock(Vector(element))
 
     for {
-      result <- stock.read(index, originAddress)
-    } yield assert(result == contentAddress)
+      result <- stock.read(elementIndex, originPath)
+    } yield assert(result == retrievedContent)
   }

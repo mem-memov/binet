@@ -17,11 +17,6 @@ trait Stock:
 
   def read(
     index: UnsignedByte,
-    origin: Address
-  ): Either[String, Address]
-
-  def read(
-    index: UnsignedByte,
     origin: Path
   ): Either[String, Content]
 

@@ -45,8 +45,8 @@ case class TreeInventory(
 
     for {
       trimmedOrigin <- argument.checkAndTrimRestrictive(next, origin)
-      content <- root.read(trimmedOrigin)
-    } yield content.trimBig
+      content <- root.read(trimmedOrigin.toPath)
+    } yield content.toAddress.trimBig
 
   override
   def foreachSlice(

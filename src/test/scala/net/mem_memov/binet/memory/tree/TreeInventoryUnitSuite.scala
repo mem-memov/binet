@@ -99,14 +99,23 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
       override def trimBig: Address = trimmedContentAddress
 
     val originAddress = new UnusedAddress(failMethod) {}
-    val trimmedOriginAddress = new UnusedAddress(failMethod) {}
+
+    val originPath = new UnusedPath(failMethod) {}
+
+    val trimmedOriginAddress = new UnusedAddress(failMethod):
+      override def toPath: Path =
+        originPath
 
     val nextAddress = new UnusedAddress(failMethod) {}
 
+    val retrievedContent = new UnusedContent(failMethod):
+      override def toAddress: Address =
+        contentAddress
+
     val rootElement = new UnusedElement(failMethod):
-      override def read(origin: Address): Either[String, Address] =
-        assert(origin.equals(trimmedOriginAddress))
-        Right(contentAddress)
+      override def read(origin: Path): Either[String, Content] =
+        assert(origin.equals(originPath))
+        Right(retrievedContent)
 
     val argument = new UnusedArgument(failMethod):
       override def checkAndTrimRestrictive(next: Address, content: Address): Either[String, Address] =

@@ -14,7 +14,7 @@ case class TreeTraversal(root: Element, nextPath: Address, newPath: Address) ext
     else
 
       for {
-        content <- root.read(nextPath)
-      } yield Some((content, this.copy(nextPath = nextPath.increment)))
+        content <- root.read(nextPath.toPath)
+      } yield Some((content.toAddress, this.copy(nextPath = nextPath.increment)))
 
       

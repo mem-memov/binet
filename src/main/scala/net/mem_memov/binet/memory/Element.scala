@@ -15,10 +15,6 @@ trait Element:
   ): Either[String, Element]
 
   def read(
-    origin: Address
-  ): Either[String, Address]
-
-  def read(
     origin: Path
   ): Either[String, Content]
 

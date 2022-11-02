@@ -16,14 +16,6 @@ trait UnusedStock(fail: String => Nothing) extends Stock:
   override
   def read(
     index: UnsignedByte,
-    origin: Address
-  ): Either[String, Address] =
-    
-    fail("unexpected")
-
-  override
-  def read(
-    index: UnsignedByte,
     origin: Path
   ): Either[String, Content] =
 

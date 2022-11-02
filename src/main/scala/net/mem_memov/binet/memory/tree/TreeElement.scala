@@ -37,22 +37,6 @@ case class TreeElement(
 
   override
   def read(
-    origin: Address
-  ): Either[String, Address] =
-
-    origin.shorten match
-      case None =>
-        Left("Origin not read")
-      case Some((index, rest)) =>
-        if rest.isEmpty then
-          val presentStore = storeOption.getOrElse(storeFactory.emptyStore)
-          Right(presentStore.read(index))
-        else
-          val presentStock = stockOption.getOrElse(stockFactory.makeStock())
-          presentStock.read(index, rest)
-
-  override
-  def read(
     origin: Path
   ): Either[String, Content] =
 

@@ -23,14 +23,6 @@ case class TreeStock(
   override
   def read(
     index: UnsignedByte,
-    origin: Address
-  ): Either[String, Address] =
-
-    elements(index.toInt).read(origin)
-
-  override
-  def read(
-    index: UnsignedByte,
     origin: Path
   ): Either[String, Content] =
 
