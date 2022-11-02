@@ -10,16 +10,18 @@ trait TreeFactory extends InventoryFactory
 
 object TreeFactory:
 
-  val emptyAddress: Address = AddressFactory().zeroAddress
+  given addressFactory: AddressFactory = AddressFactory()
+  given blockFactory: BlockFactory = BlockFactory()
+  given contentFactory: ContentFactory = ContentFactory()
+  given elementFactory: ElementFactory = ElementFactory()
+  given inventoryFactory: InventoryFactory = InventoryFactory()
+  given pathFactory: PathFactory = PathFactory()
+  given stockFactory: StockFactory = StockFactory()
+  given storeFactory: StoreFactory = StoreFactory()
+  given traversalFactory: TraversalFactory = TraversalFactory()
+
+  val emptyAddress: Address = addressFactory.zeroAddress
 
   def apply(): TreeFactory = new TreeFactory:
-
-    given addressFactory: AddressFactory = AddressFactory()
-    given blockFactory: BlockFactory = BlockFactory()
-    given elementFactory: ElementFactory = ElementFactory()
-    given inventoryFactory: InventoryFactory = InventoryFactory()
-    given stockFactory: StockFactory = StockFactory()
-    given storeFactory: StoreFactory = StoreFactory()
-    given traversalFactory: TraversalFactory = TraversalFactory()
 
     lazy val emptyInventory: Inventory = inventoryFactory.emptyInventory

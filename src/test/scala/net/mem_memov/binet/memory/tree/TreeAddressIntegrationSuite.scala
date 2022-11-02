@@ -5,7 +5,10 @@ import net.mem_memov.binet.memory.tree.treeFactory._
 
 class TreeAddressIntegrationSuite extends munit.FunSuite:
 
-  val factory = AddressFactory()
+  given BlockFactory = BlockFactory()
+  given ContentFactory = ContentFactory()
+  given PathFactory = PathFactory()
+  given factory: AddressFactory = AddressFactory()
 
   val low = UnsignedByte.minimum
   val high = UnsignedByte.maximum

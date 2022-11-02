@@ -6,11 +6,13 @@ import net.mem_memov.binet.memory.tree.treeStore.trimmer.TrimmerService
 
 class TreeStoreIntegrationSuite extends munit.FunSuite:
 
-  val factory = AddressFactory()
+  given BlockFactory = BlockFactory()
+  given ContentFactory = ContentFactory()
+  given PathFactory = PathFactory()
+  given factory: AddressFactory = AddressFactory()
   
   test("Store keeps addresses at indices") {
-    given AddressFactory = AddressFactory()
-    given BlockFactory = BlockFactory()
+
     val blockFactory = BlockFactory()
     (
       for {

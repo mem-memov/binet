@@ -9,6 +9,7 @@ trait UnusedElementFactory(fail: String => Nothing) extends ElementFactory:
 
     fail("unexpected")
 
+  override 
   def create(
     store: Store,
     stock: Stock

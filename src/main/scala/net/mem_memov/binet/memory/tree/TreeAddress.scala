@@ -2,8 +2,16 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.address.defaultAddress.*
+import net.mem_memov.binet.memory.tree.treeFactory.{AddressFactory, ContentFactory, PathFactory}
 
-case class TreeAddress(parts: List[UnsignedByte], ordering: Ordering) extends Address:
+case class TreeAddress(
+  parts: List[UnsignedByte],
+  ordering: Ordering
+)(using
+  addressFactory: AddressFactory,
+  contentFactory: ContentFactory,
+  pathFactory: PathFactory
+) extends Address:
 
   override
   lazy val indices: List[UnsignedByte] = parts
@@ -150,9 +158,11 @@ case class TreeAddress(parts: List[UnsignedByte], ordering: Ordering) extends Ad
     ordering.compare(this, that) <= 0
 
   override
-  def toPath: Path = ???
-    
-    
+  def toPath: Path =
+
+    pathFactory.create(indices.toVector)
 
   override
-  def toContent: Content = ???
+  def toContent: Content =
+
+    contentFactory.makeContent(indices.toVector)

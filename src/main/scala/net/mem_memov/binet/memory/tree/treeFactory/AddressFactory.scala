@@ -12,9 +12,14 @@ trait AddressFactory:
 
 object AddressFactory:
 
-  def apply(): AddressFactory =
+  def apply()(using
+    contentFactory: ContentFactory,
+    pathFactory: PathFactory
+  ): AddressFactory =
 
     new AddressFactory:
+
+      given AddressFactory = this
 
       val ordering = Ordering()
 

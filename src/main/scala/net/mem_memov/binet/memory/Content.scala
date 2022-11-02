@@ -11,3 +11,5 @@ trait Content:
     blockIndex: UnsignedByte,
     block: Block
   ): Block
+
+  def toAddress: Address
