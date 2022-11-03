@@ -6,6 +6,7 @@ import net.mem_memov.binet.memory.tree.treeFactory.{AddressFactory, ContentFacto
 
 case class TreeAddress(
   parts: List[UnsignedByte],
+  formatter: Formatter,
   orderer: Orderer, 
   resizer: Resizer
 )(using
@@ -50,26 +51,13 @@ case class TreeAddress(
   override
   def trimBig: TreeAddress =
 
-    val trimmedIndices = indices.dropWhile(_.atMinimum)
-    val nonEmptyIndices = if trimmedIndices.isEmpty then List(UnsignedByte.minimum) else trimmedIndices
-    this.copy(parts = nonEmptyIndices)
+    this.copy(parts = formatter.trimBig(indices))
 
   private[memory]
   override
   def padBig(target: Int): Either[String, TreeAddress] =
 
-    if length == target then
-      Right(this)
-    else
-      val trimmed = this.trimBig
-      if trimmed.length == target then
-        Right(trimmed)
-      else
-        if trimmed.length > target then
-          Left("Address not padded: already too long")
-        else
-          val newIndices = List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
-          Right(this.copy(parts = newIndices))
+    formatter.padBig(target, indices).map(modifiedIndices => this.copy(parts = modifiedIndices))
 
   override
   def canCompare(
