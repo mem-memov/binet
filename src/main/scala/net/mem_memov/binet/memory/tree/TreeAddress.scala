@@ -1,12 +1,13 @@
 package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
-import net.mem_memov.binet.memory.address.defaultAddress.*
+import net.mem_memov.binet.memory.tree.treeAddress.*
 import net.mem_memov.binet.memory.tree.treeFactory.{AddressFactory, ContentFactory, PathFactory}
 
 case class TreeAddress(
   parts: List[UnsignedByte],
-  ordering: Ordering
+  orderer: Orderer, 
+  resizer: Resizer
 )(using
   addressFactory: AddressFactory,
   contentFactory: ContentFactory,
@@ -22,51 +23,12 @@ case class TreeAddress(
   override
   def increment: TreeAddress =
 
-    def plusOne(x: UnsignedByte): (UnsignedByte, Boolean) = if x.atMaximum then (UnsignedByte.minimum, true) else (x.increment, false)
-
-    val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
-      case ((accumulator, isStart, hasOverflow), index) =>
-        if isStart then
-          val (incrementedIndex, overflow) = plusOne(index)
-          (incrementedIndex :: accumulator, false, overflow)
-        else
-          if hasOverflow then
-            val (incrementedIndex, overflow) = plusOne(index)
-            (incrementedIndex :: accumulator, false, overflow)
-          else
-            (index :: accumulator, false, false)
-    }
-
-    val resultIndices = if hasOverflow then UnsignedByte.minimum.increment :: accumulator.reverse else accumulator.reverse
-
-    this.copy(parts = resultIndices)
+    this.copy(parts = resizer.increment(indices))
 
   override
   def decrement: Either[String, TreeAddress] =
-
-    def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
-      if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
-
-    if length <= 0 then
-      Left("Address not decremented: malformed")
-    else
-      val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
-        case ((accumulator, isStart, hasOverflow), index) =>
-          if isStart then
-            val (decrementedIndex, overflow) = minusOne(index)
-            (decrementedIndex :: accumulator, false, overflow)
-          else
-            if hasOverflow then
-              val (decrementedIndex, overflow) = minusOne(index)
-              (decrementedIndex :: accumulator, false, overflow)
-            else
-              (index :: accumulator, false, false)
-      }
-
-      if hasOverflow then
-        Left("Address not decremented: already at minimum")
-      else
-        Right(this.copy(parts = accumulator.reverse))
+    
+    resizer.decrement(indices).map(indices => this.copy(parts = indices))
 
   override
   def isZero: Boolean =
@@ -110,30 +72,46 @@ case class TreeAddress(
           Right(this.copy(parts = newIndices))
 
   override
-  def canCompare(that: Address): Boolean =
+  def canCompare(
+    that: Address
+  ): Boolean =
+    
     that.isInstanceOf[TreeAddress]
   
   override
-  def isEqual(that: Address): Boolean =
-    ordering.compare(this, that) == 0
+  def isEqual(
+    that: Address
+  ): Boolean =
+    
+    orderer.compare(this, that) == 0
   
   override
-  def isGreater(that: Address): Boolean =
-    ordering.compare(this, that) == 1
+  def isGreater(
+    that: Address
+  ): Boolean =
+    
+    orderer.compare(this, that) == 1
 
   override
-  def isGreaterOrEqual(that: Address): Boolean =
-    ordering.compare(this, that) >= 0
+  def isGreaterOrEqual(
+    that: Address
+  ): Boolean =
+    
+    orderer.compare(this, that) >= 0
 
   override
-  def isLess(that: Address): Boolean =
+  def isLess(
+    that: Address
+  ): Boolean =
 
-    ordering.compare(this, that) == -1
+    orderer.compare(this, that) == -1
 
   override
-  def isLessOrEqual(that: Address): Boolean =
+  def isLessOrEqual(
+    that: Address
+  ): Boolean =
 
-    ordering.compare(this, that) <= 0
+    orderer.compare(this, that) <= 0
 
   override
   def toPath: Path =
