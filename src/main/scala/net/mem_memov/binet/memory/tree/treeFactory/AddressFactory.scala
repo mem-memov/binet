@@ -32,7 +32,7 @@ object AddressFactory:
         new PadderService(trimmer),
         trimmer
       )
-      val orderer = new OrdererService
+      val orderer = new OrdererService(formatter)
       val resizer = new ResizerService(
         new IncrementerService,
         new DecrementerService

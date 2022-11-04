@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.tree.treeAddress.*
+import net.mem_memov.binet.memory.tree.treeAddress.orderer.OrdererService
 import net.mem_memov.binet.memory.tree.treeFactory.{AddressFactory, ContentFactory, PathFactory}
 
 case class TreeAddress(
@@ -110,3 +111,28 @@ case class TreeAddress(
   def toContent: Content =
 
     contentFactory.makeContent(indices.toVector)
+
+object TreeAddress:
+
+  given Ordering[TreeAddress] with
+
+    override
+    def compare(
+      left: TreeAddress,
+      right: TreeAddress
+    ): Int =
+
+      val trimmedLeft = left.trimBig
+      val trimmedRight = right.trimBig
+      if trimmedLeft.parts.length != trimmedRight.parts.length then
+        trimmedLeft.parts.length - trimmedRight.parts.length
+      else
+        val difference = trimmedLeft.parts.zip(trimmedRight.indices)
+          .dropWhile { case (thisIndex, thatIndex) =>
+            thisIndex == thatIndex
+          }
+        if difference.isEmpty then
+          0
+        else
+          val (leftIndex, rightIndex) = difference.head
+          if leftIndex > rightIndex then 1 else -1

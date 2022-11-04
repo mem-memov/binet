@@ -1,18 +1,20 @@
 package net.mem_memov.binet.memory.tree.treeAddress.orderer
 
 import net.mem_memov.binet.memory.Address
-import net.mem_memov.binet.memory.tree.treeAddress.Orderer
+import net.mem_memov.binet.memory.tree.treeAddress.{Formatter, Orderer}
 
-class OrdererService extends Orderer:
+class OrdererService(
+  formatter: Formatter
+) extends Orderer:
 
   def compare(left: Address, right: Address): Int =
 
-    val trimmedLeft = left.trimBig
-    val trimmedRight = right.trimBig
+    val trimmedLeft = formatter.trimBig(left.indices)
+    val trimmedRight = formatter.trimBig(right.indices)
     if trimmedLeft.length != trimmedRight.length then
       trimmedLeft.length - trimmedRight.length
     else
-      val difference = trimmedLeft.indices.zip(trimmedRight.indices)
+      val difference = trimmedLeft.zip(trimmedRight)
         .dropWhile { case (thisIndex, thatIndex) =>
           thisIndex == thatIndex
         }
