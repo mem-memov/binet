@@ -24,4 +24,4 @@ object TreeFactory:
 
   def apply(): TreeFactory = new TreeFactory:
 
-    lazy val emptyInventory: Inventory = inventoryFactory.emptyInventory
+    lazy val emptyInventory: TreeInventory = inventoryFactory.emptyInventory

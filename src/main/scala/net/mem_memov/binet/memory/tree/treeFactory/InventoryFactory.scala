@@ -26,7 +26,7 @@ object InventoryFactory:
 
     new InventoryFactory:
 
-      override lazy val emptyInventory: Inventory =
+      override lazy val emptyInventory: TreeInventory =
 
         TreeInventory(
           addressFactory.zeroAddress,

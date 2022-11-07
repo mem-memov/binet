@@ -9,60 +9,73 @@ import scala.annotation.tailrec
 case class TreeInventory(
   next: Address,
   root: Element,
-  argument: Argument
-)(using
+  argument: Argument,
   addressFactory: AddressFactory,
   traversalFactory: TraversalFactory
-) extends Inventory:
+)
 
-  override
-  def append(
-    content: Address
-  ): Either[String, TreeInventory] =
+object TreeInventory:
 
-    for {
-      trimmedContent <- argument.checkAndTrimPermissive(next, content)
-      updatedRoot <- root.write(next.toPath, trimmedContent.toContent)
-      newNext <- Right(next.increment)
-    } yield this.copy(next = newNext, root = updatedRoot)
+  given Inventory[TreeInventory] with
 
-  override
-  def update(
-    destination: Address, 
-    content: Address
-  ): Either[String, TreeInventory] =
+    override
+    def nextInInventory(
+      inventory: TreeInventory
+    ): Address =
 
-    for {
-      trimmedDestination <- argument.checkAndTrimRestrictive(next, destination)
-      trimmedContent <- argument.checkAndTrimRestrictive(next, content)
-      updatedRoot <- root.write(trimmedDestination.toPath, trimmedContent.toContent)
-    } yield this.copy(root = updatedRoot)
+      inventory.next
 
-  override
-  def read(
-    origin: Address
-  ): Either[String, Address] =
+    override
+    def appendToInventory(
+      inventory: TreeInventory,
+      content: Address
+    ): Either[String, TreeInventory] =
 
-    for {
-      trimmedOrigin <- argument.checkAndTrimRestrictive(next, origin)
-      content <- root.read(trimmedOrigin.toPath)
-    } yield content.toAddress.trimBig
+      for {
+        trimmedContent <- inventory.argument.checkAndTrimPermissive(inventory.next, content)
+        updatedRoot <- inventory.root.write(inventory.next.toPath, trimmedContent.toContent)
+        newNext <- Right(inventory.next.increment)
+      } yield inventory.copy(next = newNext, root = updatedRoot)
 
-  override
-  def foreachSlice(
-    f: Array[Byte] => Unit
-  ): Unit =
+    override
+    def updateInventory(
+      inventory: TreeInventory,
+      destination: Address,
+      content: Address
+    ): Either[String, TreeInventory] =
 
-    val traversal = traversalFactory.createFirst(root, next)
+      for {
+        trimmedDestination <- inventory.argument.checkAndTrimRestrictive(inventory.next, destination)
+        trimmedContent <- inventory.argument.checkAndTrimRestrictive(inventory.next, content)
+        updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
+      } yield inventory.copy(root = updatedRoot)
 
-    @tailrec
-    def t(traversal: Traversal, f: Array[Byte] => Unit): Unit =
+    override
+    def readInventory(
+      inventory: TreeInventory,
+      origin: Address
+    ): Either[String, Address] =
 
-      traversal.next match
-        case Left(message) => () // TODO: handle error
-        case Right(None) => ()
-        case Right(Some((content, modifiedTraversal))) =>
-          t(modifiedTraversal, f)
+      for {
+        trimmedOrigin <- inventory.argument.checkAndTrimRestrictive(inventory.next, origin)
+        content <- inventory.root.read(trimmedOrigin.toPath)
+      } yield content.toAddress.trimBig
 
-    t(traversal, f)
-      
+    override
+    def foreachSliceInInventory(
+      inventory: TreeInventory,
+      f: Array[Byte] => Unit
+    ): Unit =
+
+      val traversal = inventory.traversalFactory.createFirst(inventory.root, inventory.next)
+
+      @tailrec
+      def t(traversal: Traversal, f: Array[Byte] => Unit): Unit =
+
+        traversal.next match
+          case Left(message) => () // TODO: handle error
+          case Right(None) => ()
+          case Right(Some((content, modifiedTraversal))) =>
+            t(modifiedTraversal, f)
+
+      t(traversal, f)

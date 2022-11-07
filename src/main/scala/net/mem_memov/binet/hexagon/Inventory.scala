@@ -1,6 +1,7 @@
 package net.mem_memov.binet.hexagon
 
 import net.mem_memov.binet.memory
+import net.mem_memov.binet.memory.Inventory._
 
 /**
  * Inventory keeps entries of arrows and dots
@@ -8,12 +9,12 @@ import net.mem_memov.binet.memory
 private[hexagon] class Inventory(
   val resultAddress: memory.Address,
   val resultEntry: Entry,
-  private val inventory1: memory.Inventory,
-  private val inventory2: memory.Inventory,
-  private val inventory3: memory.Inventory,
-  private val inventory4: memory.Inventory,
-  private val inventory5: memory.Inventory,
-  private val inventory6: memory.Inventory,
+  private val inventory1: memory.tree.TreeInventory,
+  private val inventory2: memory.tree.TreeInventory,
+  private val inventory3: memory.tree.TreeInventory,
+  private val inventory4: memory.tree.TreeInventory,
+  private val inventory5: memory.tree.TreeInventory,
+  private val inventory6: memory.tree.TreeInventory,
 ):
 
   def append(entry: Entry): Either[String, Inventory] =
@@ -36,6 +37,7 @@ private[hexagon] class Inventory(
     )
 
   def update(destination: memory.Address, content: Entry): Either[String, Inventory] =
+    import net.mem_memov.binet.memory.Inventory._
     for {
       modifiedInventory1 <- inventory1.update(destination, content.address1)
       modifiedInventory2 <- inventory2.update(destination, content.address2)
