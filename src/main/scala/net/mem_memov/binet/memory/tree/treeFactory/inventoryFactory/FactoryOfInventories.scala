@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.tree.treeFactory.inventoryFactory
 
 import net.mem_memov.binet.memory.{Address, Element}
 import net.mem_memov.binet.memory.tree.treeFactory.InventoryFactory
-import net.mem_memov.binet.memory.tree.TreeInventory
+import net.mem_memov.binet.memory.tree.{TreeAddress, TreeInventory}
 import net.mem_memov.binet.memory.tree.treeInventory.argument.ArgumentService
 import net.mem_memov.binet.memory.tree.treeInventory.argument.checker.CheckerService
 import net.mem_memov.binet.memory.tree.treeInventory.argument.trimmer.TrimmerService
@@ -25,7 +25,7 @@ object FactoryOfInventories:
       )
 
       TreeInventory(
-        addressFactory.zeroAddress,
+        addressFactory.zeroAddress.asInstanceOf[TreeAddress], // TODO: remove type conversion
         elementFactory.emptyElement,
         argumentService,
         addressFactory,

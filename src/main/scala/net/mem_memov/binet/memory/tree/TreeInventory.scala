@@ -16,7 +16,7 @@ case class TreeInventory(
 
 object TreeInventory:
 
-  given Inventory[TreeInventory] with
+  given Inventory[TreeInventory, Address] with
 
     override
     def nextInInventory(

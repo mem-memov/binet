@@ -13,8 +13,8 @@ class TreeInventoryIntergationSuite extends munit.FunSuite:
     val start = TreeFactory.emptyAddress
 
     val result = for {
-      inventory <- inventory.append(start)
-      destination <- inventory.read(start)
+      inventory <- inventory.append(start.asInstanceOf[TreeAddress]) // TODO: remove type conversion
+      destination <- inventory.read(start.asInstanceOf[TreeAddress])
     } yield destination
 
     result match {
