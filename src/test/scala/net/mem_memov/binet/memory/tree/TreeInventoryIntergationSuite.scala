@@ -1,6 +1,7 @@
 package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.Inventory._
 import net.mem_memov.binet.memory.tree.treeFactory._
 
 class TreeInventoryIntergationSuite extends munit.FunSuite:

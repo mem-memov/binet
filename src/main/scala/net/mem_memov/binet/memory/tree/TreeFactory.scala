@@ -6,7 +6,9 @@ import net.mem_memov.binet.memory.tree.treeFactory._
 /**
  * API for library clients to start with
  */
-trait TreeFactory extends InventoryFactory
+trait TreeFactory:
+
+  lazy val emptyInventory: TreeInventory
 
 object TreeFactory:
 
@@ -14,7 +16,7 @@ object TreeFactory:
   given blockFactory: BlockFactory = BlockFactory()
   given contentFactory: ContentFactory = ContentFactory()
   given elementFactory: ElementFactory = ElementFactory()
-  given inventoryFactory: InventoryFactory = InventoryFactory()
+  import net.mem_memov.binet.memory.tree.treeFactory.inventoryFactory.FactoryOfInventories.inventoryFactory
   given pathFactory: PathFactory = PathFactory()
   given stockFactory: StockFactory = StockFactory()
   given storeFactory: StoreFactory = StoreFactory()
@@ -24,4 +26,4 @@ object TreeFactory:
 
   def apply(): TreeFactory = new TreeFactory:
 
-    lazy val emptyInventory: TreeInventory = inventoryFactory.emptyInventory
+    lazy val emptyInventory: TreeInventory = summon[InventoryFactory[TreeInventory]].emptyInventory

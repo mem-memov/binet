@@ -1,6 +1,7 @@
 package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory._
+import net.mem_memov.binet.memory.Inventory._
 import net.mem_memov.binet.memory.tree.treeFactory._
 import net.mem_memov.binet.memory.tree.treeInventory._
 
@@ -8,8 +9,8 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
 
   def failMethod(message: String): Nothing = fail(message)
 
-  given AddressFactory = new UnusedAddressFactory(failMethod) {}
-  given TraversalFactory = new UnusedTraversalFactory(failMethod) {}
+  given addressFactory: AddressFactory = new UnusedAddressFactory(failMethod) {}
+  given traversalFactory: TraversalFactory = new UnusedTraversalFactory(failMethod) {}
 
   test("Inventory appends content") {
 
@@ -44,7 +45,7 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
         assert(content.equals(contentAddress))
         Right(trimmedContentAddress)
 
-    val inventory = TreeInventory(nextAddress, rootElement, argument)
+    val inventory = TreeInventory(nextAddress, rootElement, argument, addressFactory, traversalFactory)
 
     for {
       result <- inventory.append(contentAddress)
@@ -84,7 +85,7 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
         assert(content.equals(destinationAddress) || content.equals(contentAddress))
         if content.equals(contentAddress) then Right(trimmedContentAddress) else Right(trimmedDestinationAddress)
 
-    val inventory = TreeInventory(nextAddress, rootElement, argument)
+    val inventory = TreeInventory(nextAddress, rootElement, argument, addressFactory, traversalFactory)
 
     for {
       result <- inventory.update(destinationAddress, contentAddress)
@@ -123,7 +124,7 @@ class TreeInventoryUnitSuite extends munit.FunSuite:
         assert(content.equals(originAddress))
         Right(trimmedOriginAddress)
 
-    val inventory = TreeInventory(nextAddress, rootElement, argument)
+    val inventory = TreeInventory(nextAddress, rootElement, argument, addressFactory, traversalFactory)
 
     for {
       result <- inventory.read(originAddress)
