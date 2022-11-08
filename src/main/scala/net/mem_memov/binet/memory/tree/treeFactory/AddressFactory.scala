@@ -39,7 +39,7 @@ object AddressFactory:
       )
 
       def makeAddress(indices: List[UnsignedByte]): Address =
-        TreeAddress(indices, formatter, orderer, resizer)
+        TreeAddress(indices, formatter, orderer, resizer, this, contentFactory, pathFactory)
 
       override lazy val zeroAddress: Address =
         makeAddress(List(UnsignedByte.minimum))

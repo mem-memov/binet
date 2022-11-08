@@ -9,130 +9,141 @@ case class TreeAddress(
   parts: List[UnsignedByte],
   formatter: Formatter,
   orderer: Orderer, 
-  resizer: Resizer
-)(using
+  resizer: Resizer,
   addressFactory: AddressFactory,
   contentFactory: ContentFactory,
   pathFactory: PathFactory
-) extends Address:
-
-  override
-  lazy val indices: List[UnsignedByte] = parts
-
-  override
-  lazy val length: Int = indices.length
-
-  override
-  def increment: TreeAddress =
-
-    this.copy(parts = resizer.increment(indices))
-
-  override
-  def decrement: Either[String, TreeAddress] =
-    
-    resizer.decrement(indices).map(indices => this.copy(parts = indices))
-
-  override
-  def isZero: Boolean =
-
-    length == 1 && indices.head == UnsignedByte.minimum
-
-  override
-  def toString: String =
-
-    indices.map(_.toInt.toString()).mkString("Address(", ",", ")")
-
-  private[memory]
-  override
-  def isEmpty: Boolean =
-
-    length == 0
-
-  private[memory]
-  override
-  def trimBig: TreeAddress =
-
-    this.copy(parts = formatter.trimBig(indices))
-
-  private[memory]
-  override
-  def padBig(target: Int): Either[String, TreeAddress] =
-
-    formatter.padBig(target, indices).map(modifiedIndices => this.copy(parts = modifiedIndices))
-
-  override
-  def canCompare(
-    that: Address
-  ): Boolean =
-    
-    that.isInstanceOf[TreeAddress]
-  
-  override
-  def isEqual(
-    that: Address
-  ): Boolean =
-    
-    orderer.compare(this, that) == 0
-  
-  override
-  def isGreater(
-    that: Address
-  ): Boolean =
-    
-    orderer.compare(this, that) == 1
-
-  override
-  def isGreaterOrEqual(
-    that: Address
-  ): Boolean =
-    
-    orderer.compare(this, that) >= 0
-
-  override
-  def isLess(
-    that: Address
-  ): Boolean =
-
-    orderer.compare(this, that) == -1
-
-  override
-  def isLessOrEqual(
-    that: Address
-  ): Boolean =
-
-    orderer.compare(this, that) <= 0
-
-  override
-  def toPath: Path =
-
-    pathFactory.create(indices.toVector)
-
-  override
-  def toContent: Content =
-
-    contentFactory.makeContent(indices.toVector)
+)
 
 object TreeAddress:
 
-  given Ordering[TreeAddress] with
+  given Address[TreeAddress] with
 
     override
-    def compare(
-      left: TreeAddress,
-      right: TreeAddress
+    def indicesOfAddress(
+      address: TreeAddress
+    ): List[UnsignedByte] =
+
+      address.parts
+
+    override
+    def lengthOfAddress(
+      address: TreeAddress
     ): Int =
 
-      val trimmedLeft = left.trimBig
-      val trimmedRight = right.trimBig
-      if trimmedLeft.parts.length != trimmedRight.parts.length then
-        trimmedLeft.parts.length - trimmedRight.parts.length
-      else
-        val difference = trimmedLeft.parts.zip(trimmedRight.indices)
-          .dropWhile { case (thisIndex, thatIndex) =>
-            thisIndex == thatIndex
-          }
-        if difference.isEmpty then
-          0
-        else
-          val (leftIndex, rightIndex) = difference.head
-          if leftIndex > rightIndex then 1 else -1
+      address.parts.length
+
+    override
+    def incrementAddress(
+      address: TreeAddress
+    ): TreeAddress =
+
+      address.copy(parts = address.resizer.increment(address.parts))
+
+    override
+    def decrementAddress(
+      address: TreeAddress
+    ): Either[String, TreeAddress] =
+
+      address.resizer.decrement(address.parts).map(indices => address.copy(parts = indices))
+
+    override
+    def isAddressZero(
+      address: TreeAddress
+    ): Boolean =
+
+      address.parts.length == 1 && address.parts.head == UnsignedByte.minimum
+
+    override
+    def addressToString(
+      address: TreeAddress
+    ): String =
+
+      address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
+
+    private[memory]
+    override
+    def isAddressEmpty(
+      address: TreeAddress
+    ): Boolean =
+
+      address.parts.isEmpty
+
+    private[memory]
+    override
+    def trimBigAddress(
+      address: TreeAddress
+    ): TreeAddress =
+
+      address.copy(parts = address.formatter.trimBig(address.parts))
+
+    private[memory]
+    override
+    def padBigAddress(
+      address: TreeAddress,
+      target: Int
+    ): Either[String, TreeAddress] =
+
+      address.formatter.padBig(target, address.parts).map(modifiedIndices => address.copy(parts = modifiedIndices))
+
+    override
+    def canCompareWithAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      that.isInstanceOf[TreeAddress]
+
+    override
+    def isEqualToAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      address.orderer.compare(address, that) == 0
+
+    override
+    def isGreaterThanAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      address.orderer.compare(address, that) == 1
+
+    override
+    def isGreaterOrEqualToAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      address.orderer.compare(address, that) >= 0
+
+    override
+    def isLessThanAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      address.orderer.compare(address, that) == -1
+
+    override
+    def isLessOrEqualToAddress(
+      address: TreeAddress,
+      that: TreeAddress
+    ): Boolean =
+
+      address.orderer.compare(address, that) <= 0
+
+    override
+    def addressToPath(
+      address: TreeAddress,
+    ): Path =
+
+      pathFactory.create(address.parts.indices.toVector)
+
+    override
+    def addressToContent(
+      address: TreeAddress,
+    ): Content =
+
+      contentFactory.makeContent(address.parts.toVector)

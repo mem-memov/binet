@@ -7,7 +7,7 @@ import net.mem_memov.binet.memory.tree.treeInventory.*
 import scala.annotation.tailrec
 
 case class TreeInventory(
-  next: Address,
+  next: TreeAddress,
   root: Element,
   argument: Argument,
   addressFactory: AddressFactory,
@@ -16,19 +16,19 @@ case class TreeInventory(
 
 object TreeInventory:
 
-  given Inventory[TreeInventory, Address] with
+  given Inventory[TreeInventory, TreeAddress] with
 
     override
     def nextInInventory(
       inventory: TreeInventory
-    ): Address =
+    ): TreeAddress =
 
       inventory.next
 
     override
     def appendToInventory(
       inventory: TreeInventory,
-      content: Address
+      content: TreeAddress
     ): Either[String, TreeInventory] =
 
       for {
@@ -40,8 +40,8 @@ object TreeInventory:
     override
     def updateInventory(
       inventory: TreeInventory,
-      destination: Address,
-      content: Address
+      destination: TreeAddress,
+      content: TreeAddress
     ): Either[String, TreeInventory] =
 
       for {
@@ -53,8 +53,8 @@ object TreeInventory:
     override
     def readInventory(
       inventory: TreeInventory,
-      origin: Address
-    ): Either[String, Address] =
+      origin: TreeAddress
+    ): Either[String, TreeAddress] =
 
       for {
         trimmedOrigin <- inventory.argument.checkAndTrimRestrictive(inventory.next, origin)
