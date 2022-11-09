@@ -7,7 +7,7 @@ import net.mem_memov.binet.memory.tree.TreeInventory
  * It grows only by adding addresses that are already in use.
  * It rejects addresses outside its boundary.
  */
-trait Inventory[I, A]:
+trait Inventory[I, A : Address]:
 
   def nextInInventory(
     inventory: I
@@ -34,35 +34,33 @@ trait Inventory[I, A]:
     f: Array[Byte] => Unit
   ): Unit
 
-object Inventory:
-
-  extension [I, A](inventory: I)(using i: Inventory[I, A])
+  extension (inventory: I)
 
     def next(): A =
 
-      i.nextInInventory(inventory)
+      nextInInventory(inventory)
 
     def update(
       destination: A,
       content: A
     ): Either[String, I] =
 
-      i.updateInventory(inventory, destination, content)
+      updateInventory(inventory, destination, content)
 
     def append(
       content: A
     ): Either[String, I] =
 
-      i.appendToInventory(inventory, content)
+      appendToInventory(inventory, content)
 
     def read(
       origin: A
     ): Either[String, A] =
 
-      i.readInventory(inventory, origin)
+      readInventory(inventory, origin)
 
     def foreachSlice(
       f: Array[Byte] => Unit
     ): Unit =
 
-      i.foreachSliceInInventory(inventory, f)
+      foreachSliceInInventory(inventory, f)

@@ -8,15 +8,38 @@ import net.mem_memov.binet.memory.tree.TreeBlock
  * Blocks are for storing separate indices of an address.
  * At each level blocks are organized into stores.
  */
-trait Block:
+trait Block[B]:
 
-  def isEmpty: Boolean
+  def isBlockEmpty(
+    block: B
+  ): Boolean
 
-  def write(
+  def writeBlock(
+    block: B,
     position: UnsignedByte,
     content: UnsignedByte
-  ): Block
+  ): B
 
-  def read(
+  def readBlock(
+    block: B,
     position: UnsignedByte
   ): UnsignedByte
+
+  extension (block: B)
+
+    def isEmpty: Boolean =
+
+      isBlockEmpty(block)
+
+    def write(
+      position: UnsignedByte,
+      content: UnsignedByte
+    ): B =
+
+      writeBlock(block, position, content)
+
+    def read(
+      position: UnsignedByte
+    ): UnsignedByte =
+
+      readBlock(block, position)

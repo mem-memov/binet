@@ -3,21 +3,23 @@ package net.mem_memov.binet.memory.tree
 import net.mem_memov.binet.memory.*
 import net.mem_memov.binet.memory.tree.treeAddress.*
 import net.mem_memov.binet.memory.tree.treeAddress.orderer.OrdererService
+
 import net.mem_memov.binet.memory.tree.treeFactory.{AddressFactory, ContentFactory, PathFactory}
 
 case class TreeAddress(
   parts: List[UnsignedByte],
   formatter: Formatter,
-  orderer: Orderer, 
   resizer: Resizer,
-  addressFactory: AddressFactory,
   contentFactory: ContentFactory,
   pathFactory: PathFactory
 )
 
 object TreeAddress:
 
-  given Address[TreeAddress] with
+  given (using
+    orderer: Orderer[TreeAddress],
+    addressFactory: AddressFactory[TreeAddress]
+  ):Address[TreeAddress] with
 
     override
     def indicesOfAddress(
@@ -100,7 +102,7 @@ object TreeAddress:
       that: TreeAddress
     ): Boolean =
 
-      address.orderer.compare(address, that) == 0
+      orderer.compare(address, that) == 0
 
     override
     def isGreaterThanAddress(
@@ -108,7 +110,7 @@ object TreeAddress:
       that: TreeAddress
     ): Boolean =
 
-      address.orderer.compare(address, that) == 1
+      orderer.compare(address, that) == 1
 
     override
     def isGreaterOrEqualToAddress(
@@ -116,7 +118,7 @@ object TreeAddress:
       that: TreeAddress
     ): Boolean =
 
-      address.orderer.compare(address, that) >= 0
+      orderer.compare(address, that) >= 0
 
     override
     def isLessThanAddress(
@@ -124,7 +126,7 @@ object TreeAddress:
       that: TreeAddress
     ): Boolean =
 
-      address.orderer.compare(address, that) == -1
+      orderer.compare(address, that) == -1
 
     override
     def isLessOrEqualToAddress(
@@ -132,7 +134,7 @@ object TreeAddress:
       that: TreeAddress
     ): Boolean =
 
-      address.orderer.compare(address, that) <= 0
+      orderer.compare(address, that) <= 0
 
     override
     def addressToPath(

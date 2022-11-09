@@ -87,78 +87,76 @@ trait Address[A]:
     address: A
   ): Content
 
-object Address:
-
-  extension [A](address: A)(using a: Address[A])
+  extension (address: A)
 
     def indices: List[UnsignedByte] =
 
-      a.indicesOfAddress(address)
+      indicesOfAddress(address)
 
     def length: Int =
 
-      a.lengthOfAddress(address)
+      lengthOfAddress(address)
 
     def increment: A =
 
-      a.incrementAddress(address)
+      incrementAddress(address)
 
     def decrement: Either[String, A] =
 
-      a.decrementAddress(address)
+      decrementAddress(address)
 
     def isZero: Boolean =
 
-      a.isAddressZero(address)
+      isAddressZero(address)
 
     override
     def toString: String =
 
-      a.addressToString(address)
+      addressToString(address)
 
     private[memory]
     def isEmpty: Boolean =
 
-      a.isAddressEmpty(address)
+      isAddressEmpty(address)
 
     private[memory]
     def trimBig: A =
 
-      a.trimBigAddress(address)
+      trimBigAddress(address)
 
     private[memory]
     def padBig(target: Int): Either[String, A] =
 
-      a.padBigAddress(address, target)
+      padBigAddress(address, target)
 
     def canCompare(that: A): Boolean =
 
-      a.canCompareWithAddress(address, that)
+      canCompareWithAddress(address, that)
 
     def isEqual(that: A): Boolean =
 
-      a.isEqualToAddress(address, that)
+      isEqualToAddress(address, that)
 
     def isGreater(that: A): Boolean =
 
-      a.isGreaterThanAddress(address, that)
+      isGreaterThanAddress(address, that)
 
     def isGreaterOrEqual(that: A): Boolean =
 
-      a.isGreaterOrEqualToAddress(address, that)
+      isGreaterOrEqualToAddress(address, that)
 
     def isLess(that: A): Boolean =
 
-      a.isLessThanAddress(address, that)
+      isLessThanAddress(address, that)
 
     def isLessOrEqual(that: A): Boolean =
 
-      a.isLessOrEqualToAddress(address, that)
+      isLessOrEqualToAddress(address, that)
 
     def toPath: Path =
 
-      a.addressToPath(address)
+      addressToPath(address)
 
     def toContent: Content =
 
-      a.addressToContent(address)
+      addressToContent(address)

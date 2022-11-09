@@ -1,10 +1,24 @@
 package net.mem_memov.binet.memory
 
-trait Path:
+trait Path[P]:
 
-  def isEmpty: Boolean
+  def isPathEmpty(
+    path: P
+  ): Boolean
 
-  def shorten: Either[String, Path.Split]
+  def shortenPath(
+    path: P
+  ): Either[String, Path.Split]
+
+  extension (path: P)
+
+    def isEmpty: Boolean =
+
+      isPathEmpty(path)
+
+    def shorten: Either[String, Path.Split] =
+
+      shortenPath(P)
 
 object Path:
 

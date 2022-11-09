@@ -8,41 +8,45 @@ import scala.collection.immutable.Queue
 
 case class TreeElement(
   storeOption: Option[Store],
-  stockOption: Option[Stock],
-  writerService: Writer,
-  readerService: Reader
-)(using
-  elementFactory: ElementFactory
-) extends Element:
+  stockOption: Option[Stock]
+)
 
-  override
-  def write(
-    destination: Path,
-    content: Content
-  ): Either[String, TreeElement] =
+object TreeElement:
 
-    for {
-      pathSplit <- destination.shorten
-      modifiedElement <-
-        if pathSplit.rest.isEmpty then
-          val updatedStore = writerService.writeStore(storeOption, pathSplit, content)
-          Right(this.copy(storeOption = Some(updatedStore)))
-        else
-          for {
-            updatedStock <- writerService.writeStock(stockOption, pathSplit, content)
-          } yield this.copy(stockOption = Some(updatedStock))
-    } yield modifiedElement
+  given (using
+    writerService: Writer,
+    readerService: Reader,
+    elementFactory: ElementFactory
+  ):Element[TreeElement] with
 
-  override
-  def read(
-    origin: Path
-  ): Either[String, Content] =
+    override
+    def write(
+      destination: Path,
+      content: Content
+    ): Either[String, TreeElement] =
 
-    for {
-      pathSplit <- origin.shorten
-      content <-
-        if pathSplit.rest.isEmpty then
-          readerService.readStore(storeOption, pathSplit)
-        else
-          readerService.readStock(stockOption, pathSplit)
-    } yield content
+      for {
+        pathSplit <- destination.shorten
+        modifiedElement <-
+          if pathSplit.rest.isEmpty then
+            val updatedStore = writerService.writeStore(storeOption, pathSplit, content)
+            Right(this.copy(storeOption = Some(updatedStore)))
+          else
+            for {
+              updatedStock <- writerService.writeStock(stockOption, pathSplit, content)
+            } yield this.copy(stockOption = Some(updatedStock))
+      } yield modifiedElement
+
+    override
+    def read(
+      origin: Path
+    ): Either[String, Content] =
+
+      for {
+        pathSplit <- origin.shorten
+        content <-
+          if pathSplit.rest.isEmpty then
+            readerService.readStore(storeOption, pathSplit)
+          else
+            readerService.readStock(stockOption, pathSplit)
+      } yield content

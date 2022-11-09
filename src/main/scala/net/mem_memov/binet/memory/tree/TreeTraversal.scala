@@ -2,19 +2,29 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory._
 
-case class TreeTraversal(root: Element, nextPath: Address, newPath: Address) extends Traversal:
+case class TreeTraversal(
+  root: Element,
+  nextPath: Address,
+  newPath: Address
+)
 
-  override 
-  def next: Either[String, Option[(Address, Traversal)]] =
+object TreeTraversal:
 
-    if nextPath.isEqual(newPath) then
-      
-      Right(None)
+  given Traversal[TreeTraversal] with
 
-    else
+    override
+    def nextTraversal(
+      traversal: TreeTraversal
+    ): Either[String, Option[(Address, TreeTraversal)]] =
 
-      for {
-        content <- root.read(nextPath.toPath)
-      } yield Some((content.toAddress, this.copy(nextPath = nextPath.increment)))
+      if traversal.nextPath.isEqual(traversal.newPath) then
+
+        Right(None)
+
+      else
+
+        for {
+          content <- traversal.root.read(traversal.nextPath.toPath)
+        } yield Some((content.toAddress, traversal.copy(nextPath = traversal.nextPath.increment)))
 
       

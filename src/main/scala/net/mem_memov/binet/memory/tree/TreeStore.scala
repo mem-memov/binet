@@ -7,38 +7,45 @@ import net.mem_memov.binet.memory.tree.treeStore.Trimmer
 import scala.annotation.tailrec
 
 case class TreeStore(
-  blocks: Vector[Block],
-  trimmer: Trimmer
-)(using
-  addressFactory: AddressFactory,
-  blockFactory: BlockFactory
-) extends Store:
+  blocks: Vector[Block]
+)
 
-  def write(
-    destination: UnsignedByte,
-    content: Content
-  ): TreeStore =
+object TreeStore:
 
-    val appendedBlocks = content.supplementBlocks(blocks.length)
-    val expandedBlocks = blocks.appendedAll(appendedBlocks)
+  given (using
+    trimmer: Trimmer,
+    addressFactory: AddressFactory,
+    blockFactory: BlockFactory
+  ): Store[TreeStore] with
 
-    val modifiedBlocks = expandedBlocks.zipWithIndex.map { case (block, index) =>
-      content.write(index, destination, block)
-    }
+    override
+    def writeStore(
+      store: TreeStore,
+      destination: UnsignedByte,
+      content: Content
+    ): TreeStore =
 
-    val contractedBlocks = trimmer.trimRight(modifiedBlocks)
+      val appendedBlocks = content.supplementBlocks(store.blocks.length)
+      val expandedBlocks = store.blocks.appendedAll(appendedBlocks)
 
-    this.copy(blocks = contractedBlocks)
+      val modifiedBlocks = expandedBlocks.zipWithIndex.map { case (block, index) =>
+        content.write(index, destination, block)
+      }
 
-  override
-  def read(
-    origin: UnsignedByte
-  ): Address =
+      val contractedBlocks = trimmer.trimRight(modifiedBlocks)
 
-    val parts = blocks.foldLeft(List.empty[UnsignedByte]) {
-      case(parts, block) =>
-        block.read(origin) :: parts
-    }
+      store.copy(blocks = contractedBlocks)
 
-    addressFactory.makeAddress(parts.reverse)
+    override
+    def readStore(
+      store: TreeStore,
+      origin: UnsignedByte
+    ): Address =
+
+      val parts = store.blocks.foldLeft(List.empty[UnsignedByte]) {
+        case(parts, block) =>
+          block.read(origin) :: parts
+      }
+
+      addressFactory.makeAddress(parts.reverse)
 

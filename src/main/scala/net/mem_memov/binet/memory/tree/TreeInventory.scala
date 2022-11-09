@@ -10,13 +10,14 @@ case class TreeInventory(
   next: TreeAddress,
   root: Element,
   argument: Argument,
-  addressFactory: AddressFactory,
   traversalFactory: TraversalFactory
 )
 
 object TreeInventory:
 
-  given Inventory[TreeInventory, TreeAddress] with
+  given (using
+    addressFactory: AddressFactory[TreeAddress]
+  ):Inventory[TreeInventory, TreeAddress] with
 
     override
     def nextInInventory(

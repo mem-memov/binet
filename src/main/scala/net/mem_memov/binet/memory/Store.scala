@@ -5,14 +5,31 @@ import net.mem_memov.binet.memory.tree.{TreeBlock, TreeStore}
 /**
  * Store is capable of storing addresses.
  */
-trait Store:
+trait Store[S]:
 
-  def write(
+  def writeStore(
+    store: S,
     destination: UnsignedByte,
     content: Content
-  ): Store
+  ): S
 
-  def read(
+  def readStore(
+    store: S,
     origin: UnsignedByte
   ): Address
+
+  extension (store: S)
+
+    def write(
+      destination: UnsignedByte,
+      content: Content
+    ): S =
+
+      writeStore(store, destination, content)
+
+    def read(
+      origin: UnsignedByte
+    ): Address =
+
+      readStore(store, origin)
 

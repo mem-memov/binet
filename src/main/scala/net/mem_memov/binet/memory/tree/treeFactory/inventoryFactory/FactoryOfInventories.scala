@@ -12,7 +12,7 @@ import net.mem_memov.binet.memory.tree.treeInventory.Argument
 object FactoryOfInventories:
 
   given inventoryFactory(using
-    addressFactory: AddressFactory,
+    addressFactory: AddressFactory[TreeAddress],
     elementFactory: ElementFactory,
     traversalFactory: TraversalFactory
   ): InventoryFactory[TreeInventory] with
@@ -25,9 +25,8 @@ object FactoryOfInventories:
       )
 
       TreeInventory(
-        addressFactory.zeroAddress.asInstanceOf[TreeAddress], // TODO: remove type conversion
+        addressFactory.zeroAddress,
         elementFactory.emptyElement,
         argumentService,
-        addressFactory,
         traversalFactory
       )

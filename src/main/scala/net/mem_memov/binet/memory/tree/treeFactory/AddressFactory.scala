@@ -10,38 +10,10 @@ import net.mem_memov.binet.memory.tree.treeAddress.orderer.OrdererService
 import net.mem_memov.binet.memory.tree.treeAddress.resizer.ResizerService
 import net.mem_memov.binet.memory.tree.treeAddress.resizer.service.{DecrementerService, IncrementerService}
 
-trait AddressFactory:
+trait AddressFactory[A]:
 
-  def makeAddress(indices: List[UnsignedByte]): Address
+  def makeAddress(indices: List[UnsignedByte]): A
 
-  lazy val zeroAddress: Address
-
-object AddressFactory:
-
-  def apply()(using
-    contentFactory: ContentFactory,
-    pathFactory: PathFactory
-  ): AddressFactory =
-
-    new AddressFactory:
-
-      given AddressFactory = this
-
-      val trimmer = new TrimmerService
-      val formatter = new FormatterService(
-        new PadderService(trimmer),
-        trimmer
-      )
-      val orderer = new OrdererService(formatter)
-      val resizer = new ResizerService(
-        new IncrementerService,
-        new DecrementerService
-      )
-
-      def makeAddress(indices: List[UnsignedByte]): Address =
-        TreeAddress(indices, formatter, orderer, resizer, this, contentFactory, pathFactory)
-
-      override lazy val zeroAddress: Address =
-        makeAddress(List(UnsignedByte.minimum))
+  lazy val zeroAddress: A
 
 

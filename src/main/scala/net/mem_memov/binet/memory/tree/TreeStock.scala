@@ -6,24 +6,30 @@ import scala.collection.immutable.Queue
 
 case class TreeStock(
   elements: Vector[Element]
-) extends Stock:
+)
 
-  override
-  def write(
-    index: UnsignedByte,
-    destination: Path,
-    content: Content
-  ): Either[String, TreeStock] =
+object TreeStock:
 
-    for {
-      updatedElement <- elements(index.toInt).write(destination, content)
-      updatedElements <- Right(elements.updated(index.toInt, updatedElement))
-    } yield this.copy(elements = updatedElements)
+  given Stock[TreeStock] with
 
-  override
-  def read(
-    index: UnsignedByte,
-    origin: Path
-  ): Either[String, Content] =
+    override
+    def writeStock(
+      stock: TreeStock,
+      index: UnsignedByte,
+      destination: Path,
+      content: Content
+    ): Either[String, TreeStock] =
 
-    elements(index.toInt).read(origin)
+      for {
+        updatedElement <- stock.elements(index.toInt).write(destination, content)
+        updatedElements <- Right(stock.elements.updated(index.toInt, updatedElement))
+      } yield stock.copy(elements = updatedElements)
+
+    override
+    def readStock(
+      stock: TreeStock,
+      index: UnsignedByte,
+      origin: Path
+    ): Either[String, Content] =
+
+      stock.elements(index.toInt).read(origin)

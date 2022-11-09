@@ -2,22 +2,32 @@ package net.mem_memov.binet.memory.tree
 
 import net.mem_memov.binet.memory._
 
-case class TreePath(indices: Vector[UnsignedByte]) extends Path:
+case class TreePath(
+  indices: Vector[UnsignedByte]
+)
 
-  override
-  def isEmpty: Boolean =
+object TreePath:
 
-    indices.isEmpty
+  given Path[TreePath] with
 
-  override
-  def shorten: Either[String, Path.Split] =
+    override
+    def isPathEmpty(
+      path: TreePath
+    ): Boolean =
 
-    if indices.nonEmpty then
-      Right(
-        Path.Split(
-          index = indices.head,
-          rest = this.copy(indices = indices.tail)
+      path.indices.isEmpty
+
+    override
+    def shortenPath(
+      path: TreePath
+    ): Either[String, Path.Split] =
+
+      if path.indices.nonEmpty then
+        Right(
+          Path.Split(
+            index = path.indices.head,
+            rest = this.copy(indices = path.indices.tail)
+          )
         )
-      )
-    else
-      Left("Path couldn't be used")
+      else
+        Left("Path couldn't be used")

@@ -4,24 +4,32 @@ import net.mem_memov.binet.memory.*
 
 case class TreeBlock(
   space: Vector[UnsignedByte]
-) extends Block:
+)
 
-  override
-  def isEmpty: Boolean =
+object TreeBlock:
 
-    space.forall(_.atMinimum)
+  given Block[TreeBlock] with
 
-  override
-  def read(
-    position: UnsignedByte
-  ): UnsignedByte =
-    
-    space(position.toInt)
+    override
+    def isBlockEmpty(
+      block: TreeBlock
+    ): Boolean =
 
-  override
-  def write(
-    position: UnsignedByte,
-    content: UnsignedByte
-  ): TreeBlock =
-    
-    this.copy(space = space.updated(position.toInt, content))
+      block.space.forall(_.atMinimum)
+
+    override
+    def readBlock(
+      block: TreeBlock,
+      position: UnsignedByte
+    ): UnsignedByte =
+
+      block.space(position.toInt)
+
+    override
+    def writeBlock(
+      block: TreeBlock,
+      position: UnsignedByte,
+      content: UnsignedByte
+    ): TreeBlock =
+
+      block.copy(space = block.space.updated(position.toInt, content))
