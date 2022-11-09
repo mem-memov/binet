@@ -6,7 +6,7 @@ import net.mem_memov.binet.memory.tree.TreeAddress
  * Address has the property that it can be incremented infinitely without overflow.
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
  */
-trait Address[A]:
+trait Address[A, P : Path, C : Content]:
 
   def indicesOfAddress(
     address: A
@@ -153,10 +153,10 @@ trait Address[A]:
 
       isLessOrEqualToAddress(address, that)
 
-    def toPath: Path =
+    def toPath: P =
 
       addressToPath(address)
 
-    def toContent: Content =
+    def toContent: C =
 
       addressToContent(address)

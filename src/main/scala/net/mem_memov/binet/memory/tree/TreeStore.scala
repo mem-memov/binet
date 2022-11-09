@@ -16,13 +16,13 @@ object TreeStore:
     trimmer: Trimmer,
     addressFactory: AddressFactory,
     blockFactory: BlockFactory
-  ): Store[TreeStore] with
+  ): Store[TreeStore, TreeAddress, TreeContent] with
 
     override
     def writeStore(
       store: TreeStore,
       destination: UnsignedByte,
-      content: Content
+      content: TreeContent
     ): TreeStore =
 
       val appendedBlocks = content.supplementBlocks(store.blocks.length)
@@ -40,7 +40,7 @@ object TreeStore:
     def readStore(
       store: TreeStore,
       origin: UnsignedByte
-    ): Address =
+    ): TreeAddress =
 
       val parts = store.blocks.foldLeft(List.empty[UnsignedByte]) {
         case(parts, block) =>

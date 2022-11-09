@@ -5,34 +5,40 @@ import net.mem_memov.binet.memory.tree.treeFactory._
 
 case class TreeContent(
   indices: Vector[UnsignedByte]
-)(using
-  addressFactory: AddressFactory,
-  blockFactory: BlockFactory
-) extends Content:
+)
 
-  override
-  def supplementBlocks(
-    targetLength: Int
-  ): Vector[Block] =
+object TreeContent:
 
-    if targetLength < indices.length then
-      (0 to indices.length - targetLength).map(_ => blockFactory.emptyBlock).toVector
-    else
-      Vector.empty[Block]
+  given (using
+    addressFactory: AddressFactory,
+    blockFactory: BlockFactory
+  ): Content[TreeContent, TreeAddress, TreeBlock] with
 
-  override
-  def write(
-    contentIndex: Integer,
-    blockIndex: UnsignedByte,
-    block: Block
-  ): Block =
+    override
+    def supplementContentBlocks(
+      content: TreeContent,
+      targetLength: Int
+    ): Vector[TreeBlock] =
 
-    if contentIndex >= indices.length then
-      block.write(blockIndex, UnsignedByte.minimum)
-    else
-      block.write(blockIndex, indices(contentIndex.toInt))
+      if targetLength < content.indices.length then
+        (0 to content.indices.length - targetLength).map(_ => blockFactory.emptyBlock).toVector
+      else
+        Vector.empty[TreeBlock]
 
-  override
-  def toAddress: Address =
+    override
+    def writeContent(
+      content: TreeContent,
+      contentIndex: Integer,
+      blockIndex: UnsignedByte,
+      block: TreeBlock
+    ): TreeBlock =
 
-    addressFactory.makeAddress(indices.toList)
+      if contentIndex >= content.indices.length then
+        block.write(blockIndex, UnsignedByte.minimum)
+      else
+        block.write(blockIndex, indices(contentIndex.toInt))
+
+    override
+    def toAddress: TreeAddress =
+
+      addressFactory.makeAddress(indices.toList)

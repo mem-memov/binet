@@ -10,14 +10,14 @@ case class TreeStock(
 
 object TreeStock:
 
-  given Stock[TreeStock] with
+  given Stock[TreeStock, TreeContent, TreePath] with
 
     override
     def writeStock(
       stock: TreeStock,
       index: UnsignedByte,
-      destination: Path,
-      content: Content
+      destination: TreePath,
+      content: TreeContent
     ): Either[String, TreeStock] =
 
       for {
@@ -29,7 +29,7 @@ object TreeStock:
     def readStock(
       stock: TreeStock,
       index: UnsignedByte,
-      origin: Path
-    ): Either[String, Content] =
+      origin: TreePath
+    ): Either[String, TreeContent] =
 
       stock.elements(index.toInt).read(origin)

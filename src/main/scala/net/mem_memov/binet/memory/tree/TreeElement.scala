@@ -17,12 +17,12 @@ object TreeElement:
     writerService: Writer,
     readerService: Reader,
     elementFactory: ElementFactory
-  ):Element[TreeElement] with
+  ):Element[TreeElement, TreeContent, TreePath] with
 
     override
     def write(
-      destination: Path,
-      content: Content
+      destination: TreePath,
+      content: TreeContent
     ): Either[String, TreeElement] =
 
       for {
@@ -39,8 +39,8 @@ object TreeElement:
 
     override
     def read(
-      origin: Path
-    ): Either[String, Content] =
+      origin: TreePath
+    ): Either[String, TreeContent] =
 
       for {
         pathSplit <- origin.shorten

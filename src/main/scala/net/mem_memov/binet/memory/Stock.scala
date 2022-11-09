@@ -7,35 +7,35 @@ import scala.collection.immutable.Queue
 /**
  * Stock connects an element with other elements on a lower level building a tree-like structure.
  */
-trait Stock[S]:
+trait Stock[S, C : Content, P : Path]:
 
   def writeStock(
     stock: S,
     index: UnsignedByte,
-    destination: Path,
-    content: Content
+    destination: P,
+    content: C
   ): Either[String, S]
 
   def readStock(
     stock: S,
     index: UnsignedByte,
-    origin: Path
+    origin: P
   ): Either[String, Content]
 
   extension (stock: S)
 
     def write(
       index: UnsignedByte,
-      destination: Path,
-      content: Content
+      destination: P,
+      content: C
     ): Either[String, S] =
 
       writeStock(stock, index, destination, content)
 
     def read(
       index: UnsignedByte,
-      origin: Path
-    ): Either[String, Content] =
+      origin: P
+    ): Either[String, C] =
 
       readStock(stock, index, origin)
 

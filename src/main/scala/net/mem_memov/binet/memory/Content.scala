@@ -1,15 +1,39 @@
 package net.mem_memov.binet.memory
 
-trait Content:
+trait Content[C, A : Address, B : Block]:
 
-  def supplementBlocks(
+  def supplementContentBlocks(
+    content: C,
     targetLength: Int
-  ): Vector[Block]
+  ): Vector[B]
 
-  def write(
+  def writeContent(
+    content: C,
     contentIndex: Integer,
     blockIndex: UnsignedByte,
-    block: Block
-  ): Block
+    block: B
+  ): B
 
-  def toAddress: Address
+  def contentToAddress(
+    content: C
+  ): A
+
+  extension (content: C)
+
+    def supplementBlocks(
+      targetLength: Int
+    ): Vector[B] =
+
+      supplementContentBlocks(content, targetLength)
+
+    def write(
+      contentIndex: Integer,
+      blockIndex: UnsignedByte,
+      block: B
+    ): B =
+
+      writeContent(content, contentIndex, blockIndex, block)
+
+    def toAddress: A =
+
+      contentToAddress(content)
