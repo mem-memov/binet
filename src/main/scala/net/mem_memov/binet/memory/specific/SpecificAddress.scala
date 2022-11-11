@@ -7,6 +7,10 @@ import net.mem_memov.binet.memory.general.address.AddressDecrementer
 import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.IncrementingResizer
 import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.ComparingOrderer
 
+/**
+ * Address has the property that it can be incremented infinitely without overflow.
+ * An address consists on indices which are used to retrieve data at different levels of a tree structure.
+ */
 case class SpecificAddress(
   parts: List[UnsignedByte]
 )
