@@ -17,7 +17,7 @@ object SpecificResizer:
     ): Either[String, List[UnsignedByte]] =
 
       if indices.isEmpty then
-        Left("Address not decremented: malformed")
+        Left("Address not decremented: no index available")
       else
         val (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[UnsignedByte], true, false)) {
           case ((accumulator, isStart, hasOverflow), index) =>
@@ -35,10 +35,12 @@ object SpecificResizer:
         if hasOverflow then
           Left("Address not decremented: already at minimum")
         else
-          Right(accumulator.reverse)
+          val trimmedAccumulator = accumulator.dropWhile(_.atMinimum)
+          val validIndices = if trimmedAccumulator.isEmpty then List(UnsignedByte.minimum) else trimmedAccumulator
+          Right(validIndices)
 
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
-      if x.atMinimum then (UnsignedByte.minimum, true) else (x.decrement, false)
+      if x.atMinimum then (UnsignedByte.maximum, true) else (x.decrement, false)
 
   given IncrementingResizer[SpecificResizer] with
 
@@ -61,9 +63,9 @@ object SpecificResizer:
       }
 
       if hasOverflow then
-        UnsignedByte.minimum.increment :: accumulator.reverse
+        UnsignedByte.minimum.increment :: accumulator
       else
-        accumulator.reverse
+        accumulator
 
     def plusOne(
       x: UnsignedByte
