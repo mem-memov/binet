@@ -15,6 +15,11 @@ case class SpecificBlock(
 
 object SpecificBlock:
 
+  lazy val emptyBlock: SpecificBlock =
+    SpecificBlock(
+      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
+    )
+
   given BlockEmptyChecker[SpecificBlock] with
 
     override

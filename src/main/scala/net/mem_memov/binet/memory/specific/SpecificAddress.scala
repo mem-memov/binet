@@ -17,6 +17,16 @@ case class SpecificAddress(
 
 object SpecificAddress:
 
+  def makeAddress(
+    indices: List[UnsignedByte]
+  ): SpecificAddress =
+
+    SpecificAddress(indices)
+
+  lazy val zeroAddress: SpecificAddress =
+
+    SpecificAddress(List(UnsignedByte.minimum))
+
   given AddressIndices[SpecificAddress] with
 
     override
