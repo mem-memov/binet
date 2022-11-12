@@ -10,6 +10,12 @@ case class SpecificStore(
 
 object SpecificStore:
 
+  lazy val emptyStore: SpecificStore =
+
+    SpecificStore(
+      Vector(SpecificBlock.emptyBlock)
+    )
+
   given StoreReader[SpecificStore, SpecificAddress] with
 
     override
