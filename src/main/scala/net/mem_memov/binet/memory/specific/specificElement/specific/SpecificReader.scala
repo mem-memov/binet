@@ -1,14 +1,19 @@
 package net.mem_memov.binet.memory.specific.specificElement.specific
 
 import net.mem_memov.binet.memory.general.path.PathShortener
-import net.mem_memov.binet.memory.specific.{SpecificContent, SpecificPath, SpecificStock, SpecificStore}
+import net.mem_memov.binet.memory.specific.{SpecificAddress, SpecificContent, SpecificPath, SpecificStock, SpecificStore}
 import net.mem_memov.binet.memory.specific.specificElement.general.reader.{StockReader, StoreReader}
+import net.mem_memov.binet.memory.general.stock.StockReader as MemoryStockReader
+import net.mem_memov.binet.memory.general.store.StoreReader as MemoryStoreReader
+import net.mem_memov.binet.memory.general.address.AddressToContentConverter
 
 class SpecificReader
 
 object SpecificReader:
 
-  given StockReader[
+  given (using
+    MemoryStockReader[SpecificStock, SpecificContent, SpecificPath]
+  ): StockReader[
     SpecificReader,
     SpecificContent,
     PathShortener.Split[SpecificPath],
@@ -25,7 +30,10 @@ object SpecificReader:
       val presentStock = stockOption.getOrElse(SpecificStock.makeStock())
       presentStock.read(pathSplit.index, pathSplit.rest)
 
-  given StoreReader[
+  given (using
+    MemoryStoreReader[SpecificStore, SpecificAddress],
+    AddressToContentConverter[SpecificAddress, SpecificContent]
+  ): StoreReader[
     SpecificReader,
     SpecificContent,
     PathShortener.Split[SpecificPath],

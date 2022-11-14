@@ -1,6 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
+import net.mem_memov.binet.memory.general.element.{ElementReader, ElementWriter}
 import net.mem_memov.binet.memory.general.stock.{StockReader, StockWriter}
 
 case class SpecificStock(
@@ -17,7 +18,9 @@ object SpecificStock:
 
     SpecificStock(elements)
 
-  given StockReader[SpecificStock, SpecificContent, SpecificPath] with
+  given (using
+    ElementReader[SpecificElement, SpecificPath, SpecificContent]
+  ): StockReader[SpecificStock, SpecificContent, SpecificPath] with
 
     override
     def readStock(
@@ -28,7 +31,9 @@ object SpecificStock:
 
       stock.elements(index.toInt).read(origin)
 
-  given StockWriter[SpecificStock, SpecificContent, SpecificPath] with
+  given (using
+    ElementWriter[SpecificElement, SpecificPath, SpecificContent]
+  ): StockWriter[SpecificStock, SpecificContent, SpecificPath] with
 
     override
     def writeStock(
