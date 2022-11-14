@@ -1,6 +1,12 @@
 package net.mem_memov.binet.memory.general.element
 
-trait ElementReader[ELEMENT, PATH, CONTENT]:
+import net.mem_memov.binet.memory.general.path.{PathEmptyChecker, PathShortener}
+
+trait ElementReader[
+  ELEMENT,
+  PATH : PathEmptyChecker : PathShortener,
+  CONTENT
+]:
 
   def readElement(
     element: ELEMENT,
