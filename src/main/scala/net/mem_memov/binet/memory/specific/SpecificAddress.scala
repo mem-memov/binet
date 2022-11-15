@@ -108,10 +108,22 @@ object SpecificAddress:
 
       address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
-//  given AddressToContentConverter[SpecificAddress] with
-//
-//    override
-//    def addressToContent(
-//      address: SpecificAddress
-//    ): CONTENT =
+  given AddressToContentConverter[SpecificAddress, SpecificContent] with
+
+    override
+    def addressToContent(
+      address: SpecificAddress
+    ): SpecificContent =
+
+      SpecificContent(address.parts.reverse.toVector)
+
+  given AddressToPathConverter[SpecificAddress, SpecificPath] with
+
+    override
+    def addressToPath(
+      address: SpecificAddress
+    ): SpecificPath =
+
+      SpecificPath(address.parts.reverse.toVector)
+
 
