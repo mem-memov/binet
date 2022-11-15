@@ -87,95 +87,17 @@ object SpecificAddress:
 
       address.parts.length == 1 && address.parts.head == UnsignedByte.minimum
 
-  given AddressComparabilityChecker[SpecificAddress] with
-
-    override
-    def canCompareWithAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
-
-      true
-
-  given [
+  given ordering[
     ORDERER
   ](using
     orderer: ORDERER
   )(using
     ComparingOrderer[ORDERER, SpecificAddress]
-  ): AddressEqualToChecker[SpecificAddress] with
+  ): Ordering[SpecificAddress] with
 
-    override
-    def isEqualToAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
+    override def compare(x: SpecificAddress, y: SpecificAddress): Int =
 
-      orderer.compare(address, that) == 0
-
-  given [
-    ORDERER
-  ](using
-    orderer: ORDERER
-  )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
-  ): AddressGreaterThanChecker[SpecificAddress] with
-
-    override
-    def isGreaterThanAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
-
-      orderer.compare(address, that) > 0
-
-  given [
-    ORDERER
-  ](using
-    orderer: ORDERER
-  )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
-  ): AddressGreaterThanOrEqualChecker[SpecificAddress] with
-
-    override
-    def isGreaterOrEqualToAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
-
-      orderer.compare(address, that) >= 0
-
-  given [
-    ORDERER
-  ](using
-    orderer: ORDERER
-  )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
-  ): AddressLessThanChecker[SpecificAddress] with
-
-    override
-    def isLessThanAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
-
-      orderer.compare(address, that) < 0
-
-  given [
-    ORDERER
-  ](using
-    orderer: ORDERER
-  )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
-  ): AddressLessThanOrEqualChecker[SpecificAddress] with
-
-    override
-    def isLessOrEqualToAddress(
-      address: SpecificAddress,
-      that: SpecificAddress
-    ): Boolean =
-
-      orderer.compare(address, that) <= 0
+      orderer.compare(y, y)
 
   given AddressSerializer[SpecificAddress] with
 

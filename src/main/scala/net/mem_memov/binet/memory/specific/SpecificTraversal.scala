@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general.traversal.NextTraversal
-import net.mem_memov.binet.memory.general.address.{AddressEqualToChecker, AddressToPathConverter, AddressIncrementer}
+import net.mem_memov.binet.memory.general.address.{AddressToPathConverter, AddressIncrementer}
 import net.mem_memov.binet.memory.general.element.ElementReader
 
 case class SpecificTraversal(
@@ -13,7 +13,7 @@ case class SpecificTraversal(
 object SpecificTraversal:
 
   given (using
-    AddressEqualToChecker[SpecificAddress],
+    Ordering[SpecificAddress],
     ElementReader[SpecificElement, SpecificPath, SpecificContent],
     AddressToPathConverter[SpecificAddress, SpecificPath],
     AddressIncrementer[SpecificAddress]
@@ -24,7 +24,7 @@ object SpecificTraversal:
       traversal: SpecificTraversal
     ): Either[String, Option[(SpecificAddress, SpecificTraversal)]] =
 
-      if traversal.nextPath.isEqual(traversal.newPath) then
+      if traversal.nextPath == traversal.newPath then
 
         Right(None)
 
