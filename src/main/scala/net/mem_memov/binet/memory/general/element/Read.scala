@@ -1,10 +1,10 @@
 package net.mem_memov.binet.memory.general.element
 
-import net.mem_memov.binet.memory.general.path.{IsEmpty, Shorten}
+import net.mem_memov.binet.memory.general
 
 trait Read[
   ELEMENT,
-  PATH : IsEmpty : Shorten,
+  PATH : general.path.IsEmpty : general.path.Shorten,
   CONTENT
 ]:
 
