@@ -1,12 +1,8 @@
 package net.mem_memov.binet.memory.specific.specificAddress.general.orderer
 
-import net.mem_memov.binet.memory.general.address.AddressIndices
+trait ComparingOrderer[ORDERER, ADDRESS]:
 
-trait ComparingOrderer[ORDERER]:
-
-  def compareAddresses[
-    ADDRESS : AddressIndices
-  ](
+  def compareAddresses(
     oderer: ORDERER,
     left: ADDRESS,
     right: ADDRESS
@@ -14,9 +10,7 @@ trait ComparingOrderer[ORDERER]:
 
   extension (orderer: ORDERER)
 
-    def compare[
-      ADDRESS : AddressIndices
-    ](
+    def compare(
       left: ADDRESS,
       right: ADDRESS
     ): Int =

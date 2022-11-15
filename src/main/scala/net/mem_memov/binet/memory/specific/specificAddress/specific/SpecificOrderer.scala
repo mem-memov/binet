@@ -10,15 +10,14 @@ class SpecificOrderer
 object SpecificOrderer:
 
   given [
+    ADDRESS : AddressIndices,
     FORMATTER : TrimmingFormatter
   ](using
     formatter: FORMATTER
-  ): ComparingOrderer[SpecificOrderer] with
+  ): ComparingOrderer[SpecificOrderer, ADDRESS] with
 
     override
-    def compareAddresses[
-      ADDRESS : AddressIndices
-    ](
+    def compareAddresses(
       oderer: SpecificOrderer,
       left: ADDRESS,
       right: ADDRESS
