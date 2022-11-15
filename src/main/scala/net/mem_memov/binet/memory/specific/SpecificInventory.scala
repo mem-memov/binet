@@ -24,7 +24,7 @@ object SpecificInventory:
     argument: ARGUMENT
   )(using
     CheckAndTrimPermissive[ARGUMENT, SpecificAddress],
-    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent],
+    general.element.Write[SpecificElement, SpecificPath, SpecificContent],
     general.address.ToPath[SpecificAddress, SpecificPath],
     general.address.ToContent[SpecificAddress, SpecificContent],
     general.address.Increment[SpecificAddress]
@@ -46,7 +46,7 @@ object SpecificInventory:
     argument: ARGUMENT
   )(using
     CheckAndTrimRestrictive[ARGUMENT, SpecificAddress],
-    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent],
+    general.element.Write[SpecificElement, SpecificPath, SpecificContent],
     general.address.ToPath[SpecificAddress, SpecificPath],
     general.address.ToContent[SpecificAddress, SpecificContent]
   ): general.inventory.Update[SpecificInventory, SpecificAddress] with

@@ -30,7 +30,7 @@ object SpecificStock:
       stock.elements(index.toInt).read(origin)
 
   given (using
-    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent]
+    general.element.Write[SpecificElement, SpecificPath, SpecificContent]
   ): general.stock.Write[SpecificStock, SpecificContent, SpecificPath] with
 
     override

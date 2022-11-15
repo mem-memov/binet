@@ -67,7 +67,7 @@ object SpecificElement:
       general.path.Shorten.Split[SpecificPath],
       SpecificStore
     ]
-  ): general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent] with
+  ): general.element.Write[SpecificElement, SpecificPath, SpecificContent] with
 
     override
     def writeElement(

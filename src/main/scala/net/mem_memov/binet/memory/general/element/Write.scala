@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.element
 
 import net.mem_memov.binet.memory.general.path.{IsEmpty, Shorten}
 
-trait ElementWriter[
+trait Write[
   ELEMENT,
   PATH : IsEmpty : Shorten,
   CONTENT
