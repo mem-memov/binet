@@ -1,9 +1,9 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.specificElement.general.reader.{StockReader, StoreReader}
-import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
-import net.mem_memov.binet.memory.specific.specificElement.specific.{SpecificReader, SpecificWriter}
+import net.mem_memov.binet.memory.specific.element.general.reader.{StockReader, StoreReader}
+import net.mem_memov.binet.memory.specific.element.general.writer.{StockWriter, StoreWriter}
+import net.mem_memov.binet.memory.specific.element.specific.{SpecificReader, SpecificWriter}
 
 case class Element(
   storeOption: Option[Store],

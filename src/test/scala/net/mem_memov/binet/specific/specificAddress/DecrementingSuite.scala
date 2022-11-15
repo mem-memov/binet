@@ -3,7 +3,7 @@ package net.mem_memov.binet.specific.specificAddress
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.Address.given
-import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.DecrementingResizer
+import net.mem_memov.binet.memory.specific.address.general.resizer.DecrementingResizer
 
 class DecrementingSuite extends munit.FunSuite:
 

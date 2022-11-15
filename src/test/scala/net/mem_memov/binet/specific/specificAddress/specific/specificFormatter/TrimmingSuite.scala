@@ -1,7 +1,7 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificFormatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.specificAddress.specific.SpecificFormatter
+import net.mem_memov.binet.memory.specific.address.specific.SpecificFormatter
 
 class TrimmingSuite extends munit.FunSuite:
 

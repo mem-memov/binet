@@ -1,8 +1,8 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificResizer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.specificAddress.specific.SpecificResizer
-import net.mem_memov.binet.memory.specific.specificAddress.specific.SpecificResizer.given
+import net.mem_memov.binet.memory.specific.address.specific.SpecificResizer
+import net.mem_memov.binet.memory.specific.address.specific.SpecificResizer.given
 
 
 class IncrementingSuite extends munit.FunSuite:

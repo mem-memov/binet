@@ -1,9 +1,9 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificFormatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.specificAddress.general.formatter.TrimmingFormatter
-import net.mem_memov.binet.memory.specific.specificAddress.specific.*
-import net.mem_memov.binet.memory.specific.specificAddress.specific.SpecificFormatter.given
+import net.mem_memov.binet.memory.specific.address.general.formatter.TrimmingFormatter
+import net.mem_memov.binet.memory.specific.address.specific.*
+import net.mem_memov.binet.memory.specific.address.specific.SpecificFormatter.given
 
 class PaddingSuite extends munit.FunSuite:
 

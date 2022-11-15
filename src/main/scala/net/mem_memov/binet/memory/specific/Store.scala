@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.specificStore.general.trimmer.TrimmingService
+import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimmingService
 
 case class Store(
   blocks: Vector[Block]

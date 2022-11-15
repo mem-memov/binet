@@ -1,9 +1,9 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.*
+import net.mem_memov.binet.memory.specific.address.general.resizer.*
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.IncrementingResizer
-import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.ComparingOrderer
+import net.mem_memov.binet.memory.specific.address.general.resizer.IncrementingResizer
+import net.mem_memov.binet.memory.specific.address.general.orderer.ComparingOrderer
 
 /**
  * Address has the property that it can be incremented infinitely without overflow.
