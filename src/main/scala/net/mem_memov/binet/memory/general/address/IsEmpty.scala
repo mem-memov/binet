@@ -1,13 +1,13 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressZeroChecker[ADDRESS]:
+trait IsEmpty[ADDRESS]:
 
-  def isAddressZero(
+  def isAddressEmpty(
     address: ADDRESS
   ): Boolean
 
   extension (address: ADDRESS)
 
-    def isZero: Boolean =
+    def isEmpty: Boolean =
 
-      isAddressZero(address)
+      isAddressEmpty(address)

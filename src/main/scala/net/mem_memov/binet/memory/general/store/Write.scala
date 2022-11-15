@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.store
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StoreWriter[STORE, CONTENT]:
+trait Write[STORE, CONTENT]:
 
   def writeStore(
     store: STORE,

@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait AddressIndices[ADDRESS]:
+trait Indices[ADDRESS]:
 
   def indicesOfAddress(
     address: ADDRESS

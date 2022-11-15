@@ -1,9 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.*
-import net.mem_memov.binet.memory.general.address.*
-import net.mem_memov.binet.memory.general.address.AddressDecrementer
+import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.specificAddress.general.resizer.IncrementingResizer
 import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.ComparingOrderer
 
@@ -12,31 +10,31 @@ import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.Compa
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
  */
 case class SpecificAddress(
-  parts: List[UnsignedByte]
+  parts: List[general.UnsignedByte]
 )
 
 object SpecificAddress:
 
   def makeAddress(
-    indices: List[UnsignedByte]
+    indices: List[general.UnsignedByte]
   ): SpecificAddress =
 
     SpecificAddress(indices)
 
   lazy val zeroAddress: SpecificAddress =
 
-    SpecificAddress(List(UnsignedByte.minimum))
+    SpecificAddress(List(general.UnsignedByte.minimum))
 
-  given AddressIndices[SpecificAddress] with
+  given general.address.Indices[SpecificAddress] with
 
     override
     def indicesOfAddress(
       address: SpecificAddress
-    ): List[UnsignedByte] =
+    ): List[general.UnsignedByte] =
 
       address.parts
 
-  given AddressLength[SpecificAddress] with
+  given general.address.Length[SpecificAddress] with
 
     override
     def lengthOfAddress(address: SpecificAddress): Int =
@@ -47,7 +45,7 @@ object SpecificAddress:
     RESIZER : DecrementingResizer
   ](using
     resizer: RESIZER
-  ): AddressDecrementer[SpecificAddress] with
+  ): general.address.Decrement[SpecificAddress] with
 
     override
     def decrementAddress(
@@ -60,7 +58,7 @@ object SpecificAddress:
     RESIZER: IncrementingResizer
   ](using
     resizer: RESIZER
-  ): AddressIncrementer[SpecificAddress] with
+  ): general.address.Increment[SpecificAddress] with
 
     override
     def incrementAddress(
@@ -69,7 +67,7 @@ object SpecificAddress:
 
       address.copy(parts = resizer.increment(address.parts))
 
-  given AddressEmptyChecker[SpecificAddress] with
+  given general.address.IsEmpty[SpecificAddress] with
 
     override
     def isAddressEmpty(
@@ -78,14 +76,14 @@ object SpecificAddress:
 
       address.parts.isEmpty
 
-  given AddressZeroChecker[SpecificAddress] with
+  given general.address.IsZero[SpecificAddress] with
 
     override
     def isAddressZero(
       address: SpecificAddress
     ): Boolean =
 
-      address.parts.length == 1 && address.parts.head == UnsignedByte.minimum
+      address.parts.length == 1 && address.parts.head == general.UnsignedByte.minimum
 
   given ordering[
     ORDERER
@@ -99,7 +97,7 @@ object SpecificAddress:
 
       orderer.compare(y, y)
 
-  given AddressSerializer[SpecificAddress] with
+  given general.address.ToString[SpecificAddress] with
 
     override
     def addressToString(
@@ -108,7 +106,7 @@ object SpecificAddress:
 
       address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
-  given AddressToContentConverter[SpecificAddress, SpecificContent] with
+  given general.address.ToContent[SpecificAddress, SpecificContent] with
 
     override
     def addressToContent(
@@ -117,7 +115,7 @@ object SpecificAddress:
 
       SpecificContent(address.parts.reverse.toVector)
 
-  given AddressToPathConverter[SpecificAddress, SpecificPath] with
+  given general.address.ToPath[SpecificAddress, SpecificPath] with
 
     override
     def addressToPath(

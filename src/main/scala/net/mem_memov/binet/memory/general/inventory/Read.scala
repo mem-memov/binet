@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryReader[INVENTORY, ADDRESS]:
+trait Read[INVENTORY, ADDRESS]:
 
   def readInventory(
     inventory: INVENTORY,

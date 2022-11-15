@@ -2,18 +2,18 @@ package net.mem_memov.binet.memory.general.path
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait PathShortener[PATH]:
+trait Shorten[PATH]:
 
   def shortenPath(
     path: PATH
-  ): Either[String, PathShortener.Split[PATH]]
+  ): Either[String, Shorten.Split[PATH]]
 
   extension (path: PATH)
 
-    def shorten(): Either[String, PathShortener.Split[PATH]] =
+    def shorten(): Either[String, Shorten.Split[PATH]] =
 
       shortenPath(path)
 
-object PathShortener:
+object Shorten:
 
   case class Split[PATH](index: UnsignedByte, rest: PATH)

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressIncrementer[ADDRESS]:
+trait Increment[ADDRESS]:
 
   def incrementAddress(
     address: ADDRESS

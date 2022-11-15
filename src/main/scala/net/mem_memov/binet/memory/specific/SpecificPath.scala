@@ -1,15 +1,14 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.general.path.{PathEmptyChecker, PathShortener}
+import net.mem_memov.binet.memory.general
 
 case class SpecificPath (
-  indices: Vector[UnsignedByte]
+  indices: Vector[general.UnsignedByte]
 )
 
 object SpecificPath:
 
-  given PathEmptyChecker[SpecificPath] with
+  given general.path.IsEmpty[SpecificPath] with
 
     override
     def isPathEmpty(
@@ -18,16 +17,16 @@ object SpecificPath:
 
       path.indices.isEmpty
 
-  given PathShortener[SpecificPath] with
+  given general.path.Shorten[SpecificPath] with
 
     override
     def shortenPath(
       path: SpecificPath
-    ): Either[String, PathShortener.Split[SpecificPath]] =
+    ): Either[String, general.path.Shorten.Split[SpecificPath]] =
 
       if path.indices.nonEmpty then
         Right(
-          PathShortener.Split(
+          general.path.Shorten.Split(
             index = path.indices.head,
             rest = path.copy(indices = path.indices.tail)
           )

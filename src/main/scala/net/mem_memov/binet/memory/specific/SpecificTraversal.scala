@@ -1,8 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.traversal.NextTraversal
-import net.mem_memov.binet.memory.general.address.{AddressToPathConverter, AddressIncrementer}
-import net.mem_memov.binet.memory.general.element.ElementReader
+import net.mem_memov.binet.memory.general
 
 case class SpecificTraversal(
   root: SpecificElement,
@@ -14,10 +12,10 @@ object SpecificTraversal:
 
   given (using
     Ordering[SpecificAddress],
-    ElementReader[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressIncrementer[SpecificAddress]
-  ): NextTraversal[SpecificTraversal, SpecificAddress] with
+    general.element.Read[SpecificElement, SpecificPath, SpecificContent],
+    general.address.ToPath[SpecificAddress, SpecificPath],
+    general.address.Increment[SpecificAddress]
+  ): general.traversal.Next[SpecificTraversal, SpecificAddress] with
 
     override
     def nextTraversalStep(

@@ -1,7 +1,7 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificOrderer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.general.address.AddressIndices
+import net.mem_memov.binet.memory.general.address.Indices
 import net.mem_memov.binet.memory.specific.specificAddress.general.formatter.TrimmingFormatter
 import net.mem_memov.binet.memory.specific.specificAddress.specific.*
 import net.mem_memov.binet.memory.specific.specificAddress.specific.SpecificOrderer.given
@@ -23,7 +23,7 @@ class ComparingSuite extends munit.FunSuite:
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           leftIndices
@@ -46,7 +46,7 @@ class ComparingSuite extends munit.FunSuite:
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           leftIndices
@@ -69,7 +69,7 @@ class ComparingSuite extends munit.FunSuite:
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           leftIndices
@@ -88,7 +88,7 @@ class ComparingSuite extends munit.FunSuite:
     val originalLeftIndices = List(UnsignedByte.minimum, UnsignedByte.maximum)
     val originalRightIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           originalLeftIndices
@@ -119,7 +119,7 @@ class ComparingSuite extends munit.FunSuite:
     val originalLeftIndices = List(UnsignedByte.minimum, UnsignedByte.maximum, UnsignedByte.maximum)
     val originalRightIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           originalLeftIndices
@@ -150,7 +150,7 @@ class ComparingSuite extends munit.FunSuite:
     val originalLeftIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
     val originalRightIndices = List(UnsignedByte.minimum, UnsignedByte.maximum, UnsignedByte.maximum)
 
-    given AddressIndices[Stub] with
+    given Indices[Stub] with
       override def indicesOfAddress(address: Stub): List[UnsignedByte] =
         if address.equals(leftAddress) then
           originalLeftIndices

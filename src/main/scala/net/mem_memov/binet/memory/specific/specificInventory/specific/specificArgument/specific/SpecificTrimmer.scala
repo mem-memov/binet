@@ -2,15 +2,15 @@ package net.mem_memov.binet.memory.specific.specificInventory.specific.specificA
 
 import net.mem_memov.binet.memory.specific.SpecificAddress
 import net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.trimmer.Trim
-import net.mem_memov.binet.memory.general.address.{AddressEmptyChecker, AddressTrimmer}
+import net.mem_memov.binet.memory.general.address.{IsEmpty, TrimBig}
 
 class SpecificTrimmer
 
 object SpecificTrimmer:
 
   given (using
-    AddressEmptyChecker[SpecificAddress],
-    AddressTrimmer[SpecificAddress]
+    IsEmpty[SpecificAddress],
+    TrimBig[SpecificAddress]
   ): Trim[SpecificTrimmer, SpecificAddress] with
 
     override

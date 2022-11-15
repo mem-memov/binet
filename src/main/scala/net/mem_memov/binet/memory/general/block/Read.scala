@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.block
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait BlockReader[BLOCK]:
+trait Read[BLOCK]:
 
   def readBlock(
     block: BLOCK,

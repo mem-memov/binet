@@ -1,7 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.general.block._
+import net.mem_memov.binet.memory.general
 
 /**
  * Block has the property that it provides content at any possible position.
@@ -10,17 +9,17 @@ import net.mem_memov.binet.memory.general.block._
  * At each level blocks are organized into stores.
  */
 case class SpecificBlock(
-  space: Vector[UnsignedByte]
+  space: Vector[general.UnsignedByte]
 )
 
 object SpecificBlock:
 
   lazy val emptyBlock: SpecificBlock =
     SpecificBlock(
-      Vector.fill(UnsignedByte.maximum.toInt + 1)(UnsignedByte.minimum)
+      Vector.fill(general.UnsignedByte.maximum.toInt + 1)(general.UnsignedByte.minimum)
     )
 
-  given BlockEmptyChecker[SpecificBlock] with
+  given general.block.IsEmpty[SpecificBlock] with
 
     override
     def isBlockEmpty(
@@ -29,23 +28,23 @@ object SpecificBlock:
 
       block.space.forall(_.atMinimum)
 
-  given BlockReader[SpecificBlock] with
+  given general.block.Read[SpecificBlock] with
 
     override
     def readBlock(
       block: SpecificBlock,
-      position: UnsignedByte
-    ): UnsignedByte =
+      position: general.UnsignedByte
+    ): general.UnsignedByte =
 
       block.space(position.toInt)
 
-  given BlockWriter[SpecificBlock] with
+  given general.block.Write[SpecificBlock] with
 
     override
     def writeBlock(
       block: SpecificBlock,
-      position: UnsignedByte,
-      content: UnsignedByte
+      position: general.UnsignedByte,
+      content: general.UnsignedByte
     ): SpecificBlock =
 
       block.copy(space = block.space.updated(position.toInt, content))

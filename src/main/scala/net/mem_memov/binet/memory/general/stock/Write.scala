@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.stock
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StockWriter[STOCK, CONTENT, PATH]:
+trait Write[STOCK, CONTENT, PATH]:
 
   def writeStock(
     stock: STOCK,

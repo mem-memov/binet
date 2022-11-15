@@ -1,8 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.general.element.{ElementReader, ElementWriter}
-import net.mem_memov.binet.memory.general.stock.{StockReader, StockWriter}
+import net.mem_memov.binet.memory.general
 
 case class SpecificStock(
   elements: Vector[SpecificElement]
@@ -10,7 +8,7 @@ case class SpecificStock(
 
 object SpecificStock:
 
-  lazy val size: Int = UnsignedByte.maximum.toInt + 1
+  lazy val size: Int = general.UnsignedByte.maximum.toInt + 1
 
   def makeStock(): SpecificStock =
 
@@ -19,26 +17,26 @@ object SpecificStock:
     SpecificStock(elements)
 
   given (using
-    ElementReader[SpecificElement, SpecificPath, SpecificContent]
-  ): StockReader[SpecificStock, SpecificContent, SpecificPath] with
+    general.element.Read[SpecificElement, SpecificPath, SpecificContent]
+  ): general.stock.Read[SpecificStock, SpecificContent, SpecificPath] with
 
     override
     def readStock(
       stock: SpecificStock,
-      index: UnsignedByte,
+      index: general.UnsignedByte,
       origin: SpecificPath
     ): Either[String, SpecificContent] =
 
       stock.elements(index.toInt).read(origin)
 
   given (using
-    ElementWriter[SpecificElement, SpecificPath, SpecificContent]
-  ): StockWriter[SpecificStock, SpecificContent, SpecificPath] with
+    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent]
+  ): general.stock.Write[SpecificStock, SpecificContent, SpecificPath] with
 
     override
     def writeStock(
       stock: SpecificStock,
-      index: UnsignedByte,
+      index: general.UnsignedByte,
       destination: SpecificPath,
       content: SpecificContent
     ): Either[String, SpecificStock] =

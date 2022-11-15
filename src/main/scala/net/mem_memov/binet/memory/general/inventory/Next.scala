@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryNextAddressProvider[INVENTORY, ADDRESS]:
+trait Next[INVENTORY, ADDRESS]:
 
   def nextInInventory(
     inventory: INVENTORY

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryAppender[INVENTORY, ADDRESS]:
+trait Append[INVENTORY, ADDRESS]:
 
   def appendToInventory(
     inventory: INVENTORY,

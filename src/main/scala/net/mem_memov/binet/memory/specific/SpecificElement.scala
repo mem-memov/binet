@@ -1,7 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.element.{ElementReader, ElementWriter}
-import net.mem_memov.binet.memory.general.path.PathShortener
+import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.specificElement.general.reader.{StockReader, StoreReader}
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
 import net.mem_memov.binet.memory.specific.specificElement.specific.{SpecificReader, SpecificWriter}
@@ -25,16 +24,16 @@ object SpecificElement:
     StockReader[
       READER,
       SpecificContent,
-      PathShortener.Split[SpecificPath],
+      general.path.Shorten.Split[SpecificPath],
       SpecificStock
     ],
     StoreReader[
       READER,
       SpecificContent,
-      PathShortener.Split[SpecificPath],
+      general.path.Shorten.Split[SpecificPath],
       SpecificStore
     ]
-  ): ElementReader[SpecificElement, SpecificPath, SpecificContent] with
+  ): general.element.Read[SpecificElement, SpecificPath, SpecificContent] with
 
     override
     def readElement(
@@ -59,16 +58,16 @@ object SpecificElement:
     StockWriter[
       WRITER,
       SpecificContent,
-      PathShortener.Split[SpecificPath],
+      general.path.Shorten.Split[SpecificPath],
       SpecificStock
     ],
     StoreWriter[
       WRITER,
       SpecificContent,
-      PathShortener.Split[SpecificPath],
+      general.path.Shorten.Split[SpecificPath],
       SpecificStore
     ]
-  ): ElementWriter[SpecificElement, SpecificPath, SpecificContent] with
+  ): general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent] with
 
     override
     def writeElement(

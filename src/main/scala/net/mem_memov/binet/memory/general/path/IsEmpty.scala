@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.path
 
-trait PathEmptyChecker[PATH]:
+trait IsEmpty[PATH]:
 
   def isPathEmpty(
     path: PATH

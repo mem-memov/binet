@@ -1,8 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general.inventory.{InventoryAppender, InventoryNextAddressProvider, InventoryReader, InventoryUpdater}
-import net.mem_memov.binet.memory.general.element.{ElementReader, ElementWriter}
-import net.mem_memov.binet.memory.general.address.{AddressIncrementer, AddressToContentConverter, AddressToPathConverter, AddressTrimmer}
+import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.specificInventory.specific.SpecificArgument
 import net.mem_memov.binet.memory.specific.specificInventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
 
@@ -13,7 +11,7 @@ case class SpecificInventory(
 
 object SpecificInventory:
 
-  given InventoryNextAddressProvider[SpecificInventory, SpecificAddress] with
+  given general.inventory.Next[SpecificInventory, SpecificAddress] with
 
     override
     def nextInInventory(
@@ -26,11 +24,11 @@ object SpecificInventory:
     argument: ARGUMENT
   )(using
     CheckAndTrimPermissive[ARGUMENT, SpecificAddress],
-    ElementWriter[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressToContentConverter[SpecificAddress, SpecificContent],
-    AddressIncrementer[SpecificAddress]
-  ): InventoryAppender[SpecificInventory, SpecificAddress] with
+    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent],
+    general.address.ToPath[SpecificAddress, SpecificPath],
+    general.address.ToContent[SpecificAddress, SpecificContent],
+    general.address.Increment[SpecificAddress]
+  ): general.inventory.Append[SpecificInventory, SpecificAddress] with
 
     override
     def appendToInventory(
@@ -48,10 +46,10 @@ object SpecificInventory:
     argument: ARGUMENT
   )(using
     CheckAndTrimRestrictive[ARGUMENT, SpecificAddress],
-    ElementWriter[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressToContentConverter[SpecificAddress, SpecificContent]
-  ): InventoryUpdater[SpecificInventory, SpecificAddress] with
+    general.element.ElementWriter[SpecificElement, SpecificPath, SpecificContent],
+    general.address.ToPath[SpecificAddress, SpecificPath],
+    general.address.ToContent[SpecificAddress, SpecificContent]
+  ): general.inventory.Update[SpecificInventory, SpecificAddress] with
 
     override def updateInventory(
       inventory: SpecificInventory,
@@ -69,10 +67,10 @@ object SpecificInventory:
     argument: ARGUMENT
   )(using
     CheckAndTrimRestrictive[ARGUMENT, SpecificAddress],
-    ElementReader[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressTrimmer[SpecificAddress]
-  ): InventoryReader[SpecificInventory, SpecificAddress] with
+    general.element.Read[SpecificElement, SpecificPath, SpecificContent],
+    general.address.ToPath[SpecificAddress, SpecificPath],
+    general.address.TrimBig[SpecificAddress]
+  ): general.inventory.Read[SpecificInventory, SpecificAddress] with
 
     override
     def readInventory(

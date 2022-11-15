@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.stock
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StockReader[STOCK, CONTENT, PATH]:
+trait Read[STOCK, CONTENT, PATH]:
 
   def readStock(
     stock: STOCK,

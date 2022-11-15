@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryUpdater[INVENTORY, ADDRESS]:
+trait Update[INVENTORY, ADDRESS]:
 
   def updateInventory(
     inventory: INVENTORY,

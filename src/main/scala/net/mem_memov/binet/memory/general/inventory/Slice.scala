@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventorySlicer[INVENTORY]:
+trait Slice[INVENTORY]:
 
   def foreachSliceInInventory(
     inventory: INVENTORY,

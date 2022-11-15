@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.traversal
 
-trait NextTraversal[TRAVERSAL, ADDRESS]:
+trait Next[TRAVERSAL, ADDRESS]:
 
   def nextTraversalStep(
     traversal: TRAVERSAL

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressSerializer[ADDRESS]:
+trait ToString[ADDRESS]:
 
   def addressToString(
     address: ADDRESS

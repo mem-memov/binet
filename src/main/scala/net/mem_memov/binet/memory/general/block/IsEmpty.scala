@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.block
 
-trait BlockEmptyChecker[BLOCK]:
+trait IsEmpty[BLOCK]:
 
   def isBlockEmpty(
     block: BLOCK

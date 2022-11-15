@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressLength[ADDRESS]:
+trait Length[ADDRESS]:
 
   def lengthOfAddress(
     address: ADDRESS

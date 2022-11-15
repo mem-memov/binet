@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.store
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StoreReader[STORE, ADDRESS]:
+trait Read[STORE, ADDRESS]:
 
   def readStore(
     store: STORE,

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressDecrementer[ADDRESS]:
+trait Decrement[ADDRESS]:
 
   def decrementAddress(
     address: ADDRESS

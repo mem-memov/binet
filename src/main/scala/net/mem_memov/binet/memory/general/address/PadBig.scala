@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressPadder[ADDRESS]:
+trait PadBig[ADDRESS]:
 
   def padBigAddress(
     address: ADDRESS,

@@ -1,10 +1,10 @@
 package net.mem_memov.binet.memory.specific.specificElement.specific
 
-import net.mem_memov.binet.memory.general.path.PathShortener
+import net.mem_memov.binet.memory.general.path.Shorten
 import net.mem_memov.binet.memory.specific.{SpecificContent, SpecificPath, SpecificStock, SpecificStore}
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
-import net.mem_memov.binet.memory.general.stock.StockWriter as MemoryStockWriter
-import net.mem_memov.binet.memory.general.store.StoreWriter as MemoryStoreWriter
+import net.mem_memov.binet.memory.general.stock.Write as MemoryStockWriter
+import net.mem_memov.binet.memory.general.store.Write as MemoryStoreWriter
 
 class SpecificWriter
 
@@ -15,7 +15,7 @@ object SpecificWriter:
   ): StockWriter[
     SpecificWriter,
     SpecificContent,
-    PathShortener.Split[SpecificPath],
+    Shorten.Split[SpecificPath],
     SpecificStock
   ] with
 
@@ -23,7 +23,7 @@ object SpecificWriter:
     def writeStockOnPath(
       writer: SpecificWriter,
       stockOption: Option[SpecificStock],
-      pathSplit: PathShortener.Split[SpecificPath],
+      pathSplit: Shorten.Split[SpecificPath],
       content: SpecificContent
     ): Either[String, SpecificStock] =
 
@@ -35,7 +35,7 @@ object SpecificWriter:
   ): StoreWriter[
     SpecificWriter,
     SpecificContent,
-    PathShortener.Split[SpecificPath],
+    Shorten.Split[SpecificPath],
     SpecificStore
   ] with
 
@@ -43,7 +43,7 @@ object SpecificWriter:
     def writeStoreOnPath(
       writer: SpecificWriter,
       storeOption: Option[SpecificStore],
-      pathSplit: PathShortener.Split[SpecificPath],
+      pathSplit: Shorten.Split[SpecificPath],
       content: SpecificContent
     ): SpecificStore =
 

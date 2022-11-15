@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.content
 
-trait ContentBlockSupplementer[CONTENT, BLOCK]:
+trait SupplementBlocks[CONTENT, BLOCK]:
 
   def supplementContentBlocks(
     content: CONTENT,

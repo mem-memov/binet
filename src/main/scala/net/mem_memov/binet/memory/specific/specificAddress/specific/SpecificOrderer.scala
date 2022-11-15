@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.specificAddress.specific
 
-import net.mem_memov.binet.memory.general.address.AddressIndices
+import net.mem_memov.binet.memory.general.address.Indices
 import net.mem_memov.binet.memory.specific.SpecificAddress
 import net.mem_memov.binet.memory.specific.specificAddress.general.formatter.TrimmingFormatter
 import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.ComparingOrderer
@@ -10,7 +10,7 @@ class SpecificOrderer
 object SpecificOrderer:
 
   given [
-    ADDRESS : AddressIndices,
+    ADDRESS : Indices,
     FORMATTER : TrimmingFormatter
   ](using
     formatter: FORMATTER
