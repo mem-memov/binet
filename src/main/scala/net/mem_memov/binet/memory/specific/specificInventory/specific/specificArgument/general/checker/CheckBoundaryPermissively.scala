@@ -1,8 +1,10 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.checker
 
-trait CheckBoundaryPermissively[CHECKER, ADDRESS]:
+trait CheckBoundaryPermissively[CHECKER]:
 
-  def checkAddressBoundaryPermissively(
+  def checkAddressBoundaryPermissively[
+    ADDRESS : Ordering
+  ](
     checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
@@ -10,7 +12,9 @@ trait CheckBoundaryPermissively[CHECKER, ADDRESS]:
 
   extension (checker: CHECKER)
 
-    def checkBoundaryPermissively(
+    def checkBoundaryPermissively[
+      ADDRESS : Ordering
+    ](
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, Unit] =

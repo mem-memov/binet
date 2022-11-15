@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.general.content.{ContentBlockSupplementer, ContentToAddressConverter, ContentWriter}
+import net.mem_memov.binet.memory.general.block.BlockWriter
 
 case class SpecificContent(
   indices: Vector[UnsignedByte]
@@ -9,7 +10,7 @@ case class SpecificContent(
 
 object SpecificContent:
 
-  given ContentBlockSupplementer[SpecificContent, SpecificBlock] with
+  given ContentBlockSupplementer[SpecificContent] with
 
     override
     def supplementContentBlocks(
@@ -22,7 +23,7 @@ object SpecificContent:
       else
         Vector.empty[SpecificBlock]
 
-  given ContentToAddressConverter[SpecificContent, SpecificAddress] with
+  given ContentToAddressConverter[SpecificContent] with
 
     override
     def contentToAddress(
@@ -33,15 +34,17 @@ object SpecificContent:
         content.indices.toList.reverse
       )
 
-  given ContentWriter[SpecificContent, SpecificBlock] with
+  given ContentWriter[SpecificContent] with
 
     override
-    def writeContent(
+    def writeContent[
+      BLOCK : BlockWriter
+    ](
       content: SpecificContent,
       contentIndex: Integer,
       blockIndex: UnsignedByte,
-      block: SpecificBlock
-    ): SpecificBlock =
+      block: BLOCK
+    ): BLOCK =
 
       if contentIndex >= content.indices.length then
         block.write(blockIndex, UnsignedByte.minimum)

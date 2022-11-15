@@ -1,19 +1,30 @@
 package net.mem_memov.binet.memory.specific.specificElement.general.writer
 
-trait StoreWriter[WRITER, CONTENT, PATH_SPLIT, STORE]:
+import net.mem_memov.binet.memory.general.path.PathShortener.Split
+import net.mem_memov.binet.memory.general.store
 
-  def writeStoreOnPath(
+trait StoreWriter[WRITER]:
+
+  def writeStoreOnPath[
+    CONTENT,
+    PATH,
+    STORE : store.StoreWriter
+  ](
     writer: WRITER,
     storeOption: Option[STORE],
-    pathSplit: PATH_SPLIT,
+    pathSplit: Split[PATH],
     content: CONTENT
   ): STORE
 
   extension (writer: WRITER)
 
-    def writeStore(
+    def writeStore[
+      CONTENT,
+      PATH,
+      STORE : store.StoreWriter
+    ](
       storeOption: Option[STORE],
-      pathSplit: PATH_SPLIT,
+      pathSplit: Split[PATH],
       content: CONTENT
     ): STORE =
 

@@ -5,6 +5,7 @@ import net.mem_memov.binet.memory.general.path.PathShortener
 import net.mem_memov.binet.memory.specific.specificElement.general.reader.{StockReader, StoreReader}
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
 import net.mem_memov.binet.memory.specific.specificElement.specific.{SpecificReader, SpecificWriter}
+import net.mem_memov.binet.memory.general.{stock, store}
 
 case class SpecificElement(
   storeOption: Option[SpecificStore],
@@ -18,23 +19,10 @@ object SpecificElement:
     SpecificElement(None, None)
 
   given [
-    READER
+    READER : StockReader : StoreReader
   ](using
     reader: READER
-  )(using
-    StockReader[
-      READER,
-      SpecificContent,
-      PathShortener.Split[SpecificPath],
-      SpecificStock
-    ],
-    StoreReader[
-      READER,
-      SpecificContent,
-      PathShortener.Split[SpecificPath],
-      SpecificStore
-    ]
-  ): ElementReader[SpecificElement, SpecificPath, SpecificContent] with
+  ): ElementReader[SpecificElement] with
 
     override
     def readElement(
@@ -52,23 +40,13 @@ object SpecificElement:
       } yield content
 
   given [
-    WRITER
+    WRITER : StockWriter : StoreWriter
   ](using
     writer: WRITER
   )(using
-    StockWriter[
-      WRITER,
-      SpecificContent,
-      PathShortener.Split[SpecificPath],
-      SpecificStock
-    ],
-    StoreWriter[
-      WRITER,
-      SpecificContent,
-      PathShortener.Split[SpecificPath],
-      SpecificStore
-    ]
-  ): ElementWriter[SpecificElement, SpecificPath, SpecificContent] with
+    stock.StockWriter[SpecificStock],
+    store.StoreWriter[SpecificStore]
+  ): ElementWriter[SpecificElement] with
 
     override
     def writeElement(

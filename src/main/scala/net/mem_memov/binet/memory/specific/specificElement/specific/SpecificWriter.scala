@@ -1,26 +1,22 @@
 package net.mem_memov.binet.memory.specific.specificElement.specific
 
 import net.mem_memov.binet.memory.general.path.PathShortener
+import net.mem_memov.binet.memory.general.{stock, store}
 import net.mem_memov.binet.memory.specific.{SpecificContent, SpecificPath, SpecificStock, SpecificStore}
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
-import net.mem_memov.binet.memory.general.stock.StockWriter as MemoryStockWriter
-import net.mem_memov.binet.memory.general.store.StoreWriter as MemoryStoreWriter
 
 class SpecificWriter
 
 object SpecificWriter:
 
-  given (using
-    MemoryStockWriter[SpecificStock, SpecificContent, SpecificPath]
-  ): StockWriter[
-    SpecificWriter,
-    SpecificContent,
-    PathShortener.Split[SpecificPath],
-    SpecificStock
-  ] with
+  given StockWriter[SpecificWriter] with
 
     override
-    def writeStockOnPath(
+    def writeStockOnPath[
+      CONTENT,
+      PATH,
+      STOCK : stock.StockWriter
+    ](
       writer: SpecificWriter,
       stockOption: Option[SpecificStock],
       pathSplit: PathShortener.Split[SpecificPath],
@@ -30,21 +26,18 @@ object SpecificWriter:
       val presentStock = stockOption.getOrElse(SpecificStock.makeStock())
       presentStock.write(pathSplit.index, pathSplit.rest, content)
 
-  given (using
-    MemoryStoreWriter[SpecificStore, SpecificContent]
-  ): StoreWriter[
-    SpecificWriter,
-    SpecificContent,
-    PathShortener.Split[SpecificPath],
-    SpecificStore
-  ] with
+  given StoreWriter[SpecificWriter] with
 
     override
-    def writeStoreOnPath(
+    def writeStoreOnPath[
+      CONTENT,
+      PATH,
+      STORE : store.StoreWriter
+    ](
       writer: SpecificWriter,
       storeOption: Option[SpecificStore],
       pathSplit: PathShortener.Split[SpecificPath],
-      content: SpecificContent
+      content: CONTENT
     ): SpecificStore =
 
       val presentStore = storeOption.getOrElse(SpecificStore.emptyStore)

@@ -8,12 +8,12 @@ class SpecificChecker
 
 object SpecificChecker:
 
-  given (using
-    Ordering[SpecificAddress]
-  ): CheckBoundaryPermissively[SpecificChecker, SpecificAddress] with
+  given CheckBoundaryPermissively[SpecificChecker] with
 
     override
-    def checkAddressBoundaryPermissively(
+    def checkAddressBoundaryPermissively[
+      ADDRESS : Ordering
+    ](
       checker: SpecificChecker,
       next: SpecificAddress,
       address: SpecificAddress
@@ -24,12 +24,12 @@ object SpecificChecker:
       else
         Right(())
 
-  given (using
-    Ordering[SpecificAddress]
-  ): CheckBoundaryRestrictively[SpecificChecker, SpecificAddress] with
+  given CheckBoundaryRestrictively[SpecificChecker] with
 
     override
-    def checkAddressBoundaryRestrictively(
+    def checkAddressBoundaryRestrictively[
+      ADDRESS : Ordering
+    ](
       checker: SpecificChecker,
       next: SpecificAddress,
       address: SpecificAddress

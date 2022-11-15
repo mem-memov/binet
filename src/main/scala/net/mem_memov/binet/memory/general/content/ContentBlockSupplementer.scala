@@ -1,15 +1,19 @@
 package net.mem_memov.binet.memory.general.content
 
-trait ContentBlockSupplementer[CONTENT, BLOCK]:
+trait ContentBlockSupplementer[CONTENT]:
 
-  def supplementContentBlocks(
+  def supplementContentBlocks[
+    BLOCK
+  ](
     content: CONTENT,
     targetLength: Int
   ): Vector[BLOCK]
 
   extension (content: CONTENT)
 
-    def supplementBlocks(
+    def supplementBlocks[
+      BLOCK
+    ](
       targetLength: Int
     ): Vector[BLOCK] =
 

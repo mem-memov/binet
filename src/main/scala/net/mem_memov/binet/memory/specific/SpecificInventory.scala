@@ -22,24 +22,28 @@ object SpecificInventory:
 
       inventory.next
 
-  given [ARGUMENT](using
+  given [
+    ARGUMENT
+  ](using
     argument: ARGUMENT
   )(using
-    CheckAndTrimPermissive[ARGUMENT, SpecificAddress],
-    ElementWriter[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressToContentConverter[SpecificAddress, SpecificContent],
+    CheckAndTrimPermissive[ARGUMENT],
+    ElementWriter[SpecificElement],
+    AddressToPathConverter[SpecificAddress],
+    AddressToContentConverter[SpecificAddress],
     AddressIncrementer[SpecificAddress]
-  ): InventoryAppender[SpecificInventory, SpecificAddress] with
+  ): InventoryAppender[SpecificInventory] with
 
     override
-    def appendToInventory(
+    def appendToInventory[
+      ADDRESS
+    ](
       inventory: SpecificInventory,
-      content: SpecificAddress
+      content: ADDRESS
     ): Either[String, SpecificInventory] =
 
       for {
-        trimmedContent <- argument.checkAndTrimPermissive(inventory.next, content)
+        trimmedContent <- argument.checkAndTrimPermissive[SpecificAddress](inventory.next, content)
         updatedRoot <- inventory.root.write(inventory.next.toPath, trimmedContent.toContent)
         newNext <- Right(inventory.next.increment)
       } yield inventory.copy(next = newNext, root = updatedRoot)
@@ -47,16 +51,18 @@ object SpecificInventory:
   given [ARGUMENT](using
     argument: ARGUMENT
   )(using
-    CheckAndTrimRestrictive[ARGUMENT, SpecificAddress],
-    ElementWriter[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
-    AddressToContentConverter[SpecificAddress, SpecificContent]
-  ): InventoryUpdater[SpecificInventory, SpecificAddress] with
+    CheckAndTrimRestrictive[ARGUMENT],
+    ElementWriter[SpecificElement],
+    AddressToPathConverter[SpecificAddress],
+    AddressToContentConverter[SpecificAddress]
+  ): InventoryUpdater[SpecificInventory] with
 
-    override def updateInventory(
+    override def updateInventory[
+      ADDRESS
+    ](
       inventory: SpecificInventory,
-      destination: SpecificAddress,
-      content: SpecificAddress
+      destination: ADDRESS,
+      content: ADDRESS
     ): Either[String, SpecificInventory] =
 
       for {
@@ -65,17 +71,20 @@ object SpecificInventory:
         updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
       } yield inventory.copy(root = updatedRoot)
 
-  given [ARGUMENT](using
+  given [
+    ARGUMENT : CheckAndTrimRestrictive
+  ](using
     argument: ARGUMENT
   )(using
-    CheckAndTrimRestrictive[ARGUMENT, SpecificAddress],
-    ElementReader[SpecificElement, SpecificPath, SpecificContent],
-    AddressToPathConverter[SpecificAddress, SpecificPath],
+    ElementReader[SpecificElement],
+    AddressToPathConverter[SpecificAddress],
     AddressTrimmer[SpecificAddress]
-  ): InventoryReader[SpecificInventory, SpecificAddress] with
+  ): InventoryReader[SpecificInventory] with
 
     override
-    def readInventory(
+    def readInventory[
+      ADDRESS
+    ](
       inventory: SpecificInventory,
       origin: SpecificAddress
     ): Either[String, SpecificAddress] =

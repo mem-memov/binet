@@ -8,13 +8,12 @@ class SpecificTrimmer
 
 object SpecificTrimmer:
 
-  given (using
-    AddressEmptyChecker[SpecificAddress],
-    AddressTrimmer[SpecificAddress]
-  ): Trim[SpecificTrimmer, SpecificAddress] with
+  given Trim[SpecificTrimmer] with
 
     override
-    def trimAddress(
+    def trimAddress[
+      ADDRESS : AddressEmptyChecker : AddressTrimmer
+    ](
       trimmer: SpecificTrimmer,
       address: SpecificAddress
     ): SpecificAddress =

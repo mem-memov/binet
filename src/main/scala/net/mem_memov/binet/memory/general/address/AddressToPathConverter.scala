@@ -1,13 +1,17 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressToPathConverter[ADDRESS, PATH]:
+trait AddressToPathConverter[ADDRESS]:
 
-  def addressToPath(
+  def addressToPath[
+    PATH
+  ](
     address: ADDRESS
   ): PATH
 
   extension (address: ADDRESS)
 
-    def toPath: PATH =
+    def toPath[
+      PATH
+    ]: PATH =
 
       addressToPath(address)

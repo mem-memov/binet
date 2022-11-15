@@ -1,10 +1,13 @@
 package net.mem_memov.binet.memory.general.content
 
 import net.mem_memov.binet.memory.general.UnsignedByte
+import net.mem_memov.binet.memory.general.block.BlockWriter
 
-trait ContentWriter[CONTENT, BLOCK]:
+trait ContentWriter[CONTENT]:
 
-  def writeContent(
+  def writeContent[
+    BLOCK
+  ](
     content: CONTENT,
     contentIndex: Integer,
     blockIndex: UnsignedByte,
@@ -13,7 +16,9 @@ trait ContentWriter[CONTENT, BLOCK]:
 
   extension (content: CONTENT)
 
-    def write(
+    def write[
+      BLOCK : BlockWriter
+    ](
       contentIndex: Integer,
       blockIndex: UnsignedByte,
       block: BLOCK

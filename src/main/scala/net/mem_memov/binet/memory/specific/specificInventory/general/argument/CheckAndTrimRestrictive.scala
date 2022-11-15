@@ -1,8 +1,10 @@
 package net.mem_memov.binet.memory.specific.specificInventory.general.argument
 
-trait CheckAndTrimRestrictive[ARGUMENT, ADDRESS]:
+trait CheckAndTrimRestrictive[ARGUMENT]:
 
-  def checkAndTrimAddressRestrictive(
+  def checkAndTrimAddressRestrictive[
+    ADDRESS
+  ](
     argument: ARGUMENT,
     next: ADDRESS,
     address: ADDRESS
@@ -10,7 +12,9 @@ trait CheckAndTrimRestrictive[ARGUMENT, ADDRESS]:
 
   extension (argument: ARGUMENT)
 
-    def checkAndTrimRestrictive(
+    def checkAndTrimRestrictive[
+      ADDRESS
+    ](
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, ADDRESS] =

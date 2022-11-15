@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.general.store.{StoreReader, StoreWriter}
+import net.mem_memov.binet.memory.general.content
 import net.mem_memov.binet.memory.specific.specificStore.general.trimmer.TrimmingService
 
 case class SpecificStore(
@@ -16,13 +17,15 @@ object SpecificStore:
       Vector(SpecificBlock.emptyBlock)
     )
 
-  given StoreReader[SpecificStore, SpecificAddress] with
+  given StoreReader[SpecificStore] with
 
     override
-    def readStore(
+    def readStore[
+      ADDRESS
+    ](
       store: SpecificStore,
       origin: UnsignedByte
-    ): SpecificAddress =
+    ): ADDRESS =
 
       val parts = store.blocks.foldLeft(List.empty[UnsignedByte]) {
         case(parts, block) =>
@@ -31,14 +34,16 @@ object SpecificStore:
 
       SpecificAddress.makeAddress(parts.reverse)
 
-  given [TRIMMER](
+  given [
+    TRIMMER : TrimmingService
+  ](
     using trimmer: TRIMMER
-  )(
-    using TrimmingService[TRIMMER, SpecificBlock]
-  ): StoreWriter[SpecificStore, SpecificContent] with
+  ): StoreWriter[SpecificStore] with
 
     override
-    def writeStore(
+    def writeStore[
+      CONTENT : content.ContentBlockSupplementer : content.ContentWriter
+    ](
       store: SpecificStore,
       destination: UnsignedByte,
       content: SpecificContent
