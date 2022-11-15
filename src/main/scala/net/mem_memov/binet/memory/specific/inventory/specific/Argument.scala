@@ -2,13 +2,13 @@ package net.mem_memov.binet.memory.specific.inventory.specific
 
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.inventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
-import net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.checker.{CheckType, CheckBoundaryRestrictively, CheckBoundaryPermissively}
-import net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.specific.SpecificChecker
-import net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.trimmer.Trim
+import net.mem_memov.binet.memory.specific.inventory.specific.argument.general.checker.{CheckType, CheckBoundaryRestrictively, CheckBoundaryPermissively}
+import net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.Checker
+import net.mem_memov.binet.memory.specific.inventory.specific.argument.general.trimmer.Trim
 
-class SpecificArgument
+class Argument
 
-object SpecificArgument:
+object Argument:
 
   given [CHECKER, TRIMMER](using
     checker: CHECKER,
@@ -17,11 +17,11 @@ object SpecificArgument:
     CheckType[CHECKER, Address],
     CheckBoundaryPermissively[CHECKER, Address],
     Trim[TRIMMER, Address]
-  ): CheckAndTrimPermissive[SpecificArgument, Address] with
+  ): CheckAndTrimPermissive[Argument, Address] with
 
     override
     def checkAndTrimAddressPermissive(
-      argument: SpecificArgument,
+      argument: Argument,
       next: Address,
       address: Address
     ): Either[String, Address] =
@@ -39,11 +39,11 @@ object SpecificArgument:
     CheckType[CHECKER, Address],
     CheckBoundaryRestrictively[CHECKER, Address],
     Trim[TRIMMER, Address]
-  ): CheckAndTrimRestrictive[SpecificArgument, Address] with
+  ): CheckAndTrimRestrictive[Argument, Address] with
 
     override
     def checkAndTrimAddressRestrictive(
-      argument: SpecificArgument,
+      argument: Argument,
       next: Address,
       address: Address
     ): Either[String, Address] =

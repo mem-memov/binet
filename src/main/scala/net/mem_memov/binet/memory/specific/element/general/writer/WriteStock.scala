@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.element.general.writer
 
-trait StockWriter[WRITER, CONTENT, PATH_SPLIT, STOCK]:
+trait WriteStock[WRITER, CONTENT, PATH_SPLIT, STOCK]:
 
   def writeStockOnPath(
     writer: WRITER,

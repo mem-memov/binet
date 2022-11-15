@@ -1,4 +1,4 @@
-package net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.checker
+package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.checker
 
 trait CheckBoundaryRestrictively[CHECKER, ADDRESS]:
 

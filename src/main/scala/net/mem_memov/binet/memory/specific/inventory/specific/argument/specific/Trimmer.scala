@@ -1,21 +1,21 @@
-package net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.specific
+package net.mem_memov.binet.memory.specific.inventory.specific.argument.specific
 
 import net.mem_memov.binet.memory.specific.Address
-import net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.trimmer.Trim
+import net.mem_memov.binet.memory.specific.inventory.specific.argument.general.trimmer.Trim
 import net.mem_memov.binet.memory.general.address.{IsEmpty, TrimBig}
 
-class SpecificTrimmer
+class Trimmer
 
-object SpecificTrimmer:
+object Trimmer:
 
   given (using
     IsEmpty[Address],
     TrimBig[Address]
-  ): Trim[SpecificTrimmer, Address] with
+  ): Trim[Trimmer, Address] with
 
     override
     def trimAddress(
-      trimmer: SpecificTrimmer,
+      trimmer: Trimmer,
       address: Address
     ): Address =
 

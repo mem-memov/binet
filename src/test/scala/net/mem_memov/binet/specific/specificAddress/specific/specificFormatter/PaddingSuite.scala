@@ -1,22 +1,22 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificFormatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.general.formatter.TrimmingFormatter
+import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
 import net.mem_memov.binet.memory.specific.address.specific.*
-import net.mem_memov.binet.memory.specific.address.specific.SpecificFormatter.given
+import net.mem_memov.binet.memory.specific.address.specific.Formatter.given
 
 class PaddingSuite extends munit.FunSuite:
 
   class Stub
   given trimmingFormatter: Stub = new Stub
-  val formatter = new SpecificFormatter
+  val formatter = new Formatter
 
   test("Formatter pads indices") {
 
     val originalIndices = List(UnsignedByte.maximum)
     val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
@@ -30,7 +30,7 @@ class PaddingSuite extends munit.FunSuite:
 
     val originalIndices = List(UnsignedByte.maximum, UnsignedByte.maximum, UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
@@ -44,7 +44,7 @@ class PaddingSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
     val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
@@ -58,7 +58,7 @@ class PaddingSuite extends munit.FunSuite:
 
     val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices

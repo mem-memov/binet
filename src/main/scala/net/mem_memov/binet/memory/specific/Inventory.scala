@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.inventory.specific.SpecificArgument
+import net.mem_memov.binet.memory.specific.inventory.specific.Argument
 import net.mem_memov.binet.memory.specific.inventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
 
 case class Inventory(

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.element.general.reader
 
-trait StockReader[READER, CONTENT, PATH_SPLIT, STOCK]:
+trait ReadStock[READER, CONTENT, PATH_SPLIT, STOCK]:
 
   def readStockOnPath(
     reader: READER,

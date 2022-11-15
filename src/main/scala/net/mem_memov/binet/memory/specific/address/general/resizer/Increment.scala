@@ -2,19 +2,19 @@ package net.mem_memov.binet.memory.specific.address.general.resizer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait DecrementingResizer[RESIZER]:
+trait Increment[RESIZER]:
 
-  def decrementIndices(
+  def incrementIndices(
     resizer: RESIZER,
     indices: List[UnsignedByte]
-  ): Either[String, List[UnsignedByte]]
+  ): List[UnsignedByte]
 
   extension (resizer: RESIZER)
 
-    def decrement(
+    def increment(
       indices: List[UnsignedByte]
-    ): Either[String, List[UnsignedByte]] =
+    ): List[UnsignedByte] =
 
-      decrementIndices(resizer, indices)
+      incrementIndices(resizer, indices)
 
 

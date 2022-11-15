@@ -1,9 +1,9 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.element.general.reader.{StockReader, StoreReader}
-import net.mem_memov.binet.memory.specific.element.general.writer.{StockWriter, StoreWriter}
-import net.mem_memov.binet.memory.specific.element.specific.{SpecificReader, SpecificWriter}
+import net.mem_memov.binet.memory.specific.element.general.reader.{ReadStock, ReadStore}
+import net.mem_memov.binet.memory.specific.element.general.writer.{WriteStock, WriteStore}
+import net.mem_memov.binet.memory.specific.element.specific.{Reader, Writer}
 
 case class Element(
   storeOption: Option[Store],
@@ -21,13 +21,13 @@ object Element:
   ](using
     reader: READER
   )(using
-    StockReader[
+    ReadStock[
       READER,
       Content,
       general.path.Shorten.Split[Path],
       Stock
     ],
-    StoreReader[
+    ReadStore[
       READER,
       Content,
       general.path.Shorten.Split[Path],
@@ -55,13 +55,13 @@ object Element:
   ](using
     writer: WRITER
   )(using
-    StockWriter[
+    WriteStock[
       WRITER,
       Content,
       general.path.Shorten.Split[Path],
       Stock
     ],
-    StoreWriter[
+    WriteStore[
       WRITER,
       Content,
       general.path.Shorten.Split[Path],

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.address.general.orderer
 
-trait ComparingOrderer[ORDERER, ADDRESS]:
+trait Compare[ORDERER, ADDRESS]:
 
   def compareAddresses(
     oderer: ORDERER,

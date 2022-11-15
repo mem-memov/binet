@@ -2,9 +2,9 @@ package net.mem_memov.binet.specific.specificAddress.specific.specificOrderer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.general.address.Indices
-import net.mem_memov.binet.memory.specific.address.general.formatter.TrimmingFormatter
+import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
 import net.mem_memov.binet.memory.specific.address.specific.*
-import net.mem_memov.binet.memory.specific.address.specific.SpecificOrderer.given
+import net.mem_memov.binet.memory.specific.address.specific.Orderer.given
 
 class ComparingSuite extends munit.FunSuite:
 
@@ -12,14 +12,14 @@ class ComparingSuite extends munit.FunSuite:
   given trimmingFormatter: Stub = new Stub
   val leftAddress = new Stub
   val rightAddress = new Stub
-  val orderer = new SpecificOrderer
+  val orderer = new Orderer
 
   test("Orderer confirms left is equal to right") {
 
     val leftIndices = List(UnsignedByte.maximum)
     val rightIndices = List(UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
@@ -42,7 +42,7 @@ class ComparingSuite extends munit.FunSuite:
     val leftIndices = List(UnsignedByte.maximum)
     val rightIndices = List(UnsignedByte.minimum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
@@ -65,7 +65,7 @@ class ComparingSuite extends munit.FunSuite:
     val leftIndices = List(UnsignedByte.minimum)
     val rightIndices = List(UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
@@ -100,7 +100,7 @@ class ComparingSuite extends munit.FunSuite:
     val trimmedLeftIndices = List(UnsignedByte.maximum)
     val trimmedRightIndices = List(UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices
@@ -131,7 +131,7 @@ class ComparingSuite extends munit.FunSuite:
     val trimmedLeftIndices = List(UnsignedByte.maximum, UnsignedByte.maximum)
     val trimmedRightIndices = List(UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices
@@ -162,7 +162,7 @@ class ComparingSuite extends munit.FunSuite:
     val trimmedLeftIndices = List(UnsignedByte.maximum)
     val trimmedRightIndices = List(UnsignedByte.maximum, UnsignedByte.maximum)
 
-    given TrimmingFormatter[Stub] with
+    given TrimBig[Stub] with
       override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices

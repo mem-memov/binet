@@ -3,7 +3,7 @@ package net.mem_memov.binet.specific.specificAddress
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.Address.given
-import net.mem_memov.binet.memory.specific.address.general.resizer.DecrementingResizer
+import net.mem_memov.binet.memory.specific.address.general.resizer.Decrement
 
 class DecrementingSuite extends munit.FunSuite:
 
@@ -17,7 +17,7 @@ class DecrementingSuite extends munit.FunSuite:
 
     val address = Address(originalIndices)
 
-    given DecrementingResizer[Stub] with
+    given Decrement[Stub] with
       override def decrementIndices(resizer: Stub, indices: List[UnsignedByte]): Either[String, List[UnsignedByte]] =
         assert(indices.equals(originalIndices))
         Right(decrementedIndices)

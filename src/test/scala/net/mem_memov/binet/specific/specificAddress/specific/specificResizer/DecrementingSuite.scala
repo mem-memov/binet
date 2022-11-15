@@ -1,8 +1,8 @@
 package net.mem_memov.binet.specific.specificAddress.specific.specificResizer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.specific.SpecificResizer
-import net.mem_memov.binet.memory.specific.address.specific.SpecificResizer.given
+import net.mem_memov.binet.memory.specific.address.specific.Resizer
+import net.mem_memov.binet.memory.specific.address.specific.Resizer.given
 
 class DecrementingSuite extends munit.FunSuite:
 
@@ -11,7 +11,7 @@ class DecrementingSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.fromInt(231), UnsignedByte.fromInt(245))
     val expectedIndices = List(UnsignedByte.fromInt(231), UnsignedByte.fromInt(244))
 
-    val resizer = new SpecificResizer
+    val resizer = new Resizer
 
     val result = resizer.decrement(originalIndices)
 
@@ -22,7 +22,7 @@ class DecrementingSuite extends munit.FunSuite:
 
     val originalIndices = List.empty[UnsignedByte]
 
-    val resizer = new SpecificResizer
+    val resizer = new Resizer
 
     val result = resizer.decrement(originalIndices)
 
@@ -33,7 +33,7 @@ class DecrementingSuite extends munit.FunSuite:
 
     val originalIndices = List(UnsignedByte.minimum)
 
-    val resizer = new SpecificResizer
+    val resizer = new Resizer
 
     val result = resizer.decrement(originalIndices)
 
@@ -45,7 +45,7 @@ class DecrementingSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.fromInt(231), UnsignedByte.fromInt(0))
     val expectedIndices = List(UnsignedByte.fromInt(230), UnsignedByte.fromInt(255))
 
-    val resizer = new SpecificResizer
+    val resizer = new Resizer
 
     val result = resizer.decrement(originalIndices)
 
@@ -57,7 +57,7 @@ class DecrementingSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.fromInt(1), UnsignedByte.fromInt(0))
     val expectedIndices = List(UnsignedByte.fromInt(255))
 
-    val resizer = new SpecificResizer
+    val resizer = new Resizer
 
     val result = resizer.decrement(originalIndices)
 

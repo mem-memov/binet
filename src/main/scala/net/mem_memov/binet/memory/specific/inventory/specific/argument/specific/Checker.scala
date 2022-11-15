@@ -1,20 +1,20 @@
-package net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.specific
+package net.mem_memov.binet.memory.specific.inventory.specific.argument.specific
 
 import net.mem_memov.binet.memory.specific.Address
-import net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.checker.{CheckBoundaryPermissively, CheckBoundaryRestrictively}
+import net.mem_memov.binet.memory.specific.inventory.specific.argument.general.checker.{CheckBoundaryPermissively, CheckBoundaryRestrictively}
 import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
-class SpecificChecker
+class Checker
 
-object SpecificChecker:
+object Checker:
 
   given (using
     Ordering[Address]
-  ): CheckBoundaryPermissively[SpecificChecker, Address] with
+  ): CheckBoundaryPermissively[Checker, Address] with
 
     override
     def checkAddressBoundaryPermissively(
-      checker: SpecificChecker,
+      checker: Checker,
       next: Address,
       address: Address
     ): Either[String, Unit] =
@@ -26,11 +26,11 @@ object SpecificChecker:
 
   given (using
     Ordering[Address]
-  ): CheckBoundaryRestrictively[SpecificChecker, Address] with
+  ): CheckBoundaryRestrictively[Checker, Address] with
 
     override
     def checkAddressBoundaryRestrictively(
-      checker: SpecificChecker,
+      checker: Checker,
       next: Address,
       address: Address
     ): Either[String, Unit] =

@@ -2,19 +2,19 @@ package net.mem_memov.binet.memory.specific.element.specific
 
 import net.mem_memov.binet.memory.general.path.Shorten
 import net.mem_memov.binet.memory.specific.{Address, Content, Path, Stock, Store}
-import net.mem_memov.binet.memory.specific.element.general.reader.{StockReader, StoreReader}
+import net.mem_memov.binet.memory.specific.element.general.reader.{ReadStock, ReadStore}
 import net.mem_memov.binet.memory.general.stock.Read as MemoryStockReader
 import net.mem_memov.binet.memory.general.store.Read as MemoryStoreReader
 import net.mem_memov.binet.memory.general.address.ToContent
 
-class SpecificReader
+class Reader
 
-object SpecificReader:
+object Reader:
 
   given (using
     MemoryStockReader[Stock, Content, Path]
-  ): StockReader[
-    SpecificReader,
+  ): ReadStock[
+    Reader,
     Content,
     Shorten.Split[Path],
     Stock
@@ -22,7 +22,7 @@ object SpecificReader:
 
     override
     def readStockOnPath(
-      reader: SpecificReader,
+      reader: Reader,
       stockOption: Option[Stock],
       pathSplit: Shorten.Split[Path]
     ): Either[String, Content] =
@@ -33,8 +33,8 @@ object SpecificReader:
   given (using
     MemoryStoreReader[Store, Address],
     ToContent[Address, Content]
-  ): StoreReader[
-    SpecificReader,
+  ): ReadStore[
+    Reader,
     Content,
     Shorten.Split[Path],
     Store
@@ -42,7 +42,7 @@ object SpecificReader:
 
     override
     def readStoreOnPath(
-      reader: SpecificReader,
+      reader: Reader,
       storeOption: Option[Store],
       pathSplit: Shorten.Split[Path]
     ): Either[String, Content] =

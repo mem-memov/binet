@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.address.general.formatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait TrimmingFormatter[FORMATTER]:
+trait TrimBig[FORMATTER]:
 
   def trimBigIndices(
     formatter: FORMATTER,

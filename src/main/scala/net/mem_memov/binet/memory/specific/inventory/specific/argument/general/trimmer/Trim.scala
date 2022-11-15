@@ -1,4 +1,4 @@
-package net.mem_memov.binet.memory.specific.inventory.specific.specificArgument.general.trimmer
+package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.trimmer
 
 trait Trim[TRIMMER, ADDRESS]:
 

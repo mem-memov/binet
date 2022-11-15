@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.element.general.writer
 
-trait StoreWriter[WRITER, CONTENT, PATH_SPLIT, STORE]:
+trait WriteStore[WRITER, CONTENT, PATH_SPLIT, STORE]:
 
   def writeStoreOnPath(
     writer: WRITER,

@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimmingService
+import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
 
 case class Store(
   blocks: Vector[Block]
@@ -33,7 +33,7 @@ object Store:
   given [TRIMMER](
     using trimmer: TRIMMER
   )(
-    using TrimmingService[TRIMMER, Block]
+    using TrimRight[TRIMMER, Block]
   ): general.store.Write[Store, Content] with
 
     override

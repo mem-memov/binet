@@ -2,23 +2,23 @@ package net.mem_memov.binet.memory.specific.address.specific
 
 import net.mem_memov.binet.memory.general.address.Indices
 import net.mem_memov.binet.memory.specific.Address
-import net.mem_memov.binet.memory.specific.address.general.formatter.TrimmingFormatter
-import net.mem_memov.binet.memory.specific.address.general.orderer.ComparingOrderer
+import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
+import net.mem_memov.binet.memory.specific.address.general.orderer.Compare
 
-class SpecificOrderer
+class Orderer
 
-object SpecificOrderer:
+object Orderer:
 
   given [
     ADDRESS : Indices,
-    FORMATTER : TrimmingFormatter
+    FORMATTER : TrimBig
   ](using
     formatter: FORMATTER
-  ): ComparingOrderer[SpecificOrderer, ADDRESS] with
+  ): Compare[Orderer, ADDRESS] with
 
     override
     def compareAddresses(
-      oderer: SpecificOrderer,
+      oderer: Orderer,
       left: ADDRESS,
       right: ADDRESS
     ): Int =

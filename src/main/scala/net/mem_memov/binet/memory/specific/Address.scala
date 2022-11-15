@@ -2,8 +2,8 @@ package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.specific.address.general.resizer.*
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.address.general.resizer.IncrementingResizer
-import net.mem_memov.binet.memory.specific.address.general.orderer.ComparingOrderer
+import net.mem_memov.binet.memory.specific.address.general.resizer.Increment
+import net.mem_memov.binet.memory.specific.address.general.orderer.Compare
 
 /**
  * Address has the property that it can be incremented infinitely without overflow.
@@ -42,7 +42,7 @@ object Address:
       address.parts.length
 
   given [
-    RESIZER : DecrementingResizer
+    RESIZER : Decrement
   ](using
     resizer: RESIZER
   ): general.address.Decrement[Address] with
@@ -55,7 +55,7 @@ object Address:
       resizer.decrement(address.parts).map(indices => address.copy(parts = indices))
 
   given [
-    RESIZER: IncrementingResizer
+    RESIZER: Increment
   ](using
     resizer: RESIZER
   ): general.address.Increment[Address] with
@@ -90,7 +90,7 @@ object Address:
   ](using
     orderer: ORDERER
   )(using
-    ComparingOrderer[ORDERER, Address]
+    Compare[ORDERER, Address]
   ): Ordering[Address] with
 
     override def compare(x: Address, y: Address): Int =

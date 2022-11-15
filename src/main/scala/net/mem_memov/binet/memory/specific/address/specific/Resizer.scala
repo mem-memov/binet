@@ -1,18 +1,18 @@
 package net.mem_memov.binet.memory.specific.address.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.general.resizer.IncrementingResizer
+import net.mem_memov.binet.memory.specific.address.general.resizer.Increment
 import net.mem_memov.binet.memory.specific.address.general.resizer.*
 
-class SpecificResizer
+class Resizer
 
-object SpecificResizer:
+object Resizer:
 
-  given DecrementingResizer[SpecificResizer] with
+  given Decrement[Resizer] with
 
     override
     def decrementIndices(
-      resizer: SpecificResizer,
+      resizer: Resizer,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
 
@@ -42,11 +42,11 @@ object SpecificResizer:
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
       if x.atMinimum then (UnsignedByte.maximum, true) else (x.decrement, false)
 
-  given IncrementingResizer[SpecificResizer] with
+  given Increment[Resizer] with
 
     override
     def incrementIndices(
-      resizer: SpecificResizer,
+      resizer: Resizer,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 

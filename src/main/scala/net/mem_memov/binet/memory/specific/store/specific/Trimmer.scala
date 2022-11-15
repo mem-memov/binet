@@ -1,20 +1,20 @@
 package net.mem_memov.binet.memory.specific.store.specific
 
 import net.mem_memov.binet.memory.specific.Block
-import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimmingService
+import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
 
 import scala.annotation.tailrec
 
-class SpecificTrimmer
+class Trimmer
 
-object SpecificTrimmer:
+object Trimmer:
 
-  given TrimmingService[SpecificTrimmer, Block] with
+  given TrimRight[Trimmer, Block] with
 
     @tailrec
     override
     def trimBlocksRight(
-      trimmer: SpecificTrimmer,
+      trimmer: Trimmer,
       blocks: Vector[Block]
     ): Vector[Block] =
 

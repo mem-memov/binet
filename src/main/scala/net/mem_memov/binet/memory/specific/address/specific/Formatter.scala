@@ -3,19 +3,19 @@ package net.mem_memov.binet.memory.specific.address.specific
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.address.general.formatter.*
 
-class SpecificFormatter
+class Formatter
 
-object SpecificFormatter:
+object Formatter:
 
   given [
-    FORMATTER : TrimmingFormatter
+    FORMATTER : TrimBig
   ](using
     trimmer: FORMATTER
-  ): PaddingFormatter[SpecificFormatter] with
+  ): PadBig[Formatter] with
 
     override
     def padBigIndices(
-      formatter: SpecificFormatter,
+      formatter: Formatter,
       target: Int,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
@@ -35,11 +35,11 @@ object SpecificFormatter:
               List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
             )
 
-  given TrimmingFormatter[SpecificFormatter] with
+  given TrimBig[Formatter] with
 
     override
     def trimBigIndices(
-      formatter: SpecificFormatter,
+      formatter: Formatter,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 
