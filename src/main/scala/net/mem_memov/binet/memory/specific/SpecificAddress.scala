@@ -92,7 +92,7 @@ object SpecificAddress:
   ](using
     orderer: ORDERER
   )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
+    ComparingOrderer[ORDERER]
   ): Ordering[SpecificAddress] with
 
     override def compare(x: SpecificAddress, y: SpecificAddress): Int =
