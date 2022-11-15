@@ -6,7 +6,7 @@ import net.mem_memov.binet.memory.specific.specificElement.general.writer.{Stock
 import net.mem_memov.binet.memory.specific.specificElement.specific.{SpecificReader, SpecificWriter}
 
 case class Element(
-  storeOption: Option[SpecificStore],
+  storeOption: Option[Store],
   stockOption: Option[Stock]
 )
 
@@ -31,7 +31,7 @@ object Element:
       READER,
       Content,
       general.path.Shorten.Split[Path],
-      SpecificStore
+      Store
     ]
   ): general.element.Read[Element, Path, Content] with
 
@@ -65,7 +65,7 @@ object Element:
       WRITER,
       Content,
       general.path.Shorten.Split[Path],
-      SpecificStore
+      Store
     ]
   ): general.element.Write[Element, Path, Content] with
 

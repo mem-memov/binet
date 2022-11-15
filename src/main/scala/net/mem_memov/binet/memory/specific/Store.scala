@@ -3,23 +3,23 @@ package net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.specificStore.general.trimmer.TrimmingService
 
-case class SpecificStore(
+case class Store(
   blocks: Vector[Block]
 )
 
-object SpecificStore:
+object Store:
 
-  lazy val emptyStore: SpecificStore =
+  lazy val emptyStore: Store =
 
-    SpecificStore(
+    Store(
       Vector(Block.emptyBlock)
     )
 
-  given general.store.Read[SpecificStore, Address] with
+  given general.store.Read[Store, Address] with
 
     override
     def readStore(
-      store: SpecificStore,
+      store: Store,
       origin: general.UnsignedByte
     ): Address =
 
@@ -34,14 +34,14 @@ object SpecificStore:
     using trimmer: TRIMMER
   )(
     using TrimmingService[TRIMMER, Block]
-  ): general.store.Write[SpecificStore, Content] with
+  ): general.store.Write[Store, Content] with
 
     override
     def writeStore(
-      store: SpecificStore,
+      store: Store,
       destination: general.UnsignedByte,
       content: Content
-    ): SpecificStore =
+    ): Store =
 
       val appendedBlocks = content.supplementBlocks(store.blocks.length)
       val expandedBlocks = store.blocks.appendedAll(appendedBlocks)

@@ -1,7 +1,7 @@
 package net.mem_memov.binet.memory.specific.specificElement.specific
 
 import net.mem_memov.binet.memory.general.path.Shorten
-import net.mem_memov.binet.memory.specific.{Content, Path, Stock, SpecificStore}
+import net.mem_memov.binet.memory.specific.{Content, Path, Stock, Store}
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
 import net.mem_memov.binet.memory.general.stock.Write as MemoryStockWriter
 import net.mem_memov.binet.memory.general.store.Write as MemoryStoreWriter
@@ -31,23 +31,23 @@ object SpecificWriter:
       presentStock.write(pathSplit.index, pathSplit.rest, content)
 
   given (using
-    MemoryStoreWriter[SpecificStore, Content]
+    MemoryStoreWriter[Store, Content]
   ): StoreWriter[
     SpecificWriter,
     Content,
     Shorten.Split[Path],
-    SpecificStore
+    Store
   ] with
 
     override
     def writeStoreOnPath(
       writer: SpecificWriter,
-      storeOption: Option[SpecificStore],
+      storeOption: Option[Store],
       pathSplit: Shorten.Split[Path],
       content: Content
-    ): SpecificStore =
+    ): Store =
 
-      val presentStore = storeOption.getOrElse(SpecificStore.emptyStore)
+      val presentStore = storeOption.getOrElse(Store.emptyStore)
       presentStore.write(pathSplit.index, content)
 
 
