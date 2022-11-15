@@ -1,10 +1,8 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryUpdater[INVENTORY]:
+trait InventoryUpdater[INVENTORY, ADDRESS]:
 
-  def updateInventory[
-    ADDRESS
-  ](
+  def updateInventory(
     inventory: INVENTORY,
     destination: ADDRESS,
     content: ADDRESS
@@ -12,9 +10,7 @@ trait InventoryUpdater[INVENTORY]:
 
   extension (inventory: INVENTORY)
 
-    def update[
-      ADDRESS
-    ](
+    def update(
       destination: ADDRESS,
       content: ADDRESS
     ): Either[String, INVENTORY] =

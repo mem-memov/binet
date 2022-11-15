@@ -1,19 +1,15 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait InventoryReader[INVENTORY]:
+trait InventoryReader[INVENTORY, ADDRESS]:
 
-  def readInventory[
-    ADDRESS
-  ](
+  def readInventory(
     inventory: INVENTORY,
     origin: ADDRESS
   ): Either[String, ADDRESS]
 
   extension (inventory: INVENTORY)
 
-    def read[
-      ADDRESS
-    ](
+    def read(
       origin: ADDRESS
     ): Either[String, ADDRESS] =
 

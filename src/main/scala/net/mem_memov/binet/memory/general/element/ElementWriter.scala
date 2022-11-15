@@ -2,12 +2,13 @@ package net.mem_memov.binet.memory.general.element
 
 import net.mem_memov.binet.memory.general.path.{PathEmptyChecker, PathShortener}
 
-trait ElementWriter[ELEMENT]:
+trait ElementWriter[
+  ELEMENT,
+  PATH : PathEmptyChecker : PathShortener,
+  CONTENT
+]:
 
-  def writeElement[
-    PATH : PathEmptyChecker : PathShortener,
-    CONTENT
-  ](
+  def writeElement(
     element: ELEMENT,
     destination: PATH,
     content: CONTENT
@@ -15,10 +16,7 @@ trait ElementWriter[ELEMENT]:
 
   extension (element: ELEMENT)
 
-    def write[
-      PATH : PathEmptyChecker : PathShortener,
-      CONTENT
-    ](
+    def write(
       destination: PATH,
       content: CONTENT
     ): Either[String, ELEMENT] =

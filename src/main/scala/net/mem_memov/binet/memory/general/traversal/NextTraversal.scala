@@ -1,19 +1,13 @@
 package net.mem_memov.binet.memory.general.traversal
 
-import net.mem_memov.binet.memory.general.address.{AddressIncrementer, AddressToPathConverter}
+trait NextTraversal[TRAVERSAL, ADDRESS]:
 
-trait NextTraversal[TRAVERSAL]:
-
-  def nextTraversalStep[
-    ADDRESS : Ordering : AddressToPathConverter : AddressIncrementer
-  ](
+  def nextTraversalStep(
     traversal: TRAVERSAL
   ): Either[String, Option[(ADDRESS, TRAVERSAL)]]
 
   extension (traversal: TRAVERSAL)
 
-    def nextTraversal[
-      ADDRESS : Ordering : AddressToPathConverter : AddressIncrementer
-    ](): Either[String, Option[(ADDRESS, TRAVERSAL)]] =
+    def nextTraversal(): Either[String, Option[(ADDRESS, TRAVERSAL)]] =
 
       nextTraversalStep(traversal)

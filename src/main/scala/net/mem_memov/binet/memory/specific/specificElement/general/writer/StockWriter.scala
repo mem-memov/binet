@@ -1,30 +1,19 @@
 package net.mem_memov.binet.memory.specific.specificElement.general.writer
 
-import net.mem_memov.binet.memory.general.path.PathShortener.Split
-import net.mem_memov.binet.memory.general.stock
+trait StockWriter[WRITER, CONTENT, PATH_SPLIT, STOCK]:
 
-trait StockWriter[WRITER]:
-
-  def writeStockOnPath[
-    CONTENT,
-    PATH,
-    STOCK : stock.StockWriter
-  ](
+  def writeStockOnPath(
     writer: WRITER,
     stockOption: Option[STOCK],
-    pathSplit: Split[PATH],
+    pathSplit: PATH_SPLIT,
     content: CONTENT
   ): Either[String, STOCK]
 
   extension (writer: WRITER)
 
-    def writeStock[
-      CONTENT,
-      PATH,
-      STOCK : stock.StockWriter
-    ](
+    def writeStock(
       stockOption: Option[STOCK],
-      pathSplit: Split[PATH],
+      pathSplit: PATH_SPLIT,
       content: CONTENT
     ): Either[String, STOCK] =
 

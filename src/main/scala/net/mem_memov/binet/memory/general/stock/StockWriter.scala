@@ -2,12 +2,9 @@ package net.mem_memov.binet.memory.general.stock
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StockWriter[STOCK]:
+trait StockWriter[STOCK, CONTENT, PATH]:
 
-  def writeStock[
-    CONTENT, 
-    PATH
-  ](
+  def writeStock(
     stock: STOCK,
     index: UnsignedByte,
     destination: PATH,
@@ -16,10 +13,7 @@ trait StockWriter[STOCK]:
 
   extension (stock: STOCK)
 
-    def write[
-      CONTENT,
-      PATH
-    ](
+    def write(
       index: UnsignedByte,
       destination: PATH,
       content: CONTENT

@@ -1,29 +1,18 @@
 package net.mem_memov.binet.memory.specific.specificElement.general.reader
 
-import net.mem_memov.binet.memory.general.path.PathShortener.Split
-import net.mem_memov.binet.memory.general.stock
+trait StockReader[READER, CONTENT, PATH_SPLIT, STOCK]:
 
-trait StockReader[READER]:
-
-  def readStockOnPath[
-    CONTENT,
-    PATH,
-    STOCK : stock.StockReader
-  ](
+  def readStockOnPath(
     reader: READER,
     stockOption: Option[STOCK],
-    pathSplit: Split[PATH]
+    pathSplit: PATH_SPLIT
   ): Either[String, CONTENT]
 
   extension (reader: READER)
 
-    def readStock[
-      CONTENT,
-      PATH,
-      STOCK : stock.StockReader
-    ](
+    def readStock(
       stockOption: Option[STOCK],
-      pathSplit: Split[PATH],
+      pathSplit: PATH_SPLIT
     ): Either[String, CONTENT] =
 
       readStockOnPath(reader, stockOption, pathSplit)

@@ -19,34 +19,28 @@ object SpecificStock:
     SpecificStock(elements)
 
   given (using
-    ElementReader[SpecificElement]
-  ): StockReader[SpecificStock] with
+    ElementReader[SpecificElement, SpecificPath, SpecificContent]
+  ): StockReader[SpecificStock, SpecificContent, SpecificPath] with
 
     override
-    def readStock[
-      CONTENT,
-      PATH
-    ](
+    def readStock(
       stock: SpecificStock,
       index: UnsignedByte,
-      origin: PATH
-    ): Either[String, CONTENT] =
+      origin: SpecificPath
+    ): Either[String, SpecificContent] =
 
       stock.elements(index.toInt).read(origin)
 
   given (using
-    ElementWriter[SpecificElement]
-  ): StockWriter[SpecificStock] with
+    ElementWriter[SpecificElement, SpecificPath, SpecificContent]
+  ): StockWriter[SpecificStock, SpecificContent, SpecificPath] with
 
     override
-    def writeStock[
-      CONTENT,
-      PATH
-    ](
+    def writeStock(
       stock: SpecificStock,
       index: UnsignedByte,
-      destination: PATH,
-      content: CONTENT
+      destination: SpecificPath,
+      content: SpecificContent
     ): Either[String, SpecificStock] =
 
       for {

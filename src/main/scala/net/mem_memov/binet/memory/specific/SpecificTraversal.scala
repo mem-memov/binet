@@ -13,13 +13,14 @@ case class SpecificTraversal(
 object SpecificTraversal:
 
   given (using
-    ElementReader[SpecificElement]
-  ): NextTraversal[SpecificTraversal] with
+    Ordering[SpecificAddress],
+    ElementReader[SpecificElement, SpecificPath, SpecificContent],
+    AddressToPathConverter[SpecificAddress, SpecificPath],
+    AddressIncrementer[SpecificAddress]
+  ): NextTraversal[SpecificTraversal, SpecificAddress] with
 
     override
-    def nextTraversalStep[
-      ADDRESS : Ordering : AddressToPathConverter : AddressIncrementer
-    ](
+    def nextTraversalStep(
       traversal: SpecificTraversal
     ): Either[String, Option[(SpecificAddress, SpecificTraversal)]] =
 

@@ -1,10 +1,8 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.checker
 
-trait CheckBoundaryRestrictively[CHECKER]:
+trait CheckBoundaryRestrictively[CHECKER, ADDRESS]:
 
-  def checkAddressBoundaryRestrictively[
-    ADDRESS : Ordering
-  ](
+  def checkAddressBoundaryRestrictively(
     checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
@@ -12,9 +10,7 @@ trait CheckBoundaryRestrictively[CHECKER]:
   
   extension (checker: CHECKER)
 
-    def checkBoundaryRestrictively[
-      ADDRESS : Ordering
-    ](
+    def checkBoundaryRestrictively(
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, Unit] =

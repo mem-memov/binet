@@ -1,10 +1,8 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.checker
 
-trait CheckType[CHECKER]:
+trait CheckType[CHECKER, ADDRESS]:
 
-  def checkAddressType[
-    ADDRESS
-  ](
+  def checkAddressType(
     checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
@@ -12,9 +10,7 @@ trait CheckType[CHECKER]:
 
   extension (checker: CHECKER)
 
-    def checkType[
-      ADDRESS
-    ](
+    def checkType(
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, Unit] =

@@ -1,19 +1,15 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.trimmer
 
-trait Trim[TRIMMER]:
+trait Trim[TRIMMER, ADDRESS]:
 
-  def trimAddress[
-    ADDRESS
-  ](
+  def trimAddress(
     trimmer: TRIMMER,
     address: ADDRESS
   ): ADDRESS
 
   extension (trimmer: TRIMMER)
 
-    def trim[
-      ADDRESS
-    ](
+    def trim(
       address: ADDRESS
     ): ADDRESS =
 

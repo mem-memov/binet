@@ -2,12 +2,9 @@ package net.mem_memov.binet.memory.general.stock
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait StockReader[STOCK]:
+trait StockReader[STOCK, CONTENT, PATH]:
 
-  def readStock[
-    CONTENT,
-    PATH
-  ](
+  def readStock(
     stock: STOCK,
     index: UnsignedByte,
     origin: PATH
@@ -15,10 +12,7 @@ trait StockReader[STOCK]:
 
   extension (stock: STOCK)
 
-    def read[
-      CONTENT,
-      PATH
-    ](
+    def read(
       index: UnsignedByte,
       origin: PATH
     ): Either[String, CONTENT] =

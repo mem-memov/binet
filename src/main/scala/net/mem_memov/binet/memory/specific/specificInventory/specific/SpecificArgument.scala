@@ -10,18 +10,17 @@ class SpecificArgument
 
 object SpecificArgument:
 
-  given [
-    CHECKER : CheckType : CheckBoundaryPermissively,
-    TRIMMER : Trim
-  ](using
+  given [CHECKER, TRIMMER](using
     checker: CHECKER,
     trimmer: TRIMMER
-  ): CheckAndTrimPermissive[SpecificArgument] with
+  )(using
+    CheckType[CHECKER, SpecificAddress],
+    CheckBoundaryPermissively[CHECKER, SpecificAddress],
+    Trim[TRIMMER, SpecificAddress]
+  ): CheckAndTrimPermissive[SpecificArgument, SpecificAddress] with
 
     override
-    def checkAndTrimAddressPermissive[
-      ADDRESS
-    ](
+    def checkAndTrimAddressPermissive(
       argument: SpecificArgument,
       next: SpecificAddress,
       address: SpecificAddress
@@ -33,18 +32,17 @@ object SpecificArgument:
         _ <- checker.checkBoundaryPermissively(next, trimmedAddress)
       } yield trimmedAddress
 
-  given [
-    CHECKER : CheckType : CheckBoundaryRestrictively,
-    TRIMMER : Trim
-  ](using
+  given [CHECKER, TRIMMER](using
     checker: CHECKER,
     trimmer: TRIMMER
-  ): CheckAndTrimRestrictive[SpecificArgument] with
+  )(using
+    CheckType[CHECKER, SpecificAddress],
+    CheckBoundaryRestrictively[CHECKER, SpecificAddress],
+    Trim[TRIMMER, SpecificAddress]
+  ): CheckAndTrimRestrictive[SpecificArgument, SpecificAddress] with
 
     override
-    def checkAndTrimAddressRestrictive[
-      ADDRESS
-    ](
+    def checkAndTrimAddressRestrictive(
       argument: SpecificArgument,
       next: SpecificAddress,
       address: SpecificAddress

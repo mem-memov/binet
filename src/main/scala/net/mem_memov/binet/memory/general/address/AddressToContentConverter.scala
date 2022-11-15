@@ -1,17 +1,13 @@
 package net.mem_memov.binet.memory.general.address
 
-trait AddressToContentConverter[ADDRESS]:
+trait AddressToContentConverter[ADDRESS, CONTENT]:
 
-  def addressToContent[
-    CONTENT
-  ](
+  def addressToContent(
     address: ADDRESS
   ): CONTENT
 
   extension (address: ADDRESS)
 
-    def toContent[
-      CONTENT
-    ]: CONTENT =
+    def toContent: CONTENT =
 
       addressToContent(address)
