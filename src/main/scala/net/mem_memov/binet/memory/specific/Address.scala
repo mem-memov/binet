@@ -9,35 +9,35 @@ import net.mem_memov.binet.memory.specific.specificAddress.general.orderer.Compa
  * Address has the property that it can be incremented infinitely without overflow.
  * An address consists on indices which are used to retrieve data at different levels of a tree structure.
  */
-case class SpecificAddress(
+case class Address(
   parts: List[general.UnsignedByte]
 )
 
-object SpecificAddress:
+object Address:
 
   def makeAddress(
     indices: List[general.UnsignedByte]
-  ): SpecificAddress =
+  ): Address =
 
-    SpecificAddress(indices)
+    Address(indices)
 
-  lazy val zeroAddress: SpecificAddress =
+  lazy val zeroAddress: Address =
 
-    SpecificAddress(List(general.UnsignedByte.minimum))
+    Address(List(general.UnsignedByte.minimum))
 
-  given general.address.Indices[SpecificAddress] with
+  given general.address.Indices[Address] with
 
     override
     def indicesOfAddress(
-      address: SpecificAddress
+      address: Address
     ): List[general.UnsignedByte] =
 
       address.parts
 
-  given general.address.Length[SpecificAddress] with
+  given general.address.Length[Address] with
 
     override
-    def lengthOfAddress(address: SpecificAddress): Int =
+    def lengthOfAddress(address: Address): Int =
 
       address.parts.length
 
@@ -45,12 +45,12 @@ object SpecificAddress:
     RESIZER : DecrementingResizer
   ](using
     resizer: RESIZER
-  ): general.address.Decrement[SpecificAddress] with
+  ): general.address.Decrement[Address] with
 
     override
     def decrementAddress(
-      address: SpecificAddress
-    ): Either[String, SpecificAddress] =
+      address: Address
+    ): Either[String, Address] =
 
       resizer.decrement(address.parts).map(indices => address.copy(parts = indices))
 
@@ -58,29 +58,29 @@ object SpecificAddress:
     RESIZER: IncrementingResizer
   ](using
     resizer: RESIZER
-  ): general.address.Increment[SpecificAddress] with
+  ): general.address.Increment[Address] with
 
     override
     def incrementAddress(
-      address: SpecificAddress
-    ): SpecificAddress =
+      address: Address
+    ): Address =
 
       address.copy(parts = resizer.increment(address.parts))
 
-  given general.address.IsEmpty[SpecificAddress] with
+  given general.address.IsEmpty[Address] with
 
     override
     def isAddressEmpty(
-      address: SpecificAddress
+      address: Address
     ): Boolean =
 
       address.parts.isEmpty
 
-  given general.address.IsZero[SpecificAddress] with
+  given general.address.IsZero[Address] with
 
     override
     def isAddressZero(
-      address: SpecificAddress
+      address: Address
     ): Boolean =
 
       address.parts.length == 1 && address.parts.head == general.UnsignedByte.minimum
@@ -90,38 +90,38 @@ object SpecificAddress:
   ](using
     orderer: ORDERER
   )(using
-    ComparingOrderer[ORDERER, SpecificAddress]
-  ): Ordering[SpecificAddress] with
+    ComparingOrderer[ORDERER, Address]
+  ): Ordering[Address] with
 
-    override def compare(x: SpecificAddress, y: SpecificAddress): Int =
+    override def compare(x: Address, y: Address): Int =
 
       orderer.compare(y, y)
 
-  given general.address.ToString[SpecificAddress] with
+  given general.address.ToString[Address] with
 
     override
     def addressToString(
-      address: SpecificAddress
+      address: Address
     ): String =
 
       address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
-  given general.address.ToContent[SpecificAddress, SpecificContent] with
+  given general.address.ToContent[Address, Content] with
 
     override
     def addressToContent(
-      address: SpecificAddress
-    ): SpecificContent =
+      address: Address
+    ): Content =
 
-      SpecificContent(address.parts.reverse.toVector)
+      Content(address.parts.reverse.toVector)
 
-  given general.address.ToPath[SpecificAddress, SpecificPath] with
+  given general.address.ToPath[Address, Path] with
 
     override
     def addressToPath(
-      address: SpecificAddress
-    ): SpecificPath =
+      address: Address
+    ): Path =
 
-      SpecificPath(address.parts.reverse.toVector)
+      Path(address.parts.reverse.toVector)
 
 

@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific
 
-import net.mem_memov.binet.memory.specific.SpecificAddress
+import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.specificInventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
 import net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.checker.{CheckType, CheckBoundaryRestrictively, CheckBoundaryPermissively}
 import net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.specific.SpecificChecker
@@ -14,17 +14,17 @@ object SpecificArgument:
     checker: CHECKER,
     trimmer: TRIMMER
   )(using
-    CheckType[CHECKER, SpecificAddress],
-    CheckBoundaryPermissively[CHECKER, SpecificAddress],
-    Trim[TRIMMER, SpecificAddress]
-  ): CheckAndTrimPermissive[SpecificArgument, SpecificAddress] with
+    CheckType[CHECKER, Address],
+    CheckBoundaryPermissively[CHECKER, Address],
+    Trim[TRIMMER, Address]
+  ): CheckAndTrimPermissive[SpecificArgument, Address] with
 
     override
     def checkAndTrimAddressPermissive(
       argument: SpecificArgument,
-      next: SpecificAddress,
-      address: SpecificAddress
-    ): Either[String, SpecificAddress] =
+      next: Address,
+      address: Address
+    ): Either[String, Address] =
 
       for {
         _ <- checker.checkType(next, address)
@@ -36,17 +36,17 @@ object SpecificArgument:
     checker: CHECKER,
     trimmer: TRIMMER
   )(using
-    CheckType[CHECKER, SpecificAddress],
-    CheckBoundaryRestrictively[CHECKER, SpecificAddress],
-    Trim[TRIMMER, SpecificAddress]
-  ): CheckAndTrimRestrictive[SpecificArgument, SpecificAddress] with
+    CheckType[CHECKER, Address],
+    CheckBoundaryRestrictively[CHECKER, Address],
+    Trim[TRIMMER, Address]
+  ): CheckAndTrimRestrictive[SpecificArgument, Address] with
 
     override
     def checkAndTrimAddressRestrictive(
       argument: SpecificArgument,
-      next: SpecificAddress,
-      address: SpecificAddress
-    ): Either[String, SpecificAddress] =
+      next: Address,
+      address: Address
+    ): Either[String, Address] =
 
       for {
         _ <- checker.checkType(next, address)

@@ -8,43 +8,43 @@ import net.mem_memov.binet.memory.general
  * Blocks are for storing separate indices of an address.
  * At each level blocks are organized into stores.
  */
-case class SpecificBlock(
+case class Block(
   space: Vector[general.UnsignedByte]
 )
 
-object SpecificBlock:
+object Block:
 
-  lazy val emptyBlock: SpecificBlock =
-    SpecificBlock(
+  lazy val emptyBlock: Block =
+    Block(
       Vector.fill(general.UnsignedByte.maximum.toInt + 1)(general.UnsignedByte.minimum)
     )
 
-  given general.block.IsEmpty[SpecificBlock] with
+  given general.block.IsEmpty[Block] with
 
     override
     def isBlockEmpty(
-      block: SpecificBlock
+      block: Block
     ): Boolean =
 
       block.space.forall(_.atMinimum)
 
-  given general.block.Read[SpecificBlock] with
+  given general.block.Read[Block] with
 
     override
     def readBlock(
-      block: SpecificBlock,
+      block: Block,
       position: general.UnsignedByte
     ): general.UnsignedByte =
 
       block.space(position.toInt)
 
-  given general.block.Write[SpecificBlock] with
+  given general.block.Write[Block] with
 
     override
     def writeBlock(
-      block: SpecificBlock,
+      block: Block,
       position: general.UnsignedByte,
       content: general.UnsignedByte
-    ): SpecificBlock =
+    ): Block =
 
       block.copy(space = block.space.updated(position.toInt, content))

@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.specificStore.general.trimmer.TrimmingService
 
 case class SpecificStore(
-  blocks: Vector[SpecificBlock]
+  blocks: Vector[Block]
 )
 
 object SpecificStore:
@@ -12,35 +12,35 @@ object SpecificStore:
   lazy val emptyStore: SpecificStore =
 
     SpecificStore(
-      Vector(SpecificBlock.emptyBlock)
+      Vector(Block.emptyBlock)
     )
 
-  given general.store.Read[SpecificStore, SpecificAddress] with
+  given general.store.Read[SpecificStore, Address] with
 
     override
     def readStore(
       store: SpecificStore,
       origin: general.UnsignedByte
-    ): SpecificAddress =
+    ): Address =
 
       val parts = store.blocks.foldLeft(List.empty[general.UnsignedByte]) {
         case(parts, block) =>
           block.read(origin) :: parts
       }
 
-      SpecificAddress.makeAddress(parts.reverse)
+      Address.makeAddress(parts.reverse)
 
   given [TRIMMER](
     using trimmer: TRIMMER
   )(
-    using TrimmingService[TRIMMER, SpecificBlock]
-  ): general.store.Write[SpecificStore, SpecificContent] with
+    using TrimmingService[TRIMMER, Block]
+  ): general.store.Write[SpecificStore, Content] with
 
     override
     def writeStore(
       store: SpecificStore,
       destination: general.UnsignedByte,
-      content: SpecificContent
+      content: Content
     ): SpecificStore =
 
       val appendedBlocks = content.supplementBlocks(store.blocks.length)

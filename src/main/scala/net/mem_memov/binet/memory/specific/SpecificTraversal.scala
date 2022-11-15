@@ -3,24 +3,24 @@ package net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.general
 
 case class SpecificTraversal(
-  root: SpecificElement,
-  nextPath: SpecificAddress,
-  newPath: SpecificAddress
+  root: Element,
+  nextPath: Address,
+  newPath: Address
 )
 
 object SpecificTraversal:
 
   given (using
-    Ordering[SpecificAddress],
-    general.element.Read[SpecificElement, SpecificPath, SpecificContent],
-    general.address.ToPath[SpecificAddress, SpecificPath],
-    general.address.Increment[SpecificAddress]
-  ): general.traversal.Next[SpecificTraversal, SpecificAddress] with
+    Ordering[Address],
+    general.element.Read[Element, Path, Content],
+    general.address.ToPath[Address, Path],
+    general.address.Increment[Address]
+  ): general.traversal.Next[SpecificTraversal, Address] with
 
     override
     def nextTraversalStep(
       traversal: SpecificTraversal
-    ): Either[String, Option[(SpecificAddress, SpecificTraversal)]] =
+    ): Either[String, Option[(Address, SpecificTraversal)]] =
 
       if traversal.nextPath == traversal.newPath then
 

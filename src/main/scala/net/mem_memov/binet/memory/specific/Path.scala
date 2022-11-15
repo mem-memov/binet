@@ -2,27 +2,27 @@ package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
 
-case class SpecificPath (
+case class Path (
   indices: Vector[general.UnsignedByte]
 )
 
-object SpecificPath:
+object Path:
 
-  given general.path.IsEmpty[SpecificPath] with
+  given general.path.IsEmpty[Path] with
 
     override
     def isPathEmpty(
-      path: SpecificPath
+      path: Path
     ): Boolean =
 
       path.indices.isEmpty
 
-  given general.path.Shorten[SpecificPath] with
+  given general.path.Shorten[Path] with
 
     override
     def shortenPath(
-      path: SpecificPath
-    ): Either[String, general.path.Shorten.Split[SpecificPath]] =
+      path: Path
+    ): Either[String, general.path.Shorten.Split[Path]] =
 
       if path.indices.nonEmpty then
         Right(

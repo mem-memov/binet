@@ -5,16 +5,16 @@ import net.mem_memov.binet.memory.specific.specificElement.general.reader.{Stock
 import net.mem_memov.binet.memory.specific.specificElement.general.writer.{StockWriter, StoreWriter}
 import net.mem_memov.binet.memory.specific.specificElement.specific.{SpecificReader, SpecificWriter}
 
-case class SpecificElement(
+case class Element(
   storeOption: Option[SpecificStore],
-  stockOption: Option[SpecificStock]
+  stockOption: Option[Stock]
 )
 
-object SpecificElement:
+object Element:
 
-  lazy val emptyElement: SpecificElement =
+  lazy val emptyElement: Element =
 
-    SpecificElement(None, None)
+    Element(None, None)
 
   given [
     READER
@@ -23,23 +23,23 @@ object SpecificElement:
   )(using
     StockReader[
       READER,
-      SpecificContent,
-      general.path.Shorten.Split[SpecificPath],
-      SpecificStock
+      Content,
+      general.path.Shorten.Split[Path],
+      Stock
     ],
     StoreReader[
       READER,
-      SpecificContent,
-      general.path.Shorten.Split[SpecificPath],
+      Content,
+      general.path.Shorten.Split[Path],
       SpecificStore
     ]
-  ): general.element.Read[SpecificElement, SpecificPath, SpecificContent] with
+  ): general.element.Read[Element, Path, Content] with
 
     override
     def readElement(
-      element: SpecificElement,
-      origin: SpecificPath
-    ): Either[String, SpecificContent] =
+      element: Element,
+      origin: Path
+    ): Either[String, Content] =
 
       for {
         pathSplit <- origin.shorten()
@@ -57,24 +57,24 @@ object SpecificElement:
   )(using
     StockWriter[
       WRITER,
-      SpecificContent,
-      general.path.Shorten.Split[SpecificPath],
-      SpecificStock
+      Content,
+      general.path.Shorten.Split[Path],
+      Stock
     ],
     StoreWriter[
       WRITER,
-      SpecificContent,
-      general.path.Shorten.Split[SpecificPath],
+      Content,
+      general.path.Shorten.Split[Path],
       SpecificStore
     ]
-  ): general.element.Write[SpecificElement, SpecificPath, SpecificContent] with
+  ): general.element.Write[Element, Path, Content] with
 
     override
     def writeElement(
-      element: SpecificElement,
-      destination: SpecificPath,
-      content: SpecificContent
-    ): Either[String, SpecificElement] =
+      element: Element,
+      destination: Path,
+      content: Content
+    ): Either[String, Element] =
 
       for {
         pathSplit <- destination.shorten()

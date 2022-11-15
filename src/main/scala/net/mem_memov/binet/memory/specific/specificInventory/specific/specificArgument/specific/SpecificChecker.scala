@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.specific
 
-import net.mem_memov.binet.memory.specific.SpecificAddress
+import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.specificInventory.specific.specificArgument.general.checker.{CheckBoundaryPermissively, CheckBoundaryRestrictively}
 import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
@@ -9,30 +9,30 @@ class SpecificChecker
 object SpecificChecker:
 
   given (using
-    Ordering[SpecificAddress]
-  ): CheckBoundaryPermissively[SpecificChecker, SpecificAddress] with
+    Ordering[Address]
+  ): CheckBoundaryPermissively[SpecificChecker, Address] with
 
     override
     def checkAddressBoundaryPermissively(
       checker: SpecificChecker,
-      next: SpecificAddress,
-      address: SpecificAddress
+      next: Address,
+      address: Address
     ): Either[String, Unit] =
 
-      if next <= address && next != SpecificAddress.zeroAddress then
+      if next <= address && next != Address.zeroAddress then
         Left("Address out of permissive boundary")
       else
         Right(())
 
   given (using
-    Ordering[SpecificAddress]
-  ): CheckBoundaryRestrictively[SpecificChecker, SpecificAddress] with
+    Ordering[Address]
+  ): CheckBoundaryRestrictively[SpecificChecker, Address] with
 
     override
     def checkAddressBoundaryRestrictively(
       checker: SpecificChecker,
-      next: SpecificAddress,
-      address: SpecificAddress
+      next: Address,
+      address: Address
     ): Either[String, Unit] =
 
       if next <= address then
