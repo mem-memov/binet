@@ -1,11 +1,11 @@
-package net.mem_memov.binet.specific.specificAddress
+package net.mem_memov.binet.specific.address
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.Address.given
 import net.mem_memov.binet.memory.specific.address.general.resizer.Decrement
 
-class DecrementingSuite extends munit.FunSuite:
+class DecrementSuite extends munit.FunSuite:
 
   class Stub
   given decrementingResizer: Stub = new Stub

@@ -1,10 +1,10 @@
-package net.mem_memov.binet.specific.specificAddress
+package net.mem_memov.binet.specific.address
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.Address.given
 
-class EmptyCheckingSuite extends munit.FunSuite:
+class IsEmptySuite extends munit.FunSuite:
 
   test("Checker confirms that an address is empty") {
 

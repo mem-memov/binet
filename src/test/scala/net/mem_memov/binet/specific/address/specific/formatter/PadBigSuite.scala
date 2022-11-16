@@ -1,11 +1,11 @@
-package net.mem_memov.binet.specific.specificAddress.specific.specificFormatter
+package net.mem_memov.binet.specific.address.specific.formatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
 import net.mem_memov.binet.memory.specific.address.specific.*
 import net.mem_memov.binet.memory.specific.address.specific.Formatter.given
 
-class PaddingSuite extends munit.FunSuite:
+class PadBigSuite extends munit.FunSuite:
 
   class Stub
   given trimmingFormatter: Stub = new Stub

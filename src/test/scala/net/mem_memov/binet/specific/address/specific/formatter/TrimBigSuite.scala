@@ -1,9 +1,9 @@
-package net.mem_memov.binet.specific.specificAddress.specific.specificFormatter
+package net.mem_memov.binet.specific.address.specific.formatter
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.address.specific.Formatter
 
-class TrimmingSuite extends munit.FunSuite:
+class TrimBigSuite extends munit.FunSuite:
 
   val formatter = new Formatter
 

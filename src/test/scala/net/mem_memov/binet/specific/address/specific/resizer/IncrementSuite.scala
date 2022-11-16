@@ -1,11 +1,11 @@
-package net.mem_memov.binet.specific.specificAddress.specific.specificResizer
+package net.mem_memov.binet.specific.address.specific.resizer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.address.specific.Resizer
 import net.mem_memov.binet.memory.specific.address.specific.Resizer.given
 
 
-class IncrementingSuite extends munit.FunSuite:
+class IncrementSuite extends munit.FunSuite:
 
   test("Resizer increments indices") {
 

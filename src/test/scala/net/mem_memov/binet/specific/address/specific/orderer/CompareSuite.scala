@@ -1,4 +1,4 @@
-package net.mem_memov.binet.specific.specificAddress.specific.specificOrderer
+package net.mem_memov.binet.specific.address.specific.orderer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.general.address.Indices
@@ -6,7 +6,7 @@ import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
 import net.mem_memov.binet.memory.specific.address.specific.*
 import net.mem_memov.binet.memory.specific.address.specific.Orderer.given
 
-class ComparingSuite extends munit.FunSuite:
+class CompareSuite extends munit.FunSuite:
 
   class Stub
   given trimmingFormatter: Stub = new Stub
