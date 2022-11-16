@@ -1,6 +1,7 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
+import net.mem_memov.binet.memory.general.content.{SupplementBlocks, Write}
 import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
 
 case class Store(
@@ -30,17 +31,22 @@ object Store:
 
       Address.makeAddress(parts)
 
-  given [TRIMMER](
-    using trimmer: TRIMMER
-  )(
-    using TrimRight[TRIMMER, Block]
-  ): general.store.Write[Store, Content] with
+  given [
+    TRIMMER,
+    CONTENT
+  ](using
+    trimmer: TRIMMER
+  )(using
+    TrimRight[TRIMMER, Block],
+    SupplementBlocks[CONTENT, Block],
+    Write[CONTENT, Block]
+  ): general.store.Write[Store, CONTENT] with
 
     override
     def writeStore(
       store: Store,
       destination: general.UnsignedByte,
-      content: Content
+      content: CONTENT
     ): Store =
 
       val appendedBlocks = content.supplementBlocks(store.blocks.length)

@@ -1,14 +1,16 @@
 package net.mem_memov.binet.specific.store
 
 import net.mem_memov.binet.memory.general.UnsignedByte
+import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.{Address, Block, Content, Store}
 import net.mem_memov.binet.memory.specific.Store.given
 import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
+import net.mem_memov.binet.memory.specific.store.specific.Trimmer
 
 class WriteSuite extends munit.FunSuite:
-  
-  class Mock
-  
+
+  class Stub
+
   val b0 = UnsignedByte.fromInt(0)
   val b1 = UnsignedByte.fromInt(1)
   val b2 = UnsignedByte.fromInt(2)
@@ -16,6 +18,8 @@ class WriteSuite extends munit.FunSuite:
   val b4 = UnsignedByte.fromInt(4)
   val b5 = UnsignedByte.fromInt(5)
   val b6 = UnsignedByte.fromInt(6)
+
+  val trimmer = new Stub
 
   test("Store can be written at the first index") {
 
@@ -30,9 +34,24 @@ class WriteSuite extends munit.FunSuite:
       Block(Vector(b5, b2)),
       Block(Vector(b6, b4))
     ))
-    
-    given TrimRight[Mock, Block] with
-      override def trimBlocksRight(trimmer: Mock, blocks: Vector[Block]): Vector[Block] = 
+
+    given TrimRight[Stub, Block] with
+      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+        blocks
+
+    given general.content.SupplementBlocks[Content, Block] with
+      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+        Vector(
+          Block(Vector(b5, b2)),
+          Block(Vector(b6, b4))
+        )
+
+    given general.content.Write[Content, Block] with
+      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+        contentIndex match
+          case 0 => Block(Vector(b5, b2))
+          case 1 => Block(Vector(b6, b4))
+          case _ => fail("unexpected")
 
     val result = store.write(b0, content)
 
