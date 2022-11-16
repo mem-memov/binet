@@ -28,7 +28,7 @@ object Store:
           block.read(origin) :: parts
       }
 
-      Address.makeAddress(parts.reverse)
+      Address.makeAddress(parts)
 
   given [TRIMMER](
     using trimmer: TRIMMER
