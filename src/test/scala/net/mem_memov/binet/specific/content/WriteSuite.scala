@@ -2,7 +2,7 @@ package net.mem_memov.binet.specific.content
 
 import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.{Block, Content}
+import net.mem_memov.binet.memory.specific.Content
 import net.mem_memov.binet.memory.specific.Content.given
 
 class WriteSuite extends munit.FunSuite:
