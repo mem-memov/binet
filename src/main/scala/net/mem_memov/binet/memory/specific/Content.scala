@@ -17,7 +17,7 @@ object Content:
     ): Vector[Block] =
 
       if targetLength < content.indices.length then
-        (0 to content.indices.length - targetLength).map(_ => Block.emptyBlock).toVector
+        (1 to content.indices.length - targetLength).map(_ => Block.emptyBlock).toVector
       else
         Vector.empty[Block]
 
@@ -32,15 +32,19 @@ object Content:
         content.indices.toList.reverse
       )
 
-  given general.content.Write[Content, Block] with
+  given [
+    BLOCK
+  ](using
+    general.block.Write[BLOCK]
+  ): general.content.Write[Content, BLOCK] with
 
     override
     def writeContent(
       content: Content,
       contentIndex: Integer,
       blockIndex: general.UnsignedByte,
-      block: Block
-    ): Block =
+      block: BLOCK
+    ): BLOCK =
 
       if contentIndex >= content.indices.length then
         block.write(blockIndex, general.UnsignedByte.minimum)
