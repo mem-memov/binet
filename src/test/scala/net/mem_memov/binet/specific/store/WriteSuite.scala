@@ -6,6 +6,7 @@ import net.mem_memov.binet.memory.specific.{Address, Block, Content, Store}
 import net.mem_memov.binet.memory.specific.Store.given
 import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
 import net.mem_memov.binet.memory.specific.store.specific.Trimmer
+import net.mem_memov.binet.memory.specific.store.specific.Trimmer.given
 
 class WriteSuite extends munit.FunSuite:
 
@@ -19,7 +20,7 @@ class WriteSuite extends munit.FunSuite:
   val b5 = UnsignedByte.fromInt(5)
   val b6 = UnsignedByte.fromInt(6)
 
-  val trimmer = new Stub
+  given trimmer: Stub = new Stub
 
   test("Store can be written at the first index") {
 
@@ -41,10 +42,7 @@ class WriteSuite extends munit.FunSuite:
 
     given general.content.SupplementBlocks[Content, Block] with
       override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
-        Vector(
-          Block(Vector(b5, b2)),
-          Block(Vector(b6, b4))
-        )
+        Vector()
 
     given general.content.Write[Content, Block] with
       override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
