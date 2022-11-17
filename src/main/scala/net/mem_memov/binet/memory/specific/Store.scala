@@ -19,7 +19,7 @@ object Store:
   given general.store.Read[Store, Address] with
 
     override
-    def readStore(
+    def f(
       store: Store,
       origin: general.UnsignedByte
     ): Address =
@@ -43,7 +43,7 @@ object Store:
   ): general.store.Write[Store, CONTENT] with
 
     override
-    def writeStore(
+    def f(
       store: Store,
       destination: general.UnsignedByte,
       content: CONTENT

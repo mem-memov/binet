@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait Increment[ADDRESS]:
 
-  def incrementAddress(
+  def f(
     address: ADDRESS
   ): ADDRESS
 
@@ -10,4 +10,4 @@ trait Increment[ADDRESS]:
 
     def increment: ADDRESS =
 
-      incrementAddress(address)
+      f(address)

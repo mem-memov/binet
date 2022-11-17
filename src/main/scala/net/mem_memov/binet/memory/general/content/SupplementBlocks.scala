@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.content
 
 trait SupplementBlocks[CONTENT, BLOCK]:
 
-  def supplementContentBlocks(
+  def f(
     content: CONTENT,
     targetLength: Int
   ): Vector[BLOCK]
@@ -13,4 +13,4 @@ trait SupplementBlocks[CONTENT, BLOCK]:
       targetLength: Int
     ): Vector[BLOCK] =
 
-      supplementContentBlocks(content, targetLength)
+      f(content, targetLength)

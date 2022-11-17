@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait ToString[ADDRESS]:
 
-  def addressToString(
+  def f(
     address: ADDRESS
   ): String
 
@@ -10,4 +10,4 @@ trait ToString[ADDRESS]:
 
     def toString: String =
 
-      addressToString(address)
+      f(address)

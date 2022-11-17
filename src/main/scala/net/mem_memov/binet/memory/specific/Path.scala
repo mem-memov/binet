@@ -11,7 +11,7 @@ object Path:
   given general.path.IsEmpty[Path] with
 
     override
-    def isPathEmpty(
+    def f(
       path: Path
     ): Boolean =
 
@@ -20,7 +20,7 @@ object Path:
   given general.path.Shorten[Path] with
 
     override
-    def shortenPath(
+    def f(
       path: Path
     ): Either[String, general.path.Shorten.Split[Path]] =
 

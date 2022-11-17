@@ -36,7 +36,7 @@ object Element:
   ): general.element.Read[Element, Path, Content] with
 
     override
-    def readElement(
+    def f(
       element: Element,
       origin: Path
     ): Either[String, Content] =
@@ -70,7 +70,7 @@ object Element:
   ): general.element.Write[Element, Path, Content] with
 
     override
-    def writeElement(
+    def f(
       element: Element,
       destination: Path,
       content: Content

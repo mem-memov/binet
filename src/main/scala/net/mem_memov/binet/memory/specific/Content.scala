@@ -11,7 +11,7 @@ object Content:
   given general.content.SupplementBlocks[Content, Block] with
 
     override
-    def supplementContentBlocks(
+    def f(
       content: Content,
       targetLength: Int
     ): Vector[Block] =
@@ -24,7 +24,7 @@ object Content:
   given general.content.ToAddress[Content, Address] with
 
     override
-    def contentToAddress(
+    def f(
       content: Content
     ): Address =
 
@@ -39,7 +39,7 @@ object Content:
   ): general.content.Write[Content, BLOCK] with
 
     override
-    def writeContent(
+    def f(
       content: Content,
       contentIndex: Integer,
       blockIndex: general.UnsignedByte,

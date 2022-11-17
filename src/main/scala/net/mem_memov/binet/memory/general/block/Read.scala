@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Read[BLOCK]:
 
-  def readBlock(
+  def f(
     block: BLOCK,
     position: UnsignedByte
   ): UnsignedByte
@@ -15,4 +15,4 @@ trait Read[BLOCK]:
       position: UnsignedByte
     ): UnsignedByte =
 
-      readBlock(block, position)
+      f(block, position)

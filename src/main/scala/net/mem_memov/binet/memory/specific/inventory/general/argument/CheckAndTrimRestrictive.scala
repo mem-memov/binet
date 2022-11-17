@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.general.argument
 
 trait CheckAndTrimRestrictive[ARGUMENT, ADDRESS]:
 
-  def checkAndTrimAddressRestrictive(
+  def f(
     argument: ARGUMENT,
     next: ADDRESS,
     address: ADDRESS
@@ -15,4 +15,4 @@ trait CheckAndTrimRestrictive[ARGUMENT, ADDRESS]:
       address: ADDRESS
     ): Either[String, ADDRESS] =
 
-      checkAndTrimAddressRestrictive(argument, next, address)
+      f(argument, next, address)

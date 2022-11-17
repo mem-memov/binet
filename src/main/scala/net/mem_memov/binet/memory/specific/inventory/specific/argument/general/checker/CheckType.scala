@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.
 
 trait CheckType[CHECKER, ADDRESS]:
 
-  def checkAddressType(
+  def f(
     checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
@@ -15,4 +15,4 @@ trait CheckType[CHECKER, ADDRESS]:
       address: ADDRESS
     ): Either[String, Unit] =
 
-      checkAddressType(checker, next, address)
+      f(checker, next, address)

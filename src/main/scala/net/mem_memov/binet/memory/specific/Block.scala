@@ -22,7 +22,7 @@ object Block:
   given general.block.IsEmpty[Block] with
 
     override
-    def isBlockEmpty(
+    def f(
       block: Block
     ): Boolean =
 
@@ -31,7 +31,7 @@ object Block:
   given general.block.Read[Block] with
 
     override
-    def readBlock(
+    def f(
       block: Block,
       position: general.UnsignedByte
     ): general.UnsignedByte =
@@ -41,7 +41,7 @@ object Block:
   given general.block.Write[Block] with
 
     override
-    def writeBlock(
+    def f(
       block: Block,
       position: general.UnsignedByte,
       content: general.UnsignedByte

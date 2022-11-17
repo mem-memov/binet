@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Read[STOCK, CONTENT, PATH]:
 
-  def readStock(
+  def f(
     stock: STOCK,
     index: UnsignedByte,
     origin: PATH
@@ -17,4 +17,4 @@ trait Read[STOCK, CONTENT, PATH]:
       origin: PATH
     ): Either[String, CONTENT] =
 
-      readStock(stock, index, origin)
+      f(stock, index, origin)

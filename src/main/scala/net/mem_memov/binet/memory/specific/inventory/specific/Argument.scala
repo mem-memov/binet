@@ -20,7 +20,7 @@ object Argument:
   ): CheckAndTrimPermissive[Argument, Address] with
 
     override
-    def checkAndTrimAddressPermissive(
+    def f(
       argument: Argument,
       next: Address,
       address: Address
@@ -42,7 +42,7 @@ object Argument:
   ): CheckAndTrimRestrictive[Argument, Address] with
 
     override
-    def checkAndTrimAddressRestrictive(
+    def f(
       argument: Argument,
       next: Address,
       address: Address

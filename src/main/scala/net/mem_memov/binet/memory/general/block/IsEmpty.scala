@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.block
 
 trait IsEmpty[BLOCK]:
 
-  def isBlockEmpty(
+  def f(
     block: BLOCK
   ): Boolean
 
@@ -10,4 +10,4 @@ trait IsEmpty[BLOCK]:
 
     def isEmpty: Boolean =
 
-      isBlockEmpty(block)
+      f(block)

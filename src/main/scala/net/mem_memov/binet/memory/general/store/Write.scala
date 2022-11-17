@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Write[STORE, CONTENT]:
 
-  def writeStore(
+  def f(
     store: STORE,
     destination: UnsignedByte,
     content: CONTENT
@@ -17,4 +17,4 @@ trait Write[STORE, CONTENT]:
       content: CONTENT
     ): STORE =
 
-      writeStore(store, destination, content)
+      f(store, destination, content)

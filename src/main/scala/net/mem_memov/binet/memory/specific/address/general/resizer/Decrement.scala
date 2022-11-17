@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Decrement[RESIZER]:
 
-  def decrementIndices(
+  def f(
     resizer: RESIZER,
     indices: List[UnsignedByte]
   ): Either[String, List[UnsignedByte]]
@@ -15,6 +15,6 @@ trait Decrement[RESIZER]:
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
 
-      decrementIndices(resizer, indices)
+      f(resizer, indices)
 
 

@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Update[INVENTORY, ADDRESS]:
 
-  def updateInventory(
+  def f(
     inventory: INVENTORY,
     destination: ADDRESS,
     content: ADDRESS
@@ -15,4 +15,4 @@ trait Update[INVENTORY, ADDRESS]:
       content: ADDRESS
     ): Either[String, INVENTORY] =
 
-      updateInventory(inventory, destination, content)
+      f(inventory, destination, content)

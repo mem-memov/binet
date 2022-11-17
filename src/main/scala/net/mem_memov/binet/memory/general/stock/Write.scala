@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Write[STOCK, CONTENT, PATH]:
 
-  def writeStock(
+  def f(
     stock: STOCK,
     index: UnsignedByte,
     destination: PATH,
@@ -19,4 +19,4 @@ trait Write[STOCK, CONTENT, PATH]:
       content: CONTENT
     ): Either[String, STOCK] =
 
-      writeStock(stock, index, destination, content)
+      f(stock, index, destination, content)

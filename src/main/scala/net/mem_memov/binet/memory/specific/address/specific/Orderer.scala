@@ -17,7 +17,7 @@ object Orderer:
   ): Compare[Orderer, ADDRESS] with
 
     override
-    def compareAddresses(
+    def f(
       oderer: Orderer,
       left: ADDRESS,
       right: ADDRESS

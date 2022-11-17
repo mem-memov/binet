@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.element.general.writer
 
 trait WriteStore[WRITER, CONTENT, PATH_SPLIT, STORE]:
 
-  def writeStoreOnPath(
+  def f(
     writer: WRITER,
     storeOption: Option[STORE],
     pathSplit: PATH_SPLIT,
@@ -17,4 +17,4 @@ trait WriteStore[WRITER, CONTENT, PATH_SPLIT, STORE]:
       content: CONTENT
     ): STORE =
 
-      writeStoreOnPath(writer, storeOption, pathSplit, content)
+      f(writer, storeOption, pathSplit, content)

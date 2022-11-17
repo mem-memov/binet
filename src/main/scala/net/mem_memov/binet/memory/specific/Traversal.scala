@@ -18,7 +18,7 @@ object Traversal:
   ): general.traversal.Next[Traversal, Address] with
 
     override
-    def nextTraversalStep(
+    def f(
       traversal: Traversal
     ): Either[String, Option[(Address, Traversal)]] =
 

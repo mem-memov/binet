@@ -2,15 +2,15 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Slice[INVENTORY]:
 
-  def foreachSliceInInventory(
+  def f(
     inventory: INVENTORY,
-    f: Array[Byte] => Unit
+    process: Array[Byte] => Unit
   ): Unit
 
   extension (inventory: INVENTORY)
 
     def foreachSlice(
-      f: Array[Byte] => Unit
+      process: Array[Byte] => Unit
     ): Unit =
 
-      foreachSliceInInventory(inventory, f)
+      f(inventory, process)

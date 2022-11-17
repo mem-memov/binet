@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait IsZero[ADDRESS]:
 
-  def isAddressZero(
+  def f(
     address: ADDRESS
   ): Boolean
 
@@ -10,4 +10,4 @@ trait IsZero[ADDRESS]:
 
     def isZero: Boolean =
 
-      isAddressZero(address)
+      f(address)

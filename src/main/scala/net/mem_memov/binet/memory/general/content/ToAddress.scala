@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.content
 
 trait ToAddress[CONTENT, ADDRESS]:
 
-  def contentToAddress(
+  def f(
     content: CONTENT
   ): ADDRESS
 
@@ -10,4 +10,4 @@ trait ToAddress[CONTENT, ADDRESS]:
 
     def toAddress: ADDRESS =
 
-      contentToAddress(content)
+      f(content)

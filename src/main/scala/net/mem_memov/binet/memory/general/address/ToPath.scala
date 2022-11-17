@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait ToPath[ADDRESS, PATH]:
 
-  def addressToPath(
+  def f(
     address: ADDRESS
   ): PATH
 
@@ -10,4 +10,4 @@ trait ToPath[ADDRESS, PATH]:
 
     def toPath: PATH =
 
-      addressToPath(address)
+      f(address)

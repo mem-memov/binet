@@ -8,7 +8,7 @@ trait Read[
   CONTENT
 ]:
 
-  def readElement(
+  def f(
     element: ELEMENT,
     origin: PATH
   ): Either[String, CONTENT]
@@ -19,4 +19,4 @@ trait Read[
       origin: PATH
     ): Either[String, CONTENT] =
 
-      readElement(element, origin)
+      f(element, origin)

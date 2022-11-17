@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Indices[ADDRESS]:
 
-  def indicesOfAddress(
+  def f(
     address: ADDRESS
   ): List[UnsignedByte]
 
@@ -12,4 +12,4 @@ trait Indices[ADDRESS]:
 
     def indices: List[UnsignedByte] =
 
-      indicesOfAddress(address)
+      f(address)

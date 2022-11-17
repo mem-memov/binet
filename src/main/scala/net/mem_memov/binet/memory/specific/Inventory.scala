@@ -14,7 +14,7 @@ object Inventory:
   given general.inventory.Next[Inventory, Address] with
 
     override
-    def nextInInventory(
+    def f(
       inventory: Inventory
     ): Address =
 
@@ -31,7 +31,7 @@ object Inventory:
   ): general.inventory.Append[Inventory, Address] with
 
     override
-    def appendToInventory(
+    def f(
       inventory: Inventory,
       content: Address
     ): Either[String, Inventory] =
@@ -51,7 +51,7 @@ object Inventory:
     general.address.ToContent[Address, Content]
   ): general.inventory.Update[Inventory, Address] with
 
-    override def updateInventory(
+    override def f(
       inventory: Inventory,
       destination: Address,
       content: Address
@@ -73,7 +73,7 @@ object Inventory:
   ): general.inventory.Read[Inventory, Address] with
 
     override
-    def readInventory(
+    def f(
       inventory: Inventory,
       origin: Address
     ): Either[String, Address] =

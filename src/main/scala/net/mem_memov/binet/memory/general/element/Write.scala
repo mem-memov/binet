@@ -8,7 +8,7 @@ trait Write[
   CONTENT
 ]:
 
-  def writeElement(
+  def f(
     element: ELEMENT,
     destination: PATH,
     content: CONTENT
@@ -21,4 +21,4 @@ trait Write[
       content: CONTENT
     ): Either[String, ELEMENT] =
 
-      writeElement(element, destination, content)
+      f(element, destination, content)

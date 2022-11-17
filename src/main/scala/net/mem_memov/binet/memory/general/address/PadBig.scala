@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait PadBig[ADDRESS]:
 
-  def padBigAddress(
+  def f(
     address: ADDRESS,
     target: Int
   ): Either[String, ADDRESS]
@@ -13,4 +13,4 @@ trait PadBig[ADDRESS]:
       target: Int
     ): Either[String, ADDRESS] =
 
-      padBigAddress(address, target)
+      f(address, target)

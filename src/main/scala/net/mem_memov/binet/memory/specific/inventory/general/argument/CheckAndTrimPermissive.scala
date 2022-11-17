@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.general.argument
 
 trait CheckAndTrimPermissive[ARGUMENT, ADDRESS]:
 
-  def checkAndTrimAddressPermissive(
+  def f(
     argument: ARGUMENT,
     next: ADDRESS,
     address: ADDRESS
@@ -15,4 +15,4 @@ trait CheckAndTrimPermissive[ARGUMENT, ADDRESS]:
       address: ADDRESS
     ): Either[String, ADDRESS] =
 
-      checkAndTrimAddressPermissive(argument, next, address)
+      f(argument, next, address)

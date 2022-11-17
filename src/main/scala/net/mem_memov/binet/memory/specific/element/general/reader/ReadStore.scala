@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.element.general.reader
 
 trait ReadStore[READER, CONTENT, PATH_SPLIT, STORE]:
 
-  def readStoreOnPath(
+  def f(
     reader: READER,
     storeOption: Option[STORE],
     pathSplit: PATH_SPLIT
@@ -15,4 +15,4 @@ trait ReadStore[READER, CONTENT, PATH_SPLIT, STORE]:
       pathSplit: PATH_SPLIT
     ): Either[String, CONTENT] =
 
-      readStoreOnPath(reader, storeOption, pathSplit)
+      f(reader, storeOption, pathSplit)

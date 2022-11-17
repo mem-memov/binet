@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait TrimBig[ADDRESS]:
 
-  def trimBigAddress(
+  def f(
     address: ADDRESS
   ): ADDRESS
 
@@ -10,4 +10,4 @@ trait TrimBig[ADDRESS]:
 
     def trimBig: ADDRESS =
 
-      trimBigAddress(address)
+      f(address)

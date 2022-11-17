@@ -21,7 +21,7 @@ object Stock:
   ): general.stock.Read[Stock, Content, Path] with
 
     override
-    def readStock(
+    def f(
       stock: Stock,
       index: general.UnsignedByte,
       origin: Path
@@ -34,7 +34,7 @@ object Stock:
   ): general.stock.Write[Stock, Content, Path] with
 
     override
-    def writeStock(
+    def f(
       stock: Stock,
       index: general.UnsignedByte,
       destination: Path,

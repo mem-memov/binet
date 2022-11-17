@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.
 
 trait Trim[TRIMMER, ADDRESS]:
 
-  def trimAddress(
+  def f(
     trimmer: TRIMMER,
     address: ADDRESS
   ): ADDRESS
@@ -13,5 +13,5 @@ trait Trim[TRIMMER, ADDRESS]:
       address: ADDRESS
     ): ADDRESS =
 
-      trimAddress(trimmer, address)
+      f(trimmer, address)
 

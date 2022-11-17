@@ -14,7 +14,7 @@ object Trimmer:
   ): Trim[Trimmer, Address] with
 
     override
-    def trimAddress(
+    def f(
       trimmer: Trimmer,
       address: Address
     ): Address =

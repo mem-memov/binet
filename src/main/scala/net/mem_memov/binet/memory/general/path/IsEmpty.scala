@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.path
 
 trait IsEmpty[PATH]:
 
-  def isPathEmpty(
+  def f(
     path: PATH
   ): Boolean
 
@@ -10,4 +10,4 @@ trait IsEmpty[PATH]:
 
     def isEmpty: Boolean =
 
-      isPathEmpty(path)
+      f(path)

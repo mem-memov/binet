@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Write[CONTENT, BLOCK]:
 
-  def writeContent(
+  def f(
     content: CONTENT,
     contentIndex: Integer,
     blockIndex: UnsignedByte,
@@ -19,4 +19,4 @@ trait Write[CONTENT, BLOCK]:
       block: BLOCK
     ): BLOCK =
 
-      writeContent(content, contentIndex, blockIndex, block)
+      f(content, contentIndex, blockIndex, block)

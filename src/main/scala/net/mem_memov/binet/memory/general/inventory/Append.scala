@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Append[INVENTORY, ADDRESS]:
 
-  def appendToInventory(
+  def f(
     inventory: INVENTORY,
     content: ADDRESS
   ): Either[String, INVENTORY]
@@ -13,4 +13,4 @@ trait Append[INVENTORY, ADDRESS]:
       content: ADDRESS
     ): Either[String, INVENTORY] =
 
-      appendToInventory(inventory, content)
+      f(inventory, content)

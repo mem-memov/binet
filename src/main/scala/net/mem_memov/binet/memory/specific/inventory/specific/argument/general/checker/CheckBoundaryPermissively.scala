@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.
 
 trait CheckBoundaryPermissively[CHECKER, ADDRESS]:
 
-  def checkAddressBoundaryPermissively(
+  def f(
     checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
@@ -15,4 +15,4 @@ trait CheckBoundaryPermissively[CHECKER, ADDRESS]:
       address: ADDRESS
     ): Either[String, Unit] =
 
-      checkAddressBoundaryPermissively(checker, next, address)
+      f(checker, next, address)

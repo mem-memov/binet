@@ -13,7 +13,7 @@ object Checker:
   ): CheckBoundaryPermissively[Checker, Address] with
 
     override
-    def checkAddressBoundaryPermissively(
+    def f(
       checker: Checker,
       next: Address,
       address: Address
@@ -29,7 +29,7 @@ object Checker:
   ): CheckBoundaryRestrictively[Checker, Address] with
 
     override
-    def checkAddressBoundaryRestrictively(
+    def f(
       checker: Checker,
       next: Address,
       address: Address

@@ -21,7 +21,7 @@ object Reader:
   ] with
 
     override
-    def readStockOnPath(
+    def f(
       reader: Reader,
       stockOption: Option[Stock],
       pathSplit: Shorten.Split[Path]
@@ -41,7 +41,7 @@ object Reader:
   ] with
 
     override
-    def readStoreOnPath(
+    def f(
       reader: Reader,
       storeOption: Option[Store],
       pathSplit: Shorten.Split[Path]

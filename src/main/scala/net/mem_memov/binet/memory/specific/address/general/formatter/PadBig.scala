@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait PadBig[FORMATTER]:
 
-  def padBigIndices(
+  def f(
     formatter: FORMATTER,
     target: Int,
     indices: List[UnsignedByte]
@@ -17,4 +17,4 @@ trait PadBig[FORMATTER]:
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
 
-      padBigIndices(formatter, target, indices)
+      f(formatter, target, indices)

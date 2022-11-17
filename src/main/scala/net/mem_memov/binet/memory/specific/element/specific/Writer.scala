@@ -20,7 +20,7 @@ object Writer:
   ] with
 
     override
-    def writeStockOnPath(
+    def f(
       writer: Writer,
       stockOption: Option[Stock],
       pathSplit: Shorten.Split[Path],
@@ -40,7 +40,7 @@ object Writer:
   ] with
 
     override
-    def writeStoreOnPath(
+    def f(
       writer: Writer,
       storeOption: Option[Store],
       pathSplit: Shorten.Split[Path],

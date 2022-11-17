@@ -28,7 +28,7 @@ object Address:
   given general.address.Indices[Address] with
 
     override
-    def indicesOfAddress(
+    def f(
       address: Address
     ): List[general.UnsignedByte] =
 
@@ -37,7 +37,7 @@ object Address:
   given general.address.Length[Address] with
 
     override
-    def lengthOfAddress(address: Address): Int =
+    def f(address: Address): Int =
 
       address.parts.length
 
@@ -48,7 +48,7 @@ object Address:
   ): general.address.Decrement[Address] with
 
     override
-    def decrementAddress(
+    def f(
       address: Address
     ): Either[String, Address] =
 
@@ -61,7 +61,7 @@ object Address:
   ): general.address.Increment[Address] with
 
     override
-    def incrementAddress(
+    def f(
       address: Address
     ): Address =
 
@@ -70,7 +70,7 @@ object Address:
   given general.address.IsEmpty[Address] with
 
     override
-    def isAddressEmpty(
+    def f(
       address: Address
     ): Boolean =
 
@@ -79,7 +79,7 @@ object Address:
   given general.address.IsZero[Address] with
 
     override
-    def isAddressZero(
+    def f(
       address: Address
     ): Boolean =
 
@@ -100,7 +100,7 @@ object Address:
   given general.address.ToString[Address] with
 
     override
-    def addressToString(
+    def f(
       address: Address
     ): String =
 
@@ -109,7 +109,7 @@ object Address:
   given general.address.ToContent[Address, Content] with
 
     override
-    def addressToContent(
+    def f(
       address: Address
     ): Content =
 
@@ -118,7 +118,7 @@ object Address:
   given general.address.ToPath[Address, Path] with
 
     override
-    def addressToPath(
+    def f(
       address: Address
     ): Path =
 

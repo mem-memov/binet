@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Read[INVENTORY, ADDRESS]:
 
-  def readInventory(
+  def f(
     inventory: INVENTORY,
     origin: ADDRESS
   ): Either[String, ADDRESS]
@@ -13,4 +13,4 @@ trait Read[INVENTORY, ADDRESS]:
       origin: ADDRESS
     ): Either[String, ADDRESS] =
 
-      readInventory(inventory, origin)
+      f(inventory, origin)

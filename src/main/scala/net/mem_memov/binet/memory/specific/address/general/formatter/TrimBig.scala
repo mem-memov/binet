@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait TrimBig[FORMATTER]:
 
-  def trimBigIndices(
+  def f(
     formatter: FORMATTER,
     indices: List[UnsignedByte]
   ): List[UnsignedByte]
@@ -14,7 +14,7 @@ trait TrimBig[FORMATTER]:
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 
-      trimBigIndices(formatter, indices)
+      f(formatter, indices)
   }
 
 

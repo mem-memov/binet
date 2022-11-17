@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait Decrement[ADDRESS]:
 
-  def decrementAddress(
+  def f(
     address: ADDRESS
   ): Either[String, ADDRESS]
 
@@ -10,4 +10,4 @@ trait Decrement[ADDRESS]:
 
     def decrement: Either[String, ADDRESS] =
 
-      decrementAddress(address)
+      f(address)

@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait Length[ADDRESS]:
 
-  def lengthOfAddress(
+  def f(
     address: ADDRESS
   ): Int
 
@@ -10,4 +10,4 @@ trait Length[ADDRESS]:
 
     def length: Int =
 
-      lengthOfAddress(address)
+      f(address)

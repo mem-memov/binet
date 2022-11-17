@@ -11,7 +11,7 @@ object Resizer:
   given Decrement[Resizer] with
 
     override
-    def decrementIndices(
+    def f(
       resizer: Resizer,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
@@ -45,7 +45,7 @@ object Resizer:
   given Increment[Resizer] with
 
     override
-    def incrementIndices(
+    def f(
       resizer: Resizer,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =

@@ -14,7 +14,7 @@ object Formatter:
   ): PadBig[Formatter] with
 
     override
-    def padBigIndices(
+    def f(
       formatter: Formatter,
       target: Int,
       indices: List[UnsignedByte]
@@ -38,7 +38,7 @@ object Formatter:
   given TrimBig[Formatter] with
 
     override
-    def trimBigIndices(
+    def f(
       formatter: Formatter,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =

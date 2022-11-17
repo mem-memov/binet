@@ -13,7 +13,7 @@ object Trimmer:
 
     @tailrec
     override
-    def trimBlocksRight(
+    def f(
       trimmer: Trimmer,
       blocks: Vector[Block]
     ): Vector[Block] =
@@ -22,7 +22,7 @@ object Trimmer:
         blocks
       else
         if blocks.last.isEmpty then
-          trimBlocksRight(trimmer, blocks.dropRight(1))
+          f(trimmer, blocks.dropRight(1))
         else
           blocks
 

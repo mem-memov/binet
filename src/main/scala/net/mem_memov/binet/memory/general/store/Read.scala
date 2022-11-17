@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Read[STORE, ADDRESS]:
 
-  def readStore(
+  def f(
     store: STORE,
     origin: UnsignedByte
   ): ADDRESS
@@ -15,4 +15,4 @@ trait Read[STORE, ADDRESS]:
       origin: UnsignedByte
     ): ADDRESS =
 
-      readStore(store, origin)
+      f(store, origin)

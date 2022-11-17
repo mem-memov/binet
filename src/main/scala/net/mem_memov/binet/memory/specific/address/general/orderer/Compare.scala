@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.specific.address.general.orderer
 
 trait Compare[ORDERER, ADDRESS]:
 
-  def compareAddresses(
+  def f(
     oderer: ORDERER,
     left: ADDRESS,
     right: ADDRESS
@@ -15,4 +15,4 @@ trait Compare[ORDERER, ADDRESS]:
       right: ADDRESS
     ): Int =
 
-      compareAddresses(orderer, left, right)
+      f(orderer, left, right)

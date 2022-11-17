@@ -2,7 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Next[INVENTORY, ADDRESS]:
 
-  def nextInInventory(
+  def f(
     inventory: INVENTORY
   ): ADDRESS
 
@@ -10,4 +10,4 @@ trait Next[INVENTORY, ADDRESS]:
 
     def next(): ADDRESS =
 
-      nextInInventory(inventory)
+      f(inventory)

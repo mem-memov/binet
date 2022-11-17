@@ -17,7 +17,7 @@ class PadBigSuite extends munit.FunSuite:
     val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
     given TrimBig[Stub] with
-      override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
 
@@ -31,7 +31,7 @@ class PadBigSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.maximum, UnsignedByte.maximum, UnsignedByte.maximum)
 
     given TrimBig[Stub] with
-      override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
 
@@ -45,7 +45,7 @@ class PadBigSuite extends munit.FunSuite:
     val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
     given TrimBig[Stub] with
-      override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
 
@@ -59,7 +59,7 @@ class PadBigSuite extends munit.FunSuite:
     val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
 
     given TrimBig[Stub] with
-      override def trimBigIndices(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
 

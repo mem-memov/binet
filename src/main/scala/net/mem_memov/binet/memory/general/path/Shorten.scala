@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Shorten[PATH]:
 
-  def shortenPath(
+  def f(
     path: PATH
   ): Either[String, Shorten.Split[PATH]]
 
@@ -12,7 +12,7 @@ trait Shorten[PATH]:
 
     def shorten(): Either[String, Shorten.Split[PATH]] =
 
-      shortenPath(path)
+      f(path)
 
 object Shorten:
 

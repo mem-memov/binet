@@ -33,13 +33,13 @@ class WriteSuite extends munit.FunSuite:
     ))
 
     given general.content.SupplementBlocks[Content, Block] with
-      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+      override def f(content: Content, targetLength: Int): Vector[Block] =
         assert(content.equals(writtenContent))
         assert(targetLength == 2)
         Vector()
 
     given general.content.Write[Content, Block] with
-      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+      override def f(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
         assert(content.equals(writtenContent))
         contentIndex match
           case 0 =>
@@ -54,7 +54,7 @@ class WriteSuite extends munit.FunSuite:
             fail("unexpected")
 
     given TrimRight[Stub, Block] with
-      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b4))
@@ -79,13 +79,13 @@ class WriteSuite extends munit.FunSuite:
     ))
 
     given general.content.SupplementBlocks[Content, Block] with
-      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+      override def f(content: Content, targetLength: Int): Vector[Block] =
         assert(content.equals(writtenContent))
         assert(targetLength == 2)
         Vector()
 
     given general.content.Write[Content, Block] with
-      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+      override def f(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
         assert(content.equals(writtenContent))
         contentIndex match
           case 0 =>
@@ -100,7 +100,7 @@ class WriteSuite extends munit.FunSuite:
             fail("unexpected")
 
     given TrimRight[Stub, Block] with
-      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b1, b5)),
           Block(Vector(b3, b6))
@@ -125,13 +125,13 @@ class WriteSuite extends munit.FunSuite:
     ))
 
     given general.content.SupplementBlocks[Content, Block] with
-      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+      override def f(content: Content, targetLength: Int): Vector[Block] =
         assert(content.equals(writtenContent))
         assert(targetLength == 2)
         Vector(Block(Vector(b0, b0)))
 
     given general.content.Write[Content, Block] with
-      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+      override def f(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
         assert(content.equals(writtenContent))
         contentIndex match
           case 0 =>
@@ -150,7 +150,7 @@ class WriteSuite extends munit.FunSuite:
             fail("unexpected")
 
     given TrimRight[Stub, Block] with
-      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b4)),
@@ -178,13 +178,13 @@ class WriteSuite extends munit.FunSuite:
     ))
 
     given general.content.SupplementBlocks[Content, Block] with
-      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+      override def f(content: Content, targetLength: Int): Vector[Block] =
         assert(content.equals(writtenContent))
         assert(targetLength == 3)
         Vector()
 
     given general.content.Write[Content, Block] with
-      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+      override def f(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
         assert(content.equals(writtenContent))
         contentIndex match
           case 0 =>
@@ -203,7 +203,7 @@ class WriteSuite extends munit.FunSuite:
             fail("unexpected")
 
     given TrimRight[Stub, Block] with
-      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b0)),
