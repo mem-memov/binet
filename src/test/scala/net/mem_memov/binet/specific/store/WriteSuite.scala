@@ -17,6 +17,7 @@ class WriteSuite extends munit.FunSuite:
   val b4 = UnsignedByte.fromInt(4)
   val b5 = UnsignedByte.fromInt(5)
   val b6 = UnsignedByte.fromInt(6)
+  val b7 = UnsignedByte.fromInt(7)
 
   class Stub
 
@@ -24,7 +25,7 @@ class WriteSuite extends munit.FunSuite:
 
   test("Store can be written at the first index") {
 
-    val writtenContent = Content(Vector(UnsignedByte.fromInt(5), UnsignedByte.fromInt(6)))
+    val writtenContent = Content(Vector(b5, b6))
 
     val store = Store(Vector(
       Block(Vector(b1, b2)),
@@ -70,7 +71,7 @@ class WriteSuite extends munit.FunSuite:
 
   test("Store can be written at the last index") {
 
-    val writtenContent = Content(Vector(UnsignedByte.fromInt(5), UnsignedByte.fromInt(6)))
+    val writtenContent = Content(Vector(b5, b6))
 
     val store = Store(Vector(
       Block(Vector(b1, b2)),
@@ -114,4 +115,109 @@ class WriteSuite extends munit.FunSuite:
     )))
   }
 
+  test("Store adds blocks when written with a larger content") {
 
+    val writtenContent = Content(Vector(b5, b6, b7))
+
+    val store = Store(Vector(
+      Block(Vector(b1, b2)),
+      Block(Vector(b3, b4))
+    ))
+
+    given general.content.SupplementBlocks[Content, Block] with
+      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+        assert(content.equals(writtenContent))
+        assert(targetLength == 2)
+        Vector(Block(Vector(b0, b0)))
+
+    given general.content.Write[Content, Block] with
+      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+        assert(content.equals(writtenContent))
+        contentIndex match
+          case 0 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b1, b2))
+            Block(Vector(b5, b2))
+          case 1 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b3, b4))
+            Block(Vector(b6, b4))
+          case 2 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b0, b0))
+            Block(Vector(b7, b0))
+          case _ =>
+            fail("unexpected")
+
+    given TrimRight[Stub, Block] with
+      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+        assert(blocks == Vector(
+          Block(Vector(b5, b2)),
+          Block(Vector(b6, b4)),
+          Block(Vector(b7, b0))
+        ))
+        blocks
+
+    val result = store.write(b0, writtenContent)
+
+    assert(result == Store(Vector(
+      Block(Vector(b5, b2)),
+      Block(Vector(b6, b4)),
+      Block(Vector(b7, b0))
+    )))
+  }
+
+  test("Store gets trimmed on the side of most significant blocks") {
+
+    val writtenContent = Content(Vector(b5, b6))
+
+    val store = Store(Vector(
+      Block(Vector(b1, b2)),
+      Block(Vector(b3, b0)),
+      Block(Vector(b4, b0))
+    ))
+
+    given general.content.SupplementBlocks[Content, Block] with
+      override def supplementContentBlocks(content: Content, targetLength: Int): Vector[Block] =
+        assert(content.equals(writtenContent))
+        assert(targetLength == 3)
+        Vector()
+
+    given general.content.Write[Content, Block] with
+      override def writeContent(content: Content, contentIndex: Integer, blockIndex: UnsignedByte, block: Block): Block =
+        assert(content.equals(writtenContent))
+        contentIndex match
+          case 0 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b1, b2))
+            Block(Vector(b5, b2))
+          case 1 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b3, b0))
+            Block(Vector(b6, b0))
+          case 2 =>
+            assert(blockIndex == b0)
+            assert(block.space == Vector(b4, b0))
+            Block(Vector(b0, b0))
+          case _ =>
+            fail("unexpected")
+
+    given TrimRight[Stub, Block] with
+      override def trimBlocksRight(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+        assert(blocks == Vector(
+          Block(Vector(b5, b2)),
+          Block(Vector(b6, b0)),
+          Block(Vector(b0, b0))
+        ))
+        Vector(
+          Block(Vector(b5, b2)),
+          Block(Vector(b6, b0))
+        )
+
+    val result = store.write(b0, writtenContent)
+
+    assert(result == Store(Vector(
+      Block(Vector(b5, b2)),
+      Block(Vector(b6, b0))
+    )))
+  }
