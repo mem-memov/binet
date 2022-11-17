@@ -16,7 +16,7 @@ object Store:
       Vector(Block.emptyBlock)
     )
 
-  given read: general.store.Read[Store, Address] with
+  given general.store.Read[Store, Address] with
 
     override
     def readStore(
@@ -35,9 +35,9 @@ object Store:
     TRIMMER,
     CONTENT
   ](using
-    trimRight: TrimRight[TRIMMER, Block],
-    supplementBlocks: SupplementBlocks[CONTENT, Block],
-    write: Write[CONTENT, Block]
+    TrimRight[TRIMMER, Block],
+    SupplementBlocks[CONTENT, Block],
+    Write[CONTENT, Block]
   )(using
     trimmer: TRIMMER
   ): general.store.Write[Store, CONTENT] with
