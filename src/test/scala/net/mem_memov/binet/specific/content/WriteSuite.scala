@@ -14,15 +14,17 @@ class WriteSuite extends munit.FunSuite:
   val b4 = UnsignedByte.fromInt(4)
   val b5 = UnsignedByte.fromInt(5)
 
+  class Stub
+
   test("Content writes its part at a position of a block") {
 
     val content = Content(Vector(b3, b4, b5))
 
-    val originalBlock = Block(Vector(b0, b0, b0, b0))
-    val expectedBlock = Block(Vector(b0, b0, b0, b4))
+    val originalBlock = new Stub
+    val expectedBlock = new Stub
 
-    given general.block.Write[Block] with
-      override def writeBlock(block: Block, position: UnsignedByte, content: UnsignedByte): Block =
+    given general.block.Write[Stub] with
+      override def writeBlock(block: Stub, position: UnsignedByte, content: UnsignedByte): Stub =
         assert(block.equals(originalBlock))
         assert(position == b3)
         assert(content == b4)
@@ -37,11 +39,11 @@ class WriteSuite extends munit.FunSuite:
 
     val content = Content(Vector(b3, b4, b5))
 
-    val originalBlock = Block(Vector(b1, b1, b1, b1))
-    val expectedBlock = Block(Vector(b1, b1, b1, b0))
+    val originalBlock = new Stub
+    val expectedBlock = new Stub
 
-    given general.block.Write[Block] with
-      override def writeBlock(block: Block, position: UnsignedByte, content: UnsignedByte): Block =
+    given general.block.Write[Stub] with
+      override def writeBlock(block: Stub, position: UnsignedByte, content: UnsignedByte): Stub =
         assert(block.equals(originalBlock))
         assert(position == b3)
         assert(content == b0)
