@@ -9,63 +9,63 @@ class ReadStockSuite extends munit.FunSuite:
 
   val b5 = general.UnsignedByte.fromInt(5)
 
-  class FactoryMock
-  given factoryMock: FactoryMock = new FactoryMock
+  class FactoryStub
+  given factoryStub: FactoryStub = new FactoryStub
 
-  class StockMock
-  given stockMock: StockMock = new StockMock
+  class StockStub
+  given stockStub: StockStub = new StockStub
 
-  class AddressMock
-  given addressMock: AddressMock = new AddressMock
+  class AddressStub
+  given addressStub: AddressStub = new AddressStub
 
-  class ContentMock
-  given contentMock: ContentMock = new ContentMock
+  class ContentStub
+  given contentStub: ContentStub = new ContentStub
 
-  class PathMock
-  given pathMock: PathMock = new PathMock
+  class PathStub
+  given pathStub: PathStub = new PathStub
 
   test("Reader retrieves content from an available stock") {
 
-    given general.factory.EmptyStock[FactoryMock, StockMock] with
-      override def f(): StockMock =
+    given general.factory.EmptyStock[FactoryStub, StockStub] with
+      override def f(): StockStub =
         fail("unexpected")
 
-    given general.stock.Read[StockMock, ContentMock, PathMock] with
-      override def f(stock: StockMock, index: general.UnsignedByte, origin: PathMock): Either[String, ContentMock] =
-        assert(stock.equals(stockMock))
+    given general.stock.Read[StockStub, ContentStub, PathStub] with
+      override def f(stock: StockStub, index: general.UnsignedByte, origin: PathStub): Either[String, ContentStub] =
+        assert(stock.equals(stockStub))
         assert(index == b5)
-        assert(origin.equals(pathMock))
-        Right(contentMock)
+        assert(origin.equals(pathStub))
+        Right(contentStub)
 
     val reader = new Reader
 
     for {
       result <- reader.readStock(
-        Some(stockMock),
-        general.Split(b5, pathMock)
+        Some(stockStub),
+        general.Split(b5, pathStub)
       )
-    } yield assert(result.equals(contentMock))
+    } yield assert(result.equals(contentStub))
   }
 
   test("Reader retrieves content from an empty stock") {
 
-    given general.factory.EmptyStock[FactoryMock, StockMock] with
-      override def f(): StockMock =
-        stockMock
+    given general.factory.EmptyStock[FactoryStub, StockStub] with
+      override def f(): StockStub =
+        stockStub
 
-    given general.stock.Read[StockMock, ContentMock, PathMock] with
-      override def f(stock: StockMock, index: general.UnsignedByte, origin: PathMock): Either[String, ContentMock] =
-        assert(stock.equals(stockMock))
+    given general.stock.Read[StockStub, ContentStub, PathStub] with
+      override def f(stock: StockStub, index: general.UnsignedByte, origin: PathStub): Either[String, ContentStub] =
+        assert(stock.equals(stockStub))
         assert(index == b5)
-        assert(origin.equals(pathMock))
-        Right(contentMock)
+        assert(origin.equals(pathStub))
+        Right(contentStub)
 
     val reader = new Reader
 
     for {
       result <- reader.readStock(
         None,
-        general.Split(b5, pathMock)
+        general.Split(b5, pathStub)
       )
-    } yield assert(result.equals(contentMock))
+    } yield assert(result.equals(contentStub))
   }
