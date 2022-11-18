@@ -8,44 +8,40 @@ class Writer
 
 object Writer:
 
-  given (using
-    general.stock.Write[specific.Stock, specific.Content, specific.Path]
-  ): WriteStock[
-    Writer,
-    specific.Content,
-    general.Split[specific.Path],
-    specific.Stock
-  ] with
+  given [CONTENT, FACTORY, PATH, STOCK](using
+    general.factory.EmptyStock[FACTORY, STOCK],
+    general.stock.Write[STOCK, CONTENT, PATH]
+  )(using
+    factory: FACTORY
+  ): WriteStock[Writer, CONTENT, general.Split[PATH], STOCK] with
 
     override
     def f(
       writer: Writer,
-      stockOption: Option[specific.Stock],
-      pathSplit: general.Split[specific.Path],
-      content: specific.Content
-    ): Either[String, specific.Stock] =
+      stockOption: Option[STOCK],
+      pathSplit: general.Split[PATH],
+      content: CONTENT
+    ): Either[String, STOCK] =
 
-      val presentStock = stockOption.getOrElse(specific.Stock.emptyStock())
+      val presentStock = stockOption.getOrElse(factory.emptyStock())
       presentStock.write(pathSplit.index, pathSplit.rest, content)
 
-  given (using
-    general.store.Write[specific.Store, specific.Content]
-  ): WriteStore[
-    Writer,
-    specific.Content,
-    general.Split[specific.Path],
-    specific.Store
-  ] with
+  given [CONTENT, FACTORY, PATH, STORE](using
+    general.factory.EmptyStore[FACTORY, STORE],
+    general.store.Write[STORE, CONTENT]
+  )(using
+    factory: FACTORY
+  ): WriteStore[Writer, CONTENT, general.Split[PATH], STORE] with
 
     override
     def f(
       writer: Writer,
-      storeOption: Option[specific.Store],
-      pathSplit: general.Split[specific.Path],
-      content: specific.Content
-    ): specific.Store =
+      storeOption: Option[STORE],
+      pathSplit: general.Split[PATH],
+      content: CONTENT
+    ): STORE =
 
-      val presentStore = storeOption.getOrElse(specific.Store.emptyStore)
+      val presentStore = storeOption.getOrElse(factory.emptyStore())
       presentStore.write(pathSplit.index, content)
 
 

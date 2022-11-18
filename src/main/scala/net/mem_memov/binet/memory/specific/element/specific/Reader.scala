@@ -8,7 +8,7 @@ class Reader
 
 object Reader:
 
-  given [FACTORY, CONTENT, PATH, STOCK](using
+  given [CONTENT, FACTORY, PATH, STOCK](using
     general.factory.EmptyStock[FACTORY, STOCK],
     general.stock.Read[STOCK, CONTENT, PATH]
   )(using
@@ -25,7 +25,7 @@ object Reader:
       val presentStock = stockOption.getOrElse(factory.emptyStock())
       presentStock.read(pathSplit.index, pathSplit.rest)
 
-  given [FACTORY, ADDRESS, CONTENT, PATH, STORE](using
+  given [ADDRESS, CONTENT, FACTORY, PATH, STORE](using
     general.factory.EmptyStore[FACTORY, STORE],
     general.store.Read[STORE, ADDRESS],
     general.address.ToContent[ADDRESS, CONTENT]

@@ -1,7 +1,6 @@
 package net.mem_memov.binet.specific.element.specific.reader
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.specific.element.specific.Reader
 import net.mem_memov.binet.memory.specific.element.specific.Reader.given
@@ -32,7 +31,7 @@ class ReadStockSuite extends munit.FunSuite:
         fail("unexpected")
 
     given general.stock.Read[StockMock, ContentMock, PathMock] with
-      override def f(stock: StockMock, index: UnsignedByte, origin: PathMock): Either[String, ContentMock] =
+      override def f(stock: StockMock, index: general.UnsignedByte, origin: PathMock): Either[String, ContentMock] =
         assert(stock.equals(stockMock))
         assert(index == b5)
         assert(origin.equals(pathMock))
@@ -55,7 +54,7 @@ class ReadStockSuite extends munit.FunSuite:
         stockMock
 
     given general.stock.Read[StockMock, ContentMock, PathMock] with
-      override def f(stock: StockMock, index: UnsignedByte, origin: PathMock): Either[String, ContentMock] =
+      override def f(stock: StockMock, index: general.UnsignedByte, origin: PathMock): Either[String, ContentMock] =
         assert(stock.equals(stockMock))
         assert(index == b5)
         assert(origin.equals(pathMock))
