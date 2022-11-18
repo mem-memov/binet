@@ -13,7 +13,7 @@ object Writer:
     general.stock.Write[STOCK, CONTENT, PATH]
   )(using
     factory: FACTORY
-  ): WriteStock[Writer, CONTENT, general.Split[PATH], STOCK] with
+  ): WriteStock[Writer, CONTENT, PATH, STOCK] with
 
     override
     def f(
@@ -31,7 +31,7 @@ object Writer:
     general.store.Write[STORE, CONTENT]
   )(using
     factory: FACTORY
-  ): WriteStore[Writer, CONTENT, general.Split[PATH], STORE] with
+  ): WriteStore[Writer, CONTENT, PATH, STORE] with
 
     override
     def f(

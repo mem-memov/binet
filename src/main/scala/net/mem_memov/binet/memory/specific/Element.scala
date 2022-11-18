@@ -16,30 +16,20 @@ object Element:
 
     Element(None, None)
 
-  given [
-    READER
-  ](using
-    reader: READER
+  given [CONTENT, PATH, READER](using
+    ReadStock[READER, CONTENT, PATH, Stock],
+    ReadStore[READER, CONTENT, PATH, Store],
+    general.path.IsEmpty[PATH],
+    general.path.Shorten[PATH]
   )(using
-    ReadStock[
-      READER,
-      Content,
-      general.Split[Path],
-      Stock
-    ],
-    ReadStore[
-      READER,
-      Content,
-      general.Split[Path],
-      Store
-    ]
-  ): general.element.Read[Element, Path, Content] with
+    reader: READER
+  ): general.element.Read[Element, PATH, CONTENT] with
 
     override
     def f(
       element: Element,
-      origin: Path
-    ): Either[String, Content] =
+      origin: PATH
+    ): Either[String, CONTENT] =
 
       for {
         pathSplit <- origin.shorten()
@@ -50,30 +40,20 @@ object Element:
             reader.readStock(element.stockOption, pathSplit)
       } yield content
 
-  given [
-    WRITER
-  ](using
-    writer: WRITER
+  given [CONTENT, PATH, WRITER](using
+    WriteStock[WRITER, CONTENT, PATH, Stock],
+    WriteStore[WRITER, CONTENT, PATH, Store],
+    general.path.IsEmpty[PATH],
+    general.path.Shorten[PATH]
   )(using
-    WriteStock[
-      WRITER,
-      Content,
-      general.Split[Path],
-      Stock
-    ],
-    WriteStore[
-      WRITER,
-      Content,
-      general.Split[Path],
-      Store
-    ]
-  ): general.element.Write[Element, Path, Content] with
+    writer: WRITER
+  ): general.element.Write[Element, PATH, CONTENT] with
 
     override
     def f(
       element: Element,
-      destination: Path,
-      content: Content
+      destination: PATH,
+      content: CONTENT
     ): Either[String, Element] =
 
       for {

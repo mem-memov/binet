@@ -1,11 +1,13 @@
 package net.mem_memov.binet.memory.specific.element.general.writer
 
-trait WriteStore[WRITER, CONTENT, PATH_SPLIT, STORE]:
+import net.mem_memov.binet.memory.general
+
+trait WriteStore[WRITER, CONTENT, PATH, STORE]:
 
   def f(
     writer: WRITER,
     storeOption: Option[STORE],
-    pathSplit: PATH_SPLIT,
+    pathSplit: general.Split[PATH],
     content: CONTENT
   ): STORE
 
@@ -13,7 +15,7 @@ trait WriteStore[WRITER, CONTENT, PATH_SPLIT, STORE]:
 
     def writeStore(
       storeOption: Option[STORE],
-      pathSplit: PATH_SPLIT,
+      pathSplit: general.Split[PATH],
       content: CONTENT
     ): STORE =
 

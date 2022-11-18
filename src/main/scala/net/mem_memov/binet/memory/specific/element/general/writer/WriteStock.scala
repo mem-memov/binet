@@ -1,11 +1,13 @@
 package net.mem_memov.binet.memory.specific.element.general.writer
 
-trait WriteStock[WRITER, CONTENT, PATH_SPLIT, STOCK]:
+import net.mem_memov.binet.memory.general
+
+trait WriteStock[WRITER, CONTENT, PATH, STOCK]:
 
   def f(
     writer: WRITER,
     stockOption: Option[STOCK],
-    pathSplit: PATH_SPLIT,
+    pathSplit: general.Split[PATH],
     content: CONTENT
   ): Either[String, STOCK]
 
@@ -13,7 +15,7 @@ trait WriteStock[WRITER, CONTENT, PATH_SPLIT, STOCK]:
 
     def writeStock(
       stockOption: Option[STOCK],
-      pathSplit: PATH_SPLIT,
+      pathSplit: general.Split[PATH],
       content: CONTENT
     ): Either[String, STOCK] =
 

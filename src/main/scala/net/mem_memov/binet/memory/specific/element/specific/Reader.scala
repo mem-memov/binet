@@ -13,7 +13,7 @@ object Reader:
     general.stock.Read[STOCK, CONTENT, PATH]
   )(using
     factory: FACTORY
-  ): ReadStock[Reader, CONTENT, general.Split[PATH], STOCK] with
+  ): ReadStock[Reader, CONTENT, PATH, STOCK] with
 
     override
     def f(
@@ -31,7 +31,7 @@ object Reader:
     general.address.ToContent[ADDRESS, CONTENT]
   )(using
     factory: FACTORY
-  ): ReadStore[Reader, CONTENT, general.Split[PATH], STORE] with
+  ): ReadStore[Reader, CONTENT, PATH, STORE] with
 
     override
     def f(
