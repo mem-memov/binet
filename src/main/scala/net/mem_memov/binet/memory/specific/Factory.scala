@@ -1,7 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.general.UnsignedByte
 
 class Factory
 
@@ -11,7 +10,7 @@ object Factory:
   val length: Int = general.UnsignedByte.maximum.toInt + 1
 
   lazy
-  val minimum: UnsignedByte = general.UnsignedByte.minimum
+  val minimum: general.UnsignedByte = general.UnsignedByte.minimum
 
   given zeroAddress: general.factory.ZeroAddress[Factory, Address] with
 
@@ -24,7 +23,7 @@ object Factory:
   given makeAddress: general.factory.MakeAddress[Factory, Address] with
 
     override
-    def f(indices: List[UnsignedByte]): Address = Address(indices)
+    def f(indices: List[general.UnsignedByte]): Address = Address(indices)
 
   given emptyBlock: general.factory.EmptyBlock[Factory, Block] with
 

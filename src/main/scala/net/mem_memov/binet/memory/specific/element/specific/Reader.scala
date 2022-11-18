@@ -8,41 +8,37 @@ class Reader
 
 object Reader:
 
-  given (using
-    general.stock.Read[specific.Stock, specific.Content, specific.Path]
-  ): ReadStock[
-    Reader,
-    specific.Content,
-    general.Split[specific.Path],
-    specific.Stock
-  ] with
+  given [FACTORY, CONTENT, PATH, STOCK](using
+    general.factory.EmptyStock[FACTORY, STOCK],
+    general.stock.Read[STOCK, CONTENT, PATH]
+  )(using
+    factory: FACTORY
+  ): ReadStock[Reader, CONTENT, general.Split[PATH], STOCK] with
 
     override
     def f(
       reader: Reader,
-      stockOption: Option[specific.Stock],
-      pathSplit: general.Split[specific.Path]
-    ): Either[String, specific.Content] =
+      stockOption: Option[STOCK],
+      pathSplit: general.Split[PATH]
+    ): Either[String, CONTENT] =
 
-      val presentStock = stockOption.getOrElse(specific.Stock.emptyStock())
+      val presentStock = stockOption.getOrElse(factory.emptyStock())
       presentStock.read(pathSplit.index, pathSplit.rest)
 
-  given [CONTENT](using
-    general.store.Read[specific.Store, specific.Address],
-    general.address.ToContent[specific.Address, CONTENT]
-  ): ReadStore[
-    Reader,
-    CONTENT,
-    general.Split[specific.Path],
-    specific.Store
-  ] with
+  given [FACTORY, ADDRESS, CONTENT, PATH, STORE](using
+    general.factory.EmptyStore[FACTORY, STORE],
+    general.store.Read[STORE, ADDRESS],
+    general.address.ToContent[ADDRESS, CONTENT]
+  )(using
+    factory: FACTORY
+  ): ReadStore[Reader, CONTENT, general.Split[PATH], STORE] with
 
     override
     def f(
       reader: Reader,
-      storeOption: Option[specific.Store],
-      pathSplit: general.Split[specific.Path]
+      storeOption: Option[STORE],
+      pathSplit: general.Split[PATH]
     ): CONTENT =
 
-      val presentStore = storeOption.getOrElse(specific.Store.emptyStore)
+      val presentStore = storeOption.getOrElse(factory.emptyStore())
       presentStore.read(pathSplit.index).toContent
