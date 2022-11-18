@@ -1,7 +1,6 @@
 package net.mem_memov.binet.specific.element.specific.reader
 
 import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.specific.element.specific.Reader
 import net.mem_memov.binet.memory.specific.element.specific.Reader.given
@@ -32,7 +31,7 @@ class ReadStoreSuite extends munit.FunSuite:
         fail("unexpected")
 
     given general.store.Read[StoreMock, AddressMock] with
-      override def f(store: StoreMock, origin: UnsignedByte): AddressMock =
+      override def f(store: StoreMock, origin: general.UnsignedByte): AddressMock =
         assert(store.equals(storeMock))
         assert(origin == b5)
         addressMock
@@ -59,7 +58,7 @@ class ReadStoreSuite extends munit.FunSuite:
         storeMock
 
     given general.store.Read[StoreMock, AddressMock] with
-      override def f(store: StoreMock, origin: UnsignedByte): AddressMock =
+      override def f(store: StoreMock, origin: general.UnsignedByte): AddressMock =
         assert(store.equals(storeMock))
         assert(origin == b5)
         addressMock
