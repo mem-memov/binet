@@ -1,51 +1,48 @@
 package net.mem_memov.binet.memory.specific.element.specific
 
-import net.mem_memov.binet.memory.general.path.Shorten
-import net.mem_memov.binet.memory.specific.{Address, Content, Path, Stock, Store}
+import net.mem_memov.binet.memory.general
+import net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.specific.element.general.reader.{ReadStock, ReadStore}
-import net.mem_memov.binet.memory.general.stock.Read as MemoryStockReader
-import net.mem_memov.binet.memory.general.store.Read as MemoryStoreReader
-import net.mem_memov.binet.memory.general.address.ToContent
 
 class Reader
 
 object Reader:
 
   given (using
-    MemoryStockReader[Stock, Content, Path]
+    general.stock.Read[specific.Stock, specific.Content, specific.Path]
   ): ReadStock[
     Reader,
-    Content,
-    Shorten.Split[Path],
-    Stock
+    specific.Content,
+    general.Split[specific.Path],
+    specific.Stock
   ] with
 
     override
     def f(
       reader: Reader,
-      stockOption: Option[Stock],
-      pathSplit: Shorten.Split[Path]
-    ): Either[String, Content] =
+      stockOption: Option[specific.Stock],
+      pathSplit: general.Split[specific.Path]
+    ): Either[String, specific.Content] =
 
-      val presentStock = stockOption.getOrElse(Stock.makeStock())
+      val presentStock = stockOption.getOrElse(specific.Stock.emptyStock())
       presentStock.read(pathSplit.index, pathSplit.rest)
 
-  given (using
-    MemoryStoreReader[Store, Address],
-    ToContent[Address, Content]
+  given [CONTENT](using
+    general.store.Read[specific.Store, specific.Address],
+    general.address.ToContent[specific.Address, CONTENT]
   ): ReadStore[
     Reader,
-    Content,
-    Shorten.Split[Path],
-    Store
+    CONTENT,
+    general.Split[specific.Path],
+    specific.Store
   ] with
 
     override
     def f(
       reader: Reader,
-      storeOption: Option[Store],
-      pathSplit: Shorten.Split[Path]
-    ): Either[String, Content] =
+      storeOption: Option[specific.Store],
+      pathSplit: general.Split[specific.Path]
+    ): CONTENT =
 
-      val presentStore = storeOption.getOrElse(Store.emptyStore)
-      Right(presentStore.read(pathSplit.index).toContent)
+      val presentStore = storeOption.getOrElse(specific.Store.emptyStore)
+      presentStore.read(pathSplit.index).toContent

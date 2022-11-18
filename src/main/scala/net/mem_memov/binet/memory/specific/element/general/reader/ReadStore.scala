@@ -6,13 +6,13 @@ trait ReadStore[READER, CONTENT, PATH_SPLIT, STORE]:
     reader: READER,
     storeOption: Option[STORE],
     pathSplit: PATH_SPLIT
-  ): Either[String, CONTENT]
-  
+  ): CONTENT
+
   extension (reader: READER)
 
     def readStore(
       storeOption: Option[STORE],
       pathSplit: PATH_SPLIT
-    ): Either[String, CONTENT] =
+    ): CONTENT =
 
       f(reader, storeOption, pathSplit)

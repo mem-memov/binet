@@ -24,13 +24,13 @@ object Element:
     ReadStock[
       READER,
       Content,
-      general.path.Shorten.Split[Path],
+      general.Split[Path],
       Stock
     ],
     ReadStore[
       READER,
       Content,
-      general.path.Shorten.Split[Path],
+      general.Split[Path],
       Store
     ]
   ): general.element.Read[Element, Path, Content] with
@@ -45,7 +45,7 @@ object Element:
         pathSplit <- origin.shorten()
         content <-
           if pathSplit.rest.isEmpty then
-            reader.readStore(element.storeOption, pathSplit)
+            Right(reader.readStore(element.storeOption, pathSplit))
           else
             reader.readStock(element.stockOption, pathSplit)
       } yield content
@@ -58,13 +58,13 @@ object Element:
     WriteStock[
       WRITER,
       Content,
-      general.path.Shorten.Split[Path],
+      general.Split[Path],
       Stock
     ],
     WriteStore[
       WRITER,
       Content,
-      general.path.Shorten.Split[Path],
+      general.Split[Path],
       Store
     ]
   ): general.element.Write[Element, Path, Content] with

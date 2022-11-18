@@ -10,7 +10,7 @@ object Stock:
 
   lazy val size: Int = general.UnsignedByte.maximum.toInt + 1
 
-  def makeStock(): Stock =
+  def emptyStock(): Stock =
 
     val elements = Vector.fill[Element](size)(Element.emptyElement)
 

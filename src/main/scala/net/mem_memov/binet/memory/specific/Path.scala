@@ -22,11 +22,11 @@ object Path:
     override
     def f(
       path: Path
-    ): Either[String, general.path.Shorten.Split[Path]] =
+    ): Either[String, general.Split[Path]] =
 
       if path.indices.nonEmpty then
         Right(
-          general.path.Shorten.Split(
+          general.Split(
             index = path.indices.head,
             rest = path.copy(indices = path.indices.tail)
           )

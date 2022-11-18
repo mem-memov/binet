@@ -1,53 +1,51 @@
 package net.mem_memov.binet.memory.specific.element.specific
 
-import net.mem_memov.binet.memory.general.path.Shorten
-import net.mem_memov.binet.memory.specific.{Content, Path, Stock, Store}
+import net.mem_memov.binet.memory.general
+import net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.specific.element.general.writer.{WriteStock, WriteStore}
-import net.mem_memov.binet.memory.general.stock.Write as MemoryStockWriter
-import net.mem_memov.binet.memory.general.store.Write as MemoryStoreWriter
 
 class Writer
 
 object Writer:
 
   given (using
-    MemoryStockWriter[Stock, Content, Path]
+    general.stock.Write[specific.Stock, specific.Content, specific.Path]
   ): WriteStock[
     Writer,
-    Content,
-    Shorten.Split[Path],
-    Stock
+    specific.Content,
+    general.Split[specific.Path],
+    specific.Stock
   ] with
 
     override
     def f(
       writer: Writer,
-      stockOption: Option[Stock],
-      pathSplit: Shorten.Split[Path],
-      content: Content
-    ): Either[String, Stock] =
+      stockOption: Option[specific.Stock],
+      pathSplit: general.Split[specific.Path],
+      content: specific.Content
+    ): Either[String, specific.Stock] =
 
-      val presentStock = stockOption.getOrElse(Stock.makeStock())
+      val presentStock = stockOption.getOrElse(specific.Stock.emptyStock())
       presentStock.write(pathSplit.index, pathSplit.rest, content)
 
   given (using
-    MemoryStoreWriter[Store, Content]
+    general.store.Write[specific.Store, specific.Content]
   ): WriteStore[
     Writer,
-    Content,
-    Shorten.Split[Path],
-    Store
+    specific.Content,
+    general.Split[specific.Path],
+    specific.Store
   ] with
 
     override
     def f(
       writer: Writer,
-      storeOption: Option[Store],
-      pathSplit: Shorten.Split[Path],
-      content: Content
-    ): Store =
+      storeOption: Option[specific.Store],
+      pathSplit: general.Split[specific.Path],
+      content: specific.Content
+    ): specific.Store =
 
-      val presentStore = storeOption.getOrElse(Store.emptyStore)
+      val presentStore = storeOption.getOrElse(specific.Store.emptyStore)
       presentStore.write(pathSplit.index, content)
 
 
