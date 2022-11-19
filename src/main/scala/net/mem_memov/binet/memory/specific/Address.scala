@@ -15,15 +15,6 @@ case class Address(
 
 object Address:
 
-  given general.address.Indices[Address] with
-
-    override
-    def f(
-      address: Address
-    ): List[general.UnsignedByte] =
-
-      address.parts
-
   given general.address.Length[Address] with
 
     override

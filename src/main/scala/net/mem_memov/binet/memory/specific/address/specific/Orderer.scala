@@ -1,6 +1,5 @@
 package net.mem_memov.binet.memory.specific.address.specific
 
-import net.mem_memov.binet.memory.general.address.Indices
 import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
 import net.mem_memov.binet.memory.specific.address.general.orderer.Compare
@@ -10,21 +9,20 @@ class Orderer
 object Orderer:
 
   given [
-    ADDRESS : Indices,
     FORMATTER : TrimBig
   ](using
     formatter: FORMATTER
-  ): Compare[Orderer, ADDRESS] with
+  ): Compare[Orderer, Address] with
 
     override
     def f(
       oderer: Orderer,
-      left: ADDRESS,
-      right: ADDRESS
+      left: Address,
+      right: Address
     ): Int =
 
-      val trimmedLeft = formatter.trimBig(left.indices)
-      val trimmedRight = formatter.trimBig(right.indices)
+      val trimmedLeft = formatter.trimBig(left.parts)
+      val trimmedRight = formatter.trimBig(right.parts)
       if trimmedLeft.length != trimmedRight.length then
         trimmedLeft.length - trimmedRight.length
       else

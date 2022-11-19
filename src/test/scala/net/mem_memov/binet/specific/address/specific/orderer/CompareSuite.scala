@@ -1,9 +1,9 @@
 package net.mem_memov.binet.specific.address.specific.orderer
 
+import net.mem_memov.binet.memory.specific
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.general.address.Indices
 import net.mem_memov.binet.memory.specific.address.general.formatter.TrimBig
-import net.mem_memov.binet.memory.specific.address.specific.*
+import net.mem_memov.binet.memory.specific.address.specific.{Formatter, Orderer}
 import net.mem_memov.binet.memory.specific.address.specific.Orderer.given
 
 class CompareSuite extends munit.FunSuite:
@@ -14,9 +14,6 @@ class CompareSuite extends munit.FunSuite:
   class Stub
   given trimmingFormatter: Stub = new Stub
 
-  val leftAddress = new Stub
-  val rightAddress = new Stub
-
   test("Orderer confirms left is equal to right") {
 
     val leftIndices = List(max)
@@ -26,18 +23,12 @@ class CompareSuite extends munit.FunSuite:
       override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          leftIndices
-        else if address.equals(rightAddress) then
-          rightIndices
-        else
-          fail("unexpected")
-
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(leftIndices),
+      specific.Address(rightIndices)
+    )
 
     assert(result == 0)
   }
@@ -51,18 +42,12 @@ class CompareSuite extends munit.FunSuite:
       override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          leftIndices
-        else if address.equals(rightAddress) then
-          rightIndices
-        else
-          fail("unexpected")
-
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(leftIndices),
+      specific.Address(rightIndices)
+    )
 
     assert(result == 1)
   }
@@ -76,18 +61,12 @@ class CompareSuite extends munit.FunSuite:
       override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          leftIndices
-        else if address.equals(rightAddress) then
-          rightIndices
-        else
-          fail("unexpected")
-
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(leftIndices),
+      specific.Address(rightIndices)
+    )
 
     assert(result == -1)
   }
@@ -96,15 +75,6 @@ class CompareSuite extends munit.FunSuite:
 
     val originalLeftIndices = List(min, max)
     val originalRightIndices = List(min, min, max)
-
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          originalLeftIndices
-        else if address.equals(rightAddress) then
-          originalRightIndices
-        else
-          fail("unexpected")
 
     val trimmedLeftIndices = List(max)
     val trimmedRightIndices = List(max)
@@ -120,7 +90,10 @@ class CompareSuite extends munit.FunSuite:
 
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(originalLeftIndices),
+      specific.Address(originalRightIndices)
+    )
 
     assert(result == 0)
   }
@@ -129,15 +102,6 @@ class CompareSuite extends munit.FunSuite:
 
     val originalLeftIndices = List(min, max, max)
     val originalRightIndices = List(min, min, min, max)
-
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          originalLeftIndices
-        else if address.equals(rightAddress) then
-          originalRightIndices
-        else
-          fail("unexpected")
 
     val trimmedLeftIndices = List(max, max)
     val trimmedRightIndices = List(max)
@@ -153,7 +117,10 @@ class CompareSuite extends munit.FunSuite:
 
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(originalLeftIndices),
+      specific.Address(originalRightIndices)
+    )
 
     assert(result == 1)
   }
@@ -162,15 +129,6 @@ class CompareSuite extends munit.FunSuite:
 
     val originalLeftIndices = List(min, min, min, max)
     val originalRightIndices = List(min, max, max)
-
-    given Indices[Stub] with
-      override def f(address: Stub): List[UnsignedByte] =
-        if address.equals(leftAddress) then
-          originalLeftIndices
-        else if address.equals(rightAddress) then
-          originalRightIndices
-        else
-          fail("unexpected")
 
     val trimmedLeftIndices = List(max)
     val trimmedRightIndices = List(max, max)
@@ -186,7 +144,10 @@ class CompareSuite extends munit.FunSuite:
 
     val orderer = new Orderer
 
-    val result = orderer.compare(leftAddress, rightAddress)
+    val result = orderer.compare(
+      specific.Address(originalLeftIndices),
+      specific.Address(originalRightIndices)
+    )
 
     assert(result == -1)
   }
