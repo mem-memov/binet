@@ -10,11 +10,12 @@ case class Traversal(
 
 object Traversal:
 
-  given (using
+  given [CONTENT, PATH](using
     Ordering[Address],
-    general.element.Read[Element, Path, Content],
-    general.address.ToPath[Address, Path],
-    general.address.Increment[Address]
+    general.element.Read[Element, PATH, CONTENT],
+    general.address.ToPath[Address, PATH],
+    general.address.Increment[Address],
+    general.content.ToAddress[CONTENT, Address]
   ): general.traversal.Next[Traversal, Address] with
 
     override

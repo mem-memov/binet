@@ -8,27 +8,35 @@ case class Content(
 
 object Content:
 
-  given general.content.SupplementBlocks[Content, Block] with
+  given [BLOCK, FACTORY](using
+    general.factory.EmptyBlock[FACTORY, BLOCK]
+  )(using
+    factory: FACTORY
+  ):general.content.SupplementBlocks[Content, BLOCK] with
 
     override
     def f(
       content: Content,
       targetLength: Int
-    ): Vector[Block] =
+    ): Vector[BLOCK] =
 
       if targetLength < content.indices.length then
-        (1 to content.indices.length - targetLength).map(_ => Block.emptyBlock).toVector
+        (1 to content.indices.length - targetLength).map(_ => factory.emptyBlock()).toVector
       else
-        Vector.empty[Block]
+        Vector.empty[BLOCK]
 
-  given general.content.ToAddress[Content, Address] with
+  given [ADDRESS, FACTORY](using
+    general.factory.MakeAddress[FACTORY, ADDRESS]
+  )(using
+    factory: FACTORY
+  ): general.content.ToAddress[Content, ADDRESS] with
 
     override
     def f(
       content: Content
-    ): Address =
+    ): ADDRESS =
 
-      Address.makeAddress(
+      factory.makeAddress(
         content.indices.toList.reverse
       )
 

@@ -10,26 +10,24 @@ case class Store(
 
 object Store:
 
-  lazy val emptyStore: Store =
-
-    Store(
-      Vector(Block.emptyBlock)
-    )
-
-  given general.store.Read[Store, Address] with
+  given [ADDRESS, FACTORY](using
+    general.factory.MakeAddress[FACTORY, ADDRESS]
+  )(using
+    factory: FACTORY
+  ):general.store.Read[Store, ADDRESS] with
 
     override
     def f(
       store: Store,
       origin: general.UnsignedByte
-    ): Address =
+    ): ADDRESS =
 
       val parts = store.blocks.foldLeft(List.empty[general.UnsignedByte]) {
         case(parts, block) =>
           block.read(origin) :: parts
       }
 
-      Address.makeAddress(parts)
+      factory.makeAddress(parts)
 
   given write[
     TRIMMER,

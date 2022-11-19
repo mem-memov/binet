@@ -10,7 +10,7 @@ trait MakeAddress[FACTORY, ADDRESS]:
 
   extension (factory: FACTORY)
 
-    def zeroAddress(
+    def makeAddress(
       indices: List[general.UnsignedByte]
     ): ADDRESS =
 

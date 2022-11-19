@@ -14,11 +14,6 @@ case class Block(
 
 object Block:
 
-  lazy val emptyBlock: Block =
-    Block(
-      Vector.fill(general.UnsignedByte.maximum.toInt + 1)(general.UnsignedByte.minimum)
-    )
-
   given general.block.IsEmpty[Block] with
 
     override

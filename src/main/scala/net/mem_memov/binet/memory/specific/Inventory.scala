@@ -63,13 +63,14 @@ object Inventory:
         updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
       } yield inventory.copy(root = updatedRoot)
 
-  given [ARGUMENT](using
-    argument: ARGUMENT
-  )(using
+  given [ARGUMENT, CONTENT](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Read[Element, Path, Content],
+    general.element.Read[Element, Path, CONTENT],
     general.address.ToPath[Address, Path],
-    general.address.TrimBig[Address]
+    general.address.TrimBig[Address],
+    general.content.ToAddress[CONTENT, Address]
+  )(using
+    argument: ARGUMENT
   ): general.inventory.Read[Inventory, Address] with
 
     override

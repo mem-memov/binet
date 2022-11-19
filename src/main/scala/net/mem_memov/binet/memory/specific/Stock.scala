@@ -8,14 +8,6 @@ case class Stock(
 
 object Stock:
 
-  lazy val size: Int = general.UnsignedByte.maximum.toInt + 1
-
-  def emptyStock(): Stock =
-
-    val elements = Vector.fill[Element](size)(Element.emptyElement)
-
-    Stock(elements)
-
   given [CONTENT, PATH](using
     general.element.Read[Element, PATH, CONTENT]
   ): general.stock.Read[Stock, CONTENT, PATH] with

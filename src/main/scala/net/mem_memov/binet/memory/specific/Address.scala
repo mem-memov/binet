@@ -15,16 +15,6 @@ case class Address(
 
 object Address:
 
-  def makeAddress(
-    indices: List[general.UnsignedByte]
-  ): Address =
-
-    Address(indices)
-
-  lazy val zeroAddress: Address =
-
-    Address(List(general.UnsignedByte.minimum))
-
   given general.address.Indices[Address] with
 
     override

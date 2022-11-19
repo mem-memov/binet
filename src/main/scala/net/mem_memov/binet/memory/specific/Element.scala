@@ -12,10 +12,6 @@ case class Element(
 
 object Element:
 
-  lazy val emptyElement: Element =
-
-    Element(None, None)
-
   given [CONTENT, PATH, READER](using
     ReadStock[READER, CONTENT, PATH, Stock],
     ReadStore[READER, CONTENT, PATH, Store],
