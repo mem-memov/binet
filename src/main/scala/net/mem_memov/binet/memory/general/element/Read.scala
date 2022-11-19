@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general
 
 trait Read[
   ELEMENT,
-  PATH : general.path.IsEmpty : general.path.Shorten,
+  PATH,
   CONTENT
 ]:
 

@@ -16,29 +16,29 @@ object Stock:
 
     Stock(elements)
 
-  given (using
-    general.element.Read[Element, Path, Content]
-  ): general.stock.Read[Stock, Content, Path] with
+  given [CONTENT, PATH](using
+    general.element.Read[Element, PATH, CONTENT]
+  ): general.stock.Read[Stock, CONTENT, PATH] with
 
     override
     def f(
       stock: Stock,
       index: general.UnsignedByte,
-      origin: Path
-    ): Either[String, Content] =
+      origin: PATH
+    ): Either[String, CONTENT] =
 
       stock.elements(index.toInt).read(origin)
 
-  given (using
-    general.element.Write[Element, Path, Content]
-  ): general.stock.Write[Stock, Content, Path] with
+  given [CONTENT, PATH](using
+    general.element.Write[Element, PATH, CONTENT]
+  ): general.stock.Write[Stock, CONTENT, PATH] with
 
     override
     def f(
       stock: Stock,
       index: general.UnsignedByte,
-      destination: Path,
-      content: Content
+      destination: PATH,
+      content: CONTENT
     ): Either[String, Stock] =
 
       for {

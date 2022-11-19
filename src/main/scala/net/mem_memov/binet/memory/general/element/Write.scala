@@ -4,7 +4,7 @@ import net.mem_memov.binet.memory.general
 
 trait Write[
   ELEMENT,
-  PATH : general.path.IsEmpty : general.path.Shorten,
+  PATH,
   CONTENT
 ]:
 

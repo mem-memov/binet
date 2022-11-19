@@ -9,19 +9,25 @@ class ReadSuite extends munit.FunSuite:
 
   val b0 = UnsignedByte.fromInt(0)
 
-  test("Stock ") {
+  class ContentStub
+  given contentStub: ContentStub = new ContentStub
 
-    val content = Content(Vector())
+  class PathStub
+  given originPathStub: PathStub = new PathStub
 
-    given general.element.Read[Element, Path, Content] with
-      override def f(element: Element, origin: Path): Either[String, Content] =
-        Right(content)
+  test("Stock retrieves some content") {
 
-    val path = Path(Vector())
+    val stockElement = Element(None, None)
 
-    val stock = Stock(Vector(Element.emptyElement))
+    given general.element.Read[Element, PathStub, ContentStub] with
+      override def f(element: Element, origin: PathStub): Either[String, ContentStub] =
+        assert(element.equals(stockElement))
+        assert(origin.equals(originPathStub))
+        Right(contentStub)
+
+    val stock = Stock(Vector(stockElement))
 
     for {
-      result <- stock.read(b0, path)
-    } yield ()
+      result <- stock.read(b0, originPathStub)
+    } yield assert(result == contentStub)
   }

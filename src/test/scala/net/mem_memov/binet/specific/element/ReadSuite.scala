@@ -64,7 +64,7 @@ class ReadSuite extends munit.FunSuite:
     given general.path.IsEmpty[PathStub] with
       override def f(path: PathStub): Boolean =
         assert(path.equals(restPathStub))
-        true
+        false
 
     given specific.element.general.reader.ReadStock[ReaderStub, ContentStub, PathStub, specific.Stock] with
       override def f(reader: ReaderStub, stockOption: Option[Stock], pathSplit: Split[PathStub]): Either[String, ContentStub] =

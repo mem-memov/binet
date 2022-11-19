@@ -15,8 +15,6 @@ object Store:
     Store(
       Vector(Block.emptyBlock)
     )
-    
-  
 
   given general.store.Read[Store, Address] with
 
