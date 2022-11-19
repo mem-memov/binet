@@ -1,5 +1,4 @@
-val scala3Version = "3.2.2"
-val zioVersion = "2.0.2"
+val scala3Version = "3.1.3"
 
 lazy val root = project
   .in(file("."))
@@ -9,6 +8,5 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
-    libraryDependencies += "dev.zio" %% "zio" % zioVersion
+    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
   )
