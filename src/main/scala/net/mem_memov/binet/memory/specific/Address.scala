@@ -15,13 +15,6 @@ case class Address(
 
 object Address:
 
-  given general.address.Length[Address] with
-
-    override
-    def f(address: Address): Int =
-
-      address.parts.length
-
   given [
     RESIZER : Decrement
   ](using
