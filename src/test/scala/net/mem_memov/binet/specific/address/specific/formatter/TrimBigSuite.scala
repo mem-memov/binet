@@ -5,12 +5,15 @@ import net.mem_memov.binet.memory.specific.address.specific.Formatter
 
 class TrimBigSuite extends munit.FunSuite:
 
-  val formatter = new Formatter
+  val min = UnsignedByte.minimum
+  val max = UnsignedByte.maximum
 
   test("Formatter trims indices") {
 
-    val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
-    val expectedIndices = List(UnsignedByte.maximum)
+    val originalIndices = List(min, min, max)
+    val expectedIndices = List(max)
+
+    val formatter = new Formatter
 
     val result = formatter.trimBig(originalIndices)
 
@@ -19,7 +22,9 @@ class TrimBigSuite extends munit.FunSuite:
 
   test("Formatter skips trimming indices if it is not needed") {
 
-    val originalIndices = List(UnsignedByte.maximum, UnsignedByte.maximum)
+    val originalIndices = List(max, max)
+
+    val formatter = new Formatter
 
     val result = formatter.trimBig(originalIndices)
 

@@ -7,19 +7,23 @@ import net.mem_memov.binet.memory.specific.address.specific.Formatter.given
 
 class PadBigSuite extends munit.FunSuite:
 
-  class Stub
-  given trimmingFormatter: Stub = new Stub
-  val formatter = new Formatter
+  val min = UnsignedByte.minimum
+  val max = UnsignedByte.maximum
+  
+  class FormatterStub
+  given trimmingFormatter: FormatterStub = new FormatterStub
 
   test("Formatter pads indices") {
 
-    val originalIndices = List(UnsignedByte.maximum)
-    val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
+    val originalIndices = List(max)
+    val expectedIndices = List(min, min, max)
 
-    given TrimBig[Stub] with
-      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+    given TrimBig[FormatterStub] with
+      override def f(formatter: FormatterStub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
+
+    val formatter = new Formatter
 
     for {
       result <- formatter.padBig(3, originalIndices)
@@ -28,12 +32,14 @@ class PadBigSuite extends munit.FunSuite:
 
   test("Formatter fails padding indices if already too many") {
 
-    val originalIndices = List(UnsignedByte.maximum, UnsignedByte.maximum, UnsignedByte.maximum)
+    val originalIndices = List(max, max, max)
 
-    given TrimBig[Stub] with
-      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+    given TrimBig[FormatterStub] with
+      override def f(formatter: FormatterStub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
+
+    val formatter = new Formatter
 
     val result = formatter.padBig(2, originalIndices)
     assert(result == Left("Address not padded: already too long"))
@@ -41,13 +47,15 @@ class PadBigSuite extends munit.FunSuite:
 
   test("Formatter succeeds padding if indices can be trimmed") {
 
-    val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
-    val expectedIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
+    val originalIndices = List(min, min, min, max)
+    val expectedIndices = List(min, min, max)
 
-    given TrimBig[Stub] with
-      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+    given TrimBig[FormatterStub] with
+      override def f(formatter: FormatterStub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
+
+    val formatter = new Formatter
 
     for {
       result <- formatter.padBig(3, originalIndices)
@@ -56,12 +64,14 @@ class PadBigSuite extends munit.FunSuite:
 
   test("Formatter skips padding if it is not needed") {
 
-    val originalIndices = List(UnsignedByte.minimum, UnsignedByte.minimum, UnsignedByte.maximum)
+    val originalIndices = List(min, min, max)
 
-    given TrimBig[Stub] with
-      override def f(formatter: Stub, indices: List[UnsignedByte]): List[UnsignedByte] =
+    given TrimBig[FormatterStub] with
+      override def f(formatter: FormatterStub, indices: List[UnsignedByte]): List[UnsignedByte] =
         assert(indices == originalIndices)
         indices
+
+    val formatter = new Formatter
 
     for {
       result <- formatter.padBig(3, originalIndices)
