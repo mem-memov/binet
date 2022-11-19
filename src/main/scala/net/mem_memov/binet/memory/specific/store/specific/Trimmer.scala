@@ -1,5 +1,6 @@
 package net.mem_memov.binet.memory.specific.store.specific
 
+import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.Block
 import net.mem_memov.binet.memory.specific.store.general.trimmer.TrimRight
 
@@ -9,21 +10,31 @@ class Trimmer
 
 object Trimmer:
 
-  given TrimRight[Trimmer, Block] with
+  given [BLOCK](using
+    general.block.IsEmpty[BLOCK]
+  ): TrimRight[Trimmer, BLOCK] with
 
+    // private function needed for tail-recursion optimization
     @tailrec
-    override
-    def f(
+    private def trim(
       trimmer: Trimmer,
-      blocks: Vector[Block]
-    ): Vector[Block] =
+      blocks: Vector[BLOCK]
+    ): Vector[BLOCK] =
 
       if blocks.isEmpty then
         blocks
       else
         if blocks.last.isEmpty then
-          f(trimmer, blocks.dropRight(1))
+          trim(trimmer, blocks.dropRight(1))
         else
           blocks
+
+    override
+    def f(
+      trimmer: Trimmer,
+      blocks: Vector[BLOCK]
+    ): Vector[BLOCK] =
+
+      trim(trimmer, blocks)
 
 
