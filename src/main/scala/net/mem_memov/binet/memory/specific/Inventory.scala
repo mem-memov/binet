@@ -20,14 +20,14 @@ object Inventory:
 
       inventory.next
 
-  given [ARGUMENT](using
-    argument: ARGUMENT
-  )(using
+  given [ARGUMENT, CONTENT, PATH](using
     CheckAndTrimPermissive[ARGUMENT, Address],
-    general.element.Write[Element, Path, Content],
-    general.address.ToPath[Address, Path],
-    general.address.ToContent[Address, Content],
+    general.element.Write[Element, PATH, CONTENT],
+    general.address.ToPath[Address, PATH],
+    general.address.ToContent[Address, CONTENT],
     general.address.Increment[Address]
+  )(using
+    argument: ARGUMENT
   ): general.inventory.Append[Inventory, Address] with
 
     override
@@ -42,13 +42,13 @@ object Inventory:
         newNext <- Right(inventory.next.increment)
       } yield inventory.copy(next = newNext, root = updatedRoot)
 
-  given [ARGUMENT](using
-    argument: ARGUMENT
-  )(using
+  given [ARGUMENT, CONTENT, PATH](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Write[Element, Path, Content],
-    general.address.ToPath[Address, Path],
-    general.address.ToContent[Address, Content]
+    general.element.Write[Element, PATH, CONTENT],
+    general.address.ToPath[Address, PATH],
+    general.address.ToContent[Address, CONTENT]
+  )(using
+    argument: ARGUMENT
   ): general.inventory.Update[Inventory, Address] with
 
     override def f(
@@ -63,10 +63,10 @@ object Inventory:
         updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
       } yield inventory.copy(root = updatedRoot)
 
-  given [ARGUMENT, CONTENT](using
+  given [ARGUMENT, CONTENT, PATH](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Read[Element, Path, CONTENT],
-    general.address.ToPath[Address, Path],
+    general.element.Read[Element, PATH, CONTENT],
+    general.address.ToPath[Address, PATH],
     general.address.TrimBig[Address],
     general.content.ToAddress[CONTENT, Address]
   )(using
