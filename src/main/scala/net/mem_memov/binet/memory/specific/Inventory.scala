@@ -117,12 +117,12 @@ object Inventory:
           val contentEither = read.f(inventory, origin)
           contentEither match
             case Left(error) => Left(error)
-            case Right(content2) =>
+            case Right(content) =>
               val newResult = process(
                 result,
                 general.Item(
                   path = origin,
-                  content = content2
+                  content = content
                 )
               )
               t(newResult, origin.increment)
