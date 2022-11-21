@@ -21,7 +21,7 @@ object Traversal:
     override
     def f(
       traversal: Traversal
-    ): Either[String, Option[(Address, Traversal)]] =
+    ): Either[String, Option[general.Step[Address, Traversal]]] =
 
       if traversal.nextPath == traversal.newPath then
 
@@ -31,4 +31,14 @@ object Traversal:
 
         for {
           content <- traversal.root.read(traversal.nextPath.toPath)
-        } yield Some((content.toAddress, traversal.copy(nextPath = traversal.nextPath.increment)))
+        } yield Some(
+          general.Step(
+            general.Item(
+              path = traversal.nextPath,
+              content = content.toAddress
+            ),
+            traversal.copy(
+              nextPath = traversal.nextPath.increment
+            )
+          )
+        )

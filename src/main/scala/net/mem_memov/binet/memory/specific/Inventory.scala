@@ -4,6 +4,8 @@ import net.mem_memov.binet.memory.general
 import net.mem_memov.binet.memory.specific.inventory.specific.Argument
 import net.mem_memov.binet.memory.specific.inventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
 
+import scala.annotation.tailrec
+
 case class Inventory(
   next: Address,
   root: Element
@@ -63,7 +65,7 @@ object Inventory:
         updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
       } yield inventory.copy(root = updatedRoot)
 
-  given [ARGUMENT, CONTENT, PATH](using
+  given read[ARGUMENT, CONTENT, PATH](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
     general.element.Read[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
@@ -83,3 +85,40 @@ object Inventory:
         trimmedOrigin <- argument.checkAndTrimRestrictive(inventory.next, origin)
         content <- inventory.root.read(trimmedOrigin.toPath)
       } yield content.toAddress.trimBig
+
+  given [ARGUMENT, CONTENT, FACTORY, PATH, TRAVERSAL](using
+    general.factory.ZeroAddress[FACTORY, Address],
+    general.factory.InitialTraversal[Factory, Address, Element, TRAVERSAL],
+    CheckAndTrimRestrictive[ARGUMENT, Address],
+    general.element.Read[Element, PATH, CONTENT],
+    general.address.ToPath[Address, PATH],
+    general.address.TrimBig[Address],
+    general.address.Increment[Address],
+    general.content.ToAddress[CONTENT, Address],
+    general.traversal.Next[TRAVERSAL, Address]
+  )(using
+    factory: FACTORY,
+    argument: ARGUMENT
+  ): general.inventory.Fold[Inventory, Address] with
+
+    override
+    def f[RESULT](
+      initial: RESULT
+    )(
+      inventory: Inventory,
+      process: (RESULT, general.Item[Address]) => RESULT
+    ): Either[String, RESULT] =
+
+      @tailrec
+      def accumulate(accumulator: RESULT, traversal: Traversal) =
+        for {
+          optionStep <- traversal.next()
+        } yield optionStep match
+          case None => result
+          case Some(step) =>
+            val newAccumulator = process(accumulator, step.item)
+            accumulate(newAccumulator, optionStep.traversal)
+
+      val initialTraversal = factory.initialTraversal(inventory.next, inventory.root)
+
+      accumulate(initial, initialTraversal)
