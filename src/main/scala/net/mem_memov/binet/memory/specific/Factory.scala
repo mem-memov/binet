@@ -57,14 +57,6 @@ object Factory:
     override
     def f(): Store = store
 
-  given initialTraversal: general.factory.InitialTraversal[Factory, Address, Element, Traversal] with
-
-    override
-    def f(newPath: Address, root: Element): Traversal = Traversal(
-      root = root,
-      nextPath = zeroAddress.f(),
-      newPath = newPath
-    )
 
 
 

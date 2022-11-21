@@ -86,16 +86,15 @@ object Inventory:
         content <- inventory.root.read(trimmedOrigin.toPath)
       } yield content.toAddress.trimBig
 
-  given [ARGUMENT, CONTENT, FACTORY, PATH, TRAVERSAL](using
+  given [ARGUMENT, CONTENT, FACTORY, PATH](using
     general.factory.ZeroAddress[FACTORY, Address],
-    general.factory.InitialTraversal[Factory, Address, Element, TRAVERSAL],
     CheckAndTrimRestrictive[ARGUMENT, Address],
     general.element.Read[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
     general.address.TrimBig[Address],
     general.address.Increment[Address],
-    general.content.ToAddress[CONTENT, Address],
-    general.traversal.Next[TRAVERSAL, Address]
+    Ordering[Address],
+    general.content.ToAddress[CONTENT, Address]
   )(using
     factory: FACTORY,
     argument: ARGUMENT
@@ -110,15 +109,23 @@ object Inventory:
     ): Either[String, RESULT] =
 
       @tailrec
-      def accumulate(accumulator: RESULT, traversal: Traversal) =
-        for {
-          optionStep <- traversal.next()
-        } yield optionStep match
-          case None => result
-          case Some(step) =>
-            val newAccumulator = process(accumulator, step.item)
-            accumulate(newAccumulator, optionStep.traversal)
+      def t(result: RESULT, origin: Address): Either[String, RESULT] =
 
-      val initialTraversal = factory.initialTraversal(inventory.next, inventory.root)
+        if origin == inventory.next then
+          Right(result)
+        else
+          val contentEither = read.f(inventory, origin)
+          contentEither match
+            case Left(error) => Left(error)
+            case Right(content2) =>
+              val newResult = process(
+                result,
+                general.Item(
+                  path = origin,
+                  content = content2
+                )
+              )
+              t(newResult, origin.increment)
 
-      accumulate(initial, initialTraversal)
+      t(initial, factory.zeroAddress())
+
