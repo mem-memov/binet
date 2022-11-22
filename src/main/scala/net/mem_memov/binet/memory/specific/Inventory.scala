@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.general
+import net.mem_memov.binet.memory.{general, specific}
 import net.mem_memov.binet.memory.specific.inventory.specific.Argument
 import net.mem_memov.binet.memory.specific.inventory.general.argument.{CheckAndTrimPermissive, CheckAndTrimRestrictive}
 
@@ -86,18 +86,12 @@ object Inventory:
         content <- inventory.root.read(trimmedOrigin.toPath)
       } yield content.toAddress.trimBig
 
-  given [ARGUMENT, CONTENT, FACTORY, PATH](using
+  given [FACTORY, WALKER](using
     general.factory.ZeroAddress[FACTORY, Address],
-    CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Read[Element, PATH, CONTENT],
-    general.address.ToPath[Address, PATH],
-    general.address.TrimBig[Address],
-    general.address.Increment[Address],
-    Ordering[Address],
-    general.content.ToAddress[CONTENT, Address]
+    specific.inventory.general.walker.Travel[WALKER, Address]
   )(using
     factory: FACTORY,
-    argument: ARGUMENT
+    walker: WALKER
   ): general.inventory.Fold[Inventory, Address] with
 
     override
@@ -108,24 +102,5 @@ object Inventory:
       process: (RESULT, general.Item[Address]) => RESULT
     ): Either[String, RESULT] =
 
-      @tailrec
-      def t(result: RESULT, origin: Address): Either[String, RESULT] =
-
-        if origin == inventory.next then
-          Right(result)
-        else
-          val contentEither = read.f(inventory, origin)
-          contentEither match
-            case Left(error) => Left(error)
-            case Right(content) =>
-              val newResult = process(
-                result,
-                general.Item(
-                  path = origin,
-                  content = content
-                )
-              )
-              t(newResult, origin.increment)
-
-      t(initial, factory.zeroAddress())
+      walker.travel(initial, factory.zeroAddress(), process)
 
