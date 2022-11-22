@@ -13,7 +13,7 @@ trait Fold[INVENTORY, ADDRESS]:
 
   extension (inventory: INVENTORY)
 
-    def slice[RESULT](
+    def fold[RESULT](
       initial: RESULT
     )(
       process: (RESULT, Item[ADDRESS]) => RESULT
