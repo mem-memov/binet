@@ -12,7 +12,7 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
   val zeroAddressStub: AddressStub = new AddressStub
 
   class FactoryStub
-  given factoryStub: FactoryStub = new FactoryStub
+  given FactoryStub = new FactoryStub
 
   test("Checker approves an address below the inventory boundary") {
 
@@ -23,7 +23,7 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
           case _ => fail("unexpected")
 
     given general.factory.ZeroAddress[FactoryStub, AddressStub] with
-      override def f(): AddressStub = 
+      override def f(): AddressStub =
         fail("unexpected")
 
     val checker = new Checker

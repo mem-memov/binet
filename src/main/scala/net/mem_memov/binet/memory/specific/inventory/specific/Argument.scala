@@ -10,40 +10,40 @@ class Argument
 
 object Argument:
 
-  given [CHECKER, TRIMMER](using
+  given [ADDRESS, CHECKER, TRIMMER](using
+    CheckBoundaryPermissively[CHECKER, ADDRESS],
+    Trim[TRIMMER, ADDRESS]
+  )(using
     checker: CHECKER,
     trimmer: TRIMMER
-  )(using
-    CheckBoundaryPermissively[CHECKER, Address],
-    Trim[TRIMMER, Address]
-  ): CheckAndTrimPermissive[Argument, Address] with
+  ): CheckAndTrimPermissive[Argument, ADDRESS] with
 
     override
     def f(
       argument: Argument,
-      next: Address,
-      address: Address
-    ): Either[String, Address] =
+      next: ADDRESS,
+      address: ADDRESS
+    ): Either[String, ADDRESS] =
 
       for {
         trimmedAddress <- Right(trimmer.trim(address))
         _ <- checker.checkBoundaryPermissively(next, trimmedAddress)
       } yield trimmedAddress
 
-  given [CHECKER, TRIMMER](using
+  given [ADDRESS, CHECKER, TRIMMER](using
+    CheckBoundaryRestrictively[CHECKER, ADDRESS],
+    Trim[TRIMMER, ADDRESS]
+  )(using
     checker: CHECKER,
     trimmer: TRIMMER
-  )(using
-    CheckBoundaryRestrictively[CHECKER, Address],
-    Trim[TRIMMER, Address]
-  ): CheckAndTrimRestrictive[Argument, Address] with
+  ): CheckAndTrimRestrictive[Argument, ADDRESS] with
 
     override
     def f(
       argument: Argument,
-      next: Address,
-      address: Address
-    ): Either[String, Address] =
+      next: ADDRESS,
+      address: ADDRESS
+    ): Either[String, ADDRESS] =
 
       for {
         trimmedAddress <- Right(trimmer.trim(address))
