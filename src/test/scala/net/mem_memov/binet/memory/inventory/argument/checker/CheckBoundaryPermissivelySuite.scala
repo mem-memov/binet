@@ -23,7 +23,8 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
           case _ => fail("unexpected")
 
     given general.factory.ZeroAddress[FactoryStub, AddressStub] with
-      override def f(): AddressStub = fail("unexpected")
+      override def f(): AddressStub = 
+        fail("unexpected")
 
     val checker = new Checker
 
