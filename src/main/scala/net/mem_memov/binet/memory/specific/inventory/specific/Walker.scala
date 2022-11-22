@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.specific.inventory.specific
 
 import net.mem_memov.binet.memory.{general, specific}
 import scala.annotation.tailrec
+import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
 class Walker
 

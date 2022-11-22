@@ -71,6 +71,10 @@ object Address:
 
       orderer.compare(y, y)
 
+  given canEq: CanEqual[Address, Address] =
+
+    CanEqual.derived
+
   given general.address.ToString[Address] with
 
     override
