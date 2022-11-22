@@ -1,8 +1,8 @@
 package net.mem_memov.binet.memory.inventory.walker
 
-import net.mem_memov.binet.memory.general
-import net.mem_memov.binet.memory.specific.inventory.specific.Walker
-import net.mem_memov.binet.memory.specific.inventory.specific.Walker.given
+//import net.mem_memov.binet.memory.general
+//import net.mem_memov.binet.memory.specific.inventory.specific.Walker
+//import net.mem_memov.binet.memory.specific.inventory.specific.Walker.given
 
 class TravelSuite extends munit.FunSuite:
 
@@ -10,8 +10,8 @@ class TravelSuite extends munit.FunSuite:
   val originAddressStub = new AddressStub
   val nextInventoryAddressStub = new AddressStub
 
-  class InventoryStub
-  given InventoryStub = new InventoryStub
+//  class InventoryStub
+//  given InventoryStub = new InventoryStub
 
   test("Walker stops at the inventory border") {
 
@@ -34,8 +34,9 @@ class TravelSuite extends munit.FunSuite:
 //        fail("unexpected")
 
     val c = nextInventoryAddressStub == originAddressStub
-
-    val walker = new Walker
+    val s = 1
+    val m = s + 2
+//    val walker = new Walker
 
 //    val result = walker.travel(
 //      0,
