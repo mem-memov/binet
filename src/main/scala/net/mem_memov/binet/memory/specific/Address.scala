@@ -62,9 +62,9 @@ object Address:
   given ordering[
     ORDERER
   ](using
-    orderer: ORDERER
-  )(using
     Compare[ORDERER, Address]
+  )(using
+    orderer: ORDERER
   ): Ordering[Address] with
 
     override def compare(x: Address, y: Address): Int =

@@ -9,8 +9,10 @@ class Orderer
 object Orderer:
 
   given [
-    FORMATTER : TrimBig
+    FORMATTER
   ](using
+    TrimBig[FORMATTER]
+  )(using
     formatter: FORMATTER
   ): Compare[Orderer, Address] with
 

@@ -1,15 +1,15 @@
 package net.mem_memov.binet.memory.specific.address.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.general.formatter.*
+import net.mem_memov.binet.memory.specific.address.general.formatter.{PadBig, TrimBig}
 
 class Formatter
 
 object Formatter:
 
-  given [
-    FORMATTER : TrimBig
-  ](using
+  given [FORMATTER](using
+    TrimBig[FORMATTER]
+  )(using
     trimmer: FORMATTER
   ): PadBig[Formatter] with
 

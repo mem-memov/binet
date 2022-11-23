@@ -20,6 +20,7 @@ class MemorySuite extends munit.FunSuite:
 
     inventory.root.storeOption.map(_.read(UnsignedByte.fromInt(3)))
 //    inventory.root.stockOption.map(_.read(UnsignedByte.fromInt(3), start.toPath))
+    inventory.append(start)
 
 
 //    for {
