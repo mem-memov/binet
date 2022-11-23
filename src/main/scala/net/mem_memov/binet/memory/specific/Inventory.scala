@@ -41,7 +41,7 @@ object Inventory:
       for {
         trimmedContent <- argument.checkAndTrimPermissive(inventory.next, content)
         updatedRoot <- inventory.root.write(inventory.next.toPath, trimmedContent.toContent)
-        newNext <- Right(inventory.next.increment)
+        newNext <- Right(inventory.next.increment())
       } yield inventory.copy(next = newNext, root = updatedRoot)
 
   given [ARGUMENT, CONTENT, PATH](using

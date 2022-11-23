@@ -7,20 +7,20 @@ import net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.
 class CheckBoundaryRestrictivelySuite extends munit.FunSuite:
 
   class AddressStub
-  val inventoryNextAddressStub: AddressStub = new AddressStub
-  val checkedAddressStub: AddressStub = new AddressStub
+  object InventoryNextAddressStub extends AddressStub
+  object CheckedAddressStub extends AddressStub
 
   test("Checker approves an address below the inventory boundary") {
 
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => 1
+          case (InventoryNextAddressStub, CheckedAddressStub) => 1
           case _ => fail("unexpected")
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryRestrictively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryRestrictively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result.isRight)
   }
@@ -30,12 +30,12 @@ class CheckBoundaryRestrictivelySuite extends munit.FunSuite:
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => -1
+          case (InventoryNextAddressStub, CheckedAddressStub) => -1
           case _ => fail("unexpected")
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryRestrictively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryRestrictively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result == Left("Address out of restrictive boundary"))
   }
@@ -45,12 +45,12 @@ class CheckBoundaryRestrictivelySuite extends munit.FunSuite:
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => 0
+          case (InventoryNextAddressStub, CheckedAddressStub) => 0
           case _ => fail("unexpected")
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryRestrictively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryRestrictively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result == Left("Address out of restrictive boundary"))
   }

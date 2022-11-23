@@ -27,7 +27,7 @@ object Walker:
       process: (RESULT, general.Item[ADDRESS]) => RESULT
     ): Either[String, RESULT] =
 
-      if origin == inventory.next() then
+      if origin equiv inventory.next() then
         Right(result)
       else
         val contentEither = inventory.read(origin)
@@ -42,4 +42,4 @@ object Walker:
                 content = content
               )
             )
-            f(walker, newResult, origin.increment, process)
+            f(walker, newResult, origin.increment(), process)

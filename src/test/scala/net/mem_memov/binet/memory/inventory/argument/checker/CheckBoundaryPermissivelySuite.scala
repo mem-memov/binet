@@ -7,9 +7,9 @@ import net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.
 class CheckBoundaryPermissivelySuite extends munit.FunSuite:
 
   class AddressStub
-  val inventoryNextAddressStub: AddressStub = new AddressStub
-  val checkedAddressStub: AddressStub = new AddressStub
-  val zeroAddressStub: AddressStub = new AddressStub
+  object InventoryNextAddressStub extends AddressStub
+  object CheckedAddressStub extends AddressStub
+  object ZeroAddressStub extends AddressStub
 
   class FactoryStub
   given FactoryStub = new FactoryStub
@@ -19,7 +19,7 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => 1
+          case (InventoryNextAddressStub, CheckedAddressStub) => 1
           case _ => fail("unexpected")
 
     given general.factory.ZeroAddress[FactoryStub, AddressStub] with
@@ -28,7 +28,7 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryPermissively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryPermissively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result.isRight)
   }
@@ -38,17 +38,17 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => 1
-          case (inventoryNextAddressStub, zeroAddressStub) => 0
+          case (InventoryNextAddressStub, CheckedAddressStub) => 1
+          case (InventoryNextAddressStub, ZeroAddressStub) => 0
           case _ => fail("unexpected")
 
     given general.factory.ZeroAddress[FactoryStub, AddressStub] with
       override def f(): AddressStub =
-        zeroAddressStub
+        ZeroAddressStub
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryPermissively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryPermissively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result.isRight)
   }
@@ -58,17 +58,17 @@ class CheckBoundaryPermissivelySuite extends munit.FunSuite:
     given Ordering[AddressStub] with
       override def compare(x: AddressStub, y: AddressStub): Int =
         (x, y) match
-          case (inventoryNextAddressStub, checkedAddressStub) => -1
-          case (inventoryNextAddressStub, zeroAddressStub) => 1
+          case (InventoryNextAddressStub, CheckedAddressStub) => -1
+          case (InventoryNextAddressStub, ZeroAddressStub) => 1
           case _ => fail("unexpected")
 
     given general.factory.ZeroAddress[FactoryStub, AddressStub] with
       override def f(): AddressStub =
-        zeroAddressStub
+        ZeroAddressStub
 
     val checker = new Checker
 
-    val result = checker.checkBoundaryPermissively(inventoryNextAddressStub, checkedAddressStub)
+    val result = checker.checkBoundaryPermissively(InventoryNextAddressStub, CheckedAddressStub)
 
     assert(result == Left("Address out of permissive boundary"))
   }

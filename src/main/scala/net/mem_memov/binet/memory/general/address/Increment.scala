@@ -8,6 +8,6 @@ trait Increment[ADDRESS]:
 
   extension (address: ADDRESS)
 
-    def increment: ADDRESS =
+    def increment(): ADDRESS =
 
       f(address)
