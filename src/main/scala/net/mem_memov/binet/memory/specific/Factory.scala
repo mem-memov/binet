@@ -57,6 +57,14 @@ object Factory:
     override
     def f(): Store = store
 
+  given emptyInventory: general.factory.EmptyInventory[Factory, Inventory] with
+
+    lazy
+    val inventory: Inventory = Inventory(zeroAddress.f(), emptyElement.f())
+
+    override
+    def f(): Inventory = inventory
+
 
 
 
