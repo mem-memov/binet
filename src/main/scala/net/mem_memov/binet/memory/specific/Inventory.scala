@@ -24,10 +24,10 @@ object Inventory:
 
   given net_mem_memov_binet_memory_specific_Inventory_Append[ARGUMENT, CONTENT, PATH](using
     CheckAndTrimPermissive[ARGUMENT, Address],
-    general.element.Write[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
     general.address.ToContent[Address, CONTENT],
-    general.address.Increment[Address]
+    general.address.Increment[Address],
+    general.element.Write[Element, PATH, CONTENT]
   )(using
     argument: ARGUMENT
   ): general.inventory.Append[Inventory, Address] with
