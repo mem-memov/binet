@@ -1,7 +1,7 @@
-package net.mem_memov.binet.memory.address.specific.formatter
+package net.mem_memov.binet.memory.address.trimmer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.specific.Formatter
+import net.mem_memov.binet.memory.specific.address.specific.Trimmer
 
 class TrimBigSuite extends munit.FunSuite:
 
@@ -13,9 +13,9 @@ class TrimBigSuite extends munit.FunSuite:
     val originalIndices = List(min, min, max)
     val expectedIndices = List(max)
 
-    val formatter = new Formatter
+    val trimmer = new Trimmer
 
-    val result = formatter.trimBig(originalIndices)
+    val result = trimmer.trimBig(originalIndices)
 
     assert(result == expectedIndices)
   }
@@ -24,9 +24,9 @@ class TrimBigSuite extends munit.FunSuite:
 
     val originalIndices = List(max, max)
 
-    val formatter = new Formatter
+    val trimmer = new Trimmer
 
-    val result = formatter.trimBig(originalIndices)
+    val result = trimmer.trimBig(originalIndices)
 
     assert(result.equals(originalIndices))
   }

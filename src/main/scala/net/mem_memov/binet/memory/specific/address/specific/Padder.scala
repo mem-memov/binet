@@ -1,21 +1,24 @@
 package net.mem_memov.binet.memory.specific.address.specific
 
 import net.mem_memov.binet.memory.general.UnsignedByte
-import net.mem_memov.binet.memory.specific.address.general.formatter.{PadBig, TrimBig}
+import net.mem_memov.binet.memory.specific.address.general.trimmer.TrimBig
+import net.mem_memov.binet.memory.specific.address.general.padder.PadBig
 
-class Formatter
+class Padder
 
-object Formatter:
+object Padder:
 
-  given [FORMATTER](using
-    TrimBig[FORMATTER]
+  given net_mem_memov_binet_memory_specific_address_specific_Padder_PadBig[
+    TRIMMER
+  ](using
+    TrimBig[TRIMMER]
   )(using
-    trimmer: FORMATTER
-  ): PadBig[Formatter] with
+    trimmer: TRIMMER
+  ): PadBig[Padder] with
 
     override
     def f(
-      formatter: Formatter,
+      padder: Padder,
       target: Int,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
@@ -35,17 +38,4 @@ object Formatter:
               List.fill(target - indices.length)(UnsignedByte.minimum) ++ indices
             )
 
-  given TrimBig[Formatter] with
 
-    override
-    def f(
-      formatter: Formatter,
-      indices: List[UnsignedByte]
-    ): List[UnsignedByte] =
-
-      val trimmedIndices = indices.dropWhile(_.atMinimum)
-
-      if trimmedIndices.isEmpty then
-        List(UnsignedByte.minimum)
-      else
-        trimmedIndices

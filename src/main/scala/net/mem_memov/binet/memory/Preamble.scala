@@ -10,7 +10,8 @@ object Preamble:
 
   export specific.Preamble.given
 
-//  export specific.address.specific.Formatter.given
+//  export specific.address.specific.Padder.given
+//  export specific.address.specific.Trimmer.given
 //  given specific.address.specific.Orderer = new specific.address.specific.Orderer
 //  export specific.address.specific.Orderer.given
 //  export specific.address.specific.Resizer.given

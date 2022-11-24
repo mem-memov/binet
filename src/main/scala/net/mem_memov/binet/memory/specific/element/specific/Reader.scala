@@ -8,7 +8,7 @@ class Reader
 
 object Reader:
 
-  given [CONTENT, FACTORY, PATH, STOCK](using
+  given net_mem_memov_binet_memory_specific_element_specific_Reader_ReadStock[CONTENT, FACTORY, PATH, STOCK](using
     general.factory.EmptyStock[FACTORY, STOCK],
     general.stock.Read[STOCK, CONTENT, PATH]
   )(using
@@ -25,7 +25,7 @@ object Reader:
       val presentStock = stockOption.getOrElse(factory.emptyStock())
       presentStock.read(pathSplit.index, pathSplit.rest)
 
-  given [ADDRESS, CONTENT, FACTORY, PATH, STORE](using
+  given net_mem_memov_binet_memory_specific_element_specific_Reader_ReadStore[ADDRESS, CONTENT, FACTORY, PATH, STORE](using
     general.factory.EmptyStore[FACTORY, STORE],
     general.store.Read[STORE, ADDRESS],
     general.address.ToContent[ADDRESS, CONTENT]

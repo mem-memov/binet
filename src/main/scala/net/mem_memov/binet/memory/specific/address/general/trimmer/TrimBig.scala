@@ -1,22 +1,18 @@
-package net.mem_memov.binet.memory.specific.address.general.formatter
+package net.mem_memov.binet.memory.specific.address.general.trimmer
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 
-trait TrimBig[FORMATTER]:
+trait TrimBig[TRIMMER]:
 
   def f(
-    formatter: FORMATTER,
+    trimmer: TRIMMER,
     indices: List[UnsignedByte]
   ): List[UnsignedByte]
 
-  extension (formatter: FORMATTER) {
+  extension (trimmer: TRIMMER) {
     def trimBig(
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 
-      f(formatter, indices)
+      f(trimmer, indices)
   }
-
-
-
-

@@ -12,7 +12,7 @@ case class Element(
 
 object Element:
 
-  given [CONTENT, PATH, READER](using
+  given net_mem_memov_binet_memory_specific_Element_Read[CONTENT, PATH, READER](using
     ReadStock[READER, CONTENT, PATH, Stock],
     ReadStore[READER, CONTENT, PATH, Store],
     general.path.IsEmpty[PATH],
@@ -36,7 +36,7 @@ object Element:
             reader.readStock(element.stockOption, pathSplit)
       } yield content
 
-  given [CONTENT, PATH, WRITER](using
+  given net_mem_memov_binet_memory_specific_Element_Write[CONTENT, PATH, WRITER](using
     WriteStock[WRITER, CONTENT, PATH, Stock],
     WriteStore[WRITER, CONTENT, PATH, Store],
     general.path.IsEmpty[PATH],

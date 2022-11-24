@@ -13,7 +13,7 @@ case class Inventory(
 
 object Inventory:
 
-  given general.inventory.Next[Inventory, Address] with
+  given net_mem_memov_binet_memory_specific_Inventory_Next: general.inventory.Next[Inventory, Address] with
 
     override
     def f(
@@ -22,7 +22,7 @@ object Inventory:
 
       inventory.next
 
-  given [ARGUMENT, CONTENT, PATH](using
+  given net_mem_memov_binet_memory_specific_Inventory_Append[ARGUMENT, CONTENT, PATH](using
     CheckAndTrimPermissive[ARGUMENT, Address],
     general.element.Write[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
@@ -44,7 +44,7 @@ object Inventory:
         newNext <- Right(inventory.next.increment())
       } yield inventory.copy(next = newNext, root = updatedRoot)
 
-  given [ARGUMENT, CONTENT, PATH](using
+  given net_mem_memov_binet_memory_specific_Inventory_Update[ARGUMENT, CONTENT, PATH](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
     general.element.Write[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
@@ -65,7 +65,7 @@ object Inventory:
         updatedRoot <- inventory.root.write(trimmedDestination.toPath, trimmedContent.toContent)
       } yield inventory.copy(root = updatedRoot)
 
-  given read[ARGUMENT, CONTENT, PATH](using
+  given net_mem_memov_binet_memory_specific_Inventory_Read[ARGUMENT, CONTENT, PATH](using
     CheckAndTrimRestrictive[ARGUMENT, Address],
     general.element.Read[Element, PATH, CONTENT],
     general.address.ToPath[Address, PATH],
@@ -86,7 +86,7 @@ object Inventory:
         content <- inventory.root.read(trimmedOrigin.toPath)
       } yield content.toAddress.trimBig
 
-  given [FACTORY, WALKER](using
+  given net_mem_memov_binet_memory_specific_Inventory_Fold[FACTORY, WALKER](using
     general.factory.ZeroAddress[FACTORY, Address],
     specific.inventory.general.walker.Travel[WALKER, Address]
   )(using

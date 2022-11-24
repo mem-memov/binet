@@ -21,3 +21,6 @@ object Preamble:
 
   export Stock.given
 
+  export store.specific.Preamble.given
+  export Store.given
+

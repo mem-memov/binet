@@ -8,7 +8,7 @@ class Walker
 
 object Walker:
 
-  given [ADDRESS, INVENTORY](using
+  given net_mem_memov_binet_memory_specific_inventory_specific_Walker_Travel[ADDRESS, INVENTORY](using
     general.address.Increment[ADDRESS],
     Ordering[ADDRESS],
     general.inventory.Read[INVENTORY, ADDRESS],

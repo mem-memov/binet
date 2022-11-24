@@ -8,7 +8,7 @@ class Resizer
 
 object Resizer:
 
-  given Decrement[Resizer] with
+  given net_mem_memov_binet_memory_specific_address_specific_Resizer_Decrement: Decrement[Resizer] with
 
     override
     def f(
@@ -42,7 +42,7 @@ object Resizer:
     def minusOne(x: UnsignedByte): (UnsignedByte, Boolean) =
       if x.atMinimum then (UnsignedByte.maximum, true) else (x.decrement, false)
 
-  given Increment[Resizer] with
+  given net_mem_memov_binet_memory_specific_address_specific_Resizer_Increment: Increment[Resizer] with
 
     override
     def f(

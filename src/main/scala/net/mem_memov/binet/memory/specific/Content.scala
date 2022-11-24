@@ -8,7 +8,7 @@ case class Content(
 
 object Content:
 
-  given [BLOCK, FACTORY](using
+  given net_mem_memov_binet_memory_specific_Content_SupplementBlocks[BLOCK, FACTORY](using
     general.factory.EmptyBlock[FACTORY, BLOCK]
   )(using
     factory: FACTORY
@@ -25,7 +25,7 @@ object Content:
       else
         Vector.empty[BLOCK]
 
-  given [ADDRESS, FACTORY](using
+  given net_mem_memov_binet_memory_specific_Content_ToAddress[ADDRESS, FACTORY](using
     general.factory.MakeAddress[FACTORY, ADDRESS]
   )(using
     factory: FACTORY
@@ -40,7 +40,7 @@ object Content:
         content.indices.toList.reverse
       )
 
-  given [
+  given net_mem_memov_binet_memory_specific_Content_Write[
     BLOCK
   ](using
     general.block.Write[BLOCK]

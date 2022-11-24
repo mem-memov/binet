@@ -2,8 +2,8 @@ package net.mem_memov.binet.memory.specific.inventory.specific.argument.specific
 
 object Preamble:
 
-  given Checker = new Checker
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker: Checker = new Checker
   export Checker.given
   
-  given Trimmer = new Trimmer
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer: Trimmer = new Trimmer
   export Trimmer.given

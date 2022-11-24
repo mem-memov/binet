@@ -8,7 +8,7 @@ class Checker
 
 object Checker:
 
-  given [ADDRESS, FACTORY](using
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker_CheckBoundaryPermissively[ADDRESS, FACTORY](using
     Ordering[ADDRESS],
     general.factory.ZeroAddress[FACTORY, ADDRESS]
   )(using
@@ -27,7 +27,7 @@ object Checker:
       else
         Right(())
 
-  given [ADDRESS](using
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker_CheckBoundaryRestrictively[ADDRESS](using
     Ordering[ADDRESS]
   ): CheckBoundaryRestrictively[Checker, ADDRESS] with
 
