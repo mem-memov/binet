@@ -33,7 +33,9 @@ object Stock:
       content: CONTENT
     ): Either[String, Stock] =
 
+      val presentElement = stock.elements(index.toInt)
       for {
-        updatedElement <- stock.elements(index.toInt).write(destination, content)
+
+        updatedElement <- presentElement.write(destination, content)
         updatedElements <- Right(stock.elements.updated(index.toInt, updatedElement))
       } yield stock.copy(elements = updatedElements)
