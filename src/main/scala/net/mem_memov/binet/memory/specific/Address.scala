@@ -17,9 +17,7 @@ case class Address(
 
 object Address:
 
-  given net_mem_memov_binet_memory_specific_Address_PadBig[
-    PADDER
-  ](using
+  given [PADDER](using
     => PadBig[PADDER]
   )(using
     padder: PADDER
@@ -35,9 +33,7 @@ object Address:
         paddedParts <- padder.padBig(target, address.parts)
       } yield Address(paddedParts)
 
-  given net_mem_memov_binet_memory_specific_Address_TrimBig[
-    TRIMMER
-  ](using
+  given [TRIMMER](using
     => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER
@@ -47,9 +43,7 @@ object Address:
 
       Address(trimmer.trimBig(address.parts))
 
-  given net_mem_memov_binet_memory_specific_Address_Decrement[
-    RESIZER
-  ](using
+  given [RESIZER](using
     => Decrement[RESIZER]
   )(using
     resizer: RESIZER
@@ -62,9 +56,7 @@ object Address:
 
       resizer.decrement(address.parts).map(indices => address.copy(parts = indices))
 
-  given net_mem_memov_binet_memory_specific_Address_Increment[
-    RESIZER
-  ](using
+  given [RESIZER](using
     => Increment[RESIZER]
   )(using
     resizer: RESIZER
@@ -77,7 +69,7 @@ object Address:
 
       address.copy(parts = resizer.increment(address.parts))
 
-  given net_mem_memov_binet_memory_specific_Address_IsEmpty: general.address.IsEmpty[Address] with
+  given general.address.IsEmpty[Address] with
 
     override
     def f(
@@ -86,7 +78,7 @@ object Address:
 
       address.parts.isEmpty
 
-  given net_mem_memov_binet_memory_specific_Address_IsZero: general.address.IsZero[Address] with
+  given general.address.IsZero[Address] with
 
     override
     def f(
@@ -95,9 +87,7 @@ object Address:
 
       address.parts.length == 1 && address.parts.head == general.UnsignedByte.minimum
 
-  given net_mem_memov_binet_memory_specific_Address_Ordering[
-    ORDERER
-  ](using
+  given [ORDERER](using
     => Compare[ORDERER, Address]
   )(using
     orderer: ORDERER
@@ -107,7 +97,7 @@ object Address:
 
       orderer.compare(y, y)
 
-  given net_mem_memov_binet_memory_specific_Address_ToString: general.address.ToString[Address] with
+  given general.address.ToString[Address] with
 
     override
     def f(
@@ -116,7 +106,7 @@ object Address:
 
       address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
 
-  given net_mem_memov_binet_memory_specific_Address_ToContent: general.address.ToContent[Address, Content] with
+  given general.address.ToContent[Address, Content] with
 
     override
     def f(
@@ -125,7 +115,7 @@ object Address:
 
       Content(address.parts.reverse.toVector)
 
-  given net_mem_memov_binet_memory_specific_Address_ToPath: general.address.ToPath[Address, Path] with
+  given general.address.ToPath[Address, Path] with
 
     override
     def f(

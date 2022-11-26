@@ -8,7 +8,7 @@ case class Path (
 
 object Path:
 
-  given net_mem_memov_binet_memory_specific_Path_IsEmpty: general.path.IsEmpty[Path] with
+  given general.path.IsEmpty[Path] with
 
     override
     def f(
@@ -17,7 +17,7 @@ object Path:
 
       path.indices.isEmpty
 
-  given net_mem_memov_binet_memory_specific_Path_Shorten: general.path.Shorten[Path] with
+  given general.path.Shorten[Path] with
 
     override
     def f(

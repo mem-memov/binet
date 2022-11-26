@@ -14,7 +14,7 @@ case class Block(
 
 object Block:
 
-  given net_mem_memov_binet_memory_specific_Block_IsEmpty: general.block.IsEmpty[Block] with
+  given general.block.IsEmpty[Block] with
 
     override
     def f(
@@ -23,7 +23,7 @@ object Block:
 
       block.space.forall(_.atMinimum)
 
-  given net_mem_memov_binet_memory_specific_Block_Read: general.block.Read[Block] with
+  given general.block.Read[Block] with
 
     override
     def f(
@@ -33,7 +33,7 @@ object Block:
 
       block.space(position.toInt)
 
-  given net_mem_memov_binet_memory_specific_Block_Write: general.block.Write[Block] with
+  given general.block.Write[Block] with
 
     override
     def f(

@@ -8,7 +8,7 @@ class Trimmer
 
 object Trimmer:
 
-  given net_mem_memov_binet_memory_specific_address_specific_Trimmer_TrimBig: TrimBig[Trimmer] with
+  given TrimBig[Trimmer] with
 
     override
     def f(

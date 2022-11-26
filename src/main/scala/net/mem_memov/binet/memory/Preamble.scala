@@ -14,47 +14,6 @@ object Preamble:
 //  def getStartAddress: specific.Address = factory.zeroAddress()
 
 
-//  given net_mem_memov_binet_memory_specific_address_specific_Orderer: Orderer = new Orderer
-//  //  export Orderer.given
-//
-//  given net_mem_memov_binet_memory_specific_address_specific_Padder: Padder = new Padder
-//  //  export Padder.given
-//
-//  given net_mem_memov_binet_memory_specific_address_specific_Resizer: Resizer = new Resizer
-//  //  export Resizer.given
-//
-//  given net_mem_memov_binet_memory_specific_address_specific_Trimmer: Trimmer = new Trimmer
-////  export Trimmer.given
-//
-//  given net_mem_memov_binet_memory_specific_element_specific_Reader: Reader = new Reader
-//  //  export Reader.given
-//
-//  given net_mem_memov_binet_memory_specific_element_specific_Writer: Writer = new Writer
-////  export Writer.given
-//
-//  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker: Checker = new Checker
-//  //  export Checker.given
-//
-//  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer: net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.Trimmer = new net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.Trimmer
-////  export Trimmer.given
-//
-//  given net_mem_memov_binet_memory_specific_inventory_specific_Argument: Argument = new Argument
-//  //  export Argument.given
-//
-//  given net_mem_memov_binet_memory_specific_inventory_specific_Walker: Walker = new Walker
-////  export Walker.given
-//
-//  export specific.Address.given
-//  export specific.Block.given
-//  export specific.Content.given
-//  export specific.Element.given
-//  export specific.Factory.given
-//  export specific.Path.given
-//  export specific.Stock.given
-//  export specific.Store.given
-
-
-//  export specific.Preamble.given
 
   export specific.address.specific.Padder.given
   export specific.address.specific.Trimmer.given
@@ -64,13 +23,18 @@ object Preamble:
   export specific.address.specific.Resizer.given
   given specific.address.specific.Resizer = new specific.address.specific.Resizer
   export specific.Address.given
+  
   export specific.Block.given
+  
   export specific.Content.given
+  
   export specific.element.specific.Reader.given
   export specific.element.specific.Writer.given
   given specific.element.specific.Writer = new specific.element.specific.Writer
   export specific.Element.given
+  
   export specific.Factory.given
+  
   export specific.inventory.specific.argument.specific.Checker.given
   given specific.inventory.specific.argument.specific.Checker = new specific.inventory.specific.argument.specific.Checker
   export specific.inventory.specific.argument.specific.Trimmer.given
@@ -79,8 +43,11 @@ object Preamble:
   given specific.inventory.specific.Argument = new specific.inventory.specific.Argument
   export specific.inventory.specific.Walker.given
   export specific.Inventory.given
+  
   export specific.Path.given
+  
   export specific.Stock.given
+  
   export specific.store.specific.Trimmer.given
   given storeTrimmer: specific.store.specific.Trimmer = new specific.store.specific.Trimmer
   export specific.Store.given

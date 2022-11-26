@@ -10,7 +10,7 @@ class Argument
 
 object Argument:
 
-  given net_mem_memov_binet_memory_specific_inventory_specific_Argument_CheckAndTrimPermissive[ADDRESS, CHECKER, TRIMMER](using
+  given [ADDRESS, CHECKER, TRIMMER](using
     => CheckBoundaryPermissively[CHECKER, ADDRESS],
     => Trim[TRIMMER, ADDRESS]
   )(using
@@ -30,7 +30,7 @@ object Argument:
         _ <- checker.checkBoundaryPermissively(next, trimmedAddress)
       } yield trimmedAddress
 
-  given net_mem_memov_binet_memory_specific_inventory_specific_Argument_CheckAndTrimRestrictive[ADDRESS, CHECKER, TRIMMER](using
+  given [ADDRESS, CHECKER, TRIMMER](using
     => CheckBoundaryRestrictively[CHECKER, ADDRESS],
     => Trim[TRIMMER, ADDRESS]
   )(using

@@ -10,7 +10,7 @@ case class Store(
 
 object Store:
 
-  given net_mem_memov_binet_memory_specific_Store_Read[ADDRESS, FACTORY](using
+  given [ADDRESS, FACTORY](using
     => general.factory.MakeAddress[FACTORY, ADDRESS]
   )(using
     factory: FACTORY
@@ -29,10 +29,7 @@ object Store:
 
       factory.makeAddress(parts)
 
-  given net_mem_memov_binet_memory_specific_Store_Write[
-    TRIMMER,
-    CONTENT
-  ](using
+  given [TRIMMER, CONTENT](using
     => TrimRight[TRIMMER, Block],
     => SupplementBlocks[CONTENT, Block],
     => Write[CONTENT, Block]

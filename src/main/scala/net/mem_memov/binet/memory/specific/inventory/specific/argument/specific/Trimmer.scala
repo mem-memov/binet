@@ -9,7 +9,7 @@ class Trimmer
 
 object Trimmer:
 
-  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer_Trim[ADDRESS, FACTORY](using
+  given [ADDRESS, FACTORY](using
     => IsEmpty[ADDRESS],
     => TrimBig[ADDRESS],
     => general.factory.ZeroAddress[FACTORY, ADDRESS]

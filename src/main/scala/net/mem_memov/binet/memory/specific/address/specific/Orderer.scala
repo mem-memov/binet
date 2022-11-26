@@ -8,9 +8,7 @@ class Orderer
 
 object Orderer:
 
-  given net_mem_memov_binet_memory_specific_address_specific_Orderer_Compare[
-    TRIMMER
-  ](using
+  given [TRIMMER](using
     => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER

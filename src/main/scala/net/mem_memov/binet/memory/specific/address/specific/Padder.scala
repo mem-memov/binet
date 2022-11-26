@@ -8,9 +8,7 @@ class Padder
 
 object Padder:
 
-  given net_mem_memov_binet_memory_specific_address_specific_Padder_PadBig[
-    TRIMMER
-  ](using
+  given [TRIMMER](using
     => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER

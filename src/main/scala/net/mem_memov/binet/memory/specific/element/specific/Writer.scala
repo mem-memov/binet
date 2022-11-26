@@ -9,7 +9,7 @@ class Writer
 
 object Writer:
 
-  given net_mem_memov_binet_memory_specific_element_specific_Writer_WriteStock[CONTENT, FACTORY, PATH, STOCK](using
+  given [CONTENT, FACTORY, PATH, STOCK](using
     => general.stock.Write[STOCK, CONTENT, PATH],
     => general.factory.EmptyStock[FACTORY, STOCK]
   )(using
@@ -27,7 +27,7 @@ object Writer:
       val presentStock = stockOption.getOrElse(factory.emptyStock())
       presentStock.write(pathSplit.index, pathSplit.rest, content)
 
-  given net_mem_memov_binet_memory_specific_element_specific_Writer_WriteStore[CONTENT, FACTORY, PATH, STORE](using
+  given [CONTENT, FACTORY, PATH, STORE](using
     => general.store.Write[STORE, CONTENT],
     => general.factory.EmptyStore[FACTORY, STORE]
   )(using

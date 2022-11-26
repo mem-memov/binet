@@ -12,7 +12,7 @@ object Factory:
   lazy
   val minimum: general.UnsignedByte = general.UnsignedByte.minimum
 
-  given net_mem_memov_binet_memory_specific_Factory_ZeroAddress: general.factory.ZeroAddress[Factory, Address] with
+  given zeroAddress: general.factory.ZeroAddress[Factory, Address] with
 
     lazy
     val address: Address = Address(List(minimum))
@@ -20,12 +20,12 @@ object Factory:
     override
     def f(): Address = address
 
-  given net_mem_memov_binet_memory_specific_Factory_MakeAddress: general.factory.MakeAddress[Factory, Address] with
+  given makeAddress: general.factory.MakeAddress[Factory, Address] with
 
     override
     def f(indices: List[general.UnsignedByte]): Address = Address(indices)
 
-  given net_mem_memov_binet_memory_specific_Factory_EmptyBlock: general.factory.EmptyBlock[Factory, Block] with
+  given emptyBlock: general.factory.EmptyBlock[Factory, Block] with
 
     lazy
     val block: Block = Block(Vector.fill(length)(minimum))
@@ -33,7 +33,7 @@ object Factory:
     override
     def f(): Block = block
 
-  given net_mem_memov_binet_memory_specific_Factory_EmptyElement: general.factory.EmptyElement[Factory, Element] with
+  given emptyElement: general.factory.EmptyElement[Factory, Element] with
 
     lazy
     val element: Element = Element(None, None)
@@ -41,28 +41,28 @@ object Factory:
     override
     def f(): Element = element
 
-  given net_mem_memov_binet_memory_specific_Factory_EmptyStock: general.factory.EmptyStock[Factory, Stock] with
+  given emptyStock: general.factory.EmptyStock[Factory, Stock] with
 
     lazy
-    val stock: Stock = Stock(Vector.fill(length)(net_mem_memov_binet_memory_specific_Factory_EmptyElement.f()))
+    val stock: Stock = Stock(Vector.fill(length)(emptyElement.f()))
 
     override
     def f(): Stock = stock
 
-  given net_mem_memov_binet_memory_specific_Factory_EmptyStore: general.factory.EmptyStore[Factory, Store] with
+  given emptyStore: general.factory.EmptyStore[Factory, Store] with
 
     lazy
-    val store: Store = Store(Vector(net_mem_memov_binet_memory_specific_Factory_EmptyBlock.f()))
+    val store: Store = Store(Vector(emptyBlock.f()))
 
     override
     def f(): Store = store
 
-  given net_mem_memov_binet_memory_specific_Factory_EmptyInventory: general.factory.EmptyInventory[Factory, Inventory] with
+  given emptyInventory: general.factory.EmptyInventory[Factory, Inventory] with
 
     lazy
     val inventory: Inventory = Inventory(
-      net_mem_memov_binet_memory_specific_Factory_ZeroAddress.f(),
-      net_mem_memov_binet_memory_specific_Factory_EmptyElement.f()
+      zeroAddress.f(),
+      emptyElement.f()
     )
 
     override
