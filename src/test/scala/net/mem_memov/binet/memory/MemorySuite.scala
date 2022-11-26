@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory
 
 import net.mem_memov.binet.memory.general.UnsignedByte
 import net.mem_memov.binet.memory.specific.Inventory
+import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
 class MemorySuite extends munit.FunSuite:
 
@@ -18,13 +19,14 @@ class MemorySuite extends munit.FunSuite:
 
     val start = factory.zeroAddress()
 
-//    inventory.root.storeOption.map(_.read(UnsignedByte.fromInt(3)))
-//    inventory.root.stockOption.map(_.read(UnsignedByte.fromInt(3), start.toPath))
     inventory.append(start)
 
 
-//    for {
-//      result <- inventory.append(start)
-//    } yield assert(true)
+    for {
+      modifiedInventory <- inventory.append(start)
+    } yield assert(modifiedInventory.next equiv start.increment())
 
+    for {
+      content <- inventory.read(start)
+    } assert(content equiv start)
   }
