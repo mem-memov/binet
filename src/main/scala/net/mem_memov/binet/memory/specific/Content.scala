@@ -9,7 +9,7 @@ case class Content(
 object Content:
 
   given net_mem_memov_binet_memory_specific_Content_SupplementBlocks[BLOCK, FACTORY](using
-    general.factory.EmptyBlock[FACTORY, BLOCK]
+    => general.factory.EmptyBlock[FACTORY, BLOCK]
   )(using
     factory: FACTORY
   ):general.content.SupplementBlocks[Content, BLOCK] with
@@ -26,7 +26,7 @@ object Content:
         Vector.empty[BLOCK]
 
   given net_mem_memov_binet_memory_specific_Content_ToAddress[ADDRESS, FACTORY](using
-    general.factory.MakeAddress[FACTORY, ADDRESS]
+    => general.factory.MakeAddress[FACTORY, ADDRESS]
   )(using
     factory: FACTORY
   ): general.content.ToAddress[Content, ADDRESS] with
@@ -43,7 +43,7 @@ object Content:
   given net_mem_memov_binet_memory_specific_Content_Write[
     BLOCK
   ](using
-    general.block.Write[BLOCK]
+    => general.block.Write[BLOCK]
   ): general.content.Write[Content, BLOCK] with
 
     override

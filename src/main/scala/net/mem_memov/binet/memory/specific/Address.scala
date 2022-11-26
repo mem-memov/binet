@@ -20,7 +20,7 @@ object Address:
   given net_mem_memov_binet_memory_specific_Address_PadBig[
     PADDER
   ](using
-    PadBig[PADDER]
+    => PadBig[PADDER]
   )(using
     padder: PADDER
   ): general.address.PadBig[Address] with
@@ -38,7 +38,7 @@ object Address:
   given net_mem_memov_binet_memory_specific_Address_TrimBig[
     TRIMMER
   ](using
-    TrimBig[TRIMMER]
+    => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER
   ):general.address.TrimBig[Address] with
@@ -48,8 +48,10 @@ object Address:
       Address(trimmer.trimBig(address.parts))
 
   given net_mem_memov_binet_memory_specific_Address_Decrement[
-    RESIZER : Decrement
+    RESIZER
   ](using
+    => Decrement[RESIZER]
+  )(using
     resizer: RESIZER
   ): general.address.Decrement[Address] with
 
@@ -61,8 +63,10 @@ object Address:
       resizer.decrement(address.parts).map(indices => address.copy(parts = indices))
 
   given net_mem_memov_binet_memory_specific_Address_Increment[
-    RESIZER: Increment
+    RESIZER
   ](using
+    => Increment[RESIZER]
+  )(using
     resizer: RESIZER
   ): general.address.Increment[Address] with
 
@@ -94,7 +98,7 @@ object Address:
   given net_mem_memov_binet_memory_specific_Address_Ordering[
     ORDERER
   ](using
-    Compare[ORDERER, Address]
+    => Compare[ORDERER, Address]
   )(using
     orderer: ORDERER
   ): Ordering[Address] with

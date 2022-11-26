@@ -56,33 +56,34 @@ object Preamble:
 
 //  export specific.Preamble.given
 
-//  export specific.address.specific.Padder.given
+  export specific.address.specific.Padder.given
   export specific.address.specific.Trimmer.given
   given specific.address.specific.Trimmer = new specific.address.specific.Trimmer
   export specific.address.specific.Orderer.given
   given specific.address.specific.Orderer = new specific.address.specific.Orderer
   export specific.address.specific.Resizer.given
   given specific.address.specific.Resizer = new specific.address.specific.Resizer
-//  export specific.Address.given
-//  export specific.Block.given
-//  export specific.Content.given
-//  export specific.element.specific.Reader.given
+  export specific.Address.given
+  export specific.Block.given
+  export specific.Content.given
+  export specific.element.specific.Reader.given
   export specific.element.specific.Writer.given
-//  given specific.element.specific.Writer = new specific.element.specific.Writer
+  given specific.element.specific.Writer = new specific.element.specific.Writer
   export specific.Element.given
-//  given specific.Element = new specific.Element(None, None)
   export specific.Factory.given
   export specific.inventory.specific.argument.specific.Checker.given
   given specific.inventory.specific.argument.specific.Checker = new specific.inventory.specific.argument.specific.Checker
   export specific.inventory.specific.argument.specific.Trimmer.given
   given argumentTrimmer: specific.inventory.specific.argument.specific.Trimmer = new specific.inventory.specific.argument.specific.Trimmer
   export specific.inventory.specific.Argument.given
-//  export specific.inventory.specific.Walker.given
-//  export specific.Inventory.given
+  given specific.inventory.specific.Argument = new specific.inventory.specific.Argument
+  export specific.inventory.specific.Walker.given
+  export specific.Inventory.given
   export specific.Path.given
-//  export specific.Stock.given
-//  export specific.store.specific.Trimmer.given
-//  export specific.Store.given
+  export specific.Stock.given
+  export specific.store.specific.Trimmer.given
+  given storeTrimmer: specific.store.specific.Trimmer = new specific.store.specific.Trimmer
+  export specific.Store.given
 
 
 

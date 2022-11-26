@@ -11,7 +11,7 @@ object Padder:
   given net_mem_memov_binet_memory_specific_address_specific_Padder_PadBig[
     TRIMMER
   ](using
-    TrimBig[TRIMMER]
+    => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER
   ): PadBig[Padder] with

@@ -13,10 +13,10 @@ case class Element(
 object Element:
 
   given net_mem_memov_binet_memory_specific_Element_Read[CONTENT, PATH, READER](using
-    ReadStock[READER, CONTENT, PATH, Stock],
-    ReadStore[READER, CONTENT, PATH, Store],
-    general.path.IsEmpty[PATH],
-    general.path.Shorten[PATH]
+    => ReadStock[READER, CONTENT, PATH, Stock],
+    => ReadStore[READER, CONTENT, PATH, Store],
+    => general.path.IsEmpty[PATH],
+    => general.path.Shorten[PATH]
   )(using
     reader: READER
   ): general.element.Read[Element, PATH, CONTENT] with
@@ -37,10 +37,10 @@ object Element:
       } yield content
 
   given net_mem_memov_binet_memory_specific_Element_Write[CONTENT, PATH, WRITER](using
-    WriteStock[WRITER, CONTENT, PATH, Stock],
-    WriteStore[WRITER, CONTENT, PATH, Store],
-    general.path.IsEmpty[PATH],
-    general.path.Shorten[PATH]
+    => WriteStock[WRITER, CONTENT, PATH, Stock],
+    => WriteStore[WRITER, CONTENT, PATH, Store],
+    => general.path.IsEmpty[PATH],
+    => general.path.Shorten[PATH]
   )(using
     writer: WRITER
   ): general.element.Write[Element, PATH, CONTENT] with

@@ -23,11 +23,11 @@ object Inventory:
       inventory.next
 
   given net_mem_memov_binet_memory_specific_Inventory_Append[ARGUMENT, CONTENT, PATH](using
-    CheckAndTrimPermissive[ARGUMENT, Address],
-    general.address.ToPath[Address, PATH],
-    general.address.ToContent[Address, CONTENT],
-    general.address.Increment[Address],
-    general.element.Write[Element, PATH, CONTENT]
+    => CheckAndTrimPermissive[ARGUMENT, Address],
+    => general.address.ToPath[Address, PATH],
+    => general.address.ToContent[Address, CONTENT],
+    => general.address.Increment[Address],
+    => general.element.Write[Element, PATH, CONTENT]
   )(using
     argument: ARGUMENT
   ): general.inventory.Append[Inventory, Address] with
@@ -45,10 +45,10 @@ object Inventory:
       } yield inventory.copy(next = newNext, root = updatedRoot)
 
   given net_mem_memov_binet_memory_specific_Inventory_Update[ARGUMENT, CONTENT, PATH](using
-    CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Write[Element, PATH, CONTENT],
-    general.address.ToPath[Address, PATH],
-    general.address.ToContent[Address, CONTENT]
+    => CheckAndTrimRestrictive[ARGUMENT, Address],
+    => general.element.Write[Element, PATH, CONTENT],
+    => general.address.ToPath[Address, PATH],
+    => general.address.ToContent[Address, CONTENT]
   )(using
     argument: ARGUMENT
   ): general.inventory.Update[Inventory, Address] with
@@ -66,11 +66,11 @@ object Inventory:
       } yield inventory.copy(root = updatedRoot)
 
   given net_mem_memov_binet_memory_specific_Inventory_Read[ARGUMENT, CONTENT, PATH](using
-    CheckAndTrimRestrictive[ARGUMENT, Address],
-    general.element.Read[Element, PATH, CONTENT],
-    general.address.ToPath[Address, PATH],
-    general.address.TrimBig[Address],
-    general.content.ToAddress[CONTENT, Address]
+    => CheckAndTrimRestrictive[ARGUMENT, Address],
+    => general.element.Read[Element, PATH, CONTENT],
+    => general.address.ToPath[Address, PATH],
+    => general.address.TrimBig[Address],
+    => general.content.ToAddress[CONTENT, Address]
   )(using
     argument: ARGUMENT
   ): general.inventory.Read[Inventory, Address] with
@@ -87,8 +87,8 @@ object Inventory:
       } yield content.toAddress.trimBig
 
   given net_mem_memov_binet_memory_specific_Inventory_Fold[FACTORY, WALKER](using
-    general.factory.ZeroAddress[FACTORY, Address],
-    specific.inventory.general.walker.Travel[WALKER, Address]
+    => general.factory.ZeroAddress[FACTORY, Address],
+    => specific.inventory.general.walker.Travel[WALKER, Address]
   )(using
     factory: FACTORY,
     walker: WALKER

@@ -11,8 +11,8 @@ class Argument
 object Argument:
 
   given net_mem_memov_binet_memory_specific_inventory_specific_Argument_CheckAndTrimPermissive[ADDRESS, CHECKER, TRIMMER](using
-    CheckBoundaryPermissively[CHECKER, ADDRESS],
-    Trim[TRIMMER, ADDRESS]
+    => CheckBoundaryPermissively[CHECKER, ADDRESS],
+    => Trim[TRIMMER, ADDRESS]
   )(using
     checker: CHECKER,
     trimmer: TRIMMER
@@ -31,8 +31,8 @@ object Argument:
       } yield trimmedAddress
 
   given net_mem_memov_binet_memory_specific_inventory_specific_Argument_CheckAndTrimRestrictive[ADDRESS, CHECKER, TRIMMER](using
-    CheckBoundaryRestrictively[CHECKER, ADDRESS],
-    Trim[TRIMMER, ADDRESS]
+    => CheckBoundaryRestrictively[CHECKER, ADDRESS],
+    => Trim[TRIMMER, ADDRESS]
   )(using
     checker: CHECKER,
     trimmer: TRIMMER

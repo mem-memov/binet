@@ -9,8 +9,8 @@ class Reader
 object Reader:
 
   given net_mem_memov_binet_memory_specific_element_specific_Reader_ReadStock[CONTENT, FACTORY, PATH, STOCK](using
-    general.factory.EmptyStock[FACTORY, STOCK],
-    general.stock.Read[STOCK, CONTENT, PATH]
+    => general.factory.EmptyStock[FACTORY, STOCK],
+    => general.stock.Read[STOCK, CONTENT, PATH]
   )(using
     factory: FACTORY
   ): ReadStock[Reader, CONTENT, PATH, STOCK] with
@@ -26,9 +26,9 @@ object Reader:
       presentStock.read(pathSplit.index, pathSplit.rest)
 
   given net_mem_memov_binet_memory_specific_element_specific_Reader_ReadStore[ADDRESS, CONTENT, FACTORY, PATH, STORE](using
-    general.factory.EmptyStore[FACTORY, STORE],
-    general.store.Read[STORE, ADDRESS],
-    general.address.ToContent[ADDRESS, CONTENT]
+    => general.factory.EmptyStore[FACTORY, STORE],
+    => general.store.Read[STORE, ADDRESS],
+    => general.address.ToContent[ADDRESS, CONTENT]
   )(using
     factory: FACTORY
   ): ReadStore[Reader, CONTENT, PATH, STORE] with

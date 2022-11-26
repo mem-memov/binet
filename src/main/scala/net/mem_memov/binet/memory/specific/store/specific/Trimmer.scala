@@ -11,7 +11,7 @@ class Trimmer
 object Trimmer:
 
   given net_mem_memov_binet_memory_specific_store_specific_Trimmer_TrimRight[BLOCK](using
-    general.block.IsEmpty[BLOCK]
+    => general.block.IsEmpty[BLOCK]
   ): TrimRight[Trimmer, BLOCK] with
 
     // private function needed for tail-recursion optimization

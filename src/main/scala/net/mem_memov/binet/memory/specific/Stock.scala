@@ -9,7 +9,7 @@ case class Stock(
 object Stock:
 
   given net_mem_memov_binet_memory_specific_Stock_Read[CONTENT, PATH](using
-    general.element.Read[Element, PATH, CONTENT]
+    => general.element.Read[Element, PATH, CONTENT]
   ): general.stock.Read[Stock, CONTENT, PATH] with
 
     override
@@ -22,7 +22,7 @@ object Stock:
       stock.elements(index.toInt).read(origin)
 
   given net_mem_memov_binet_memory_specific_Stock_Write[CONTENT, PATH](using
-    general.element.Write[Element, PATH, CONTENT]
+    => general.element.Write[Element, PATH, CONTENT]
   ): general.stock.Write[Stock, CONTENT, PATH] with
 
     override

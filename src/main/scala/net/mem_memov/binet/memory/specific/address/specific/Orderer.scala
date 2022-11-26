@@ -11,7 +11,7 @@ object Orderer:
   given net_mem_memov_binet_memory_specific_address_specific_Orderer_Compare[
     TRIMMER
   ](using
-    TrimBig[TRIMMER]
+    => TrimBig[TRIMMER]
   )(using
     trimmer: TRIMMER
   ): Compare[Orderer, Address] with

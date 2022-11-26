@@ -11,7 +11,7 @@ case class Store(
 object Store:
 
   given net_mem_memov_binet_memory_specific_Store_Read[ADDRESS, FACTORY](using
-    general.factory.MakeAddress[FACTORY, ADDRESS]
+    => general.factory.MakeAddress[FACTORY, ADDRESS]
   )(using
     factory: FACTORY
   ):general.store.Read[Store, ADDRESS] with
@@ -33,9 +33,9 @@ object Store:
     TRIMMER,
     CONTENT
   ](using
-    TrimRight[TRIMMER, Block],
-    SupplementBlocks[CONTENT, Block],
-    Write[CONTENT, Block]
+    => TrimRight[TRIMMER, Block],
+    => SupplementBlocks[CONTENT, Block],
+    => Write[CONTENT, Block]
   )(using
     trimmer: TRIMMER
   ): general.store.Write[Store, CONTENT] with

@@ -9,10 +9,10 @@ class Walker
 object Walker:
 
   given net_mem_memov_binet_memory_specific_inventory_specific_Walker_Travel[ADDRESS, INVENTORY](using
-    general.address.Increment[ADDRESS],
-    Ordering[ADDRESS],
-    general.inventory.Read[INVENTORY, ADDRESS],
-    general.inventory.Next[INVENTORY, ADDRESS]
+    => general.address.Increment[ADDRESS],
+    => Ordering[ADDRESS],
+    => general.inventory.Read[INVENTORY, ADDRESS],
+    => general.inventory.Next[INVENTORY, ADDRESS]
   )(using
     inventory: INVENTORY
   ): specific.inventory.general.walker.Travel[Walker, ADDRESS] with
