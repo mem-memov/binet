@@ -18,7 +18,7 @@ class DecrementSuite extends munit.FunSuite:
     val address = Address(originalIndices)
 
     given Decrement[Stub] with
-      override def f(resizer: Stub, indices: List[UnsignedByte]): Either[String, List[UnsignedByte]] =
+      override def f(indices: List[UnsignedByte]): Either[String, List[UnsignedByte]] =
         assert(indices.equals(originalIndices))
         Right(decrementedIndices)
 

@@ -20,7 +20,7 @@ class CompareSuite extends munit.FunSuite:
     val rightIndices = List(max)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
     val orderer = new Orderer
@@ -39,7 +39,7 @@ class CompareSuite extends munit.FunSuite:
     val rightIndices = List(min)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
     val orderer = new Orderer
@@ -58,7 +58,7 @@ class CompareSuite extends munit.FunSuite:
     val rightIndices = List(max)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         indices
 
     val orderer = new Orderer
@@ -80,7 +80,7 @@ class CompareSuite extends munit.FunSuite:
     val trimmedRightIndices = List(max)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices
         else if indices.equals(originalRightIndices) then
@@ -107,7 +107,7 @@ class CompareSuite extends munit.FunSuite:
     val trimmedRightIndices = List(max)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices
         else if indices.equals(originalRightIndices) then
@@ -134,7 +134,7 @@ class CompareSuite extends munit.FunSuite:
     val trimmedRightIndices = List(max, max)
 
     given TrimBig[TrimmerStub] with
-      override def f(trimmer: TrimmerStub, indices: List[UnsignedByte]): List[UnsignedByte] =
+      override def f(indices: List[UnsignedByte]): List[UnsignedByte] =
         if indices.equals(originalLeftIndices) then
           trimmedLeftIndices
         else if indices.equals(originalRightIndices) then

@@ -7,6 +7,8 @@ import net.mem_memov.binet.memory.specific.element.general.reader.{ReadStock, Re
 class Reader
 
 object Reader:
+  
+  given net_mem_memov_binet_memory_specific_element_specific_Reader: Reader = new Reader
 
   given [CONTENT, FACTORY, PATH, STOCK](using
     => general.factory.EmptyStock[FACTORY, STOCK],
@@ -17,7 +19,6 @@ object Reader:
 
     override
     def f(
-      reader: Reader,
       stockOption: Option[STOCK],
       pathSplit: general.Split[PATH]
     ): Either[String, CONTENT] =
@@ -35,7 +36,6 @@ object Reader:
 
     override
     def f(
-      reader: Reader,
       storeOption: Option[STORE],
       pathSplit: general.Split[PATH]
     ): CONTENT =

@@ -9,6 +9,8 @@ import scala.annotation.tailrec
 class Trimmer
 
 object Trimmer:
+  
+  given net_mem_memov_binet_memory_specific_store_specific_Trimmer: Trimmer = new Trimmer
 
   given [BLOCK](using
     => general.block.IsEmpty[BLOCK]
@@ -17,7 +19,6 @@ object Trimmer:
     // private function needed for tail-recursion optimization
     @tailrec
     private def trim(
-      trimmer: Trimmer,
       blocks: Vector[BLOCK]
     ): Vector[BLOCK] =
 
@@ -25,16 +26,15 @@ object Trimmer:
         blocks
       else
         if blocks.last.isEmpty then
-          trim(trimmer, blocks.dropRight(1))
+          trim(blocks.dropRight(1))
         else
           blocks
 
     override
     def f(
-      trimmer: Trimmer,
       blocks: Vector[BLOCK]
     ): Vector[BLOCK] =
 
-      trim(trimmer, blocks)
+      trim(blocks)
 
 

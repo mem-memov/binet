@@ -7,6 +7,8 @@ import net.mem_memov.binet.memory.specific.address.general.trimmer.TrimBig
 class Orderer
 
 object Orderer:
+  
+  given net_mem_memov_binet_memory_specific_address_specific_Orderer: Orderer = new Orderer
 
   given [TRIMMER](using
     => TrimBig[TRIMMER]
@@ -16,7 +18,6 @@ object Orderer:
 
     override
     def f(
-      oderer: Orderer,
       left: Address,
       right: Address
     ): Int =

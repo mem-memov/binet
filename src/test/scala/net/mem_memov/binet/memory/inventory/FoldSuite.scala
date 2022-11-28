@@ -27,7 +27,7 @@ class FoldSuite extends munit.FunSuite:
         startAddress
 
     given specific.inventory.general.walker.Travel[WalkerStub, Address] with
-      override def f[RESULT](walker: WalkerStub, result: RESULT, origin: Address, process: (RESULT, general.Item[Address]) => RESULT): Either[String, RESULT] =
+      override def f[RESULT](result: RESULT, origin: Address, process: (RESULT, general.Item[Address]) => RESULT): Either[String, RESULT] =
         assert(result == 0)
         assert(origin.equals(startAddress))
         assert(process.equals(processingFunction))

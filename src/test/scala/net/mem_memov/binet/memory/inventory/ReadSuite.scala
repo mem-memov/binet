@@ -27,7 +27,7 @@ class ReadSuite extends munit.FunSuite:
     val trimmedContentAddress = Address(List.empty)
 
     given specific.inventory.general.argument.CheckAndTrimRestrictive[ArgumentStub, Address] with
-      override def f(argument: ArgumentStub, next: Address, address: Address): Either[String, Address] =
+      override def f(next: Address, address: Address): Either[String, Address] =
         assert(next.equals(inventoryNextAddress))
         if address.equals(originAddress) then
           Right(trimmedOriginAddress)

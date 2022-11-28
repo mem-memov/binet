@@ -8,6 +8,8 @@ class Padder
 
 object Padder:
 
+  given net_mem_memov_binet_memory_specific_address_specific_Padder: Padder = new Padder
+
   given [TRIMMER](using
     => TrimBig[TRIMMER]
   )(using
@@ -16,7 +18,6 @@ object Padder:
 
     override
     def f(
-      padder: Padder,
       target: Int,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =

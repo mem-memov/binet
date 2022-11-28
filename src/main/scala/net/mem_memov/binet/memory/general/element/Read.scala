@@ -8,7 +8,7 @@ trait Read[
   CONTENT
 ]:
 
-  def f(
+  private[Read] def f(
     element: ELEMENT,
     origin: PATH
   ): Either[String, CONTENT]

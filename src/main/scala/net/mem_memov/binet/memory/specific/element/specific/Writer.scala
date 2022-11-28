@@ -9,6 +9,8 @@ class Writer
 
 object Writer:
 
+  given net_mem_memov_binet_memory_specific_element_specific_Writer: Writer = new Writer
+
   given [CONTENT, FACTORY, PATH, STOCK](using
     => general.stock.Write[STOCK, CONTENT, PATH],
     => general.factory.EmptyStock[FACTORY, STOCK]
@@ -18,7 +20,6 @@ object Writer:
 
     override
     def f(
-      writer: Writer,
       stockOption: Option[STOCK],
       pathSplit: Split[PATH],
       content: CONTENT
@@ -36,7 +37,6 @@ object Writer:
 
     override
     def f(
-      writer: Writer,
       storeOption: Option[STORE],
       pathSplit: Split[PATH],
       content: CONTENT

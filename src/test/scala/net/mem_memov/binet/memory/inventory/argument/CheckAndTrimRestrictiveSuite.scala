@@ -19,12 +19,12 @@ class CheckAndTrimRestrictiveSuite extends munit.FunSuite:
   test("Argument approves an address restrictively and trims it") {
 
     given specific.inventory.specific.argument.general.trimmer.Trim[TrimmerStub, AddressStub] with
-      override def f(trimmer: TrimmerStub, address: AddressStub): AddressStub =
+      override def f(address: AddressStub): AddressStub =
         assert(address.equals(argumentAddressStub))
         trimmedAddressStub
 
     given specific.inventory.specific.argument.general.checker.CheckBoundaryRestrictively[CheckerStub, AddressStub] with
-      override def f(checker: CheckerStub, next: AddressStub, address: AddressStub): Either[String, Unit] =
+      override def f(next: AddressStub, address: AddressStub): Either[String, Unit] =
         assert(next.equals(inventoryNextAddressStub))
         assert(address.equals(trimmedAddressStub))
         Right(())
@@ -39,12 +39,12 @@ class CheckAndTrimRestrictiveSuite extends munit.FunSuite:
   test("Argument rejects an address restrictively") {
 
     given specific.inventory.specific.argument.general.trimmer.Trim[TrimmerStub, AddressStub] with
-      override def f(trimmer: TrimmerStub, address: AddressStub): AddressStub =
+      override def f(address: AddressStub): AddressStub =
         assert(address.equals(argumentAddressStub))
         trimmedAddressStub
 
     given specific.inventory.specific.argument.general.checker.CheckBoundaryRestrictively[CheckerStub, AddressStub] with
-      override def f(checker: CheckerStub, next: AddressStub, address: AddressStub): Either[String, Unit] =
+      override def f(next: AddressStub, address: AddressStub): Either[String, Unit] =
         assert(next.equals(inventoryNextAddressStub))
         assert(address.equals(trimmedAddressStub))
         Left("error message")

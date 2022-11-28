@@ -29,7 +29,7 @@ class UpdateSuite extends munit.FunSuite:
     val pathStub = new PathStub
 
     given specific.inventory.general.argument.CheckAndTrimRestrictive[ArgumentStub, Address] with
-      override def f(argument: ArgumentStub, next: Address, address: Address): Either[String, Address] =
+      override def f(next: Address, address: Address): Either[String, Address] =
         assert(next.equals(originalInventoryNextAddress))
         if address.equals(contentAddress) then
           Right(trimmedContentAddress)

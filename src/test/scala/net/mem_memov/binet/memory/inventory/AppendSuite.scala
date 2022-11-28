@@ -27,7 +27,7 @@ class AppendSuite extends munit.FunSuite:
     val inventoryNextPathStub = new PathStub
 
     given specific.inventory.general.argument.CheckAndTrimPermissive[ArgumentStub, Address] with
-      override def f(argument: ArgumentStub, next: Address, address: Address): Either[String, Address] =
+      override def f(next: Address, address: Address): Either[String, Address] =
         assert(next.equals(originalInventoryNextAddress))
         assert(address.equals(contentAddress))
         Right(trimmedContentAddress)

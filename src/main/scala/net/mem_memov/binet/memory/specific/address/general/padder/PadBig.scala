@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait PadBig[PADDER]:
 
+  private[PadBig]
   def f(
-    padder: PADDER,
     target: Int,
     indices: List[UnsignedByte]
   ): Either[String, List[UnsignedByte]]
@@ -17,4 +17,4 @@ trait PadBig[PADDER]:
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
 
-      f(padder, target, indices)
+      f(target, indices)

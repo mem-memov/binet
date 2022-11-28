@@ -7,6 +7,8 @@ import scala.math.Ordering.Implicits.infixOrderingOps // enables address compari
 class Checker
 
 object Checker:
+  
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker: Checker = new Checker
 
   given [ADDRESS, FACTORY](using
     => Ordering[ADDRESS],
@@ -17,7 +19,6 @@ object Checker:
 
     override
     def f(
-      checker: Checker,
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, Unit] =
@@ -33,7 +34,6 @@ object Checker:
 
     override
     def f(
-      checker: Checker,
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, Unit] =

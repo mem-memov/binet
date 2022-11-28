@@ -34,12 +34,11 @@ class WriteSuite extends munit.FunSuite:
         true
 
     given specific.element.general.writer.WriteStock[WriterStub, ContentStub, PathStub, specific.Stock] with
-      override def f(writer: WriterStub, stockOption: Option[Stock], pathSplit: general.Split[PathStub], content: ContentStub): Either[String, Stock] =
+      override def f(stockOption: Option[Stock], pathSplit: general.Split[PathStub], content: ContentStub): Either[String, Stock] =
         fail("unexpected")
 
     given specific.element.general.writer.WriteStore[WriterStub, ContentStub, PathStub, specific.Store] with
-      override def f(writer: WriterStub, storeOption: Option[Store], pathSplit: general.Split[PathStub], content: ContentStub): Store =
-        assert(writer.equals(writerStub))
+      override def f(storeOption: Option[Store], pathSplit: general.Split[PathStub], content: ContentStub): Store =
         assert(storeOption.contains(originalStore))
         assert(pathSplit.index == b5, pathSplit.rest.equals(restPathStub))
         modifiedStore
@@ -67,14 +66,13 @@ class WriteSuite extends munit.FunSuite:
         false
 
     given specific.element.general.writer.WriteStock[WriterStub, ContentStub, PathStub, specific.Stock] with
-      override def f(writer: WriterStub, stockOption: Option[Stock], pathSplit: general.Split[PathStub], content: ContentStub): Either[String, Stock] =
-        assert(writer.equals(writerStub))
+      override def f(stockOption: Option[Stock], pathSplit: general.Split[PathStub], content: ContentStub): Either[String, Stock] =
         assert(stockOption.contains(originalStock))
         assert(pathSplit.index == b5, pathSplit.rest.equals(restPathStub))
         Right(modifiedStock)
 
     given specific.element.general.writer.WriteStore[WriterStub, ContentStub, PathStub, specific.Store] with
-      override def f(writer: WriterStub, storeOption: Option[Store], pathSplit: general.Split[PathStub], content: ContentStub): Store =
+      override def f(storeOption: Option[Store], pathSplit: general.Split[PathStub], content: ContentStub): Store =
         fail("unexpected")
 
     val element = Element(None, Some(originalStock))

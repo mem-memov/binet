@@ -19,9 +19,9 @@ class WriteSuite extends munit.FunSuite:
   val b6 = UnsignedByte.fromInt(6)
   val b7 = UnsignedByte.fromInt(7)
 
-  class Stub
+  class TimmerStub
 
-  given trimmer: Stub = new Stub
+  given trimmerStub: TimmerStub = new TimmerStub
 
   test("Store can be written at the first index") {
 
@@ -53,8 +53,8 @@ class WriteSuite extends munit.FunSuite:
           case _ =>
             fail("unexpected")
 
-    given TrimRight[Stub, Block] with
-      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+    given TrimRight[TimmerStub, Block] with
+      override def f(blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b4))
@@ -99,8 +99,8 @@ class WriteSuite extends munit.FunSuite:
           case _ =>
             fail("unexpected")
 
-    given TrimRight[Stub, Block] with
-      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+    given TrimRight[TimmerStub, Block] with
+      override def f(blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b1, b5)),
           Block(Vector(b3, b6))
@@ -149,8 +149,8 @@ class WriteSuite extends munit.FunSuite:
           case _ =>
             fail("unexpected")
 
-    given TrimRight[Stub, Block] with
-      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+    given TrimRight[TimmerStub, Block] with
+      override def f(blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b4)),
@@ -202,8 +202,8 @@ class WriteSuite extends munit.FunSuite:
           case _ =>
             fail("unexpected")
 
-    given TrimRight[Stub, Block] with
-      override def f(trimmer: Stub, blocks: Vector[Block]): Vector[Block] =
+    given TrimRight[TimmerStub, Block] with
+      override def f(blocks: Vector[Block]): Vector[Block] =
         assert(blocks == Vector(
           Block(Vector(b5, b2)),
           Block(Vector(b6, b0)),

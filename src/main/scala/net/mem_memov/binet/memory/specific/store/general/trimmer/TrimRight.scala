@@ -2,8 +2,8 @@ package net.mem_memov.binet.memory.specific.store.general.trimmer
 
 trait TrimRight[TRIMMER, BLOCK]:
 
+  private[TrimRight]
   def f(
-    trimmer: TRIMMER,
     blocks: Vector[BLOCK]
   ): Vector[BLOCK]
 
@@ -13,4 +13,4 @@ trait TrimRight[TRIMMER, BLOCK]:
       blocks: Vector[BLOCK]
     ): Vector[BLOCK] =
 
-      f(trimmer, blocks)
+      f(blocks)

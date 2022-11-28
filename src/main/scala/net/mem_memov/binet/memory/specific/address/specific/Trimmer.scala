@@ -8,11 +8,12 @@ class Trimmer
 
 object Trimmer:
 
+  given net_mem_memov_binet_memory_specific_address_specific_Trimmer: Trimmer = new Trimmer
+
   given TrimBig[Trimmer] with
 
     override
     def f(
-      formatter: Trimmer,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 

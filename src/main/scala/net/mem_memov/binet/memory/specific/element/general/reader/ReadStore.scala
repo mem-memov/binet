@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general
 
 trait ReadStore[READER, CONTENT, PATH, STORE]:
 
+  private[ReadStore]
   def f(
-    reader: READER,
     storeOption: Option[STORE],
     pathSplit: general.Split[PATH]
   ): CONTENT
@@ -17,4 +17,4 @@ trait ReadStore[READER, CONTENT, PATH, STORE]:
       pathSplit: general.Split[PATH]
     ): CONTENT =
 
-      f(reader, storeOption, pathSplit)
+      f(storeOption, pathSplit)

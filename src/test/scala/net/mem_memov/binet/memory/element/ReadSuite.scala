@@ -35,12 +35,11 @@ class ReadSuite extends munit.FunSuite:
         true
 
     given specific.element.general.reader.ReadStock[ReaderStub, ContentStub, PathStub, specific.Stock] with
-      override def f(reader: ReaderStub, stockOption: Option[Stock], pathSplit: Split[PathStub]): Either[String, ContentStub] =
+      override def f(stockOption: Option[Stock], pathSplit: Split[PathStub]): Either[String, ContentStub] =
         fail("unexpected")
 
     given specific.element.general.reader.ReadStore[ReaderStub, ContentStub, PathStub, specific.Store] with
-      override def f(reader: ReaderStub, storeOption: Option[Store], pathSplit: Split[PathStub]): ContentStub =
-        assert(reader.equals(readerStub))
+      override def f(storeOption: Option[Store], pathSplit: Split[PathStub]): ContentStub =
         assert(storeOption.contains(elementStore))
         assert(pathSplit.index == b5, pathSplit.rest.equals(restPathStub))
         contentStub
@@ -67,14 +66,13 @@ class ReadSuite extends munit.FunSuite:
         false
 
     given specific.element.general.reader.ReadStock[ReaderStub, ContentStub, PathStub, specific.Stock] with
-      override def f(reader: ReaderStub, stockOption: Option[Stock], pathSplit: Split[PathStub]): Either[String, ContentStub] =
-        assert(reader.equals(readerStub))
+      override def f(stockOption: Option[Stock], pathSplit: Split[PathStub]): Either[String, ContentStub] =
         assert(stockOption.contains(elementStock))
         assert(pathSplit.index == b5, pathSplit.rest.equals(restPathStub))
         Right(contentStub)
 
     given specific.element.general.reader.ReadStore[ReaderStub, ContentStub, PathStub, specific.Store] with
-      override def f(reader: ReaderStub, storeOption: Option[Store], pathSplit: Split[PathStub]): ContentStub =
+      override def f(storeOption: Option[Store], pathSplit: Split[PathStub]): ContentStub =
         fail("unexpected")
 
     val element = Element(None, Some(elementStock))

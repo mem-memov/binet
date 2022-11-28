@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Increment[RESIZER]:
 
+  private[Increment]
   def f(
-    resizer: RESIZER,
     indices: List[UnsignedByte]
   ): List[UnsignedByte]
 
@@ -15,6 +15,6 @@ trait Increment[RESIZER]:
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 
-      f(resizer, indices)
+      f(indices)
 
 

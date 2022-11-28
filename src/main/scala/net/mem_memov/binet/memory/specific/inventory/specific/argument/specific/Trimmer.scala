@@ -9,6 +9,8 @@ class Trimmer
 
 object Trimmer:
 
+  given net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer: Trimmer = new Trimmer
+
   given [ADDRESS, FACTORY](using
     => IsEmpty[ADDRESS],
     => TrimBig[ADDRESS],
@@ -19,7 +21,6 @@ object Trimmer:
 
     override
     def f(
-      trimmer: Trimmer,
       address: ADDRESS
     ): ADDRESS =
 

@@ -9,6 +9,8 @@ import net.mem_memov.binet.memory.specific.inventory.specific.argument.general.t
 class Argument
 
 object Argument:
+  
+  given net_mem_memov_binet_memory_specific_inventory_specific_Argument: Argument = new Argument
 
   given [ADDRESS, CHECKER, TRIMMER](using
     => CheckBoundaryPermissively[CHECKER, ADDRESS],
@@ -20,7 +22,6 @@ object Argument:
 
     override
     def f(
-      argument: Argument,
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, ADDRESS] =
@@ -40,7 +41,6 @@ object Argument:
 
     override
     def f(
-      argument: Argument,
       next: ADDRESS,
       address: ADDRESS
     ): Either[String, ADDRESS] =

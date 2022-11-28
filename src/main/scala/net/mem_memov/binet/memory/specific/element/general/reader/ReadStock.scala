@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general
 
 trait ReadStock[READER, CONTENT, PATH, STOCK]:
 
+  private[ReadStock]
   def f(
-    reader: READER,
     stockOption: Option[STOCK],
     pathSplit: general.Split[PATH]
   ): Either[String, CONTENT]
@@ -17,4 +17,4 @@ trait ReadStock[READER, CONTENT, PATH, STOCK]:
       pathSplit: general.Split[PATH]
     ): Either[String, CONTENT] =
 
-      f(reader, stockOption, pathSplit)
+      f(stockOption, pathSplit)

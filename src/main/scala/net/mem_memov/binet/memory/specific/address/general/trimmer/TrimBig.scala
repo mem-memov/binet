@@ -4,15 +4,16 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait TrimBig[TRIMMER]:
 
+  private[TrimBig]
   def f(
-    trimmer: TRIMMER,
     indices: List[UnsignedByte]
   ): List[UnsignedByte]
 
-  extension (trimmer: TRIMMER) {
+  extension (trimmer: TRIMMER) 
+    
     def trimBig(
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 
-      f(trimmer, indices)
-  }
+      f(indices)
+  

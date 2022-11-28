@@ -8,11 +8,12 @@ class Resizer
 
 object Resizer:
 
+  given net_mem_memov_binet_memory_specific_address_specific_Resizer: Resizer = new Resizer
+
   given Decrement[Resizer] with
 
     override
     def f(
-      resizer: Resizer,
       indices: List[UnsignedByte]
     ): Either[String, List[UnsignedByte]] =
 
@@ -46,7 +47,6 @@ object Resizer:
 
     override
     def f(
-      resizer: Resizer,
       indices: List[UnsignedByte]
     ): List[UnsignedByte] =
 

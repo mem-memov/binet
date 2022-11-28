@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general
 
 trait Travel[WALKER, ADDRESS]:
 
+  private[Travel]
   def f[RESULT](
-    walker: WALKER,
     result: RESULT,
     origin: ADDRESS,
     process: (RESULT, general.Item[ADDRESS]) => RESULT
@@ -19,4 +19,4 @@ trait Travel[WALKER, ADDRESS]:
       process: (RESULT, general.Item[ADDRESS]) => RESULT
     ): Either[String, RESULT] =
 
-      f(walker, result, origin, process)
+      f(result, origin, process)

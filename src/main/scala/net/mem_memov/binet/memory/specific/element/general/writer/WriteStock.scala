@@ -4,8 +4,8 @@ import net.mem_memov.binet.memory.general
 
 trait WriteStock[WRITER, CONTENT, PATH, STOCK]:
 
+  private[WriteStock]
   def f(
-    writer: WRITER,
     stockOption: Option[STOCK],
     pathSplit: general.Split[PATH],
     content: CONTENT
@@ -19,4 +19,4 @@ trait WriteStock[WRITER, CONTENT, PATH, STOCK]:
       content: CONTENT
     ): Either[String, STOCK] =
 
-      f(writer, stockOption, pathSplit, content)
+      f(stockOption, pathSplit, content)

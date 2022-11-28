@@ -7,6 +7,8 @@ import scala.math.Ordering.Implicits.infixOrderingOps // enables address compari
 class Walker
 
 object Walker:
+  
+  given net_mem_memov_binet_memory_specific_inventory_specific_Walker: Walker = new Walker
 
   given [ADDRESS, INVENTORY](using
     => general.address.Increment[ADDRESS],
@@ -21,7 +23,6 @@ object Walker:
     override
     final // enabling tail-call optimisation
     def f[RESULT](
-      walker: Walker,
       result: RESULT,
       origin: ADDRESS,
       process: (RESULT, general.Item[ADDRESS]) => RESULT
@@ -42,4 +43,4 @@ object Walker:
                 content = content
               )
             )
-            f(walker, newResult, origin.increment(), process)
+            f(newResult, origin.increment(), process)

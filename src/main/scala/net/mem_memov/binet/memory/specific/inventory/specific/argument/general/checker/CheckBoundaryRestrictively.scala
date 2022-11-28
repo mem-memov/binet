@@ -2,8 +2,8 @@ package net.mem_memov.binet.memory.specific.inventory.specific.argument.general.
 
 trait CheckBoundaryRestrictively[CHECKER, ADDRESS]:
 
+  private[CheckBoundaryRestrictively] 
   def f(
-    checker: CHECKER,
     next: ADDRESS,
     address: ADDRESS
   ): Either[String, Unit]
@@ -15,4 +15,4 @@ trait CheckBoundaryRestrictively[CHECKER, ADDRESS]:
       address: ADDRESS
     ): Either[String, Unit] =
 
-      f(checker, next, address)
+      f(next, address)
