@@ -4,6 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Read[STOCK, CONTENT, PATH]:
 
+  private[Read]
   def f(
     stock: STOCK,
     index: UnsignedByte,

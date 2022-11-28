@@ -8,6 +8,7 @@ trait Write[
   CONTENT
 ]:
 
+  private[Write]
   def f(
     element: ELEMENT,
     destination: PATH,

@@ -4,6 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Write[BLOCK]:
 
+  private[Write]
   def f(
     block: BLOCK,
     position: UnsignedByte,

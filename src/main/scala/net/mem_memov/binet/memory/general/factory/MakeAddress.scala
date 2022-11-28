@@ -4,6 +4,7 @@ import net.mem_memov.binet.memory.general
 
 trait MakeAddress[FACTORY, ADDRESS]:
 
+  private[MakeAddress]
   def f(
     indices: List[general.UnsignedByte]
   ): ADDRESS

@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.general.address
 
 trait ToString[ADDRESS]:
 
+  private[ToString]
   def f(
     address: ADDRESS
   ): String

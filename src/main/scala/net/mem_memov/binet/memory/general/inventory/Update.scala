@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Update[INVENTORY, ADDRESS]:
 
+  private[Update]
   def f(
     inventory: INVENTORY,
     destination: ADDRESS,

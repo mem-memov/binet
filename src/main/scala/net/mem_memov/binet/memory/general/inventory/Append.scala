@@ -2,6 +2,7 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Append[INVENTORY, ADDRESS]:
 
+  private[Append]
   def f(
     inventory: INVENTORY,
     content: ADDRESS

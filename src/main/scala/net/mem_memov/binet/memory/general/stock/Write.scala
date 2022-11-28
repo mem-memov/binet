@@ -4,6 +4,7 @@ import net.mem_memov.binet.memory.general.UnsignedByte
 
 trait Write[STOCK, CONTENT, PATH]:
 
+  private[Write]
   def f(
     stock: STOCK,
     index: UnsignedByte,
