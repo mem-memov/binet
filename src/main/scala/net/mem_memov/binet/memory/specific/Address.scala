@@ -1,11 +1,11 @@
 package net.mem_memov.binet.memory.specific
 
-import net.mem_memov.binet.memory.specific.address.general.resizer.*
-import net.mem_memov.binet.memory.specific.address.general.padder.PadBig
-import net.mem_memov.binet.memory.specific.address.general.trimmer.TrimBig
 import net.mem_memov.binet.memory.general
+import net.mem_memov.binet.memory.specific.address.general.resizer.Decrement
 import net.mem_memov.binet.memory.specific.address.general.resizer.Increment
 import net.mem_memov.binet.memory.specific.address.general.orderer.Compare
+import net.mem_memov.binet.memory.specific.address.general.padder.PadBig
+import net.mem_memov.binet.memory.specific.address.general.trimmer.TrimBig
 
 /**
  * Address has the property that it can be incremented infinitely without overflow.
@@ -97,15 +97,6 @@ object Address:
 
       orderer.compare(y, y)
 
-  given general.address.ToString[Address] with
-
-    override
-    def f(
-      address: Address
-    ): String =
-
-      address.parts.map(_.toInt.toString()).mkString("Address(", ",", ")")
-
   given general.address.ToContent[Address, Content] with
 
     override
@@ -124,4 +115,21 @@ object Address:
 
       Path(address.parts.reverse.toVector)
 
+  given general.address.ToLittleEndian[Address] with
+
+    override
+    def f(
+      address: Address
+    ): Array[Byte] =
+
+      address.parts.map(_.value).toArray
+
+  given general.address.ToBigEndian[Address] with
+
+    override
+    def f(
+      address: Address
+    ): Array[Byte] =
+
+      address.parts.reverse.map(_.value).toArray
 
