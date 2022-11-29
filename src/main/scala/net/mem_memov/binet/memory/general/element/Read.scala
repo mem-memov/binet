@@ -8,7 +8,6 @@ trait Read[
   CONTENT
 ]:
 
-  private[Read]
   def f(
     element: ELEMENT,
     origin: PATH

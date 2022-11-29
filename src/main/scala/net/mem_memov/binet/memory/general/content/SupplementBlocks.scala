@@ -2,7 +2,6 @@ package net.mem_memov.binet.memory.general.content
 
 trait SupplementBlocks[CONTENT, BLOCK]:
 
-  private[SupplementBlocks]
   def f(
     content: CONTENT,
     targetLength: Int

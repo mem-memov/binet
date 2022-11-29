@@ -2,7 +2,6 @@ package net.mem_memov.binet.memory.general.inventory
 
 trait Read[INVENTORY, ADDRESS]:
 
-  private[Read]
   def f(
     inventory: INVENTORY,
     origin: ADDRESS

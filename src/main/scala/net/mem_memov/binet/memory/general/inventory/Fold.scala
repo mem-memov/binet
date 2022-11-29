@@ -4,7 +4,6 @@ import net.mem_memov.binet.memory.general.Item
 
 trait Fold[INVENTORY, ADDRESS]:
 
-  private[Fold]
   def f[RESULT](
     initial: RESULT
   )(

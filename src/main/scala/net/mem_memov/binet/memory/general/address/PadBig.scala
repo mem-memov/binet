@@ -2,7 +2,6 @@ package net.mem_memov.binet.memory.general.address
 
 trait PadBig[ADDRESS]:
 
-  private[PadBig]
   def f(
     address: ADDRESS,
     target: Int

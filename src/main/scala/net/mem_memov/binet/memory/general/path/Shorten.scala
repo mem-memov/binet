@@ -4,7 +4,6 @@ import net.mem_memov.binet.memory.general.Split
 
 trait Shorten[PATH]:
 
-  private[Shorten]
   def f(
     path: PATH
   ): Either[String, Split[PATH]]
