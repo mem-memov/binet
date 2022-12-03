@@ -24,3 +24,15 @@ object Factory:
       )
 
     override def f(): Dictionary = dictionary
+
+  given general.factory.EmptyEntry[Factory, Entry] with
+
+    import net.mem_memov.binet.memory.Preamble.given
+
+    lazy
+    val zero = factory.zeroAddress()
+
+    lazy
+    val entry = Entry(zero, zero, zero, zero, zero, zero)
+
+    override def f(): Entry = entry

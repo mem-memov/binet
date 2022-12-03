@@ -1,18 +1,17 @@
 package net.mem_memov.binet.hexagon.general.factory
 
-trait MakeArrow[FACTORY, ADDRESS, ARROW, ENTRY]:
+trait MakeDot[FACTORY, ADDRESS, DOT, ENTRY]:
 
   def f(
     address: ADDRESS,
     entry: ENTRY
-  ): ARROW
+  ): DOT
 
   extension (factory: FACTORY)
 
-    def makeArrow(
+    def makeDot(
       address: ADDRESS,
       entry: ENTRY
-    ): ARROW =
+    ): DOT =
 
       f(address, entry)
-

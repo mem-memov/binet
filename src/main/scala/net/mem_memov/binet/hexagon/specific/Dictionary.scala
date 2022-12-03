@@ -18,6 +18,24 @@ object Dictionary:
 
   import net.mem_memov.binet.memory.Preamble.given
 
+  given general.dictionary.GetAddress[Dictionary, Address] with
+
+    override
+    def f(dictionary: Dictionary): Either[String, Address] =
+
+      dictionary.optionAddress match
+        case Some(address) => Right(address)
+        case None => Left("No address")
+
+  given general.dictionary.GetEntry[Dictionary, Entry] with
+
+    override
+    def f(dictionary: Dictionary): Either[String, Entry] =
+
+      dictionary.optionEntry match
+        case Some(entry) => Right(entry)
+        case None => Left("No entry")
+
   given general.dictionary.Append[Dictionary, Entry] with
 
     override
