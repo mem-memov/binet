@@ -8,26 +8,61 @@ case class Dot(
   entry: Entry
 )
 
-object Dot//:
+object Dot:
 
-//  given [ARROW, FACTORY, NETWORK](using
-//    general.network.ReadArrow[NETWORK, Address],
-//    general.factory.CreateArrow[FACTORY, Address, ARROW, Entry]
-//  )(using
-//    factory: FACTORY
-//  ): general.dot.GetParentArrow[Dot, NETWORK] with
-//
-//    override
-//    def f(
-//      dot: Dot,
-//      network: NETWORK
-//    ): Either[String, NETWORK] =
-//
-//      val arrowAddress = dot.entry.address1
-//
-//      for {
-//        modifiedNetwork <- network.readArrow(arrowAddress)
-//        arrow <- network.
-//      } yield
-//        val arrow = factory.makeArrow(arrowAddress, arrowEntry)
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, Address]
+  ): general.dot.GetParentArrow[Dot, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      for {
+        modifiedNetwork <- network.readArrow(dot.entry.address1)
+      } yield modifiedNetwork
+
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, Address]
+  ): general.dot.GetChildArrow[Dot, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      for {
+        modifiedNetwork <- network.readArrow(dot.entry.address2)
+      } yield modifiedNetwork
+
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, Address]
+  ): general.dot.GetSourceArrow[Dot, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      for {
+        modifiedNetwork <- network.readArrow(dot.entry.address5)
+      } yield modifiedNetwork
+
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, Address]
+  ): general.dot.GetTargetArrow[Dot, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      for {
+        modifiedNetwork <- network.readArrow(dot.entry.address6)
+      } yield modifiedNetwork
 
