@@ -1,13 +1,16 @@
 package net.mem_memov.binet.hexagon.general.arrow
 
-trait GetNextSourceArrow[ARROW]:
+trait GetNextSourceArrow[ARROW, NETWORK]:
   
   def f(
-    arrow: ARROW
-  ): Option[ARROW]
+    arrow: ARROW,
+    network: NETWORK
+  ): Either[String, NETWORK]
   
   extension (arrow: ARROW)
     
-    def getNextSourceArrow: Option[ARROW] =
+    def getNextSourceArrow(
+      network: NETWORK
+    ): Either[String, NETWORK] =
 
-      f(arrow)
+      f(arrow, network)
