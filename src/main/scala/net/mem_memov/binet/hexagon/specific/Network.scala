@@ -108,3 +108,35 @@ object Network:
       network.optionDot match
         case Some(dot) => Right(dot)
         case None => Left("No dot")
+
+  given [ADDRESS, ENTRY](using
+    general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
+    general.arrow.GetAddress[Arrow, ADDRESS],
+    general.arrow.GetEntry[Arrow, ENTRY]
+  ): general.network.UpdateArrow[Network, Arrow] with
+
+    override
+    def f(
+      network: Network,
+      arrow: Arrow
+    ): Either[String, Network] =
+
+      for {
+        modifiedNeDictionary <- network.dictionary.update(arrow.getAddress, arrow.getEntry)
+      } yield Network(None, Some(arrow), network.dictionary)
+
+  given [ADDRESS, ENTRY](using
+    general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
+    general.dot.GetAddress[Dot, ADDRESS],
+    general.dot.GetEntry[Dot, ENTRY],
+  ): general.network.UpdateDot[Network, Dot] with
+
+    override
+    def f(
+      network: Network,
+      dot: Dot
+    ): Either[String, Network] =
+
+      for {
+        modifiedNeDictionary <- network.dictionary.update(dot.getAddress, dot.getEntry)
+      } yield Network(Some(dot), None, network.dictionary)

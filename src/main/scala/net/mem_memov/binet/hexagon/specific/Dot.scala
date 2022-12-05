@@ -10,6 +10,24 @@ case class Dot(
 
 object Dot:
 
+  given general.dot.GetAddress[Dot, Address] with
+
+    override
+    def f(
+      dot: Dot
+    ): Address =
+
+      dot.address
+
+  given general.dot.GetEntry[Dot, Entry] with
+
+    override
+    def f(
+      dot: Dot
+    ): Entry =
+
+      dot.entry
+
   given [ARROW, NETWORK](using
     general.network.ReadArrow[NETWORK, Address]
   ): general.dot.GetParentArrow[Dot, NETWORK] with
