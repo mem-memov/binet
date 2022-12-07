@@ -8,9 +8,12 @@ case class Source(
 
 object Source:
 
-  given [ADDRESS, NETWORK, TARGET](using
+  given [ARROW, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrow[TARGET, NETWORK, ADDRESS],
     general.dot.GetAddress[Dot, ADDRESS],
+    general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
+    general.network.GetArrow[NETWORK, ARROW],
+    general.arrow.GetAddress[ARROW, ADDRESS]
   ): general.source.CreateArrow[Source, NETWORK, TARGET] with
 
     override
@@ -22,4 +25,6 @@ object Source:
 
       for {
         networkWithArrow <- target.createArrow(source.dot.getAddress, network)
-      } yield networkWithArrow
+        arrow <- networkWithArrow.getArrow()
+        networkWithSource <- source.dot.setTargetArrow(arrow, network)
+      } yield networkWithSource

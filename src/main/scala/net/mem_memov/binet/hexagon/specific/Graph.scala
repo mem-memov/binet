@@ -48,5 +48,5 @@ object Graph:
       // TODO: check if already connected
 
       for {
-        networkWithArrow <- source.createArrow(target, graph.network)
-      } yield Graph(None, networkWithArrow)
+        modifiedNetwork <- source.createArrow(target, graph.network)
+      } yield Graph(None, modifiedNetwork)
