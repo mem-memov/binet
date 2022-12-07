@@ -44,4 +44,31 @@ object Factory:
 
     override def f(): Network = network
 
+  given general.factory.MakeSource[Factory, Dot, Source] with
+
+    override
+    def f(
+      dot: Dot
+    ): Source =
+
+      Source(dot)
+
+  given general.factory.MakeTarget[Factory, Dot, Target] with
+
+    override
+    def f(
+      dot: Dot
+    ): Target =
+
+      Target(dot)
+
+  given general.factory.MakeVertex[Factory, Dot, Vertex] with
+
+    override
+    def f(
+      dot: Dot
+    ): Vertex =
+
+      Vertex(dot)
+
       

@@ -1,0 +1,107 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 37 Scala sources to /home/u/repos/binet/target/scala-3.1.3/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/MemorySuite.scala:23:14 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m    inventory.append(start)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue append is not a member of net.mem_memov.binet.memory.specific.Inventory.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mAn extension method was tried, but could not be fully constructed:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      net_mem_memov_binet_memory_specific_Inventory_Append[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    [[35mARGUMENT[0m, [35mCONTENT[0m, [35mPATH[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net_mem_memov_binet_memory_specific_inventory_specific_Argument_CheckAndTrimPermissive[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      [[35mnet.mem_memov.binet.memory.specific.Address[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [35m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            Checker[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [35m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.specific.inventory.specific.argument.specific.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            Trimmer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      ]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker_CheckBoundaryPermissively[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [[35mnet.mem_memov.binet.memory.specific.Address[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          [35mnet.mem_memov.binet.memory.specific.Factory[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        ]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Address_Ordering[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          [[35mnet.mem_memov.binet.memory.specific.address.specific.Orderer[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net_mem_memov_binet_memory_specific_address_specific_Orderer_Compare[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            [[35mnet.mem_memov.binet.memory.specific.address.specific.Trimmer[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                net_mem_memov_binet_memory_specific_address_specific_Trimmer_TrimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            )([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                net_mem_memov_binet_memory_specific_address_specific_Trimmer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          )([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net_mem_memov_binet_memory_specific_address_specific_Orderer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Factory_ZeroAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        )(net.mem_memov.binet.memory.Preamble.factory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer_Trim[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [[35mnet.mem_memov.binet.memory.specific.Address[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          [35mnet.mem_memov.binet.memory.specific.Factory[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        ]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Address_IsEmpty[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Address_TrimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          [[35mnet.mem_memov.binet.memory.specific.address.specific.Trimmer[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net_mem_memov_binet_memory_specific_address_specific_Trimmer_TrimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          )([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              net_mem_memov_binet_memory_specific_address_specific_Trimmer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Factory_ZeroAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        )(net.mem_memov.binet.memory.Preamble.factory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      )([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Checker[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net_mem_memov_binet_memory_specific_inventory_specific_argument_specific_Trimmer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net_mem_memov_binet_memory_specific_Element_Write[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      [[35mCONTENT[0m, [35mPATH[0m, [35mWRITER[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net_mem_memov_binet_memory_specific_element_specific_Writer_WriteStock[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        [[35mCONTENT[0m, [35mFACTORY[0m, [35mPATH[0m, [35mnet.mem_memov.binet.memory.specific.Stock[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Factory_EmptyStock[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        , [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          net.mem_memov.binet.memory.Preamble.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            net_mem_memov_binet_memory_specific_Stock_Write[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          [[35mCONTENT[0m, [35mPATH[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              summon[[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                net.mem_memov.binet.memory.general.element.Write[[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                  net.mem_memov.binet.memory.specific.Element[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                , PATH, CONTENT][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              ][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      , ???, ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    , ???, ???, ???).append()[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 0 s, completed 24 Nov. 2022, 12:37:39 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

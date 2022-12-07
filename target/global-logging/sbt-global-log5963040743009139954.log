@@ -1,0 +1,16 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/Main.scala:34:46 -[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m34 |[0m    records.sortBy(_.id).foldLeft((List[[35mLong[0m].empty, Option[[35mLong[0m].empty)) { [33mcase[0m ((backdated, maxDate), record) =>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                   ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue empty is not a member of Seq[Long] => List[Long] - did you mean Seq[Long] => List[Long].apply?[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/Main.scala:34:66 -[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m34 |[0m    records.sortBy(_.id).foldLeft((List[[35mLong[0m].empty, Option[[35mLong[0m].empty)) { [33mcase[0m ((backdated, maxDate), record) =>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                     ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue empty is not a member of Long => Option[Long] - did you mean Long => Option[Long].apply?[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 6 s, completed 25 Aug. 2022, 12:12:10 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

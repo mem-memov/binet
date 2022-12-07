@@ -1,0 +1,204 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /home/u/repos/binet/target/scala-3.1.3/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/InventorySuite.scala:47:0 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m47 |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mindented definitions expected, eof found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:8:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m8 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.minimum)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:9:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m9 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m1[0m)))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:12:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m254[0m))),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:13:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m13 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m255[0m)))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:16:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m16 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m255[0m))),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:17:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m1[0m), UnsignedByte.minimum))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:20:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m20 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m255[0m), UnsignedByte.fromInt([31m255[0m))),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:21:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m21 |[0m        [33mnew[0m [35mAddress[0m(List(UnsignedByte.fromInt([31m1[0m), UnsignedByte.minimum, UnsignedByte.minimum))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:25:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m        original.increment == expected[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue increment is not a member of Any, but could be made available as an extension method.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mThe following import might make progress towards fixing the problem:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  import munit.Clue.generate[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:36:16 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m36 |[0m            [33mnew[0m [35mAddress[0m(indices).hasLength(indices.length)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:48:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m48 |[0m        [33mnew[0m [35mAddress[0m(List.empty),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:50:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m        [33mnew[0m [35mAddress[0m(List(low, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:54:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m54 |[0m        [33mnew[0m [35mAddress[0m(List(low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:56:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m56 |[0m        [33mnew[0m [35mAddress[0m(List(low, low ,low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:60:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m60 |[0m        [33mnew[0m [35mAddress[0m(List(high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:62:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m62 |[0m        [33mnew[0m [35mAddress[0m(List(high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:66:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m66 |[0m        [33mnew[0m [35mAddress[0m(List(high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:68:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m68 |[0m        [33mnew[0m [35mAddress[0m(List(low, low, high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:72:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m72 |[0m        [33mnew[0m [35mAddress[0m(List(high, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:74:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m74 |[0m        [33mnew[0m [35mAddress[0m(List(low, low, high, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:78:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m78 |[0m        [33mnew[0m [35mAddress[0m(List(high, high, high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:80:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m80 |[0m        [33mnew[0m [35mAddress[0m(List.empty),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:87:32 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m87 |[0m          [33mval[0m [36mpadded[0m = original.padBig(target)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                       ^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue padBig is not a member of Any, but could be made available as an extension method.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mThe following import might make progress towards fixing the problem:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  import munit.Clue.generate[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:92:21 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m92 |[0m            original.padBig(target)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue padBig is not a member of Any, but could be made available as an extension method.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mThe following import might make progress towards fixing the problem:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  import munit.Clue.generate[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:104:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m104 |[0m        [33mnew[0m [35mAddress[0m(List()),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:105:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m105 |[0m        [33mnew[0m [35mAddress[0m(List())[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:108:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m108 |[0m        [33mnew[0m [35mAddress[0m(List(low, low, low, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:109:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m109 |[0m        [33mnew[0m [35mAddress[0m(List(low))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:112:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m112 |[0m        [33mnew[0m [35mAddress[0m(List(high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:113:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m113 |[0m        [33mnew[0m [35mAddress[0m(List(high))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:116:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m116 |[0m        [33mnew[0m [35mAddress[0m(List(low, high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:117:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m117 |[0m        [33mnew[0m [35mAddress[0m(List(high))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:120:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m120 |[0m        [33mnew[0m [35mAddress[0m(List(low, low, low, high)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:121:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m121 |[0m        [33mnew[0m [35mAddress[0m(List(high))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:124:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m124 |[0m        [33mnew[0m [35mAddress[0m(List(low, high, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:125:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m125 |[0m        [33mnew[0m [35mAddress[0m(List(high, low))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:128:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m128 |[0m        [33mnew[0m [35mAddress[0m(List(high, low, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:129:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m129 |[0m        [33mnew[0m [35mAddress[0m(List(high, low, low))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:132:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m132 |[0m        [33mnew[0m [35mAddress[0m(List()),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:133:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m133 |[0m        [33mnew[0m [35mAddress[0m(List())[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:136:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m136 |[0m        [33mnew[0m [35mAddress[0m(List(low, low, low)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:137:12 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m137 |[0m        [33mnew[0m [35mAddress[0m(List())[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m            ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[33mconstructor[0m [35mAddress[0m cannot be accessed as a member of net.mem_memov.binet.memory.Address from class AddressSuite.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/AddressSuite.scala:141:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m141 |[0m        original.trimBig == expected[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m        ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mvalue trimBig is not a member of Any, but could be made available as an extension method.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mThe following import might make progress towards fixing the problem:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m  import munit.Clue.generate[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m44 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 4 s, completed 10 Oct. 2022, 12:09:34 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

@@ -1,0 +1,25 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/inventory/DefaultInventory.scala:15:64 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m15 |[0m    [33mval[0m [36mtrimmedContent[0m = [33mif[0m content.isEmpty [33mthen[0m DefaultAddress.zero [33melse[0m content.trimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                 ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue zero is not a member of object net.mem_memov.binet.memory.address.DefaultAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/inventory/DefaultInventory.scala:27:68 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m27 |[0m    [33mval[0m [36mtrimmedDestination[0m = [33mif[0m content.isEmpty [33mthen[0m DefaultAddress.zero [33melse[0m destination.trimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                     ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue zero is not a member of object net.mem_memov.binet.memory.address.DefaultAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/inventory/DefaultInventory.scala:28:64 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m28 |[0m    [33mval[0m [36mtrimmedContent[0m = [33mif[0m content.isEmpty [33mthen[0m DefaultAddress.zero [33melse[0m content.trimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                 ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue zero is not a member of object net.mem_memov.binet.memory.address.DefaultAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/inventory/DefaultInventory.scala:42:62 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m42 |[0m    [33mval[0m [36mtrimmedOrigin[0m = [33mif[0m origin.isEmpty [33mthen[0m DefaultAddress.zero [33melse[0m origin.trimBig[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                               ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue zero is not a member of object net.mem_memov.binet.memory.address.DefaultAddress[0m
+[0m[[0m[31merror[0m] [0m[0mfour errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 0 s, completed 26 Oct. 2022, 12:17:22 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
+[0m[[0m[0minfo[0m] [0m[0mshutting down sbt server[0m

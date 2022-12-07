@@ -1,0 +1,13 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 17 Scala sources to /home/u/repos/binet/target/scala-3.2.1/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/specific/Graph.scala:52:53 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m52 |[0m        networkWithArrow <- graph.network.createArrow()[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mmissing argument for parameter sourceAddress of [33mmethod[0m [35mcreateArrow[0m in [33mtrait[0m [35mCreateArrow[0m: (sourceAddress: ARROW, targetAddress: ARROW): [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  Either[String, net.mem_memov.binet.hexagon.specific.Network][0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 0 s, completed 7 Dec. 2022, 1:39:07 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

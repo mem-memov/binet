@@ -1,0 +1,21 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 24 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Vertex.scala:23:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m      [33mcase[0m None => [33mfor[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                   ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                   Found:    zio.ZIO[Any, Throwable, Nothing][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                   Required: Some[net.mem_memov.binet.hexagon.Edge][0m
+[0m[[0m[31merror[0m] [0m[0m[31m24 |[0m        sourceArrow <- dot.sourceArrow[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m        _ <- sourceArrow [33mmatch[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m26 |[0m          [33mcase[0m Some(arrow) => Edge(network, arrow).injectSourceVertex(source.dot, dot)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m27 |[0m          [33mcase[0m None => [41m???[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m28 |[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m29 |[0m      } [33myield[0m [41m???[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 0 s, completed 31 Aug. 2022, 7:42:31 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

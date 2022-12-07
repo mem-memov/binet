@@ -1,0 +1,192 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 36 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 17 Scala sources to /home/u/repos/binet/target/scala-3.1.3/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:18:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m18 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:22:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:33:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m33 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:52:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m52 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:56:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m56 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:67:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m67 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:81:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m81 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:85:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m85 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:96:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m96 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:100:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m100 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:104:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m104 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:130:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m130 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:134:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m134 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:138:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m138 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:160:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m160 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:164:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m164 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:168:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m168 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:190:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m190 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:194:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m194 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:198:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m198 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:216:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m216 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:220:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m220 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:224:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m224 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:245:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m245 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:249:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m249 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:253:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m253 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:274:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m274 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:278:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m278 |[0m    [33mval[0m [36mrestAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:282:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m282 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/element/DefaultElementSuite.scala:299:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m299 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:15:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m15 |[0m    [33mval[0m [36mnewNextAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:17:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m    [33mval[0m [36mnextAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:20:32 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m20 |[0m    [33mval[0m [36mtrimmedContentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:25:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:48:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m48 |[0m    [33mval[0m [36maddressZero[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:50:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m    [33mval[0m [36mnewNextAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:52:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m52 |[0m    [33mval[0m [36mnextAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) :[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:58:32 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m58 |[0m    [33mval[0m [36mtrimmedContentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) :[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/inventory/DefaultInventorySuite.scala:63:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m63 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) :[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/stock/DefaultStockSuite.scala:14:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m14 |[0m    [33mval[0m [36mdestinationAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/stock/DefaultStockSuite.scala:15:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m15 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/stock/DefaultStockSuite.scala:36:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m36 |[0m    [33mval[0m [36moriginAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/stock/DefaultStockSuite.scala:37:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m    [33mval[0m [36mcontentAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod) {}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/store/DefaultStoreSuite.scala:25:18 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m    [33mval[0m [36mcontent[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                  ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/test/scala/net/mem_memov/binet/memory/store/DefaultStoreSuite.scala:50:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m    [33mval[0m [36mreadAddress[0m = [33mnew[0m [35mUnusedAddress[0m(failMethod):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mobject creation impossible, since def canEqual(that: Any): Boolean in [33mtrait[0m [35mEquals[0m in [33mpackage[0m [35mscala[0m is not defined [0m
+[0m[[0m[31merror[0m] [0m[0m45 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 1 s, completed 26 Oct. 2022, 4:04:36 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

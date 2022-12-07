@@ -1,0 +1,367 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 43 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/TargetDotEmpty.scala:3:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3 |[0m[33mimport[0m net.mem_memov.binet.hexagon.Connecting[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value hexagon is not a member of net.mem_memov.binet[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/SourceDotEmpty.scala:3:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3 |[0m[33mimport[0m net.mem_memov.binet.hexagon.Connecting[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value hexagon is not a member of net.mem_memov.binet[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsNonEmpty.scala:3:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3 |[0m[33mimport[0m net.mem_memov.binet.hexagon.Connecting[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value hexagon is not a member of net.mem_memov.binet[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsEmpty.scala:3:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3 |[0m[33mimport[0m net.mem_memov.binet.hexagon.Connecting[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value hexagon is not a member of net.mem_memov.binet[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:25:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m  [33mgiven[0m [35mAddressLength[0m[[35mSpecificAddress[0m] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:54:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m54 |[0m  [33mgiven[0m [35mAddressEmptyChecker[0m[[35mSpecificAddress[0m] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:63:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m63 |[0m  [33mgiven[0m [35mAddressZeroChecker[0m[[35mSpecificAddress[0m] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:72:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m72 |[0m  [33mgiven[0m [35mAddressComparabilityChecker[0m[[35mSpecificAddress[0m] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificOrderer.scala:14:5 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m14 |[0m  ): ComparingOrderer[SpecificOrderer, SpecificAddress] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m     ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m     Not found: type ComparingOrderer[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E023] Syntax Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:83:13 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m83 |[0m    orderer: [35mComparingOrderer[0m[[35mORDERER[0m][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mNot enough type arguments for net.mem_memov.binet.memory.memory.specific.spesificAddress.general.orderer.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  ComparingOrderer[ORDERER, ADDRESS][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mexpected: [ORDERER, ADDRESS][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mactual:   [[35mORDERER[0m][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:84:5 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m84 |[0m  ): AddressEqualToChecker[SpecificAddress] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m     ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m     Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:45:5 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m45 |[0m  ): AddressIncrementer[SpecificAddress] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m     ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m     Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E046] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:34:5 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m34 |[0m  ): AddressDecrementer[SpecificAddress] [33mwith[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m     ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m     Cyclic reference involving val <import>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificResizer.scala:5:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m5 |[0m[33mimport[0m net.mem_memov.binet.memory.specific.spesificAddress.general.resizer.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value specific is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificFormatter.scala:5:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m5 |[0m[33mimport[0m net.mem_memov.binet.memory.specific.spesificAddress.general.formatter.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value specific is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:3:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3 |[0m[33mimport[0m net.mem_memov.binet.memory.specific.spesificAddress.general.resizer.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value specific is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:21:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m21 |[0m  [33mval[0m [36maddress[0m: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m               ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:5:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m5 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeFactory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value tree is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:8:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m8 |[0m  address1: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:9:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m9 |[0m  address2: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:10:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m10 |[0m  address3: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:11:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m11 |[0m  address4: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:12:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m  address5: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:13:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m13 |[0m  address6: memory.Address[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:4:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4 |[0m[33mimport[0m net.mem_memov.binet.memory.Inventory.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value Inventory is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:11:28 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m11 |[0m  [33mval[0m [36mresultAddress[0m: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                     ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Arrow.scala:19:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m  [33mval[0m [36maddress[0m: memory.Address,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m               ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:101:56 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m101 |[0m  [33mdef[0m [36mgetDot[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address): [35mTask[0m[[35mOption[0m[[35mDot[0m]] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                                                 ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Arrow.scala:74:58 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m74 |[0m  [33mdef[0m [36mgetArrow[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address): [35mTask[0m[[35mOption[0m[[35mArrow[0m]] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                   ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Arrow.scala:81:61 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m81 |[0m  [33mdef[0m [36mupdateArrow[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address, [36mentry[0m: [35mEntry[0m): [35mTask[0m[[35mUnit[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                      ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Network.scala:43:58 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m43 |[0m  [33mdef[0m [36mgetEntry[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address): [35mTask[0m[[35mOption[0m[[35mEntry[0m]] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                   ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Network.scala:53:61 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m53 |[0m  [33mdef[0m [36mupdateEntry[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address, [36mentry[0m: [35mEntry[0m): [35mTask[0m[[35mUnit[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                      ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:40:33 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m40 |[0m  [33mdef[0m [36mupdate[0m([36mdestination[0m: memory.Address, [36mcontent[0m: [35mEntry[0m): [35mEither[0m[[35mString[0m, [35mInventory[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                          ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:44:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m44 |[0m        ZIO.fail(Exception(error))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                           Not found: error[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:46:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m46 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address3 = decrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                                           Not found: decrementedAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:68:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m68 |[0m        ZIO.fail(Exception(error))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                           Not found: error[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:70:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m70 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address4 = decrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                                           Not found: decrementedAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Dot.scala:108:59 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m108 |[0m  [33mdef[0m [36mupdateDot[0m([36minventory[0m: [35mRef[0m[[35mInventory[0m], [36maddress[0m: memory.Address, [36mentry[0m: [35mEntry[0m): [35mTask[0m[[35mUnit[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                                                    ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m            type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:20:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m20 |[0m    tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:21:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m21 |[0m    tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:22:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m    tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:23:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m    tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Entry.scala:24:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m24 |[0m    tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Graph.scala:19:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m  [33mdef[0m [36mvertex[0m([36maddress[0m: memory.Address): [35mTask[0m[[35mVertex[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Network.scala:22:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m  [33mdef[0m [36mgetDot[0m([36maddress[0m: memory.Address): [35mTask[0m[[35mDot[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:5:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m5 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       import prefix is not a pure expression[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:41:38 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m41 |[0m    [33mimport[0m net.mem_memov.binet.memory.Inventory._[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           import prefix is not a pure expression[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Inventory.scala:60:26 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m60 |[0m  [33mdef[0m [36mread[0m([36morigin[0m: memory.Address): [35mEither[0m[[35mString[0m, [35mEntry[0m] =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                   ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              type Address is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Network.scala:17:43 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m            (ZIO.succeed(modifiedInventory.resultAddress -> Entry.empty), modifiedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         value resultAddress is not a member of Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/Network.scala:36:43 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m36 |[0m            (ZIO.succeed(modifiedInventory.resultAddress -> Entry.empty), modifiedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         value resultAddress is not a member of Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsEmpty.scala:7:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m7 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeFactory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value tree is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsEmpty.scala:20:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m20 |[0m      tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsEmpty.scala:22:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m      tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsEmpty.scala:23:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m      tree.TreeFactory.emptyAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsNonEmpty.scala:7:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m7 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeFactory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value tree is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/BothDotsNonEmpty.scala:25:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m      tree.TreeFactory.emptyAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/SourceDotEmpty.scala:7:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m7 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeFactory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value tree is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/SourceDotEmpty.scala:21:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m21 |[0m      tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/SourceDotEmpty.scala:24:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m24 |[0m      tree.TreeFactory.emptyAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/TargetDotEmpty.scala:7:34 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m7 |[0m[33mimport[0m net.mem_memov.binet.memory.tree.TreeFactory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value tree is not a member of net.mem_memov.binet.memory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/TargetDotEmpty.scala:23:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m      tree.TreeFactory.emptyAddress,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/hexagon/connecting/TargetDotEmpty.scala:24:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m24 |[0m      tree.TreeFactory.emptyAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: tree[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/general/address/AddressTrimmer.scala:7:5 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m7 |[0m  ): A[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m     ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m     Not found: type A[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:4:42 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4 |[0m[33mimport[0m net.mem_memov.binet.memory.general.address.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       import prefix is not a pure expression[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:5:41 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m5 |[0m[33mimport[0m net.mem_memov.binet.memory.memory.general.UnsignedByte[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       import prefix is not a pure expression[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/SpecificAddress.scala:6:49 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m6 |[0m[33mimport[0m net.mem_memov.binet.memory.memory.general.address.{AddressComparabilityChecker, AddressDecrementer, AddressEmptyChecker, AddressEqualToChecker, AddressIncrementer, AddressIndices, AddressLength, AddressZeroChecker}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       import prefix is not a pure expression[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificOrderer.scala:23:47 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m      [33mval[0m [36mtrimmedLeft[0m = formatter.trimBig(left.indices)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                          ^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue indices is not a member of net.mem_memov.binet.memory.memory².specific.SpecificAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mwhere:    memory  is a package in [33mpackage[0m [35mnet.mem_memov.binet[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          memory² is a package in [33mpackage[0m [35mnet.mem_memov.binet.memory[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificOrderer.scala:24:49 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m24 |[0m      [33mval[0m [36mtrimmedRight[0m = formatter.trimBig(right.indices)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                           ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue indices is not a member of net.mem_memov.binet.memory.memory².specific.SpecificAddress[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mwhere:    memory  is a package in [33mpackage[0m [35mnet.mem_memov.binet[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          memory² is a package in [33mpackage[0m [35mnet.mem_memov.binet.memory[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E045] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificResizer.scala:22:13 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m        [33mval[0m (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[[35mUnsignedByte[0m], [31mtrue[0m, [31mfalse[0m)) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m             Recursive [33mvalue[0m [35m$1$[0m needs type[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E045] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificResizer.scala:22:29 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m22 |[0m        [33mval[0m (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[[35mUnsignedByte[0m], [31mtrue[0m, [31mfalse[0m)) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                             ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                             Recursive [33mvalue[0m [35m$1$[0m needs type[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E045] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificResizer.scala:51:11 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m51 |[0m      [33mval[0m (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[[35mUnsignedByte[0m], [31mtrue[0m, [31mfalse[0m)) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m           ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           Recursive [33mvalue[0m [35m$2$[0m needs type[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E045] Cyclic Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/memory/memory/specific/spesificAddress/specific/SpecificResizer.scala:51:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m51 |[0m      [33mval[0m (accumulator, _, hasOverflow) = indices.reverse.foldLeft((List.empty[[35mUnsignedByte[0m], [31mtrue[0m, [31mfalse[0m)) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                           Recursive [33mvalue[0m [35m$2$[0m needs type[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m72 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 7 s, completed 10 Nov. 2022, 1:13:18 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

@@ -1,0 +1,41 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 18 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Edge.scala:15:43 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m15 |[0m      next = [33mif[0m !found [33mthen[0m next.flatMap(_.nextSourceArrow) [33melse[0m next[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                         ^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           Found:    [1m[31mzio[0m[1m[31m.[0m[1m[31mTask[0m[1m[31m[[0mOption[net.mem_memov.binet.hexagon.Arrow[1m[31m][0m][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           Required: Option[net.mem_memov.binet.hexagon.Arrow][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Edge.scala:23:38 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m23 |[0m      [33mvar[0m [36mnext[0m: [35mOption[0m[[35mArrow[0m] = arrow.nextSourceArrow[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                ^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           Found:    [1m[31mzio[0m[1m[31m.[0m[1m[31mTask[0m[1m[31m[[0mOption[net.mem_memov.binet.hexagon.Arrow[1m[31m][0m][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           Required: Option[net.mem_memov.binet.hexagon.Arrow][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Graph.scala:14:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m14 |[0m    } [33myield[0m [33mnew[0m Graph(updatedNetwork, Option([33mnew[0m Vertex(network, network.resultDot)))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                      ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            Found:    [1m[31m([0m[1m[31mupdatedNetwork[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0mnet.mem_memov.binet.hexagon.[1m[31mDot[0m[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            Required: net.mem_memov.binet.hexagon.[1m[32mNetwork[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Graph.scala:14:73 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m14 |[0m    } [33myield[0m [33mnew[0m Graph(updatedNetwork, Option([33mnew[0m Vertex(network, network.resultDot)))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                                 ^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  value resultDot is not a member of net.mem_memov.binet.hexagon.Network[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Graph.scala:18:35 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m18 |[0m    [33mnew[0m [35mVertex[0m(network, network.dot(address))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                        ^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                     Found:    [1m[31mzio[0m[1m[31m.[0m[1m[31mTask[0m[1m[31m[[0mnet.mem_memov.binet.hexagon.Dot[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                     Required: net.mem_memov.binet.hexagon.Dot[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m5 errors found[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 1 s, completed 29 Aug. 2022, 4:18:20 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

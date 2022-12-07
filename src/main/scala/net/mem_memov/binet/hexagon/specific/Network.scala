@@ -15,15 +15,21 @@ object Network:
     general.dictionary.Append[Dictionary, ENTRY],
     general.dictionary.GetAddress[Dictionary, ADDRESS],
     general.factory.EmptyEntry[FACTORY, ENTRY],
-    general.factory.MakeArrow[FACTORY, ADDRESS, Arrow, ENTRY]
+    general.factory.MakeArrow[FACTORY, ADDRESS, Arrow, ENTRY],
+    general.entry.SetAddress1[ENTRY, ADDRESS],
+    general.entry.SetAddress3[ENTRY, ADDRESS]
   )(using
     factory: FACTORY
-  ): general.network.CreateArrow[Network, Arrow] with
+  ): general.network.CreateArrow[Network, ADDRESS] with
 
     override
-    def f(network: Network): Either[String, Network] =
+    def f(
+      network: Network,
+      sourceAddress: ADDRESS,
+      targetAddress: ADDRESS
+    ): Either[String, Network] =
 
-      val entry = factory.emptyEntry()
+      val entry = factory.emptyEntry().setAddress1(sourceAddress).setAddress3(targetAddress)
 
       for {
         modifiedDictionary <- network.dictionary.append(entry)

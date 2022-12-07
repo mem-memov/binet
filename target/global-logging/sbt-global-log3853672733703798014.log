@@ -1,0 +1,233 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 18 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:17:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m        inventory,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mFound:    [1m[31m([0m[1m[31mArrow[0m.[1m[31mthis[0m[1m[31m.[0m[1m[31minventory[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Inventory[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mRequired: [1m[32mzio[0m.[1m[32mRef[0m[1m[32m[[0mnet.mem_memov.binet.hexagon.Inventory[1m[32m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:19:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m        inventory.read(entry.address1)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:28:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m28 |[0m        inventory.read(entry.address2)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:38:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m38 |[0m        inventory.read(entry.address3)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:48:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m48 |[0m        inventory,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mFound:    [1m[31m([0m[1m[31mArrow[0m.[1m[31mthis[0m[1m[31m.[0m[1m[31minventory[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Inventory[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mRequired: [1m[32mzio[0m.[1m[32mRef[0m[1m[32m[[0mnet.mem_memov.binet.hexagon.Inventory[1m[32m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:50:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m        inventory.read(entry.address4)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:59:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m59 |[0m        inventory.read(entry.address5)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Arrow.scala:68:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m68 |[0m        inventory.read(entry.address6)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Required: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:17:18 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m        inventory.read(entry.address1)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue read is not a member of zio.Ref[net.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:26:18 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m26 |[0m        inventory.read(entry.address2)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue read is not a member of zio.Ref[net.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:33:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m33 |[0m        ZIO.fail(error)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                 ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Found:    (error : net.mem_memov.binet.memory.Address)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Required: Throwable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:35:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m35 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address3 = incrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Found:    (incrementedAddress : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Required: net.mem_memov.binet.memory.Address[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:40:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m40 |[0m                (ZIO.unit, updatedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Found:    (updatedInventory : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Required: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:50:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m        ZIO.fail(error)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                 ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Found:    (error : net.mem_memov.binet.memory.Address)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Required: Throwable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:52:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m52 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address3 = decrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Found:    (decrementedAddress : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Required: net.mem_memov.binet.memory.Address[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:57:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m57 |[0m                (ZIO.unit, updatedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Found:    (updatedInventory : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Required: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:67:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m67 |[0m        ZIO.fail(error)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                 ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Found:    (error : net.mem_memov.binet.memory.Address)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Required: Throwable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:69:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m69 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address4 = incrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Found:    (incrementedAddress : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Required: net.mem_memov.binet.memory.Address[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:74:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m74 |[0m                (ZIO.unit, updatedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Found:    (updatedInventory : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Required: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:84:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m84 |[0m        ZIO.fail(error)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                 ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Found:    (error : net.mem_memov.binet.memory.Address)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                 Required: Throwable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:86:45 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m86 |[0m        [33mval[0m [36mnewEntry[0m = entry.copy(address4 = decrementedAddress)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                             ^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Found:    (decrementedAddress : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                            Required: net.mem_memov.binet.memory.Address[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:91:27 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m91 |[0m                (ZIO.unit, updatedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Found:    (updatedInventory : Throwable)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Required: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:101:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m101 |[0m        inventory,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m        ^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mFound:    [1m[31m([0m[1m[31mDot[0m[1m[31m.[0m[1m[31mthis[0m[1m[31m.[0m[1m[31minventory[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0m[1m[31mzio[0m[1m[31m.[0m[1m[31mRef[0m[1m[31m[[0mnet.mem_memov.binet.hexagon.Inventory[1m[31m][0m[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mRequired: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:103:18 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m103 |[0m        inventory.read(entry.address5)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m        ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mvalue read is not a member of zio.Ref[net.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:110:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m110 |[0m        inventory,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m        ^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mFound:    [1m[31m([0m[1m[31mDot[0m[1m[31m.[0m[1m[31mthis[0m[1m[31m.[0m[1m[31minventory[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0m[1m[31mzio[0m[1m[31m.[0m[1m[31mRef[0m[1m[31m[[0mnet.mem_memov.binet.hexagon.Inventory[1m[31m][0m[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mRequired: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Dot.scala:112:18 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m112 |[0m        inventory.read(entry.address6)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m        ^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0mvalue read is not a member of zio.Ref[net.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Graph.scala:18:35 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m18 |[0m    [33mnew[0m [35mVertex[0m(network, network.dot(address))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                        ^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                     Found:    [1m[31mzio[0m[1m[31m.[0m[1m[31mTask[0m[1m[31m[[0mnet.mem_memov.binet.hexagon.Dot[1m[31m][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                     Required: net.mem_memov.binet.hexagon.Dot[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:14:65 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m14 |[0m        [33mval[0m [36mmodifiedInventory[0m: [35mTask[0m[[35mInventory[0m] = inventory.append(Entry.empty)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Found:    [1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Required: [1m[32mzio[0m[1m[32m.[0m[1m[32mTask[0m[1m[32m[[0mnet.mem_memov.binet.hexagon.Inventory][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:15:28 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m15 |[0m        (modifiedInventory, modifiedInventory)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                            ^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mFound:    [1m[31m([0m[1m[31mmodifiedInventory[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0m[1m[31mzio[0m[1m[31m.[0m[1m[31mTask[0m[1m[31m[[0mnet.mem_memov.binet.hexagon.Inventory[1m[31m][0m[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mRequired: net.mem_memov.binet.hexagon.Inventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:18:6 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m18 |[0m      updatedInventory,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m      ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      Not found: updatedInventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:19:14 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m      [33mnew[0m [35mDot[0m(updatedInventory, updatedInventory.address, updatedInventory.entry)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m              ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m              Not found: updatedInventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:19:32 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m      [33mnew[0m [35mDot[0m(updatedInventory, updatedInventory.address, updatedInventory.entry)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                                Not found: updatedInventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:19:58 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m19 |[0m      [33mnew[0m [35mDot[0m(updatedInventory, updatedInventory.address, updatedInventory.entry)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                          ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                                             Not found: updatedInventory[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E007] Type Mismatch Error: /home/u/repos/binet/src/main/scala/net/mem_memov/binet/hexagon/Network.scala:25:40 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m    } [33myield[0m [33mnew[0m Dot(inventory, address, entry)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                        ^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mFound:    [1m[31m([0m[1m[31mentry[0m[1m[31m [0m[1m[31m:[0m[1m[31m [0m[1m[31mEither[0m[1m[31m[[0m[1m[31mThrowable[0m[1m[31m,[0m[1m[31m [0mnet.mem_memov.binet.hexagon.Entry[1m[31m][0m[1m[31m)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mRequired: net.mem_memov.binet.hexagon.Entry[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m34 errors found[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 2 s, completed 29 Aug. 2022, 2:18:55 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

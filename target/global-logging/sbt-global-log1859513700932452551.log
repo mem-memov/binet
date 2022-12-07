@@ -1,0 +1,36 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E040] Syntax Error: /home/u/repos/binet/src/main/scala/Main.scala:51:0 -----[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m51 |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m')' expected, but eof found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E081] Type Error: /home/u/repos/binet/src/main/scala/Main.scala:34:75 ------[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m34 |[0m    records.sortBy(_.id).foldLeft((List.empty[[35mLong[0m], Option.empty[[35mLong[0m]) { [33mcase[0m ((backdated, maxDate), record) =>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                                           ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m   Missing parameter type[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m   I could not infer the type of the parameter x$1 of expanded function:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m   x$1 => [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m     x$1[33m match [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m       {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m         [33mcase [0m((backdated, maxDate), record) => [0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           (backdated, maxDate)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m       }.[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/Main.scala:38:7 --[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m38 |[0m      (backdated, maxDate)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m       ^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m       Not found: backdated[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/u/repos/binet/src/main/scala/Main.scala:38:18 -[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m38 |[0m      (backdated, maxDate)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                  ^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                  Not found: maxDate[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0mfour errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 2 s, completed 25 Aug. 2022, 12:13:47 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

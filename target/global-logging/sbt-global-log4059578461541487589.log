@@ -1,0 +1,29 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(all {file:/home/u/repos/binet/}root/products {file:/home/u/repos/binet/}root/test:products, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / products, Test / products[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /home/u/repos/binet/target/scala-3.1.3/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E103] Syntax Error: /home/u/repos/binet/src/main/scala/Main.scala:77:0 -----[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m77 |[0mWho can see your messages?[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mIllegal start of toplevel definition[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E103] Syntax Error: /home/u/repos/binet/src/main/scala/Main.scala:78:2 -----[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m78 |[0m  To:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m  ^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  Illegal start of toplevel definition[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: /home/u/repos/binet/src/main/scala/Main.scala:54:15 ------------------[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m54 |[0m  [33mimplicit[0m [33mval[0m [36mec[0m = ExecutionContext.global[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m               ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m               type of implicit definition needs to be given explicitly[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m-- Warning: /home/u/repos/binet/src/main/scala/Main.scala:70:96 ----------------[0m[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m70 |[0m  [33mval[0m [36mzio[0m: [35mZIO[0m[[35mAny[0m, [35mNothing[0m, [35mSeq[0m[[35mEither[0m[[35mThrowable[0m, [35mString[0m]]] = ZIO.collectAllWith(resultFuture)(identity)[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m   |[0m                                                                                                ^^^^^^^^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0m[33mmethod[0m [35midentity[0m is eta-expanded even though PartialFunction[Either[Throwable, String], Either[Throwable, String]] does not have the @FunctionalInterface annotation.[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 3 s, completed 25 Aug. 2022, 2:27:33 pm[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
