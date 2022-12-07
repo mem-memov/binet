@@ -12,8 +12,7 @@ object Source:
     general.target.CreateArrow[TARGET, NETWORK, ADDRESS],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
-    general.network.GetArrow[NETWORK, ARROW],
-    general.arrow.GetAddress[ARROW, ADDRESS]
+    general.network.GetArrow[NETWORK, ARROW]
   ): general.source.CreateArrow[Source, NETWORK, TARGET] with
 
     override

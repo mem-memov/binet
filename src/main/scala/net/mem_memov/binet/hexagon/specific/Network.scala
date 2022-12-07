@@ -146,3 +146,13 @@ object Network:
       for {
         modifiedNeDictionary <- network.dictionary.update(dot.getAddress, dot.getEntry)
       } yield Network(Some(dot), None, network.dictionary)
+
+  given general.network.TakeState[Network] with
+
+    override
+    def f(
+      network: Network,
+      donor: Network
+    ): Network =
+
+      network.copy(dictionary = donor.dictionary)
