@@ -1,13 +1,13 @@
 package net.mem_memov.binet.hexagon.general.network
 
-trait CreateDot[NETWORK, DOT]:
-  
+trait RequireArrow[NETWORK, ARROW]:
+
   def f(
     network: NETWORK
-  ): Either[String, (NETWORK, DOT)]
-  
+  ): Either[String, ARROW]
+
   extension (network: NETWORK)
-    
-    def createDot(): Either[String, (NETWORK, DOT)] =
+
+    def requireArrow(): Either[String, ARROW] =
 
       f(network)

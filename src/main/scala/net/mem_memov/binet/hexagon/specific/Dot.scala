@@ -29,56 +29,52 @@ object Dot:
       dot.entry
 
   given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
-  ): general.dot.GetParentArrow[Dot, NETWORK] with
+    general.network.ReadArrow[NETWORK, Address, ARROW]
+  ): general.dot.GetParentArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, ARROW] =
 
       for {
         modifiedNetwork <- network.readArrow(dot.entry.address1)
       } yield modifiedNetwork
 
   given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
-  ): general.dot.GetChildArrow[Dot, NETWORK] with
+    general.network.ReadArrow[NETWORK, Address, ARROW]
+  ): general.dot.GetChildArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, ARROW] =
 
-      for {
-        modifiedNetwork <- network.readArrow(dot.entry.address2)
-      } yield modifiedNetwork
+      network.readArrow(dot.entry.address2)
 
   given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
-  ): general.dot.GetSourceArrow[Dot, NETWORK] with
+    general.network.ReadArrow[NETWORK, Address, ARROW]
+  ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, ARROW] =
 
-      for {
-        modifiedNetwork <- network.readArrow(dot.entry.address5)
-      } yield modifiedNetwork
+      network.readArrow(dot.entry.address5)
 
   given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
-  ): general.dot.GetTargetArrow[Dot, NETWORK] with
+    general.network.ReadArrow[NETWORK, Address, ARROW]
+  ): general.dot.GetTargetArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, ARROW] =
 
       for {
         modifiedNetwork <- network.readArrow(dot.entry.address6)

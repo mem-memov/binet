@@ -2,6 +2,7 @@ package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
 import net.mem_memov.binet.memory.specific.Address
+import net.mem_memov.binet.memory
 
 case class Network(
   optionDot: Option[Dot],
@@ -20,14 +21,14 @@ object Network:
     general.entry.SetAddress3[ENTRY, ADDRESS]
   )(using
     factory: FACTORY
-  ): general.network.CreateArrow[Network, ADDRESS] with
+  ): general.network.CreateArrow[Network, ADDRESS, Arrow] with
 
     override
     def f(
       network: Network,
       sourceAddress: ADDRESS,
       targetAddress: ADDRESS
-    ): Either[String, Network] =
+    ): Either[String, (Network, Arrow)] =
 
       val entry = factory.emptyEntry().setAddress1(sourceAddress).setAddress3(targetAddress)
 
@@ -36,7 +37,8 @@ object Network:
         address <- modifiedDictionary.getAddress
       } yield
         val arrow = factory.makeArrow(address, entry)
-        Network(None, Some(arrow), modifiedDictionary)
+        val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
+        (modifiedNetwork, arrow)
 
   given [ADDRESS, ENTRY, FACTORY](using
     general.dictionary.Append[Dictionary, ENTRY],
@@ -45,10 +47,12 @@ object Network:
     general.factory.MakeDot[FACTORY, ADDRESS, Dot, ENTRY]
   )(using
     factory: FACTORY
-  ): general.network.CreateDot[Network] with
+  ): general.network.CreateDot[Network, Dot] with
 
     override
-    def f(network: Network): Either[String, Network] =
+    def f(
+      network: Network
+    ): Either[String, (Network, Dot)] =
 
       val entry = factory.emptyEntry()
 
@@ -57,47 +61,46 @@ object Network:
         address <- modifiedDictionary.getAddress
       } yield
         val dot = factory.makeDot(address, entry)
-        Network(Some(dot), None, modifiedDictionary)
+        val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
+        (modifiedNetwork, dot)
 
   given [ENTRY, FACTORY](using
     general.dictionary.Read[Dictionary, Address, ENTRY],
-    general.factory.MakeArrow[FACTORY, Address, Arrow, ENTRY]
+    general.factory.MakeArrow[FACTORY, Address, Arrow, ENTRY],
+    memory.general.address.IsZero[Address]
   )(using
     factory: FACTORY
-  ): general.network.ReadArrow[Network, Address] with
+  ): general.network.ReadArrow[Network, Address, Arrow] with
 
     override
     def f(
       network: Network,
       address: Address
-    ): Either[String, Network] =
+    ): Either[String, Arrow] =
 
       for {
         entry <- network.dictionary.read(address)
-      } yield
-        val arrow = factory.makeArrow(address, entry)
-        Network(None, Some(arrow), network.dictionary)
+      } yield factory.makeArrow(address, entry)
 
   given [ENTRY, FACTORY](using
     general.dictionary.Read[Dictionary, Address, ENTRY],
-    general.factory.MakeDot[FACTORY, Address, Dot, ENTRY]
+    general.factory.MakeDot[FACTORY, Address, Dot, ENTRY],
+    memory.general.address.IsZero[Address]
   )(using
     factory: FACTORY
-  ): general.network.ReadDot[Network, Address] with
+  ): general.network.ReadDot[Network, Address, Dot] with
 
     override
     def f(
       network: Network,
       address: Address
-    ): Either[String, Network] =
+    ): Either[String, Dot] =
 
       for {
         entry <- network.dictionary.read(address)
-      } yield
-        val dot = factory.makeDot(address, entry)
-        Network(Some(dot), None, network.dictionary)
+      } yield factory.makeDot(address, entry)
 
-  given general.network.GetArrow[Network, Arrow] with
+  given general.network.RequireArrow[Network, Arrow] with
 
     override
     def f(network: Network): Either[String, Arrow] =
@@ -106,7 +109,7 @@ object Network:
         case Some(arrow) => Right(arrow)
         case None => Left("No arrow")
 
-  given general.network.GetDot[Network, Dot] with
+  given general.network.RequireDot[Network, Dot] with
 
     override
     def f(network: Network): Either[String, Dot] =
@@ -156,3 +159,21 @@ object Network:
     ): Network =
 
       network.copy(dictionary = donor.dictionary)
+
+  given general.network.HasArrow[Network] with
+
+    override
+    def f(
+      network: Network
+    ): Boolean =
+
+      network.optionArrow.isDefined
+
+  given general.network.HasDot[Network] with
+
+    override
+    def f(
+      network: Network
+    ): Boolean =
+
+      network.optionDot.isDefined

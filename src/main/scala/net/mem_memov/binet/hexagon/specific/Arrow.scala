@@ -29,88 +29,76 @@ object Arrow:
       arrow.entry
 
   given [DOT, NETWORK](using
-    general.network.ReadDot[NETWORK, Address]
-  ): general.arrow.GetSourceDot[Arrow, NETWORK] with
+    general.network.ReadDot[NETWORK, Address, DOT]
+  ): general.arrow.GetSourceDot[Arrow, DOT, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, DOT] =
 
-      for {
-        modifiedNetwork <- network.readDot(arrow.entry.address1)
-      } yield modifiedNetwork
+      network.readDot(arrow.entry.address1)
 
   given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
+    general.network.ReadArrow[NETWORK, Address, Arrow]
   ): general.arrow.GetPreviousSourceArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, Arrow] =
 
-      for {
-        modifiedNetwork <- network.readArrow(arrow.entry.address2)
-      } yield modifiedNetwork
+      network.readArrow(arrow.entry.address2)
 
   given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
+    general.network.ReadArrow[NETWORK, Address, Arrow]
   ): general.arrow.GetNextSourceArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, Arrow] =
 
-      for {
-        modifiedNetwork <- network.readArrow(arrow.entry.address3)
-      } yield modifiedNetwork
+      network.readArrow(arrow.entry.address3)
 
   given [DOT, NETWORK](using
-    general.network.ReadDot[NETWORK, Address]
-  ): general.arrow.GetTargetDot[Arrow, NETWORK] with
+    general.network.ReadDot[NETWORK, Address, DOT]
+  ): general.arrow.GetTargetDot[Arrow, DOT, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, DOT] =
 
-      for {
-        modifiedNetwork <- network.readDot(arrow.entry.address4)
-      } yield modifiedNetwork
+      network.readDot(arrow.entry.address4)
 
   given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
+    general.network.ReadArrow[NETWORK, Address, Arrow]
   ): general.arrow.GetPreviousTargetArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, Arrow] =
 
-      for {
-        modifiedNetwork <- network.readArrow(arrow.entry.address5)
-      } yield modifiedNetwork
+      network.readArrow(arrow.entry.address5)
 
   given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address]
+    general.network.ReadArrow[NETWORK, Address, Arrow]
   ): general.arrow.GetNextTargetArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, Arrow] =
 
-      for {
-        modifiedNetwork <- network.readArrow(arrow.entry.address6)
-      } yield modifiedNetwork
+      network.readArrow(arrow.entry.address6)
 
   given general.arrow.HasSourceDot[Arrow] with
 

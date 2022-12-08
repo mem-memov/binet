@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.general.network
 
-trait GetDot[NETWORK, DOT]:
+trait RequireDot[NETWORK, DOT]:
 
   def f(
     network: NETWORK
@@ -8,6 +8,6 @@ trait GetDot[NETWORK, DOT]:
 
   extension(network: NETWORK)
 
-    def getDot(): Either[String, DOT] =
+    def requireDot(): Either[String, DOT] =
 
       f(network)

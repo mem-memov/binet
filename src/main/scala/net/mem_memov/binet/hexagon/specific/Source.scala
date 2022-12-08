@@ -12,7 +12,7 @@ object Source:
     general.target.CreateArrow[TARGET, NETWORK, ADDRESS],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
-    general.network.GetArrow[NETWORK, ARROW]
+    general.network.RequireArrow[NETWORK, ARROW]
   ): general.source.CreateArrow[Source, NETWORK, TARGET] with
 
     override
@@ -24,6 +24,6 @@ object Source:
 
       for {
         networkWithArrow <- target.createArrow(source.dot.getAddress, network)
-        arrow <- networkWithArrow.getArrow()
+        arrow <- networkWithArrow.requireArrow()
         networkWithSource <- source.dot.setTargetArrow(arrow, network)
       } yield networkWithSource

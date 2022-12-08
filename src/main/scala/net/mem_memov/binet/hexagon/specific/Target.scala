@@ -9,8 +9,8 @@ case class Target(
 object Target:
 
   given [ARROW, NETWORK, ADDRESS](using
-    general.network.CreateArrow[NETWORK, ADDRESS],
-    general.network.GetArrow[NETWORK, ARROW],
+    general.network.CreateArrow[NETWORK, ADDRESS, ARROW],
+    general.network.RequireArrow[NETWORK, ARROW],
     general.network.TakeState[NETWORK],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK]
@@ -24,7 +24,7 @@ object Target:
     ): Either[String, NETWORK] =
 
       for {
-        networkWithArrow <- network.createArrow(sourceAddress, target.dot.getAddress)
-        arrow <- networkWithArrow.getArrow()
+        createArrowResult <- network.createArrow(sourceAddress, target.dot.getAddress)
+        (networkWithArrow, arrow) = createArrowResult
         networkWithTarget <- target.dot.setSourceArrow(arrow, network)
       } yield networkWithArrow.takeState(networkWithTarget)

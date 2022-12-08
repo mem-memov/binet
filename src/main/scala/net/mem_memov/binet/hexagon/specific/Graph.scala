@@ -10,8 +10,7 @@ case class Graph(
 object Graph:
 
   given [DOT, FACTORY](using
-    general.network.CreateDot[Network],
-    general.network.GetDot[Network, DOT],
+    general.network.CreateDot[Network, DOT],
     general.factory.MakeVertex[FACTORY, DOT, Vertex]
   )(using
     factory: FACTORY
@@ -23,11 +22,11 @@ object Graph:
     ): Either[String, Graph] =
 
       for {
-        modifiedNetwork <- graph.network.createDot()
-        dot <- modifiedNetwork.getDot()
+        createDotResult <- graph.network.createDot()
+        (networkWithDot, dot) = createDotResult
       } yield
         val vertex = factory.makeVertex(dot)
-        Graph(Some(vertex), modifiedNetwork)
+        Graph(Some(vertex), networkWithDot)
 
   given [SOURCE, TARGET](using
     general.vertex.ToSource[Vertex, SOURCE],
