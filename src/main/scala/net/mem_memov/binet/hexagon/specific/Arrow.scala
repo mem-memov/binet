@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.specific
 
-import net.mem_memov.binet.hexagon.general
+import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory.specific.Address
 
 case class Arrow(
@@ -52,8 +52,10 @@ object Arrow:
 
       network.readArrow(arrow.entry.address2)
 
-  given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, Arrow]
+  given [FETCHER, NETWORK](using
+    specific.arrow.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.arrow.GetNextSourceArrow[Arrow, NETWORK] with
 
     override
@@ -62,14 +64,7 @@ object Arrow:
       network: NETWORK
     ): Either[String, Option[Arrow]] =
 
-      val address = arrow.entry.address3
-
-      if address.isZero then
-        Right(None)
-      else
-        for {
-          arrow <- network.readArrow(address)
-        } yield Some(arrow)
+      fetcher.fetchArrow(arrow.entry.address3, network)
 
   given [DOT, NETWORK](using
     general.network.ReadDot[NETWORK, Address, DOT]
@@ -95,8 +90,10 @@ object Arrow:
 
       network.readArrow(arrow.entry.address5)
 
-  given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, Arrow]
+  given [FETCHER, NETWORK](using
+    specific.arrow.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.arrow.GetNextTargetArrow[Arrow, NETWORK] with
 
     override
@@ -105,15 +102,7 @@ object Arrow:
       network: NETWORK
     ): Either[String, Option[Arrow]] =
 
-      val address = arrow.entry.address6
-
-      if address.isZero then
-        Right(None)
-      else
-        for {
-          arrow <- network.readArrow(address)
-        } yield Some(arrow)
-
+      fetcher.fetchArrow(arrow.entry.address6, network)
 
   given general.arrow.HasSourceDot[Arrow] with
 
