@@ -60,9 +60,16 @@ object Arrow:
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, Arrow] =
+    ): Either[String, Option[Arrow]] =
 
-      network.readArrow(arrow.entry.address3)
+      val address = arrow.entry.address3
+
+      if address.isZero then
+        Right(None)
+      else
+        for {
+          arrow <- network.readArrow(address)
+        } yield Some(arrow)
 
   given [DOT, NETWORK](using
     general.network.ReadDot[NETWORK, Address, DOT]
@@ -96,9 +103,17 @@ object Arrow:
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, Arrow] =
+    ): Either[String, Option[Arrow]] =
 
-      network.readArrow(arrow.entry.address6)
+      val address = arrow.entry.address6
+
+      if address.isZero then
+        Right(None)
+      else
+        for {
+          arrow <- network.readArrow(address)
+        } yield Some(arrow)
+
 
   given general.arrow.HasSourceDot[Arrow] with
 
