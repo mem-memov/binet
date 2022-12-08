@@ -53,7 +53,7 @@ object Arrow:
       network.readArrow(arrow.entry.address2)
 
   given [FETCHER, NETWORK](using
-    specific.arrow.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
   )(using
     fetcher: FETCHER
   ): general.arrow.GetNextSourceArrow[Arrow, NETWORK] with
@@ -91,7 +91,7 @@ object Arrow:
       network.readArrow(arrow.entry.address5)
 
   given [FETCHER, NETWORK](using
-    specific.arrow.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
   )(using
     fetcher: FETCHER
   ): general.arrow.GetNextTargetArrow[Arrow, NETWORK] with

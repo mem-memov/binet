@@ -1,4 +1,4 @@
-package net.mem_memov.binet.hexagon.specific.arrow.specific
+package net.mem_memov.binet.hexagon.specific.common.specific
 
 import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory
@@ -10,7 +10,7 @@ object Fetcher:
   given [ADDRESS, ARROW, NETWORK](using
     general.network.ReadArrow[NETWORK, ADDRESS, ARROW],
     memory.general.address.IsZero[ADDRESS]
-  ): specific.arrow.general.fetcher.FetchArrow[Fetcher, ADDRESS, ARROW, NETWORK] with
+  ): specific.common.general.fetcher.FetchArrow[Fetcher, ADDRESS, ARROW, NETWORK] with
 
     override
     def f(

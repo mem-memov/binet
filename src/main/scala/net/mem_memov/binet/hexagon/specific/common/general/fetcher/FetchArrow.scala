@@ -1,4 +1,4 @@
-package net.mem_memov.binet.hexagon.specific.arrow.general.fetcher
+package net.mem_memov.binet.hexagon.specific.common.general.fetcher
 
 trait FetchArrow[FETCHER, ADDRESS, ARROW, NETWORK]:
 
