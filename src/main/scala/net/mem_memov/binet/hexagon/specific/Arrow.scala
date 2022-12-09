@@ -40,17 +40,19 @@ object Arrow:
 
       network.readDot(arrow.entry.address1)
 
-  given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, Arrow]
+  given [FETCHER, NETWORK](using
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.arrow.GetPreviousSourceArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, Arrow] =
+    ): Either[String, Option[Arrow]] =
 
-      network.readArrow(arrow.entry.address2)
+      fetcher.fetchArrow(arrow.entry.address2, network)
 
   given [FETCHER, NETWORK](using
     specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
@@ -78,17 +80,19 @@ object Arrow:
 
       network.readDot(arrow.entry.address4)
 
-  given [NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, Arrow]
+  given [FETCHER, NETWORK](using
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.arrow.GetPreviousTargetArrow[Arrow, NETWORK] with
 
     override
     def f(
       arrow: Arrow,
       network: NETWORK
-    ): Either[String, Arrow] =
+    ): Either[String, Option[Arrow]] =
 
-      network.readArrow(arrow.entry.address5)
+      fetcher.fetchArrow(arrow.entry.address5, network)
 
   given [FETCHER, NETWORK](using
     specific.common.general.fetcher.FetchArrow[FETCHER, Address, Arrow, NETWORK]

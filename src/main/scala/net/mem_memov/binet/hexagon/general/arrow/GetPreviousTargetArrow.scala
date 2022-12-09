@@ -5,12 +5,12 @@ trait GetPreviousTargetArrow[ARROW, NETWORK]:
   def f(
     arrow: ARROW,
     network: NETWORK
-  ): Either[String, ARROW]
+  ): Either[String, Option[ARROW]]
 
   extension (arrow: ARROW)
 
     def getPreviousTargetArrow(
       network: NETWORK
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       f(arrow, network)
