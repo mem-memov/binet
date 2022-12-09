@@ -18,6 +18,15 @@ object Dictionary:
 
   import net.mem_memov.binet.memory.Preamble.given
 
+  given general.dictionary.GetNextAddress[Dictionary, Address] with
+
+    override
+    def f(
+      dictionary: Dictionary
+    ): Address =
+
+      dictionary.inventory1.next
+
   given general.dictionary.GetAddress[Dictionary, Address] with
 
     override

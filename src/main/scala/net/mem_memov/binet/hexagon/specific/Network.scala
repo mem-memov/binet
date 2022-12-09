@@ -43,8 +43,10 @@ object Network:
   given [ADDRESS, ENTRY, FACTORY](using
     general.dictionary.Append[Dictionary, ENTRY],
     general.dictionary.GetAddress[Dictionary, ADDRESS],
+    general.dictionary.GetNextAddress[Dictionary, ADDRESS],
     general.factory.EmptyEntry[FACTORY, ENTRY],
-    general.factory.MakeDot[FACTORY, ADDRESS, Dot, ENTRY]
+    general.factory.MakeDot[FACTORY, ADDRESS, Dot, ENTRY],
+    general.entry.SetAddress1[ENTRY, ADDRESS]
   )(using
     factory: FACTORY
   ): general.network.CreateDot[Network, Dot] with
@@ -55,6 +57,7 @@ object Network:
     ): Either[String, (Network, Dot)] =
 
       val entry = factory.emptyEntry()
+        .setAddress1(network.dictionary.getNextAddress)
 
       for {
         modifiedDictionary <- network.dictionary.append(entry)
