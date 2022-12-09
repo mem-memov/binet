@@ -10,6 +10,14 @@ case class Dot(
 
 object Dot:
 
+  given (using
+    general.entry.GetAddress1[Entry, Address]
+  ): general.dot.IsDot[Dot] with
+
+    override def f(dot: Dot): Boolean =
+
+      dot.address == dot.entry.address1
+
   given general.dot.GetAddress[Dot, Address] with
 
     override

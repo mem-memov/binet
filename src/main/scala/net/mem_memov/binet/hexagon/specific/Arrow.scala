@@ -10,6 +10,14 @@ case class Arrow(
 
 object Arrow:
 
+  given (using
+    general.entry.GetAddress1[Entry, Address]
+  ): general.arrow.IsArrow[Arrow] with
+
+    override def f(arrow: Arrow): Boolean =
+
+      arrow.address != arrow.entry.address1
+
   given general.arrow.GetAddress[Arrow, Address] with
 
     override
