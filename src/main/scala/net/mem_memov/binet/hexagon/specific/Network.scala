@@ -5,8 +5,6 @@ import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory
 
 case class Network(
-  optionDot: Option[Dot],
-  optionArrow: Option[Arrow],
   dictionary: Dictionary
 )
 
@@ -68,7 +66,8 @@ object Network:
   given [ENTRY, FACTORY](using
     general.dictionary.Read[Dictionary, Address, ENTRY],
     general.factory.MakeArrow[FACTORY, Address, Arrow, ENTRY],
-    memory.general.address.IsZero[Address]
+    memory.general.address.IsZero[Address],
+    general.arrow.IsArrow[Arrow]
   )(using
     factory: FACTORY
   ): general.network.ReadArrow[Network, Address, Arrow] with
@@ -81,12 +80,19 @@ object Network:
 
       for {
         entry <- network.dictionary.read(address)
-      } yield factory.makeArrow(address, entry)
+        arrow <-
+          val arrow = factory.makeArrow(address, entry)
+          if arrow.isArrow then
+            Right(arrow)
+          else
+            Left("Not an arrow")
+      } yield arrow
 
   given [ENTRY, FACTORY](using
     general.dictionary.Read[Dictionary, Address, ENTRY],
     general.factory.MakeDot[FACTORY, Address, Dot, ENTRY],
-    memory.general.address.IsZero[Address]
+    memory.general.address.IsZero[Address],
+    general.dot.IsDot[Dot]
   )(using
     factory: FACTORY
   ): general.network.ReadDot[Network, Address, Dot] with
@@ -99,25 +105,13 @@ object Network:
 
       for {
         entry <- network.dictionary.read(address)
-      } yield factory.makeDot(address, entry)
-
-  given general.network.RequireArrow[Network, Arrow] with
-
-    override
-    def f(network: Network): Either[String, Arrow] =
-
-      network.optionArrow match
-        case Some(arrow) => Right(arrow)
-        case None => Left("No arrow")
-
-  given general.network.RequireDot[Network, Dot] with
-
-    override
-    def f(network: Network): Either[String, Dot] =
-
-      network.optionDot match
-        case Some(dot) => Right(dot)
-        case None => Left("No dot")
+        dot <-
+          val dot = factory.makeDot(address, entry)
+          if dot.isDot then
+            Right(dot)
+          else
+            Left("Not a dot")
+      } yield dot
 
   given [ADDRESS, ENTRY](using
     general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
@@ -133,7 +127,7 @@ object Network:
 
       for {
         modifiedNeDictionary <- network.dictionary.update(arrow.getAddress, arrow.getEntry)
-      } yield Network(None, Some(arrow), network.dictionary)
+      } yield network.copy(dictionary = modifiedNeDictionary)
 
   given [ADDRESS, ENTRY](using
     general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
@@ -149,32 +143,5 @@ object Network:
 
       for {
         modifiedNeDictionary <- network.dictionary.update(dot.getAddress, dot.getEntry)
-      } yield Network(Some(dot), None, network.dictionary)
+      } yield network.copy(dictionary = modifiedNeDictionary)
 
-  given general.network.TakeState[Network] with
-
-    override
-    def f(
-      network: Network,
-      donor: Network
-    ): Network =
-
-      network.copy(dictionary = donor.dictionary)
-
-  given general.network.HasArrow[Network] with
-
-    override
-    def f(
-      network: Network
-    ): Boolean =
-
-      network.optionArrow.isDefined
-
-  given general.network.HasDot[Network] with
-
-    override
-    def f(
-      network: Network
-    ): Boolean =
-
-      network.optionDot.isDefined

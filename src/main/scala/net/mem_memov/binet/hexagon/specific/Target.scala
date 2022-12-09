@@ -10,8 +10,6 @@ object Target:
 
   given [ARROW, NETWORK, ADDRESS](using
     general.network.CreateArrow[NETWORK, ADDRESS, ARROW],
-    general.network.RequireArrow[NETWORK, ARROW],
-    general.network.TakeState[NETWORK],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK]
   ): general.target.CreateArrow[Target, NETWORK, ADDRESS] with
@@ -21,10 +19,10 @@ object Target:
       target: Target, 
       sourceAddress: ADDRESS, 
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, (NETWORK, ARROW)] =
 
       for {
         createArrowResult <- network.createArrow(sourceAddress, target.dot.getAddress)
         (networkWithArrow, arrow) = createArrowResult
         networkWithTarget <- target.dot.setSourceArrow(arrow, network)
-      } yield networkWithArrow.takeState(networkWithTarget)
+      } yield (networkWithTarget, arrow)

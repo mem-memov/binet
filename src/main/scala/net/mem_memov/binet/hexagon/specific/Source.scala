@@ -11,8 +11,7 @@ object Source:
   given [ARROW, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrow[TARGET, NETWORK, ADDRESS],
     general.dot.GetAddress[Dot, ADDRESS],
-    general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
-    general.network.RequireArrow[NETWORK, ARROW]
+    general.dot.SetTargetArrow[Dot, ARROW, NETWORK]
   ): general.source.CreateArrow[Source, NETWORK, TARGET] with
 
     override
