@@ -13,7 +13,7 @@ case class Inventory(
 
 object Inventory:
 
-  given general.inventory.Next[Inventory, Address] with
+  given general.inventory.GetNext[Inventory, Address] with
 
     override
     def f(

@@ -1,6 +1,7 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
+import net.mem_memov.binet.memory.specific.Address
 
 class Factory
 
@@ -13,8 +14,6 @@ object Factory:
     lazy
     val dictionary: Dictionary =
       Dictionary(
-        None,
-        None,
         factory.emptyInventory(),
         factory.emptyInventory(),
         factory.emptyInventory(),
@@ -71,4 +70,23 @@ object Factory:
 
       Vertex(dot)
 
-      
+  given general.factory.MakeEntry[Factory, Address, Entry] with
+
+    override
+    def f(
+      address1: Address,
+      address2: Address,
+      address3: Address,
+      address4: Address,
+      address5: Address,
+      address6: Address
+    ): Entry =
+
+      Entry(
+        address1,
+        address2,
+        address3,
+        address4,
+        address5,
+        address6
+      )

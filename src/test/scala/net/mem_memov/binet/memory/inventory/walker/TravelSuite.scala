@@ -23,7 +23,7 @@ class TravelSuite extends munit.FunSuite:
           case (OriginAddressStub, NextInventoryAddressStub) => 0
           case _ => fail("unexpected")
 
-    given general.inventory.Next[InventoryStub, AddressStub] with
+    given general.inventory.GetNext[InventoryStub, AddressStub] with
       override def f(inventory: InventoryStub): AddressStub =
         NextInventoryAddressStub
 
@@ -54,7 +54,7 @@ class TravelSuite extends munit.FunSuite:
           case (OriginAddressStub, NextInventoryAddressStub) => -1
           case _ => fail("unexpected")
 
-    given general.inventory.Next[InventoryStub, AddressStub] with
+    given general.inventory.GetNext[InventoryStub, AddressStub] with
       override def f(inventory: InventoryStub): AddressStub =
         NextInventoryAddressStub
 
@@ -87,7 +87,7 @@ class TravelSuite extends munit.FunSuite:
           case (IncrementedOriginAddressStub, NextInventoryAddressStub) => 0
           case _ => fail("unexpected")
 
-    given general.inventory.Next[InventoryStub, AddressStub] with
+    given general.inventory.GetNext[InventoryStub, AddressStub] with
       override def f(inventory: InventoryStub): AddressStub =
         NextInventoryAddressStub
 

@@ -13,8 +13,7 @@ case class Network(
 object Network:
 
   given [ADDRESS, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ENTRY],
-    general.dictionary.GetAddress[Dictionary, ADDRESS],
+    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
     general.factory.EmptyEntry[FACTORY, ENTRY],
     general.factory.MakeArrow[FACTORY, ADDRESS, Arrow, ENTRY],
     general.entry.SetAddress1[ENTRY, ADDRESS],
@@ -33,16 +32,15 @@ object Network:
       val entry = factory.emptyEntry().setAddress1(sourceAddress).setAddress3(targetAddress)
 
       for {
-        modifiedDictionary <- network.dictionary.append(entry)
-        address <- modifiedDictionary.getAddress
+        appendResult <- network.dictionary.append(entry)
+        (modifiedDictionary, address) = appendResult
       } yield
         val arrow = factory.makeArrow(address, entry)
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
         (modifiedNetwork, arrow)
 
   given [ADDRESS, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ENTRY],
-    general.dictionary.GetAddress[Dictionary, ADDRESS],
+    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
     general.dictionary.GetNextAddress[Dictionary, ADDRESS],
     general.factory.EmptyEntry[FACTORY, ENTRY],
     general.factory.MakeDot[FACTORY, ADDRESS, Dot, ENTRY],
@@ -60,8 +58,8 @@ object Network:
         .setAddress1(network.dictionary.getNextAddress)
 
       for {
-        modifiedDictionary <- network.dictionary.append(entry)
-        address <- modifiedDictionary.getAddress
+        appendResult <- network.dictionary.append(entry)
+        (modifiedDictionary, address) = appendResult
       } yield
         val dot = factory.makeDot(address, entry)
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)

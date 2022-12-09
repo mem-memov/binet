@@ -14,7 +14,7 @@ object Walker:
     => general.address.Increment[ADDRESS],
     => Ordering[ADDRESS],
     => general.inventory.Read[INVENTORY, ADDRESS],
-    => general.inventory.Next[INVENTORY, ADDRESS]
+    => general.inventory.GetNext[INVENTORY, ADDRESS]
   )(using
     inventory: INVENTORY
   ): specific.inventory.general.walker.Travel[Walker, ADDRESS] with
@@ -28,7 +28,7 @@ object Walker:
       process: (RESULT, general.Item[ADDRESS]) => RESULT
     ): Either[String, RESULT] =
 
-      if origin equiv inventory.next() then
+      if origin equiv inventory.getNext() then
         Right(result)
       else
         val contentEither = inventory.read(origin)

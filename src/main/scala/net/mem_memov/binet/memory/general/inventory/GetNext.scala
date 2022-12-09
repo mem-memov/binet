@@ -1,6 +1,6 @@
 package net.mem_memov.binet.memory.general.inventory
 
-trait Next[INVENTORY, ADDRESS]:
+trait GetNext[INVENTORY, ADDRESS]:
 
   def f(
     inventory: INVENTORY
@@ -8,6 +8,6 @@ trait Next[INVENTORY, ADDRESS]:
 
   extension (inventory: INVENTORY)
 
-    def next(): ADDRESS =
+    def getNext(): ADDRESS =
 
       f(inventory)
