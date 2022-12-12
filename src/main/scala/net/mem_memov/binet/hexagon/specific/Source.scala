@@ -2,6 +2,8 @@ package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
 
+import scala.annotation.tailrec
+
 case class Source(
   dot: Dot
 )
@@ -41,7 +43,8 @@ object Source:
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
-    general.head.HasTarget[HEAD, TARGET]
+    general.head.HasTarget[HEAD, TARGET],
+    general.head.GetNext[HEAD, NETWORK]
   ): general.source.HasTarget[Source, NETWORK, TARGET] with
 
     override
@@ -53,7 +56,24 @@ object Source:
 
       for {
         optionArrow <- source.dot.getTargetArrow(network)
-      } yield optionArrow match
-        case Some(arrow) => arrow.toHead.hasTarget(target)
-        case None => false
+        hasTarget <- optionArrow match
+          case None => Right(false)
+          case Some(arrow) =>
+
+            @tailrec
+            def ff(head: HEAD, target: TARGET, network: NETWORK): Either[String, Boolean] =
+              if head.hasTarget(target) then
+                Right(true)
+              else
+                val eitherOptionHead = head.getNext(network)
+                eitherOptionHead match
+                  case Left(error) => Left(error)
+                  case Right(optionHead) =>
+                    optionHead match
+                      case None => Right(false)
+                      case Some(head) => ff(head, target, network)
+
+            ff(arrow.toHead, target, network)
+
+      } yield hasTarget
 
