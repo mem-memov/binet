@@ -12,7 +12,7 @@ object Target:
     general.network.CreateArrow[NETWORK, ADDRESS, ARROW],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK]
-  ): general.target.CreateArrow[Target, NETWORK, ADDRESS] with
+  ): general.target.CreateArrow[Target, ADDRESS, ARROW, NETWORK] with
 
     override 
     def f(

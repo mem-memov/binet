@@ -39,7 +39,7 @@ object Factory:
   given general.factory.EmptyNetwork[Factory, Network] with
 
     lazy
-    val network = Network(None, None, net_mem_memov_binet_hexagon_specific_Factory_emptyDictionary.f())
+    val network = Network(net_mem_memov_binet_hexagon_specific_Factory_emptyDictionary.f())
 
     override def f(): Network = network
 
