@@ -4,9 +4,11 @@
 # sbt specific
 dist/*
 target/
+!src/**/target
 lib_managed/
 src_managed/
 project/boot/
+project/target/
 project/plugins/project/
 project/local-plugins.sbt
 .history
