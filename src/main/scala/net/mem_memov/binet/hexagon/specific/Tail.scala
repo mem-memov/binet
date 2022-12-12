@@ -23,15 +23,15 @@ object Tail:
         optionArrow <- tail.arrow.getNextSourceArrow(network)
       } yield optionArrow.map(_.toTail)
 
-  given [ADDRESS, DOT](using
-    general.dot.GetAddress[DOT, ADDRESS],
+  given [ADDRESS, SOURCE](using
+    general.dot.GetAddress[SOURCE, ADDRESS],
     general.arrow.HasSourceDot[Arrow, ADDRESS]
-  ): general.tail.HasSourceDot[Tail, DOT] with
+  ): general.tail.HasSource[Tail, SOURCE] with
 
     override
     def f(
       tail: Tail,
-      dot: DOT
+      source: SOURCE
     ): Boolean =
 
-      tail.arrow.hasSourceDot(dot.getAddress)
+      tail.arrow.hasSourceDot(source.getAddress)

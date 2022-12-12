@@ -8,6 +8,17 @@ case class Target(
 
 object Target:
 
+  given [ADDRESS](using
+    general.dot.GetAddress[Dot, ADDRESS]
+  ): general.target.GetAddress[Target, ADDRESS] with
+
+    override
+    def f(
+      target: Target
+    ): ADDRESS =
+
+      target.dot.getAddress
+
   given [ARROW, NETWORK, ADDRESS](using
     general.network.CreateArrow[NETWORK, ADDRESS, ARROW],
     general.dot.GetAddress[Dot, ADDRESS],

@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.head
 
-trait HasTargetDot[HEAD, DOT]:
+trait HasTarget[HEAD, TARGET]:
 
   def f(
     head: HEAD,
-    dot: DOT
+    target: TARGET
   ): Boolean
 
   extension (head: HEAD)
 
-    def hasTargetDot(
-      dot: DOT
+    def hasTarget(
+      target: TARGET
     ): Boolean =
 
-      f(head, dot)
+      f(head, target)

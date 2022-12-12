@@ -23,17 +23,17 @@ object Head:
         optionArrow <- head.arrow.getNextTargetArrow(network)
       } yield optionArrow.map(_.toHead)
 
-  given [ADDRESS, DOT](using
-      general.dot.GetAddress[DOT, ADDRESS],
+  given [ADDRESS, TARGET](using
+      general.dot.GetAddress[TARGET, ADDRESS],
       general.arrow.HasTargetDot[Arrow, ADDRESS]
-    ): general.head.HasTargetDot[Head, DOT] with
+    ): general.head.HasTarget[Head, TARGET] with
 
     override
     def f(
       head: Head,
-      dot: DOT
+      target: TARGET
     ): Boolean =
 
-      head.arrow.hasTargetDot(dot.getAddress)
+      head.arrow.hasTargetDot(target.getAddress)
 
 

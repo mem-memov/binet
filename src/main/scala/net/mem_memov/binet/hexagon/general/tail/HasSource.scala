@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.tail
 
-trait HasSourceDot[TAIL, DOT]:
+trait HasSource[TAIL, SOURCE]:
 
   def f(
     tail: TAIL,
-    dot: DOT
+    source: SOURCE
   ): Boolean
 
   extension (tail: TAIL)
 
-    def hasSourceDot(
-      dot: DOT
+    def hasSource(
+      source: SOURCE
     ): Boolean =
 
-      f(tail, dot)
+      f(tail, source)

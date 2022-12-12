@@ -8,6 +8,17 @@ case class Source(
 
 object Source:
 
+  given [ADDRESS](using
+    general.dot.GetAddress[Dot, ADDRESS]
+  ): general.source.GetAddress[Source, ADDRESS] with
+
+    override
+    def f(
+      source: Source
+    ): ADDRESS =
+
+      source.dot.getAddress
+
   given [ARROW, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrow[TARGET, ADDRESS, ARROW, NETWORK],
     general.dot.GetAddress[Dot, ADDRESS],
@@ -30,7 +41,7 @@ object Source:
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
-    general.head.HasTargetDot[HEAD, Dot]
+    general.head.HasTarget[HEAD, TARGET]
   ): general.source.HasTarget[Source, NETWORK, TARGET] with
 
     override
@@ -38,11 +49,11 @@ object Source:
       source: Source,
       target: TARGET,
       network: NETWORK
-    ): Boolean =
+    ): Either[String, Boolean] =
 
       for {
         optionArrow <- source.dot.getTargetArrow(network)
       } yield optionArrow match
-        case Some(arrow) => arrow.toHead.hasTarget(target, network)
+        case Some(arrow) => arrow.toHead.hasTarget(target)
         case None => false
 

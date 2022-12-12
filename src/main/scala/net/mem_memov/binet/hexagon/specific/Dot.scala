@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.specific
 
-import net.mem_memov.binet.hexagon.general
+import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory.specific.Address
 
 case class Dot(
@@ -62,8 +62,10 @@ object Dot:
 
       network.readArrow(dot.entry.address2)
 
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, ARROW]
+  given [ARROW, FETCHER, NETWORK](using
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, ARROW, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
 
     override
@@ -72,10 +74,12 @@ object Dot:
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
-      network.readArrow(dot.entry.address5)
+      fetcher.fetchArrow(dot.entry.address5, network)
 
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, ARROW]
+  given [ARROW, FETCHER, NETWORK](using
+    specific.common.general.fetcher.FetchArrow[FETCHER, Address, ARROW, NETWORK]
+  )(using
+    fetcher: FETCHER
   ): general.dot.GetTargetArrow[Dot, ARROW, NETWORK] with
 
     override
@@ -84,7 +88,6 @@ object Dot:
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
-      for {
-        modifiedNetwork <- network.readArrow(dot.entry.address6)
-      } yield modifiedNetwork
+      fetcher.fetchArrow(dot.entry.address6, network)
+
 

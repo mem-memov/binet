@@ -6,13 +6,13 @@ trait HasTarget[SOURCE, NETWORK, TARGET]:
     source: SOURCE,
     target: TARGET,
     network: NETWORK
-  ): Boolean
+  ): Either[String, Boolean]
 
   extension (source: SOURCE)
 
     def hasTarget(
       target: TARGET,
       network: NETWORK
-    ): Boolean =
+    ): Either[String, Boolean] =
 
       f(source, target, network)
