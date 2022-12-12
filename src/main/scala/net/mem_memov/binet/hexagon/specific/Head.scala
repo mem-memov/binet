@@ -6,29 +6,34 @@ case class Head(
   arrow: Arrow
 )
 
-object Head//:
+object Head:
 
-//  given [NETWORK](using
-//    general.arrow.GetNextTargetArrow[Arrow, NETWORK],
-//    general.arrow.ToHead[Arrow, Head],
-//    general.network.HasArrow[NETWORK],
-//    general.network.RequireArrow[NETWORK,Arrow]
-//  ): general.head.GetNext[Head, NETWORK] with
-//
-//    override
-//    def f(
-//      head: Head,
-//      network: NETWORK
-//    ): Either[String, Option[Head]] =
-//
-//      for {
-//        networkWithArrow <- head.arrow.getNextTargetArrow(network)
-//        _ <- if networkWithArrow.hasArrow then
-//          for {
-//            arrow <- networkWithArrow.requireArrow()
-//          } yield Some(arrow)
-//        else
-//
-//      } yield ???
+  given [NETWORK](using
+    general.arrow.GetNextTargetArrow[Arrow, NETWORK],
+    general.arrow.ToHead[Arrow, Head]
+  ): general.head.GetNext[Head, NETWORK] with
+
+    override
+    def f(
+      head: Head,
+      network: NETWORK
+    ): Either[String, Option[Head]] =
+
+      for {
+        optionArrow <- head.arrow.getNextTargetArrow(network)
+      } yield optionArrow.map(_.toHead)
+
+  given [ADDRESS, DOT](using
+      general.dot.GetAddress[DOT, ADDRESS],
+      general.arrow.HasTargetDot[Arrow, ADDRESS]
+    ): general.head.HasTargetDot[Head, DOT] with
+
+    override
+    def f(
+      head: Head,
+      dot: DOT
+    ): Boolean =
+
+      head.arrow.hasTargetDot(dot.getAddress)
 
 

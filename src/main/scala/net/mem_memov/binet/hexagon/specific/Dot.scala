@@ -70,7 +70,7 @@ object Dot:
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       network.readArrow(dot.entry.address5)
 
@@ -82,7 +82,7 @@ object Dot:
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       for {
         modifiedNetwork <- network.readArrow(dot.entry.address6)

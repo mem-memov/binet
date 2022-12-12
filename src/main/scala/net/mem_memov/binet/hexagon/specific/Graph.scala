@@ -44,7 +44,8 @@ object Graph:
       val source = sourceVertex.toSource
       val target = targetVertex.toTarget
 
-      // TODO: check if already connected
+      // TODO: optimize using counts
+      
 
       for {
         modifiedNetwork <- source.createArrow(target, graph.network)

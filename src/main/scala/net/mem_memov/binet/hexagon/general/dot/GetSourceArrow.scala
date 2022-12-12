@@ -5,12 +5,12 @@ trait GetSourceArrow[DOT, ARROW, NETWORK]:
   def f(
     dot: DOT,
     network: NETWORK
-  ): Either[String, ARROW]
+  ): Either[String, Option[ARROW]]
 
   extension (dot: DOT)
 
     def getSourceArrow(
       network: NETWORK
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       f(dot, network)

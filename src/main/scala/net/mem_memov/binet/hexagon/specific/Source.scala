@@ -26,3 +26,23 @@ object Source:
         (networkWithArrow, arrow) = createArrowResult
         networkWithSource <- source.dot.setTargetArrow(arrow, network)
       } yield networkWithSource
+
+  given [ARROW, HEAD, NETWORK, TARGET](using
+    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
+    general.arrow.ToHead[ARROW, HEAD],
+    general.head.HasTargetDot[HEAD, Dot]
+  ): general.source.HasTarget[Source, NETWORK, TARGET] with
+
+    override
+    def f(
+      source: Source,
+      target: TARGET,
+      network: NETWORK
+    ): Boolean =
+
+      for {
+        optionArrow <- source.dot.getTargetArrow(network)
+      } yield optionArrow match
+        case Some(arrow) => arrow.toHead.hasTarget(target, network)
+        case None => false
+

@@ -116,23 +116,25 @@ object Arrow:
 
       fetcher.fetchArrow(arrow.entry.address6, network)
 
-  given general.arrow.HasSourceDot[Arrow] with
+  given general.arrow.HasSourceDot[Arrow, Address] with
 
     override
     def f(
-      arrow: Arrow
+      arrow: Arrow,
+      sourceDotAddress: Address
     ): Boolean =
 
-      !arrow.entry.address1.isZero
+      arrow.entry.address1 == sourceDotAddress
 
-  given general.arrow.HasTargetDot[Arrow] with
+  given general.arrow.HasTargetDot[Arrow, Address] with
 
     override
     def f(
-      arrow: Arrow
+      arrow: Arrow,
+      targetDotAddress: Address
     ): Boolean =
 
-      !arrow.entry.address4.isZero
+      arrow.entry.address4 == targetDotAddress
 
   given [NETWORK](using
     general.network.UpdateArrow[NETWORK, Arrow]
