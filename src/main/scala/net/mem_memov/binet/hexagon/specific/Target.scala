@@ -40,6 +40,26 @@ object Target:
         networkWithTarget <- target.dot.setSourceArrow(arrow, network)
       } yield (networkWithTarget, arrow)
 
+  given [ARROW, NETWORK, SOURCE, TAIL](using
+    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
+    general.source.IsInTails[SOURCE, NETWORK, TAIL],
+    general.arrow.ToTail[ARROW, TAIL]
+  ): general.target.HasSource[Target, NETWORK, SOURCE] with
+
+    override
+    def f(
+      target: Target,
+      source: SOURCE,
+      network: NETWORK
+    ): Either[String, Boolean] =
+
+      for {
+        optionArrow <- target.dot.getSourceArrow(network)
+        hasTarget <- optionArrow match
+          case None => Right(false)
+          case Some(arrow) => source.isInTails(arrow.toTail, network)
+      } yield hasTarget
+
   given [HEAD, NETWORK](using
     general.head.HasTarget[HEAD, Target],
     general.head.GetNext[HEAD, NETWORK],

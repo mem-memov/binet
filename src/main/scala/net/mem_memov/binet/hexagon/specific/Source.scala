@@ -1,7 +1,6 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
-
 import scala.annotation.tailrec
 
 case class Source(
@@ -59,4 +58,29 @@ object Source:
           case None => Right(false)
           case Some(arrow) => target.isInHeads(arrow.toHead, network)
       } yield hasTarget
+
+  given [NETWORK, TAIL](using
+    general.tail.HasSource[TAIL, Source],
+    general.tail.GetNext[TAIL, NETWORK]
+  ): general.source.IsInTails[Source, NETWORK, TAIL] with
+
+    @tailrec
+    override
+    final // enable tail recursive optimization
+    def f(
+      source: Source,
+      tail: TAIL,
+      network: NETWORK
+    ): Either[String, Boolean] =
+
+      if tail.hasSource(source) then
+        Right(true)
+      else
+        val eitherOptionTail = tail.getNext(network)
+        eitherOptionTail match
+          case Left(error) => Left(error)
+          case Right(optionTail) =>
+            optionTail match
+              case None => Right(false)
+              case Some(tail) => f(source, tail, network)
 
