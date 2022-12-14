@@ -31,7 +31,7 @@ object Graph:
   given [SOURCE, TARGET](using
     general.vertex.ToSource[Vertex, SOURCE],
     general.vertex.ToTarget[Vertex, TARGET],
-    general.source.CreateArrow[SOURCE, Network, TARGET],
+    general.source.CreateArrowToTarget[SOURCE, Network, TARGET],
     general.source.HasTarget[SOURCE, Network, TARGET]
   ): general.graph.ConnectVertices[Graph, Vertex] with
 
@@ -50,5 +50,5 @@ object Graph:
         modifiedNetwork <- if hasTarget then
           Right(graph.network)
         else
-          source.createArrow(target, graph.network)
+          source.createArrowToTarget(target, graph.network)
       } yield Graph(modifiedNetwork)

@@ -22,10 +22,10 @@ object Source:
       source.dot.getAddress
 
   given [ARROW, ADDRESS, ENTRY, NETWORK, TARGET](using
-    general.target.CreateArrow[TARGET, ADDRESS, ARROW, NETWORK],
+    general.target.CreateArrowFromSource[TARGET, ADDRESS, ARROW, NETWORK],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK]
-  ): general.source.CreateArrow[Source, NETWORK, TARGET] with
+  ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
     def f(
@@ -35,7 +35,7 @@ object Source:
     ): Either[String, NETWORK] =
 
       for {
-        createArrowResult <- target.createArrow(source.dot.getAddress, network)
+        createArrowResult <- target.createArrowFromSource(source.dot.getAddress, network)
         (networkWithArrow, arrow) = createArrowResult
         networkWithSource <- source.dot.setTargetArrow(arrow, network)
       } yield networkWithSource
@@ -43,8 +43,7 @@ object Source:
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
-    general.head.HasTarget[HEAD, TARGET],
-    general.head.GetNext[HEAD, NETWORK]
+    general.target.IsInHeads[TARGET, HEAD, NETWORK]
   ): general.source.HasTarget[Source, NETWORK, TARGET] with
 
     override
@@ -58,22 +57,6 @@ object Source:
         optionArrow <- source.dot.getTargetArrow(network)
         hasTarget <- optionArrow match
           case None => Right(false)
-          case Some(arrow) =>
-
-            @tailrec
-            def ff(head: HEAD, target: TARGET, network: NETWORK): Either[String, Boolean] =
-              if head.hasTarget(target) then
-                Right(true)
-              else
-                val eitherOptionHead = head.getNext(network)
-                eitherOptionHead match
-                  case Left(error) => Left(error)
-                  case Right(optionHead) =>
-                    optionHead match
-                      case None => Right(false)
-                      case Some(head) => ff(head, target, network)
-
-            ff(arrow.toHead, target, network)
-
+          case Some(arrow) => target.isInHeads(arrow.toHead, network)
       } yield hasTarget
 
