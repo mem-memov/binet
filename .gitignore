@@ -2,8 +2,8 @@
 .DS_Store
 
 # sbt specific
-target/
-project/
+/target/
+/project/
 !project/build.properties
 
 # Bloop
