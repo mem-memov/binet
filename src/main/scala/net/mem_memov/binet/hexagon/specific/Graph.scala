@@ -22,17 +22,21 @@ object Graph:
 
       for {
         createDotResult <- graph.network.createDot()
-        (networkWithDot, dot) = createDotResult
+        (network1, dot) = createDotResult
       } yield
         val vertex = factory.makeVertex(dot)
-        val modifiedGraph = Graph(networkWithDot)
+        val modifiedGraph = graph.copy(network = network1)
         (modifiedGraph, vertex)
 
-  given [SOURCE, TARGET](using
+  given [ADDRESS, SOURCE, TARGET](using
     general.vertex.ToSource[Vertex, SOURCE],
     general.vertex.ToTarget[Vertex, TARGET],
     general.source.CreateArrowToTarget[SOURCE, Network, TARGET],
-    general.source.HasTarget[SOURCE, Network, TARGET]
+    general.source.HasTarget[SOURCE, Network, TARGET],
+    general.source.CountTargets[SOURCE, ADDRESS],
+    general.target.CountSources[TARGET, ADDRESS],
+    general.target.HasSource[TARGET, Network, SOURCE],
+    Ordering[ADDRESS]
   ): general.graph.ConnectVertices[Graph, Vertex] with
 
     override
@@ -45,10 +49,15 @@ object Graph:
       val source = sourceVertex.toSource
       val target = targetVertex.toTarget
 
+      import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
+
       for {
-        hasTarget <- source.hasTarget(target, graph.network) // TODO: optimize using count
-        modifiedNetwork <- if hasTarget then
-          Right(graph.network)
-        else
-          source.createArrowToTarget(target, graph.network)
-      } yield Graph(modifiedNetwork)
+        alreadyConnected <- if source.countTargets < target.countSources then
+            source.hasTarget(target, graph.network)
+          else
+            target.hasSource(source, graph.network)
+        network1 <- if alreadyConnected then
+            Right(graph.network)
+          else
+            source.createArrowToTarget(target, graph.network)
+      } yield graph.copy(network = network1)

@@ -23,7 +23,8 @@ object Source:
   given [ARROW, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrowFromSource[TARGET, ADDRESS, ARROW, NETWORK],
     general.dot.GetAddress[Dot, ADDRESS],
-    general.dot.SetTargetArrow[Dot, ARROW, NETWORK]
+    general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
+    general.dot.IncrementTargetCount[Dot, NETWORK]
   ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -35,9 +36,10 @@ object Source:
 
       for {
         createArrowResult <- target.createArrowFromSource(source.dot.getAddress, network)
-        (networkWithArrow, arrow) = createArrowResult
-        networkWithSource <- source.dot.setTargetArrow(arrow, network)
-      } yield networkWithSource
+        (network1, arrow) = createArrowResult
+        network2 <- source.dot.setTargetArrow(arrow, network1)
+        network3 <- source.dot.incrementTargetCount(network2)
+      } yield network3
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
@@ -84,3 +86,13 @@ object Source:
               case None => Right(false)
               case Some(tail) => f(source, tail, network)
 
+  given [ADDRESS](using
+    general.dot.GetTargetCount[Dot, ADDRESS]
+  ): general.source.CountTargets[Source, ADDRESS] with
+
+    override
+    def f(
+      source: Source
+    ): ADDRESS =
+
+      source.dot.getTargetCount
