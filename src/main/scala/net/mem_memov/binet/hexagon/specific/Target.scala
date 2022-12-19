@@ -48,7 +48,7 @@ object Target:
         network2 <- target.dot.setSourceArrow(arrow, network1)
         network3 <- target.dot.incrementSourceCount(network2)
         network4 <- previousArrowOption match
-          case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network)
+          case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network3)
           case None => Right(network3)
       } yield (network4, arrow)
 
