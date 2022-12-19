@@ -10,7 +10,7 @@ case class Target(
 
 object Target:
 
-  given [ADDRESS](using
+  given [ADDRESS, DOT, ENTRY](using
     general.dot.GetAddress[Dot, ADDRESS]
   ): general.target.GetAddress[Target, ADDRESS] with
 
@@ -21,16 +21,15 @@ object Target:
 
       target.dot.getAddress
 
-  given [ADDRESS, ARROW, ENTRY, NETWORK](using
+  given [ADDRESS, ARROW, ARROW_ENTRY, ENTRY, NETWORK](using
     general.network.CreateArrow[NETWORK, ARROW, ENTRY],
-    general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK],
     general.dot.IncrementSourceCount[Dot, NETWORK],
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
-    general.dot.GetSourceArrowAddress[Dot, ADDRESS],
     general.arrow.SetNextSourceArrow[ARROW, NETWORK],
-    general.entry.SetAddress4[ENTRY, ADDRESS],
-    general.entry.SetAddress5[ENTRY, ADDRESS]
+    target.general.arrowEntry.Update[ARROW_ENTRY, Dot, ENTRY]
+  )(using
+    arrowEntry: ARROW_ENTRY
   ): general.target.CreateArrowFromSource[Target, ARROW, ENTRY, NETWORK] with
 
     override 
@@ -40,15 +39,11 @@ object Target:
       network: NETWORK
     ): Either[String, (NETWORK, ARROW)] =
 
-      val entry2 = entry.setAddress4(target.dot.getAddress)
-
-      val entry3 = target.dot.getSourceArrowAddress match
-        case None => entry2
-        case Some(sourceArrowAddress) => entry.setAddress5(sourceArrowAddress)
+      val entry2 = arrowEntry.update(entry, target.dot)
 
       for {
         previousArrowOption <- target.dot.getSourceArrow(network)
-        createArrowResult <- network.createArrow(entry3)
+        createArrowResult <- network.createArrow(entry2)
         (network1, arrow) = createArrowResult
         network2 <- target.dot.setSourceArrow(arrow, network1)
         network3 <- target.dot.incrementSourceCount(network2)
