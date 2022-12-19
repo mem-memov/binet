@@ -10,24 +10,18 @@ case class Network(
 
 object Network:
 
-  given [ADDRESS, ENTRY, FACTORY](using
+  given [ADDRESS, ARROW, ENTRY, FACTORY](using
     general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
-    general.factory.EmptyEntry[FACTORY, ENTRY],
-    general.factory.MakeArrow[FACTORY, ADDRESS, Arrow, ENTRY],
-    general.entry.SetAddress1[ENTRY, ADDRESS],
-    general.entry.SetAddress3[ENTRY, ADDRESS]
+    general.factory.MakeArrow[FACTORY, ADDRESS, ARROW, ENTRY]
   )(using
     factory: FACTORY
-  ): general.network.CreateArrow[Network, ADDRESS, Arrow] with
+  ): general.network.CreateArrow[Network, ARROW, ENTRY] with
 
     override
     def f(
       network: Network,
-      sourceAddress: ADDRESS,
-      targetAddress: ADDRESS
-    ): Either[String, (Network, Arrow)] =
-
-      val entry = factory.emptyEntry().setAddress1(sourceAddress).setAddress3(targetAddress)
+      entry: ENTRY
+    ): Either[String, (Network, ARROW)] =
 
       for {
         appendResult <- network.dictionary.append(entry)

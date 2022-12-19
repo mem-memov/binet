@@ -1,18 +1,19 @@
 package net.mem_memov.binet.hexagon.general.arrow
 
-trait SetNextTargetArrow[ARROW, NETWORK]:
+trait SetPreviousTargetArrow[ARROW, NETWORK]:
 
   def f(
     arrow: ARROW,
-    nextTargetArrow: ARROW,
+    previousTargetArrow: ARROW,
     network: NETWORK
   ): Either[String, NETWORK]
 
   extension (arrow: ARROW)
 
-    def setNextTargetArrow(
-      nextTargetArrow: ARROW,
+    def setPreviousTargetArrow(
+      previousTargetArrow: ARROW,
       network: NETWORK
     ): Either[String, NETWORK] =
 
-      f(arrow, nextTargetArrow, network)
+      f(arrow, previousTargetArrow, network)
+

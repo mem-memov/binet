@@ -21,26 +21,41 @@ object Target:
 
       target.dot.getAddress
 
-  given [ARROW, NETWORK, ADDRESS](using
-    general.network.CreateArrow[NETWORK, ADDRESS, ARROW],
+  given [ADDRESS, ARROW, ENTRY, NETWORK](using
+    general.network.CreateArrow[NETWORK, ARROW, ENTRY],
     general.dot.GetAddress[Dot, ADDRESS],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK],
-    general.dot.IncrementSourceCount[Dot, NETWORK]
-  ): general.target.CreateArrowFromSource[Target, ADDRESS, ARROW, NETWORK] with
+    general.dot.IncrementSourceCount[Dot, NETWORK],
+    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
+    general.dot.GetSourceArrowAddress[Dot, ADDRESS],
+    general.arrow.SetNextSourceArrow[ARROW, NETWORK],
+    general.entry.SetAddress4[ENTRY, ADDRESS],
+    general.entry.SetAddress5[ENTRY, ADDRESS]
+  ): general.target.CreateArrowFromSource[Target, ARROW, ENTRY, NETWORK] with
 
     override 
     def f(
-      target: Target, 
-      sourceAddress: ADDRESS, 
+      target: Target,
+      entry: ENTRY,
       network: NETWORK
     ): Either[String, (NETWORK, ARROW)] =
 
+      val entry2 = entry.setAddress4(target.dot.getAddress)
+
+      val entry3 = target.dot.getSourceArrowAddress match
+        case None => entry2
+        case Some(sourceArrowAddress) => entry.setAddress5(sourceArrowAddress)
+
       for {
-        createArrowResult <- network.createArrow(sourceAddress, target.dot.getAddress)
+        previousArrowOption <- target.dot.getSourceArrow(network)
+        createArrowResult <- network.createArrow(entry3)
         (network1, arrow) = createArrowResult
         network2 <- target.dot.setSourceArrow(arrow, network1)
         network3 <- target.dot.incrementSourceCount(network2)
-      } yield (network3, arrow)
+        network4 <- previousArrowOption match
+          case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network)
+          case None => Right(network3)
+      } yield (network4, arrow)
 
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],

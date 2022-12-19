@@ -1,18 +1,18 @@
 package net.mem_memov.binet.hexagon.general.target
 
-trait CreateArrowFromSource[TARGET, ADDRESS, ARROW, NETWORK]:
+trait CreateArrowFromSource[TARGET, ARROW, ENTRY, NETWORK]:
 
   def f(
     target: TARGET,
-    sourceAddress: ADDRESS,
+    entry: ENTRY,
     network: NETWORK
   ): Either[String, (NETWORK, ARROW)]
 
   extension (target: TARGET)
 
     def createArrowFromSource(
-      sourceAddress: ADDRESS,
+      entry: ENTRY,
       network: NETWORK
     ): Either[String, (NETWORK, ARROW)] =
 
-      f(target, sourceAddress, network)
+      f(target, entry, network)
