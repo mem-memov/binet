@@ -107,3 +107,26 @@ object Target:
     ): ADDRESS =
 
       target.dot.getSourceCount
+
+  given [ARROW, NETWORK, SOURCE, TAIL](using
+    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
+    general.arrow.ToTail[ARROW, TAIL],
+    general.tail.ReadSource[TAIL, NETWORK,SOURCE]
+  ): general.target.ReadSources[Target, NETWORK, SOURCE] with
+
+    override
+    def f(
+      target: Target,
+      network: NETWORK
+    ): Either[String, List[SOURCE]] =
+
+      def l(tail: TAIL, network: NETWORK, sources: List[SOURCE]): Either[String, List[SOURCE]] =
+        for {
+          source <- tail.readSource(network)
+        } yield source :: sources
+
+      for {
+        sourceArrowOption <- target.dot.getSourceArrow(network)
+      } yield sourceArrowOption match
+        case Some(sourceArrow) => ??? // sourceArrow.toTail
+        case None => List.empty[SOURCE]

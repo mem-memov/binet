@@ -35,3 +35,18 @@ object Tail:
     ): Boolean =
 
       tail.arrow.hasSourceDot(source.getAddress)
+
+  given [DOT, NETWORK, SOURCE](using
+    general.arrow.GetSourceDot[Arrow, DOT, NETWORK],
+    general.dot.ToSource[DOT, SOURCE]
+  ): general.tail.ReadSource[Tail, NETWORK, SOURCE] with
+
+    override
+    def f(
+      tail: Tail,
+      network: NETWORK
+    ): Either[String, SOURCE] =
+
+      for {
+        dot <- tail.arrow.getSourceDot(network)
+      } yield dot.toSource
