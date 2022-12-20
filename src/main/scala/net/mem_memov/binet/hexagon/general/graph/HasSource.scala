@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.graph
 
-trait ReadTargets[GRAPH, VERTEX]:
+trait HasSource[GRAPH, VERTEX]:
 
   def f(
     graph: GRAPH,
     vertex: VERTEX
-  ): Either[String, List[VERTEX]]
+  ): Either[String, Boolean]
 
   extension (graph: GRAPH)
 
-    def readTargets(
+    def hasSource(
       vertex: VERTEX
-    ): Either[String, List[VERTEX]] =
+    ): Either[String, Boolean] =
 
       f(graph, vertex)
