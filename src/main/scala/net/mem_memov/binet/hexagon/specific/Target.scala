@@ -126,3 +126,16 @@ object Target:
           case Some(sourceArrow) => sourceArrow.toTail.collectSources(network, List.empty[SOURCE])
           case None => Right(List.empty[SOURCE])
       } yield sources
+
+  given [FACTORY, VERTEX](using
+    general.factory.MakeVertex[FACTORY, Dot, VERTEX]
+  )(using
+    factory: FACTORY
+  ): general.target.ToVertex[Target, VERTEX] with
+
+    override
+    def f(
+      target: Target
+    ): VERTEX =
+
+      factory.makeVertex(target.dot)

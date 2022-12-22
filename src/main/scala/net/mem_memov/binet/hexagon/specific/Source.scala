@@ -106,3 +106,35 @@ object Source:
     ): ADDRESS =
 
       source.dot.getTargetCount
+
+  given [ARROW, HEAD, NETWORK, TARGET](using
+    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
+    general.arrow.ToHead[ARROW, HEAD],
+    general.head.CollectTargets[HEAD, NETWORK, TARGET],
+  ): general.source.ReadTargets[Source, NETWORK, TARGET] with
+
+    override
+    def f(
+      source: Source,
+      network: NETWORK
+    ): Either[String, List[TARGET]] =
+
+      for {
+        targetArrowOption <- source.dot.getTargetArrow(network)
+        targets <- targetArrowOption match
+          case Some(targetArrow) => targetArrow.toHead.collectTargets(network, List.empty[TARGET])
+          case None => Right(List.empty[TARGET])
+      } yield targets
+
+  given [FACTORY, VERTEX](using
+    general.factory.MakeVertex[FACTORY, Dot, VERTEX]
+  )(using
+    factory: FACTORY
+  ): general.source.ToVertex[Source, VERTEX] with
+
+    override
+    def f(
+      source: Source
+    ): VERTEX =
+
+      factory.makeVertex(source.dot)

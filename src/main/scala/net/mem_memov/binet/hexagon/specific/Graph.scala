@@ -78,4 +78,18 @@ object Graph:
         sources <- vertex.toTarget.readSources(graph.network)
       } yield sources.map(_.toVertex)
 
+  given [SOURCE, TARGET, VERTEX](using
+    general.vertex.ToSource[VERTEX, SOURCE],
+    general.source.ReadTargets[SOURCE, Network, TARGET],
+    general.target.ToVertex[TARGET, VERTEX]
+  ): general.graph.ReadTargets[Graph, VERTEX] with
 
+    override
+    def f(
+      graph: Graph,
+      vertex: VERTEX
+    ): Either[String, List[VERTEX]] =
+
+      for {
+        targets <- vertex.toSource.readTargets(graph.network)
+      } yield targets.map(_.toVertex)
