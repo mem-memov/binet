@@ -62,9 +62,10 @@ object Graph:
             source.createArrowToTarget(target, graph.network)
       } yield graph.copy(network = network1)
 
-  given [ADDRESS, TARGET, VERTEX](using
+  given [SOURCE, TARGET, VERTEX](using
     general.vertex.ToTarget[VERTEX, TARGET],
-    general.target.CountSources[TARGET, ADDRESS]
+    general.target.ReadSources[TARGET, Network, SOURCE],
+    general.source.ToVertex[SOURCE, VERTEX]
   ): general.graph.ReadSources[Graph, VERTEX] with
 
     override
@@ -73,12 +74,8 @@ object Graph:
       vertex: VERTEX
     ): Either[String, List[VERTEX]] =
 
-      val target = vertex.toTarget
+      for {
+        sources <- vertex.toTarget.readSources(graph.network)
+      } yield sources.map(_.toVertex)
 
-//      for {
-//        firstHeadOption <- graph.network.
-//      }
-
-
-      ???
 

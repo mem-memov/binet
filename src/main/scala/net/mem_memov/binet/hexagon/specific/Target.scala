@@ -111,7 +111,7 @@ object Target:
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
     general.arrow.ToTail[ARROW, TAIL],
-    general.tail.ReadSource[TAIL, NETWORK,SOURCE]
+    general.tail.CollectSources[TAIL, NETWORK, SOURCE],
   ): general.target.ReadSources[Target, NETWORK, SOURCE] with
 
     override
@@ -120,13 +120,9 @@ object Target:
       network: NETWORK
     ): Either[String, List[SOURCE]] =
 
-      def l(tail: TAIL, network: NETWORK, sources: List[SOURCE]): Either[String, List[SOURCE]] =
-        for {
-          source <- tail.readSource(network)
-        } yield source :: sources
-
       for {
         sourceArrowOption <- target.dot.getSourceArrow(network)
-      } yield sourceArrowOption match
-        case Some(sourceArrow) => ??? // sourceArrow.toTail
-        case None => List.empty[SOURCE]
+        sources <- sourceArrowOption match
+          case Some(sourceArrow) => sourceArrow.toTail.collectSources(network, List.empty[SOURCE])
+          case None => Right(List.empty[SOURCE])
+      } yield sources

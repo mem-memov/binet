@@ -2,6 +2,8 @@ package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
 
+import scala.annotation.tailrec
+
 case class Tail(
   arrow: Arrow
 )
@@ -50,3 +52,29 @@ object Tail:
       for {
         dot <- tail.arrow.getSourceDot(network)
       } yield dot.toSource
+
+  given [NETWORK, SOURCE](using
+    general.tail.ReadSource[Tail, NETWORK, SOURCE],
+    general.tail.GetNext[Tail, NETWORK]
+  ): general.tail.CollectSources[Tail, NETWORK, SOURCE] with
+
+    @tailrec
+    override
+    final // enable tail recursive optimization
+    def f(
+      tail: Tail,
+      network: NETWORK,
+      sources: List[SOURCE]
+    ): Either[String, List[SOURCE]] =
+
+      val sourceEither = tail.readSource(network)
+      sourceEither match
+        case Left(error) => Left(error)
+        case Right(source) =>
+          val nextTailOptionEither = tail.getNext(network)
+          nextTailOptionEither match
+            case Left(error) => Left(error)
+            case Right(nextTailOption) =>
+              nextTailOption match
+                case Some(nextTail) => f(nextTail, network, source :: sources)
+                case None => Right(source :: sources)
