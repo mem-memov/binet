@@ -10,24 +10,20 @@ case class Network(
 
 object Network:
 
-  given [ADDRESS, ARROW, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
-    general.factory.MakeArrow[FACTORY, ADDRESS, ARROW, ENTRY]
-  )(using
-    factory: FACTORY
-  ): general.network.CreateArrow[Network, ARROW, ENTRY] with
+  given [ARROW, ARROW_DRAFT_END, ENTRY, FACTORY](using
+    general.arrowDraftEnd.CreateArrow[ARROW_DRAFT_END, ARROW, Dictionary]
+  ): general.network.CreateArrow[Network, ARROW] with
 
     override
     def f(
       network: Network,
-      entry: ENTRY
+      arrowDraftEnd: ARROW_DRAFT_END
     ): Either[String, (Network, ARROW)] =
 
       for {
-        appendResult <- network.dictionary.append(entry)
-        (modifiedDictionary, address) = appendResult
+        result <- arrowDraftEnd.createArrow(network.dictionary)
+        (modifiedDictionary, arrow) = result
       } yield
-        val arrow = factory.makeArrow(address, entry)
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
         (modifiedNetwork, arrow)
 
@@ -35,7 +31,7 @@ object Network:
     general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
     general.dictionary.GetNextAddress[Dictionary, ADDRESS],
     general.factory.EmptyEntry[FACTORY, ENTRY],
-    general.factory.MakeDot[FACTORY, ADDRESS, Dot, ENTRY],
+    general.factory.MakeDot[FACTORY, Dot, ENTRY],
     general.entry.SetAddress1[ENTRY, ADDRESS]
   )(using
     factory: FACTORY
@@ -46,66 +42,39 @@ object Network:
       network: Network
     ): Either[String, (Network, Dot)] =
 
-      val entry = factory.emptyEntry()
-        .setAddress1(network.dictionary.getNextAddress)
+      val dotIdentifierAddress = network.dictionary.getNextAddress
 
       for {
-        appendResult <- network.dictionary.append(entry)
-        (modifiedDictionary, address) = appendResult
+        appendResult <- network.dictionary.append((Some(dotIdentifierAddress), None, None, None, None, None))
+        (modifiedDictionary, entries) = appendResult
       } yield
-        val dot = factory.makeDot(address, entry)
+        val dot = factory.makeDot(entries)
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
         (modifiedNetwork, dot)
 
-  given [ENTRY, FACTORY](using
-    general.dictionary.Read[Dictionary, Address, ENTRY],
-    general.factory.MakeArrow[FACTORY, Address, Arrow, ENTRY],
-    memory.general.address.IsZero[Address],
-    general.arrow.IsArrow[Arrow]
-  )(using
-    factory: FACTORY
-  ): general.network.ReadArrow[Network, Address, Arrow] with
+  given [ARROW, ARROW_REFERENCE](using
+    general.arrowReference.ReadArrow[ARROW_REFERENCE, ARROW, Dictionary]
+  ): general.network.ReadArrow[Network, ARROW, ARROW_REFERENCE] with
 
     override
     def f(
       network: Network,
-      address: Address
-    ): Either[String, Arrow] =
+      arrowReference: ARROW_REFERENCE
+    ): Either[String, ARROW] =
 
-      for {
-        entry <- network.dictionary.read(address)
-        arrow <-
-          val arrow = factory.makeArrow(address, entry)
-          if arrow.isArrow then
-            Right(arrow)
-          else
-            Left("Not an arrow")
-      } yield arrow
+      arrowReference.readArrow(network.dictionary)
 
-  given [ENTRY, FACTORY](using
-    general.dictionary.Read[Dictionary, Address, ENTRY],
-    general.factory.MakeDot[FACTORY, Address, Dot, ENTRY],
-    memory.general.address.IsZero[Address],
-    general.dot.IsDot[Dot]
-  )(using
-    factory: FACTORY
-  ): general.network.ReadDot[Network, Address, Dot] with
+  given [DOT_REFERENCE, DOT](using
+    general.dotReference.ReadDot[DOT_REFERENCE, Dictionary, DOT]
+  ): general.network.ReadDot[Network, DOT_REFERENCE, DOT] with
 
     override
     def f(
       network: Network,
-      address: Address
-    ): Either[String, Dot] =
+      dotReference: DOT_REFERENCE
+    ): Either[String, DOT] =
 
-      for {
-        entry <- network.dictionary.read(address)
-        dot <-
-          val dot = factory.makeDot(address, entry)
-          if dot.isDot then
-            Right(dot)
-          else
-            Left("Not a dot")
-      } yield dot
+      dotReference.readDot(network.dictionary)
 
   given [ADDRESS, ENTRY](using
     general.dictionary.Update[Dictionary, ADDRESS, ENTRY],

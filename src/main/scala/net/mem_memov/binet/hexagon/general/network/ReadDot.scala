@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.network
 
-trait ReadDot[NETWORK, ADDRESS, DOT]:
+trait ReadDot[NETWORK, DOT_REFERENCE, DOT]:
 
   def f(
     network: NETWORK,
-    address: ADDRESS
+    dotReference: DOT_REFERENCE
   ): Either[String, DOT]
 
   extension (network: NETWORK)
 
     def readDot(
-      address: ADDRESS
+      dotReference: DOT_REFERENCE
     ): Either[String, DOT] =
 
-      f(network, address)
+      f(network, dotReference)

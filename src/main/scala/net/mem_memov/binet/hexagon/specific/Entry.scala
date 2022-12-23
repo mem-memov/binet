@@ -1,14 +1,12 @@
 package net.mem_memov.binet.hexagon.specific
 
-import net.mem_memov.binet.memory
+import net.mem_memov.binet.hexagon.general.Position
+import net.mem_memov.binet.memory.specific.Address
 
 case class Entry(
-  address1: memory.specific.Address,
-  address2: memory.specific.Address,
-  address3: memory.specific.Address,
-  address4: memory.specific.Address,
-  address5: memory.specific.Address,
-  address6: memory.specific.Address
+  position: Position,
+  path: Address,
+  content: Address
 )
 
 object Entry

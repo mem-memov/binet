@@ -1,7 +1,9 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
+import net.mem_memov.binet.hexagon.general.Position
 import net.mem_memov.binet.memory.specific.Address
+import net.mem_memov.binet.memory
 
 class Factory
 
@@ -13,28 +15,16 @@ object Factory:
 
     lazy
     val dictionary: Dictionary =
-      Dictionary(
+      Dictionary(Vector(
         factory.emptyInventory(),
         factory.emptyInventory(),
         factory.emptyInventory(),
         factory.emptyInventory(),
         factory.emptyInventory(),
         factory.emptyInventory()
-      )
+      ))
 
     override def f(): Dictionary = dictionary
-
-  given general.factory.EmptyEntry[Factory, Entry] with
-
-    import net.mem_memov.binet.memory.Preamble.given
-
-    lazy
-    val zero = factory.zeroAddress()
-
-    lazy
-    val entry = Entry(zero, zero, zero, zero, zero, zero)
-
-    override def f(): Entry = entry
 
   given general.factory.EmptyNetwork[Factory, Network] with
 
@@ -74,19 +64,70 @@ object Factory:
 
     override
     def f(
-      address1: Address,
-      address2: Address,
-      address3: Address,
-      address4: Address,
-      address5: Address,
-      address6: Address
+      position: Position,
+      path: Address,
+      content: Address
     ): Entry =
 
-      Entry(
-        address1,
-        address2,
-        address3,
-        address4,
-        address5,
-        address6
+      Entry(position, path, content)
+
+  given general.factory.MakeArrow[Factory, Arrow, Entry] with
+
+    override
+    def f(
+      sourceDotEntry: Entry,
+      previousSourceArrowEntry: Entry,
+      nextSourceArrowEntry: Entry,
+      targetDotEntry: Entry,
+      previousTargetArrowEntry: Entry,
+      nextTargetArrowEntry: Entry
+    ): Arrow =
+
+      Arrow(
+        DotReference(sourceDotEntry),
+        ArrowReference(previousSourceArrowEntry),
+        ArrowReference(nextSourceArrowEntry),
+        DotReference(targetDotEntry),
+        ArrowReference(previousTargetArrowEntry),
+        ArrowReference(nextTargetArrowEntry)
       )
+
+  given general.factory.MakeDot[Factory, Dot, Entry] with
+
+    override
+    def f(
+      identifierEntry: Entry,
+      relationArrowEntry: Entry,
+      sourceCounterEntry: Entry,
+      targetCounterEntry: Entry,
+      sourceArrowEntry: Entry,
+      targetArrowEntry: Entry
+    ): Dot =
+
+      Dot(
+        DotIdentifier(identifierEntry),
+        ArrowReference(relationArrowEntry),
+        Counter(sourceCounterEntry),
+        Counter(targetCounterEntry),
+        ArrowReference(sourceArrowEntry),
+        ArrowReference(targetArrowEntry)
+      )
+
+  given [MEMORY_FACTORY](using
+    memory.general.factory.ZeroAddress[MEMORY_FACTORY, Address]
+  )(using
+    memoryFactory: MEMORY_FACTORY
+  ): general.factory.ZeroAddress[Factory, Address] with
+
+    override def f(): Address = memoryFactory.zeroAddress()
+
+  given general.factory.MakeArrowDraftBegin[Factory, DotIdentifier, ArrowReference] with
+
+    override
+    def f(
+      sourceDotIdentifier: DotIdentifier,
+      previousSourceArrow: ArrowReference
+    ): ArrowDraftBegin =
+
+      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrow)
+

@@ -4,19 +4,23 @@ import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory.specific.Address
 
 case class Arrow(
-  address: Address,
-  entry: Entry
+  sourceDotIdentifier: DotReference,
+  previousSourceArrowIdentifier: ArrowReference,
+  nextSourceArrowIdentifier: ArrowReference,
+  targetDotIdentifier: DotReference,
+  previousTargetArrowIdentifier: ArrowReference,
+  nextTargetArrowIdentifier: ArrowReference
 )
 
 object Arrow:
 
   given (using
-    general.entry.GetAddress1[Entry, Address]
+    general.dotIdentifier.InArrow[DotIdentifier]
   ): general.arrow.IsArrow[Arrow] with
 
     override def f(arrow: Arrow): Boolean =
 
-      arrow.address != arrow.entry.address1
+      arrow.sourceDotIdentifier.inArrow
 
   given general.arrow.GetAddress[Arrow, Address] with
 

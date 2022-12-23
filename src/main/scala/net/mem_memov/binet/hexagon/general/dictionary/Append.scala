@@ -4,13 +4,13 @@ trait Append[DICTIONARY, ADDRESS, ENTRY]:
 
   def f(
     dictionary: DICTIONARY,
-    entry: ENTRY
-  ): Either[String, (DICTIONARY, ADDRESS)]
+    addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS])
+  ): Either[String, (DICTIONARY, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY))]
 
   extension (dictionary: DICTIONARY)
 
     def append(
-      entry: ENTRY
-    ): Either[String, (DICTIONARY, ADDRESS)] =
+      addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS])
+    ): Either[String, (DICTIONARY, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY))] =
 
-      f(dictionary, entry)
+      f(dictionary, addressOption)

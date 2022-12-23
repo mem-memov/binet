@@ -20,15 +20,13 @@ object Source:
 
       source.dot.getAddress
 
-  given [ARROW, ARROW_ENTRY, ADDRESS, ENTRY, NETWORK, TARGET](using
-    general.target.CreateArrowFromSource[TARGET, ARROW, ENTRY, NETWORK],
+  given [ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ADDRESS, ENTRY, NETWORK, TARGET](using
+    general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.dot.IncrementTargetCount[Dot, NETWORK],
-    general.arrow.SetNextTargetArrow[ARROW, NETWORK],
-    source.general.arrowEntry.Create[ARROW_ENTRY, Dot, ENTRY]
-  )(using
-    arrowEntry: ARROW_ENTRY
+    general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN],
+    general.arrow.SetNextTargetArrow[ARROW, NETWORK]
   ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -38,11 +36,9 @@ object Source:
       network: NETWORK
     ): Either[String, NETWORK] =
 
-      val entry = arrowEntry.create(source.dot)
-
       for {
         previousArrowOption <- source.dot.getTargetArrow(network)
-        createArrowResult <- target.createArrowFromSource(entry, network)
+        createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
         (network1, arrow) = createArrowResult
         network2 <- source.dot.setTargetArrow(arrow, network1)
         network3 <- source.dot.incrementTargetCount(network2)

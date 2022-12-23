@@ -4,13 +4,13 @@ trait Read[DICTIONARY, ADDRESS, ENTRY]:
 
   def f(
     dictionary: DICTIONARY,
-    address: ADDRESS
-  ): Either[String, ENTRY]
+    path: ADDRESS
+  ): Either[String, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY)]
 
   extension (dictionary: DICTIONARY)
 
     def read(
-      address: ADDRESS
-    ): Either[String, ENTRY] =
+      path: ADDRESS
+    ): Either[String, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY)] =
 
-      f(dictionary, address)
+      f(dictionary, path)

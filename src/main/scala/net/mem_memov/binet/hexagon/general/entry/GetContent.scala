@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.general.entry
 
-trait GetAddress3[ENTRY, ADDRESS]:
+trait GetContent[ENTRY, ADDRESS]:
 
   def f(
     entry: ENTRY
@@ -8,6 +8,6 @@ trait GetAddress3[ENTRY, ADDRESS]:
 
   extension (entry: ENTRY)
 
-    def getAddress3: ADDRESS =
+    def getContent: ADDRESS =
 
       f(entry)
