@@ -5,12 +5,12 @@ trait IncrementTargetCount[DOT, NETWORK]:
   def f(
     dot: DOT,
     network: NETWORK
-  ): Either[String, NETWORK]
+  ): Either[String, (NETWORK, DOT)]
 
   extension (dot: DOT)
 
     def incrementTargetCount(
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, (NETWORK, DOT)] =
 
       f(dot, network)

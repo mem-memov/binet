@@ -137,27 +137,21 @@ object Dot:
       network.updateDot(modifiedDot)
 
   given [NETWORK](using
-    general.counter.Increment[Counter]
+    general.counter.Increment[Counter, NETWORK]
   ): general.dot.IncrementTargetCount[Dot, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] = dot.targetCounter.increment()
+    ): Either[String, (NETWORK, Dot)] = dot.targetCounter.increment()
 
       for {
         incrementResult <- dot.targetCounter.increment(network)
-      }
-
-      val modifiedCounter = dot.targetCounter.increment()
-      modifiedCounter.save(network)
-
-      val modifiedCount = dot.entry.getAddress4.increment()
-      val modifiedEntry = dot.entry.setAddress4(modifiedCount)
-      val modifiedDot = dot.copy(entry = modifiedEntry)
-
-      network.updateDot(modifiedDot)
+        (modifiedNetwork, modifiedCounter) = incrementResult
+      } yield
+        val modifiedDot = dot.copy(targetCounter = modifiedCounter)
+        (modifiedNetwork, modifiedDot)
 
   given [ARROW_DRAFT_BEGIN, FACTORY](using
     general.factory.MakeArrowDraftBegin[FACTORY, ARROW_DRAFT_BEGIN, ArrowReference, DotIdentifier]

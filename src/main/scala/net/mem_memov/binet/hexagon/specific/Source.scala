@@ -39,13 +39,15 @@ object Source:
       for {
         previousArrowOption <- source.dot.getTargetArrow(network)
         createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
-        (network1, arrow) = createArrowResult
+        (network1, target1, arrow) = createArrowResult
         network2 <- source.dot.setTargetArrow(arrow, network1)
-        network3 <- source.dot.incrementTargetCount(network2)
+        incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
+        (network3, dot1) = incrementTargetCountResult
         network4 <- previousArrowOption match
           case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network)
           case None => Right(network3)
-      } yield network4
+      } yield 
+        network4
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],

@@ -60,7 +60,7 @@ object Entry:
 
   given [NETWORK](using
     memory.general.address.Decrement[Address],
-    general.network.[NETWORK, Entry]
+    general.network.UpdateEntry[NETWORK, Entry]
   ): general.entry.DecrementContent[Entry, NETWORK] with
 
     override
@@ -73,7 +73,7 @@ object Entry:
       val modifiedEntry = entry.copy(content = modifiedContent)
 
       for {
-        modifiedDictionary <- network.update(modifiedEntry)
+        modifiedDictionary <- network.UpdateEntry(modifiedEntry)
       } yield (modifiedDictionary, modifiedEntry)
   
   given [DICTIONARY](using
