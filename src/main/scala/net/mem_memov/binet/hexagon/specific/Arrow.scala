@@ -1,26 +1,27 @@
 package net.mem_memov.binet.hexagon.specific
 
+import net.mem_memov.binet.hexagon.general.dotReference.InArrow
 import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory.specific.Address
 
 case class Arrow(
-  sourceDotIdentifier: DotReference,
-  previousSourceArrowIdentifier: ArrowReference,
-  nextSourceArrowIdentifier: ArrowReference,
-  targetDotIdentifier: DotReference,
-  previousTargetArrowIdentifier: ArrowReference,
-  nextTargetArrowIdentifier: ArrowReference
+  sourceDotReference: DotReference,
+  previousSourceArrowReference: ArrowReference,
+  nextSourceArrowReference: ArrowReference,
+  targetDotReference: DotReference,
+  previousTargetArrowReference: ArrowReference,
+  nextTargetArrowReference: ArrowReference
 )
 
 object Arrow:
 
   given (using
-    general.dotIdentifier.InArrow[DotIdentifier]
+    InArrow[DotIdentifier]
   ): general.arrow.IsArrow[Arrow] with
 
     override def f(arrow: Arrow): Boolean =
 
-      arrow.sourceDotIdentifier.inArrow
+      arrow.sourceDotReference.inArrow
 
   given general.arrow.GetAddress[Arrow, Address] with
 
@@ -141,7 +142,7 @@ object Arrow:
       arrow.entry.address4 == targetDotAddress
 
   given [NETWORK](using
-    general.network.UpdateArrow[NETWORK, Arrow]
+    general.network.UpdateEntry[NETWORK, Arrow]
   ): general.arrow.SetNextSourceArrow[Arrow, NETWORK] with
 
     override
@@ -155,6 +156,6 @@ object Arrow:
       val modifiedArrow = arrow.copy(entry = modifiedEntry)
 
       for {
-        modifiedNetwork <- network.updateArrow(modifiedArrow)
+        modifiedNetwork <- network.updateEntry(modifiedArrow)
       } yield modifiedNetwork
 

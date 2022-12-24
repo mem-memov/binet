@@ -10,7 +10,7 @@ object ArrowReference:
 
   given [ADDRESS, ARROW, DICTIONARY, FACTORY](using
     general.dictionary.Read[Dictionary, ADDRESS, Entry],
-    general.factory.MakeArrow[FACTORY, ADDRESS, ARROW, Entry],
+    general.factory.MakeArrow[FACTORY, ARROW, Entry],
     general.arrow.IsArrow[ARROW],
     general.entry.GetContent[Entry, ADDRESS],
   )(using

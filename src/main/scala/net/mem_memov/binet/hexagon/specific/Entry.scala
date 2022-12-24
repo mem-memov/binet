@@ -1,7 +1,9 @@
 package net.mem_memov.binet.hexagon.specific
 
+import net.mem_memov.binet.hexagon.general
 import net.mem_memov.binet.hexagon.general.Position
 import net.mem_memov.binet.memory.specific.Address
+import net.mem_memov.binet.memory
 
 case class Entry(
   position: Position,
@@ -9,6 +11,79 @@ case class Entry(
   content: Address
 )
 
-object Entry
+object Entry:
+
+  given general.entry.GetPosition[Entry] with
+
+    override
+    def f(
+      entry: Entry
+    ): Position =
+
+      entry.position
+
+  given general.entry.GetPath[Entry, Address] with
+
+    override
+    def f(
+      entry: Entry
+    ): Address =
+
+      entry.path
+
+  given general.entry.GetContent[Entry, Address] with
+
+    override
+    def f(
+      entry: Entry
+    ): Address =
+
+      entry.content
+
+  given [DICTIONARY](using
+    memory.general.address.Increment[Address],
+    general.dictionary.Update[DICTIONARY, Entry]
+  ): general.entry.IncrementContent[Entry, DICTIONARY] with
+
+    override
+    def f(
+      entry: Entry,
+      dictionary: DICTIONARY
+    ): Either[String, (DICTIONARY, Entry)] =
+
+      val modifiedContent = entry.content.increment()
+      val modifiedEntry = entry.copy(content = modifiedContent)
+
+      for {
+        modifiedDictionary <- dictionary.update(modifiedEntry)
+      } yield (modifiedDictionary, modifiedEntry)
+
+  given [NETWORK](using
+    memory.general.address.Decrement[Address],
+    general.network.[NETWORK, Entry]
+  ): general.entry.DecrementContent[Entry, NETWORK] with
+
+    override
+    def f(
+      entry: Entry,
+      network: NETWORK
+    ): Either[String, (NETWORK, Entry)] =
+
+      val modifiedContent = entry.content.decrement()
+      val modifiedEntry = entry.copy(content = modifiedContent)
+
+      for {
+        modifiedDictionary <- network.update(modifiedEntry)
+      } yield (modifiedDictionary, modifiedEntry)
   
-  
+  given [DICTIONARY](using
+    general.dictionary.Update[DICTIONARY, Entry]
+  ): general.entry.Save[Entry, DICTIONARY] with
+
+    override
+    def f(
+      entry: Entry,
+      dictionary: DICTIONARY
+    ): Either[String, DICTIONARY] =
+
+      dictionary.update(entry)

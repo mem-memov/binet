@@ -8,6 +8,18 @@ case class DotReference(
 
 object DotReference:
 
+  given (using
+    general.entry.ContentEqualsPath[Entry]
+  ): general.dotReference.InArrow[DotReference] with
+
+    override
+    def f(
+      dotReference: DotReference
+    ): Boolean =
+
+      !dotReference.entry.contentEqualsPath
+
+  
   given [ADDRESS, DICTIONARY, DOT](using
     general.dictionary.Read[DICTIONARY, ADDRESS, Entry],
     general.entry.GetContent[Entry, ADDRESS],

@@ -77,6 +77,20 @@ object Dictionary:
         )
 
         (modifiedDictionary, entries)
+        
+  given [ADDRESS, ENTRY](using
+    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
+    general.dictionary.GetNextAddress[Dictionary, ADDRESS]
+  ): general.dictionary.AppendDot[Dictionary, ENTRY] with
+
+    override 
+    def f(
+      dictionary: Dictionary
+    ): Either[String, (Dictionary, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY))] =
+
+      val dotIdentifierAddress = dictionary.getNextAddress
+      
+      dictionary.append((Some(dotIdentifierAddress), None, None, None, None, None))
       
   given [ADDRESS, ENTRY](using
     memory.general.inventory.Update[Inventory, ADDRESS],

@@ -10,9 +10,9 @@ case class Network(
 
 object Network:
 
-  given [ARROW, ARROW_DRAFT_END, ENTRY, FACTORY](using
+  given [ARROW, ARROW_DRAFT_END](using
     general.arrowDraftEnd.CreateArrow[ARROW_DRAFT_END, ARROW, Dictionary]
-  ): general.network.CreateArrow[Network, ARROW] with
+  ): general.network.CreateArrow[Network, ARROW, ARROW_DRAFT_END] with
 
     override
     def f(
@@ -27,12 +27,9 @@ object Network:
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
         (modifiedNetwork, arrow)
 
-  given [ADDRESS, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
-    general.dictionary.GetNextAddress[Dictionary, ADDRESS],
-    general.factory.EmptyEntry[FACTORY, ENTRY],
-    general.factory.MakeDot[FACTORY, Dot, ENTRY],
-    general.entry.SetAddress1[ENTRY, ADDRESS]
+  given [ENTRY, FACTORY](using
+    general.dictionary.AppendDot[Dictionary, ENTRY],
+    general.factory.MakeDot[FACTORY, Dot, ENTRY]
   )(using
     factory: FACTORY
   ): general.network.CreateDot[Network, Dot] with
@@ -42,10 +39,8 @@ object Network:
       network: Network
     ): Either[String, (Network, Dot)] =
 
-      val dotIdentifierAddress = network.dictionary.getNextAddress
-
       for {
-        appendResult <- network.dictionary.append((Some(dotIdentifierAddress), None, None, None, None, None))
+        appendResult <- network.dictionary.appendDot
         (modifiedDictionary, entries) = appendResult
       } yield
         val dot = factory.makeDot(entries)
@@ -80,31 +75,18 @@ object Network:
     general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
     general.arrow.GetAddress[Arrow, ADDRESS],
     general.arrow.GetEntry[Arrow, ENTRY]
-  ): general.network.UpdateArrow[Network, Arrow] with
+  ): general.network.UpdateEntry[Network, ENTRY] with
 
     override
     def f(
       network: Network,
-      arrow: Arrow
+      entry: ENTRY
     ): Either[String, Network] =
 
+      entry.save(network.dictionary)
+      
       for {
         modifiedNeDictionary <- network.dictionary.update(arrow.getAddress, arrow.getEntry)
       } yield network.copy(dictionary = modifiedNeDictionary)
 
-  given [ADDRESS, ENTRY](using
-    general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
-    general.dot.GetAddress[Dot, ADDRESS],
-    general.dot.GetEntry[Dot, ENTRY],
-  ): general.network.UpdateDot[Network, Dot] with
-
-    override
-    def f(
-      network: Network,
-      dot: Dot
-    ): Either[String, Network] =
-
-      for {
-        modifiedNeDictionary <- network.dictionary.update(dot.getAddress, dot.getEntry)
-      } yield network.copy(dictionary = modifiedNeDictionary)
 

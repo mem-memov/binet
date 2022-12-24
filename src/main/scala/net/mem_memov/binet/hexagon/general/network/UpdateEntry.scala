@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.network
 
-trait UpdateArrow[NETWORK, ARROW]:
+trait UpdateEntry[NETWORK, ENTRY]:
 
   def f(
     network: NETWORK,
-    arrow: ARROW
+    entry: ENTRY
   ): Either[String, NETWORK]
 
   extension (network: NETWORK)
 
-    def updateArrow(
-      arrow: ARROW
+    def updateEntry(
+      entry: ENTRY
     ): Either[String, NETWORK] =
 
-      f(network, arrow)
+      f(network, entry)

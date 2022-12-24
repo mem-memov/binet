@@ -126,8 +126,18 @@ object Factory:
     override
     def f(
       sourceDotIdentifier: DotIdentifier,
-      previousSourceArrow: ArrowReference
+      previousSourceArrowReference: ArrowReference
     ): ArrowDraftBegin =
 
-      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrow)
+      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrowReference)
+
+  given general.factory.MakeArrowDraftE[Factory, DotIdentifier, ArrowReference] with
+
+    override
+    def f(
+      sourceDotIdentifier: DotIdentifier,
+      previousSourceArrowReference: ArrowReference
+    ): ArrowDraftBegin =
+
+      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrowReference)
 

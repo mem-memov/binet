@@ -6,11 +6,11 @@ import net.mem_memov.binet.memory
 
 case class Dot(
   identifier: DotIdentifier,
-  relationArrowIdentifier: ArrowReference,
+  relationArrowReference: ArrowReference,
   sourceCounter: Counter,
   targetCounter: Counter,
-  sourceArrowIdentifier: ArrowReference,
-  targetArrowIdentifier: ArrowReference
+  sourceArrowReference: ArrowReference,
+  targetArrowReference: ArrowReference
 )
 
 object Dot:
@@ -137,10 +137,6 @@ object Dot:
       network.updateDot(modifiedDot)
 
   given [NETWORK](using
-    general.entry.GetAddress4[Entry, Address],
-    general.entry.SetAddress4[Entry, Address],
-    memory.general.address.Increment[Address],
-    general.network.UpdateDot[NETWORK, Dot],
     general.counter.Increment[Counter]
   ): general.dot.IncrementTargetCount[Dot, NETWORK] with
 
@@ -148,7 +144,11 @@ object Dot:
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, NETWORK] = dot.targetCounter.increment()
+
+      for {
+        incrementResult <- dot.targetCounter.increment(network)
+      }
 
       val modifiedCounter = dot.targetCounter.increment()
       modifiedCounter.save(network)
@@ -159,7 +159,7 @@ object Dot:
 
       network.updateDot(modifiedDot)
 
-  given [ADDRESS, ARROW_DRAFT_BEGIN, FACTORY](using
+  given [ARROW_DRAFT_BEGIN, FACTORY](using
     general.factory.MakeArrowDraftBegin[FACTORY, ARROW_DRAFT_BEGIN, ArrowReference, DotIdentifier]
   )(using
     factory: FACTORY
@@ -170,7 +170,7 @@ object Dot:
       dot: Dot
     ): ARROW_DRAFT_BEGIN =
 
-      factory.makeArrowDraftBegin(dot.identifier, dot.sourceArrowIdentifier)
+      factory.makeArrowDraftBegin(dot.identifier, dot.sourceArrowReference)
 
     
       
