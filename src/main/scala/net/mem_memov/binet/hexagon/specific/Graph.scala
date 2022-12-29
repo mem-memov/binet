@@ -27,8 +27,8 @@ object Graph:
         (modifiedGraph, vertex)
 
   given [ADDRESS, SOURCE, TARGET, VERTEX](using
-    general.vertex.ToSource[VERTEX, SOURCE],
-    general.vertex.ToTarget[VERTEX, TARGET],
+    general.vertex.ToSource[VERTEX, Network, SOURCE],
+    general.vertex.ToTarget[VERTEX, Network, TARGET],
     general.source.CreateArrowToTarget[SOURCE, Network, TARGET],
     general.source.HasTarget[SOURCE, Network, TARGET],
     general.source.CountTargets[SOURCE, ADDRESS],
@@ -60,7 +60,7 @@ object Graph:
       } yield graph.copy(network = modifiedNetwork)
 
   given [SOURCE, TARGET, VERTEX](using
-    general.vertex.ToTarget[VERTEX, TARGET],
+    general.vertex.ToTarget[VERTEX, Network, TARGET],
     general.target.ReadSources[TARGET, Network, SOURCE],
     general.source.ToVertex[SOURCE, VERTEX]
   ): general.graph.ReadSources[Graph, VERTEX] with
@@ -77,7 +77,7 @@ object Graph:
       } yield sources.map(_.toVertex)
 
   given [SOURCE, TARGET, VERTEX](using
-    general.vertex.ToSource[VERTEX, SOURCE],
+    general.vertex.ToSource[VERTEX, Network, SOURCE],
     general.source.ReadTargets[SOURCE, Network, TARGET],
     general.target.ToVertex[TARGET, VERTEX]
   ): general.graph.ReadTargets[Graph, VERTEX] with

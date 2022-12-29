@@ -73,8 +73,7 @@ object Network:
 
   given [ADDRESS, ENTRY](using
     general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
-    general.arrow.GetAddress[Arrow, ADDRESS],
-    general.arrow.GetEntry[Arrow, ENTRY]
+    general.entry.Save[ENTRY, Dictionary]
   ): general.network.UpdateEntry[Network, ENTRY] with
 
     override
@@ -83,10 +82,8 @@ object Network:
       entry: ENTRY
     ): Either[String, Network] =
 
-      entry.save(network.dictionary)
-      
       for {
-        modifiedNeDictionary <- network.dictionary.update(arrow.getAddress, arrow.getEntry)
+        modifiedNeDictionary <- entry.save(network.dictionary)
       } yield network.copy(dictionary = modifiedNeDictionary)
 
 

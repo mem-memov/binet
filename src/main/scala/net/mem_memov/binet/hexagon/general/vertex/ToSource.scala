@@ -1,13 +1,16 @@
 package net.mem_memov.binet.hexagon.general.vertex
 
-trait ToSource[VERTEX, SOURCE]:
+trait ToSource[VERTEX, NETWORK, SOURCE]:
 
   def f(
-    vertex: VERTEX
+    vertex: VERTEX,
+    network: NETWORK
   ): Either[String, SOURCE]
 
   extension (vertex: VERTEX)
 
-    def toSource: Either[String, SOURCE] =
+    def toSource(
+      network: NETWORK
+    ): Either[String, SOURCE] =
 
-      f(vertex)
+      f(vertex, network)

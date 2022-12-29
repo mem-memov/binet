@@ -51,7 +51,7 @@ object Entry:
       dictionary: DICTIONARY
     ): Either[String, (DICTIONARY, Entry)] =
 
-      val modifiedContent = entry.content.increment()
+      val modifiedContent = entry.content.increment
       val modifiedEntry = entry.copy(content = modifiedContent)
 
       for {
@@ -69,11 +69,10 @@ object Entry:
       network: NETWORK
     ): Either[String, (NETWORK, Entry)] =
 
-      val modifiedContent = entry.content.decrement()
-      val modifiedEntry = entry.copy(content = modifiedContent)
-
       for {
-        modifiedDictionary <- network.UpdateEntry(modifiedEntry)
+        modifiedContent <- entry.content.decrement
+        modifiedEntry = entry.copy(content = modifiedContent)
+        modifiedDictionary <- network.updateEntry(modifiedEntry)
       } yield (modifiedDictionary, modifiedEntry)
   
   given [DICTIONARY](using

@@ -129,7 +129,7 @@ object Target:
       } yield sources
 
   given [VERTEX](using
-    general.dot.ToVertex[Dot, Vertex]
+    general.dot.ToVertex[Dot, VERTEX]
   ): general.target.ToVertex[Target, VERTEX] with
 
     override

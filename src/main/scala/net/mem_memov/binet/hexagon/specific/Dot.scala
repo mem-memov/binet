@@ -157,10 +157,7 @@ object Dot:
       dot.entry.getAddress4
 
   given [NETWORK](using
-    general.entry.GetAddress3[Entry, Address],
-    general.entry.SetAddress3[Entry, Address],
-    memory.general.address.Increment[Address],
-    general.network.UpdateDot[NETWORK, Dot]
+    general.counter.Increment[Counter, NETWORK]
   ): general.dot.IncrementSourceCount[Dot, NETWORK] with
 
     override
@@ -169,11 +166,12 @@ object Dot:
       network: NETWORK
     ): Either[String, NETWORK] =
 
-      val modifiedCount = dot.entry.getAddress3.increment()
-      val modifiedEntry = dot.entry.setAddress3(modifiedCount)
-      val modifiedDot = dot.copy(entry = modifiedEntry)
-
-      network.updateDot(modifiedDot)
+      for {
+        incrementResult <- dot.sourceCounter.increment(network)
+        (modifiedNetwork, modifiedCounter) = incrementResult
+      } yield
+        val modifiedDot = dot.copy(targetCounter = modifiedCounter)
+        (modifiedNetwork, modifiedDot)
 
   given [NETWORK](using
     general.counter.Increment[Counter, NETWORK]
@@ -183,7 +181,7 @@ object Dot:
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, (NETWORK, Dot)] = dot.targetCounter.increment()
+    ): Either[String, (NETWORK, Dot)] =
 
       for {
         incrementResult <- dot.targetCounter.increment(network)

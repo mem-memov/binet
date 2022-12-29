@@ -105,7 +105,7 @@ object Factory:
     ): Dot =
 
       Dot(
-        DotIdentifier(identifierEntry),
+        DotReference(identifierEntry),
         ArrowReference(relationArrowEntry),
         Counter(sourceCounterEntry),
         Counter(targetCounterEntry),
@@ -121,23 +121,14 @@ object Factory:
 
     override def f(): Address = memoryFactory.zeroAddress()
 
-  given general.factory.MakeArrowDraftBegin[Factory, DotIdentifier, ArrowReference] with
+  given general.factory.MakeArrowDraftBegin[Factory, DotReference, ArrowReference] with
 
     override
     def f(
-      sourceDotIdentifier: DotIdentifier,
+      sourceDotReference: DotReference,
       previousSourceArrowReference: ArrowReference
     ): ArrowDraftBegin =
 
-      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrowReference)
+      ArrowDraftBegin(sourceDotReference, previousSourceArrowReference)
 
-  given general.factory.MakeArrowDraftE[Factory, DotIdentifier, ArrowReference] with
-
-    override
-    def f(
-      sourceDotIdentifier: DotIdentifier,
-      previousSourceArrowReference: ArrowReference
-    ): ArrowDraftBegin =
-
-      ArrowDraftBegin(sourceDotIdentifier, previousSourceArrowReference)
 

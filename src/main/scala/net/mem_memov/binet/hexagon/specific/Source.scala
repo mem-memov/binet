@@ -39,7 +39,7 @@ object Source:
       for {
         previousArrowOption <- source.dot.getTargetArrow(network)
         createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
-        (network1, target1, arrow) = createArrowResult
+        (network1, arrow) = createArrowResult
         network2 <- source.dot.setTargetArrow(arrow, network1)
         incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
         (network3, dot1) = incrementTargetCountResult
