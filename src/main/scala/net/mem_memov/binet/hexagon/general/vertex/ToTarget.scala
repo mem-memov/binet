@@ -4,10 +4,10 @@ trait ToTarget[VERTEX, TARGET]:
 
   def f(
     vertex: VERTEX
-  ): TARGET
+  ): Either[String, TARGET]
 
   extension (vertex: VERTEX)
 
-    def toTarget: TARGET =
+    def toTarget: Either[String, TARGET] =
 
       f(vertex)

@@ -128,10 +128,8 @@ object Target:
           case None => Right(List.empty[SOURCE])
       } yield sources
 
-  given [FACTORY, VERTEX](using
-    general.factory.MakeVertex[FACTORY, Dot, VERTEX]
-  )(using
-    factory: FACTORY
+  given [VERTEX](using
+    general.dot.ToVertex[Dot, Vertex]
   ): general.target.ToVertex[Target, VERTEX] with
 
     override
@@ -139,4 +137,4 @@ object Target:
       target: Target
     ): VERTEX =
 
-      factory.makeVertex(target.dot)
+      target.dot.toVertex

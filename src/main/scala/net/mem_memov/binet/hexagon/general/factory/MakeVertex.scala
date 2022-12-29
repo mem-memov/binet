@@ -1,15 +1,15 @@
 package net.mem_memov.binet.hexagon.general.factory
 
-trait MakeVertex[FACTORY, DOT, VERTEX]:
+trait MakeVertex[FACTORY, DOT_REFERENCE, VERTEX]:
 
   def f(
-    dot: DOT
+    dotReference: DOT_REFERENCE
   ): VERTEX
 
   extension (factory: FACTORY)
 
     def makeVertex(
-      dot: DOT
+      dotreference: DOT_REFERENCE
     ): VERTEX =
 
-      f(dot)
+      f(dotreference)

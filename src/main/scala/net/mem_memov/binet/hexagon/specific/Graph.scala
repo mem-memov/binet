@@ -8,11 +8,9 @@ case class Graph(
 
 object Graph:
 
-  given [DOT, FACTORY, VERTEX](using
+  given [DOT, VERTEX](using
     general.network.CreateDot[Network, DOT],
-    general.factory.MakeVertex[FACTORY, DOT, VERTEX]
-  )(using
-    factory: FACTORY
+    general.dot.ToVertex[DOT, VERTEX]
   ): general.graph.CreateVertex[Graph, VERTEX] with
 
     override
@@ -24,7 +22,7 @@ object Graph:
         createDotResult <- graph.network.createDot()
         (network1, dot) = createDotResult
       } yield
-        val vertex = factory.makeVertex(dot)
+        val vertex = dot.toVertex
         val modifiedGraph = graph.copy(network = network1)
         (modifiedGraph, vertex)
 
@@ -46,21 +44,20 @@ object Graph:
       targetVertex: VERTEX
     ): Either[String, Graph] =
 
-      val source = sourceVertex.toSource
-      val target = targetVertex.toTarget
-
       import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
       for {
+        source <- sourceVertex.toSource(graph.network)
+        target <- targetVertex.toTarget(graph.network)
         alreadyConnected <- if source.countTargets < target.countSources then
             source.hasTarget(target, graph.network)
           else
             target.hasSource(source, graph.network)
-        network1 <- if alreadyConnected then
+        modifiedNetwork <- if alreadyConnected then
             Right(graph.network)
           else
             source.createArrowToTarget(target, graph.network)
-      } yield graph.copy(network = network1)
+      } yield graph.copy(network = modifiedNetwork)
 
   given [SOURCE, TARGET, VERTEX](using
     general.vertex.ToTarget[VERTEX, TARGET],
@@ -71,11 +68,12 @@ object Graph:
     override
     def f(
       graph: Graph,
-      vertex: VERTEX
+      targetVertex: VERTEX
     ): Either[String, List[VERTEX]] =
 
       for {
-        sources <- vertex.toTarget.readSources(graph.network)
+        target <- targetVertex.toTarget(graph.network)
+        sources <- target.readSources(graph.network)
       } yield sources.map(_.toVertex)
 
   given [SOURCE, TARGET, VERTEX](using
@@ -87,9 +85,10 @@ object Graph:
     override
     def f(
       graph: Graph,
-      vertex: VERTEX
+      sourceVertex: VERTEX
     ): Either[String, List[VERTEX]] =
 
       for {
-        targets <- vertex.toSource.readTargets(graph.network)
+        source <- sourceVertex.toSource(graph.network)
+        targets <- source.readTargets(graph.network)
       } yield targets.map(_.toVertex)

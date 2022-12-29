@@ -1,42 +1,39 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
-import net.mem_memov.binet.memory.specific.Address
 
 case class Vertex(
-  address: Address
+  dotReference: DotReference
 )
 
 object Vertex:
 
-  given [FACTORY, NETWORK, SOURCE](using
-    general.factory.MakeSource[FACTORY, Dot, SOURCE],
-    general.network.ReadDot
-  )(using
-    factory: FACTORY
+  given [DOT, NETWORK, SOURCE](using
+    general.network.ReadDot[NETWORK, DotReference, DOT],
+    general.dot.ToSource[DOT, SOURCE]
   ): general.vertex.ToSource[Vertex, SOURCE] with
 
     override
     def f(
       vertex: Vertex,
       network: NETWORK
-    ): SOURCE =
+    ): Either[String, SOURCE] =
 
       for {
-        dot <- network
-      }
-      
-      factory.makeSource(vertex.dot)
+        dot <- network.readDot(vertex.dotReference)
+      } yield dot.toSource
 
-  given [FACTORY, TARGET](using
-    general.factory.MakeTarget[FACTORY, Dot, TARGET]
-  )(using
-    factory: FACTORY
+  given [DOT, NETWORK, TARGET](using
+    general.network.ReadDot[NETWORK, DotReference, DOT],
+    general.dot.ToTarget[DOT, TARGET]
   ): general.vertex.ToTarget[Vertex, TARGET] with
 
     override
     def f(
-      vertex: Vertex
-    ): TARGET =
+      vertex: Vertex,
+      network: NETWORK
+    ): Either[String, TARGET] =
 
-      factory.makeTarget(vertex.dot)
+      for {
+        dot <- network.readDot(vertex.dotReference)
+      } yield dot.toTarget

@@ -51,14 +51,14 @@ object Factory:
 
       Target(dot)
 
-  given general.factory.MakeVertex[Factory, Dot, Vertex] with
+  given general.factory.MakeVertex[Factory, DotReference, Vertex] with
 
     override
     def f(
-      dot: Dot
+      dotReference: DotReference
     ): Vertex =
 
-      Vertex(dot)
+      Vertex(dotReference)
 
   given general.factory.MakeEntry[Factory, Address, Entry] with
 
