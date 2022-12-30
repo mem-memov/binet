@@ -10,17 +10,6 @@ case class Target(
 
 object Target:
 
-  given [ADDRESS, DOT, ENTRY](using
-    general.dot.GetAddress[Dot, ADDRESS]
-  ): general.target.GetAddress[Target, ADDRESS] with
-
-    override
-    def f(
-      target: Target
-    ): ADDRESS =
-
-      target.dot.getAddress
-
   given [ADDRESS, ARROW, ARROW_DRAFT_BEGIN, ARROW_DRAFT_END, ARROW_ENTRY, ENTRY, NETWORK](using
     general.network.CreateArrow[NETWORK, ARROW, ARROW_DRAFT_END],
     general.dot.SetSourceArrow[Dot, ARROW, NETWORK],
@@ -47,14 +36,14 @@ object Target:
         createArrowResult <- network.createArrow(arrowDraftEnd)
         (network1, arrow) = createArrowResult
         setSourceArrowResult <- target.dot.setSourceArrow(arrow, network1)
-        (network2, dot2) <- setSourceArrowResult
+        (network2, dot2) = setSourceArrowResult
         incrementSourceCountResult <- dot2.incrementSourceCount(network2)
-        (network3, dot3) <- incrementSourceCountResult
+        (network3, dot3) = incrementSourceCountResult
         setNextSourceArrowResult <- previousArrowOption match
           case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network3)
-          case None => Right(network3, previousArrow)
+          case None => Right(network3, arrow)
         (network4, _) = setNextSourceArrowResult
-      } yield (network4, target.copy(dot = dot4), arrow)
+      } yield (network4, target.copy(dot = dot3), arrow)
 
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
@@ -100,17 +89,6 @@ object Target:
             optionHead match
               case None => Right(false)
               case Some(head) => f(target, head, network)
-
-  given [ADDRESS](using
-    general.dot.GetSourceCount[Dot, ADDRESS]
-  ): general.target.CountSources[Target, ADDRESS] with
-
-    override
-    def f(
-      target: Target
-    ): ADDRESS =
-
-      target.dot.getSourceCount
 
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],

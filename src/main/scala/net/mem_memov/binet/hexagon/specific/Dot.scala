@@ -134,28 +134,6 @@ object Dot:
 
       fetcher.fetchArrow(dot.entry.address6, network)
 
-  given (using
-    general.entry.GetAddress3[Entry, Address]
-  ): general.dot.GetSourceCount[Dot, Address] with
-
-    override
-    def f(
-      dot: Dot
-    ): Address =
-
-      dot.entry.getAddress3
-
-  given (using
-    general.entry.GetAddress4[Entry, Address]
-  ): general.dot.GetTargetCount[Dot, Address] with
-
-    override
-    def f(
-      dot: Dot
-    ): Address =
-
-      dot.entry.getAddress4
-
   given [NETWORK](using
     general.counter.Increment[Counter, NETWORK]
   ): general.dot.IncrementSourceCount[Dot, NETWORK] with
@@ -207,7 +185,7 @@ object Dot:
     general.counter.IsLarger[Counter]
   ):general.dot.HasMoreSourcesThanTheOtherTargets[Dot] with
 
-    override 
+    override
     def f(
       dot: Dot,
       theOther: Dot

@@ -32,7 +32,9 @@ object Graph:
     general.source.CreateArrowToTarget[SOURCE, Network, TARGET],
     general.source.HasTarget[SOURCE, Network, TARGET],
     general.source.IsSmallerThanTarget[SOURCE, TARGET],
-    general.target.HasSource[TARGET, Network, SOURCE]
+    general.source.ToVertex[SOURCE, VERTEX],
+    general.target.HasSource[TARGET, Network, SOURCE],
+    general.target.ToVertex[TARGET, VERTEX]
   ): general.graph.ConnectVertices[Graph, VERTEX] with
 
     override
@@ -42,7 +44,7 @@ object Graph:
       targetVertex: VERTEX
     ): Either[String, (Graph, VERTEX, VERTEX)] =
 
-      
+
 
       for {
         source <- sourceVertex.toSource(graph.network)
@@ -54,8 +56,11 @@ object Graph:
         connectionResult <- if alreadyConnected then
             Right((graph.network, sourceVertex, targetVertex))
           else
-            source.createArrowToTarget(target, graph.network)
-      } yield 
+            source.createArrowToTarget(target, graph.network).map {
+              case (modifiedNetwork, modifiedSource, modifiedTarget) =>
+                (modifiedNetwork, modifiedSource.toVertex, modifiedTarget.toVertex)
+            }
+      } yield
         val (modifiedNetwork, modifiedSourceVertex, modifiedTargetVertex) = connectionResult
         val modifiedGraph = graph.copy(network = modifiedNetwork)
         (modifiedGraph, modifiedSourceVertex, modifiedTargetVertex)

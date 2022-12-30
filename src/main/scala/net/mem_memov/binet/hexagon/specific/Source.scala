@@ -9,17 +9,6 @@ case class Source(
 
 object Source:
 
-  given [ADDRESS](using
-    general.dot.GetAddress[Dot, ADDRESS]
-  ): general.source.GetAddress[Source, ADDRESS] with
-
-    override
-    def f(
-      source: Source
-    ): ADDRESS =
-
-      source.dot.getAddress
-
   given [ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
@@ -46,7 +35,7 @@ object Source:
         (network3, dot3) = incrementTargetCountResult
         setNextTargetArrowResult <- previousArrowOption match
           case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network3)
-          case None => Right(network3, previousArrow)
+          case None => Right(network3, arrow)
         (network4, _) = setNextTargetArrowResult
       } yield
         (network4, source.copy(dot = dot3), target1)
@@ -95,17 +84,6 @@ object Source:
             optionTail match
               case None => Right(false)
               case Some(tail) => f(source, tail, network)
-
-  given [ADDRESS](using
-    general.dot.GetTargetCount[Dot, ADDRESS]
-  ): general.source.CountTargets[Source, ADDRESS] with
-
-    override
-    def f(
-      source: Source
-    ): ADDRESS =
-
-      source.dot.getTargetCount
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
