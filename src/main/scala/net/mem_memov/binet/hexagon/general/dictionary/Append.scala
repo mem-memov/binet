@@ -13,4 +13,4 @@ trait Append[DICTIONARY, ADDRESS, ENTRY]:
       addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS])
     ): Either[String, (DICTIONARY, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY))] =
 
-      f(dictionary, addressOption)
+      f(dictionary, addressOptions)

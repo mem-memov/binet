@@ -52,7 +52,7 @@ object Graph:
           else
             target.hasSource(source, graph.network)
         modifiedNetwork <- if alreadyConnected then
-            Right((graph.network, sourceVertex, targetVertex))
+            Right(graph.network)
           else
             source.createArrowToTarget(target, graph.network).map {
               case (modifiedNetwork, _, _) => modifiedNetwork

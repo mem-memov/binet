@@ -40,23 +40,23 @@ object Entry:
 
       entry.content
 
-  given [DICTIONARY](using
+  given [NETWORK](using
     memory.general.address.Increment[Address],
-    general.dictionary.Update[DICTIONARY, Entry]
-  ): general.entry.IncrementContent[Entry, DICTIONARY] with
+    general.network.UpdateEntry[NETWORK, Entry]
+  ): general.entry.IncrementContent[Entry, NETWORK] with
 
     override
     def f(
       entry: Entry,
-      dictionary: DICTIONARY
-    ): Either[String, (DICTIONARY, Entry)] =
+      network: NETWORK
+    ): Either[String, (NETWORK, Entry)] =
 
       val modifiedContent = entry.content.increment
       val modifiedEntry = entry.copy(content = modifiedContent)
 
       for {
-        modifiedDictionary <- dictionary.update(modifiedEntry)
-      } yield (modifiedDictionary, modifiedEntry)
+        modifiedNetwork <- network.updateEntry(modifiedEntry)
+      } yield (modifiedNetwork, modifiedEntry)
 
   given [NETWORK](using
     memory.general.address.Decrement[Address],

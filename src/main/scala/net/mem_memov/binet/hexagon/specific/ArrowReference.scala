@@ -9,7 +9,7 @@ case class ArrowReference(
 object ArrowReference:
 
   given [ARROW, DICTIONARY, FACTORY](using
-    general.dictionary.Read[Dictionary, Entry],
+    general.dictionary.Read[DICTIONARY, Entry],
     general.factory.MakeArrow[FACTORY, ARROW, Entry],
     general.arrow.IsArrow[ARROW],
     general.entry.IsContentEmpty[Entry]
@@ -29,9 +29,10 @@ object ArrowReference:
         for {
           entries <- dictionary.read(arrowReference.entry)
           arrow <-
-            val arrow = factory.makeArrow(entries)
-            if arrow.isArrow then
-              Right(arrow)
+            val newArrow = factory.makeArrow(entries)
+            val arrowEither = if newArrow.isArrow then
+              Right(newArrow)
             else
               Left("Not an arrow")
+            arrowEither
         } yield Some(arrow)

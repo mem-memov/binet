@@ -11,10 +11,10 @@ case class ArrowDraftEnd(
 
 object ArrowDraftEnd:
   
-  given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_IDENTIFIER, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ENTRY],
+  given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_REFERENCE, ENTRY, FACTORY](using
+    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
     general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
-    general.dotIdentifier.GetAddress[DOT_IDENTIFIER, ADDRESS],
+    general.dotReference.GetAddress[DOT_REFERENCE, ADDRESS],
     general.arrowReference.GetAddressOption[ARROW_REFERENCE, ADDRESS]
   )(using
     factory: FACTORY
