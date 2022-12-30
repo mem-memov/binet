@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.general.dot
 
-trait GetChildArrow[DOT, ARROW, NETWORK]:
+trait GetRelationArrow[DOT, ARROW, NETWORK]:
 
   def f(
     dot: DOT,
@@ -9,7 +9,7 @@ trait GetChildArrow[DOT, ARROW, NETWORK]:
 
   extension (dot: DOT)
 
-    def getChildArrow(
+    def getRelationArrow(
       network: NETWORK
     ): Either[String, ARROW] =
 

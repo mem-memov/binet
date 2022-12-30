@@ -54,35 +54,9 @@ object Dot:
 
       factory.makeTarget(dot)
 
-  given (using
-    general.entry.GetAddress1[Entry, Address]
-  ): general.dot.IsDot[Dot] with
-
-    override def f(dot: Dot): Boolean =
-
-      dot.address == dot.entry.address1
-
-  given general.dot.GetAddress[Dot, Address] with
-
-    override
-    def f(
-      dot: Dot
-    ): Address =
-
-      dot.address
-
-  given general.dot.GetEntry[Dot, Entry] with
-
-    override
-    def f(
-      dot: Dot
-    ): Entry =
-
-      dot.entry
-
   given [ARROW, NETWORK](using
     general.network.ReadArrow[NETWORK, Address, ARROW]
-  ): general.dot.GetParentArrow[Dot, ARROW, NETWORK] with
+  ): general.dot.GetRelationArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
@@ -90,26 +64,10 @@ object Dot:
       network: NETWORK
     ): Either[String, ARROW] =
 
-      for {
-        modifiedNetwork <- network.readArrow(dot.entry.address1)
-      } yield modifiedNetwork
-
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, ARROW]
-  ): general.dot.GetChildArrow[Dot, ARROW, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, ARROW] =
-
-      network.readArrow(dot.entry.address2)
+      network.readArrow(dot.relationArrowReference)
 
   given [ARROW, FETCHER, NETWORK](using
-    specific.common.general.fetcher.FetchArrow[FETCHER, Address, ARROW, NETWORK]
-  )(using
-    fetcher: FETCHER
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
 
     override
@@ -118,12 +76,10 @@ object Dot:
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
-      fetcher.fetchArrow(dot.entry.address5, network)
+      network.readArrow(dot.sourceArrowReference)
 
-  given [ARROW, FETCHER, NETWORK](using
-    specific.common.general.fetcher.FetchArrow[FETCHER, Address, ARROW, NETWORK]
-  )(using
-    fetcher: FETCHER
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.dot.GetTargetArrow[Dot, ARROW, NETWORK] with
 
     override
@@ -132,7 +88,7 @@ object Dot:
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
-      fetcher.fetchArrow(dot.entry.address6, network)
+      network.readArrow(dot.targetArrowReference)
 
   given [NETWORK](using
     general.counter.Increment[Counter, NETWORK]
