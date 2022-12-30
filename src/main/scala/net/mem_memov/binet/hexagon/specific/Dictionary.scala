@@ -108,7 +108,7 @@ object Dictionary:
       for {
         modifiedInventory <- dictionary.inventories(entry.getPosition).update(entry.getPath, entry.getContent)
       } yield
-        val modifiedInventories = dictionary.inventories.update(entry.getPosition, modifiedInventory)
+        val modifiedInventories = dictionary.inventories.updated(entry.getPosition, modifiedInventory)
         dictionary.copy(inventories = modifiedInventories)
       
   given [ADDRESS, ENTRY, FACTORY](using
