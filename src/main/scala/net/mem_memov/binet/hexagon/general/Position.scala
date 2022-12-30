@@ -1,6 +1,8 @@
 package net.mem_memov.binet.hexagon.general
 
 enum Position(index: Int):
+  def getIndex: Int = index
+
   case One extends Position(0)
   case Two extends Position(1)
   case Three extends Position(2)

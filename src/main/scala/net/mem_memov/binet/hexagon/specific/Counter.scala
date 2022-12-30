@@ -8,7 +8,9 @@ case class Counter(
 
 object Counter:
 
-  given [NETWORK]: general.counter.Increment[Counter, NETWORK] with
+  given [NETWORK](using
+    general.entry.IncrementContent[Entry, NETWORK]
+  ): general.counter.Increment[Counter, NETWORK] with
 
     override
     def f(
@@ -17,13 +19,15 @@ object Counter:
     ): Either[String, (NETWORK, Counter)] =
 
       for {
-        incrementResult <- counter.entry.inctementContent(network)
+        incrementResult <- counter.entry.incrementContent(network)
         (modifiedDictionary, modifiedEntry) = incrementResult
       } yield
         val modifiedCounter = counter.copy(entry = modifiedEntry)
         (modifiedDictionary, modifiedCounter)
 
-  given [NETWORK]: general.counter.Decrement[Counter, NETWORK] with
+  given [NETWORK](using
+    general.entry.DecrementContent[Entry, NETWORK]
+  ): general.counter.Decrement[Counter, NETWORK] with
 
     override
     def f(
@@ -32,7 +36,7 @@ object Counter:
     ): Either[String, (NETWORK, Counter)] =
 
       for {
-        decrementResult <- counter.entry.dectementContent(network)
+        decrementResult <- counter.entry.decrementContent(network)
         (modifiedDictionary, modifiedEntry) = decrementResult
       } yield
         val modifiedCounter = counter.copy(entry = modifiedEntry)
@@ -48,4 +52,4 @@ object Counter:
       theOther: Counter
     ): Boolean =
 
-      counter.entry.isLarger(theOther.entry)
+      counter.entry.contentIsLarger(theOther.entry)

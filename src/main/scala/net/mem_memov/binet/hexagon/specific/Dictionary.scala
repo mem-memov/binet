@@ -21,7 +21,7 @@ object Dictionary:
     def f(
       dictionary: Dictionary
     ): ADDRESS =
-      dictionary.inventory(0).getNext()
+      dictionary.inventories(0).getNext()
 
   given [ADDRESS, ENTRY, FACTORY](using
     memory.general.inventory.Append[Inventory, ADDRESS],
@@ -41,23 +41,24 @@ object Dictionary:
       val zeroAddress = factory.zeroAddress
       val path = dictionary.inventories(0).getNext()
 
+      val content1 = addressOptions(0).getOrElse(zeroAddress)
+      val content2 = addressOptions(1).getOrElse(zeroAddress)
+      val content3 = addressOptions(2).getOrElse(zeroAddress)
+      val content4 = addressOptions(3).getOrElse(zeroAddress)
+      val content5 = addressOptions(4).getOrElse(zeroAddress)
+      val content6 = addressOptions(5).getOrElse(zeroAddress)
+
       for {
-        result1 <- dictionary.inventories(0).append(addressOptions(0).getOrElse(zeroAddress))
-        (modifiedInventory1, content) = result1
-        result2 <- dictionary.inventories(1).append(addressOptions(1).getOrElse(zeroAddress))
-        (modifiedInventory2, _) = result2
-        result3 <- dictionary.inventories(2).append(addressOptions(2).getOrElse(zeroAddress))
-        (modifiedInventory3, _) = result3
-        result4 <- dictionary.inventories(3).append(addressOptions(3).getOrElse(zeroAddress))
-        (modifiedInventory4, _) = result4
-        result5 <- dictionary.inventories(4).append(addressOptions(4).getOrElse(zeroAddress))
-        (modifiedInventory5, _) = result5
-        result6 <- dictionary.inventories(5).append(addressOptions(5).getOrElse(zeroAddress))
-        (modifiedInventory6, _) = result6
+        modifiedInventory1 <- dictionary.inventories(0).append(content1)
+        modifiedInventory2 <- dictionary.inventories(1).append(content2)
+        modifiedInventory3 <- dictionary.inventories(2).append(content3)
+        modifiedInventory4 <- dictionary.inventories(3).append(content4)
+        modifiedInventory5 <- dictionary.inventories(4).append(content5)
+        modifiedInventory6 <- dictionary.inventories(5).append(content6)
       } yield
 
         val modifiedDictionary = dictionary.copy(
-          inventories = (
+          inventories = Vector(
             modifiedInventory1,
             modifiedInventory2,
             modifiedInventory3,
@@ -68,12 +69,12 @@ object Dictionary:
         )
 
         val entries = (
-          factory.makeEntry(general.Position.One, path, content),
-          factory.makeEntry(general.Position.Two, path, content),
-          factory.makeEntry(general.Position.Three, path, content),
-          factory.makeEntry(general.Position.Four, path, content),
-          factory.makeEntry(general.Position.Five, path, content),
-          factory.makeEntry(general.Position.Six, path, content)
+          factory.makeEntry(general.Position.One, path, content1),
+          factory.makeEntry(general.Position.Two, path, content2),
+          factory.makeEntry(general.Position.Three, path, content3),
+          factory.makeEntry(general.Position.Four, path, content4),
+          factory.makeEntry(general.Position.Five, path, content5),
+          factory.makeEntry(general.Position.Six, path, content6)
         )
 
         (modifiedDictionary, entries)
@@ -106,9 +107,9 @@ object Dictionary:
     ): Either[String, Dictionary] =
 
       for {
-        modifiedInventory <- dictionary.inventories(entry.getPosition).update(entry.getPath, entry.getContent)
+        modifiedInventory <- dictionary.inventories(entry.getPosition.getIndex).update(entry.getPath, entry.getContent)
       } yield
-        val modifiedInventories = dictionary.inventories.updated(entry.getPosition, modifiedInventory)
+        val modifiedInventories = dictionary.inventories.updated(entry.getPosition.getIndex, modifiedInventory)
         dictionary.copy(inventories = modifiedInventories)
       
   given [ADDRESS, ENTRY, FACTORY](using
