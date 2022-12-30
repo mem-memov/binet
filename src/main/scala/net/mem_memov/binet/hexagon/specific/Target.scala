@@ -143,7 +143,7 @@ object Target:
       target.dot.toVertex
 
   given (using
-
+    general.dot.HasMoreSourcesThanTheOtherTargets[Dot]
   ): general.target.HasMoreSources[Target, Dot] with
 
     override def f(
@@ -151,4 +151,4 @@ object Target:
       sourceDot: Dot
     ): Boolean =
 
-      target.dot.hasMoreSources()
+      target.dot.hasMoreSourcesThanTheOtherTargets(sourceDot)

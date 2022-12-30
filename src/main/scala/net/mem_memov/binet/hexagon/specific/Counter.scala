@@ -38,12 +38,14 @@ object Counter:
         val modifiedCounter = counter.copy(entry = modifiedEntry)
         (modifiedDictionary, modifiedCounter)
 
-  given general.counter.IsLarger[Counter] with
+  given (using
+    general.entry.ContentIsLarger[Entry]
+  ): general.counter.IsLarger[Counter] with
 
-    override 
+    override
     def f(
-      counter: Counter, 
+      counter: Counter,
       theOther: Counter
-    ): Boolean = 
-      
-      
+    ): Boolean =
+
+      counter.entry.isLarger(theOther.entry)

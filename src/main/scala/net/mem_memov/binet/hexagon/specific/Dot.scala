@@ -205,14 +205,14 @@ object Dot:
 
   given (using
     general.counter.IsLarger[Counter]
-  ):general.dot.HasMoreSources[Dot, Counter] with
+  ):general.dot.HasMoreSourcesThanTheOtherTargets[Dot] with
 
     override 
     def f(
       dot: Dot,
-      counter: Dot
+      theOther: Dot
     ): Boolean =
 
-      dot.sourceCounter.isLarger(counter)
+      dot.sourceCounter.isLarger(theOther.targetCounter)
       
       
