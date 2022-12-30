@@ -161,4 +161,14 @@ object Dot:
 
       dot.sourceCounter.isLarger(theOther.targetCounter)
       
-      
+  given (using
+    general.dotReference.InSameDirection[DotReference]
+  ): general.dot.IsReferencedBy[Dot, DotReference] with
+
+    override 
+    def f(
+      dot: Dot, 
+      dotReference: DotReference
+    ): Boolean =
+
+      dot.identifier.inSameDirection(dotReference)

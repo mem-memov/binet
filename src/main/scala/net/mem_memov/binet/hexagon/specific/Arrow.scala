@@ -95,15 +95,17 @@ object Arrow:
 
       network.readArrow(arrow.nextTargetArrowReference)
 
-  given general.arrow.HasSourceDot[Arrow, Address] with
+  given [DOT](using
+    general.dot.IsReferencedBy[DOT, DotReference]
+  ):general.arrow.HasSourceDot[Arrow, DOT] with
 
     override
     def f(
       arrow: Arrow,
-      sourceDotAddress: Address
+      sourceDot: DOT
     ): Boolean =
 
-      arrow.entry.address1 == sourceDotAddress
+      sourceDot.isReferencedBy(arrow.sourceDotReference)
 
   given general.arrow.HasTargetDot[Arrow, Address] with
 

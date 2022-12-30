@@ -126,3 +126,15 @@ object Source:
     ): Boolean =
 
       target.hasMoreSources(source.dot)
+      
+  given [ARROW](using
+    general.arrow.HasSourceDot[ARROW, Dot]
+  ): general.source.InArrowTail[Source, ARROW] with
+
+    override 
+    def f(
+      source: Source,
+      arrow: ARROW
+    ): Boolean =
+
+      arrow.hasSourceDot(source.dot)

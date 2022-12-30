@@ -138,10 +138,10 @@ object Factory:
 
     override
     def f(
-      sourceDotReference: ArrowReference,
-      previousSourceArrowReference: DotReference,
-      targetDotReference: ArrowReference,
-      previousTargetArrowReference: DotReference
+      sourceDotReference: DotReference,
+      previousSourceArrowReference: ArrowReference,
+      targetDotReference: DotReference,
+      previousTargetArrowReference: ArrowReference
     ): ArrowDraftEnd =
 
       ArrowDraftEnd(

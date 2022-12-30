@@ -41,11 +41,10 @@ object DotReference:
 
       dotReference.entry.contentEqualsPath
   
-  given [FACTORY, ADDRESS, DICTIONARY, DOT](using
+  given [FACTORY, DICTIONARY, DOT](using
     general.dictionary.Read[DICTIONARY, Entry],
-    general.entry.GetContent[Entry, ADDRESS],
     general.factory.MakeDot[FACTORY, DOT, Entry],
-    general.dot.IsDot[Dot]
+    general.dot.IsDot[DOT]
   )(using
     factory: FACTORY
   ): general.dotReference.ReadDot[DotReference, DICTIONARY, DOT] with
@@ -57,7 +56,7 @@ object DotReference:
     ): Either[String, DOT] =
 
       for {
-        entries <- dictionary.read(dotReference.entry.getContent)
+        entries <- dictionary.read(dotReference.entry)
         dot <-
           val dot = factory.makeDot(entries)
           if dot.isDot then
@@ -66,3 +65,14 @@ object DotReference:
             Left("Not a dot")
       } yield dot
 
+  given (using
+    general.entry.SameContent[Entry]
+  ): general.dotReference.InSameDirection[DotReference] with
+
+    override 
+    def f(
+      dotReference: DotReference, 
+      theOther: DotReference
+    ): Boolean =
+
+      dotReference.entry.sameContent(theOther.entry)

@@ -111,3 +111,15 @@ object Entry:
     ): Boolean =
 
       entry.content.isZero
+
+  given general.entry.SameContent[Entry] with
+
+    override
+    def f(
+      entry: Entry,
+      theOther: Entry
+    ): Boolean =
+
+      import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
+
+      entry.content == theOther.content

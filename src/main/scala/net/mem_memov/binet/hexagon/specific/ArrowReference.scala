@@ -47,9 +47,8 @@ object ArrowReference:
           entries <- dictionary.read(arrowReference.entry)
           arrow <-
             val newArrow = factory.makeArrow(entries)
-            val arrowEither = if newArrow.isArrow then
+            if newArrow.isArrow then
               Right(newArrow)
             else
               Left("Not an arrow")
-            arrowEither
         } yield Some(arrow)

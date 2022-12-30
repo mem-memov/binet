@@ -26,8 +26,7 @@ object Tail:
       } yield optionArrow.map(_.toTail)
 
   given [ADDRESS, SOURCE](using
-    general.dot.GetAddress[SOURCE, ADDRESS],
-    general.arrow.HasSourceDot[Arrow, ADDRESS]
+    general.source.InArrowTail[SOURCE]
   ): general.tail.HasSource[Tail, SOURCE] with
 
     override
@@ -36,7 +35,7 @@ object Tail:
       source: SOURCE
     ): Boolean =
 
-      tail.arrow.hasSourceDot(source.getAddress)
+      source.inArrowTail(tail.arrow)
 
   given [DOT, NETWORK, SOURCE](using
     general.arrow.GetSourceDot[Arrow, DOT, NETWORK],
