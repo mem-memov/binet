@@ -3,16 +3,16 @@ package net.mem_memov.binet.hexagon.specific
 import net.mem_memov.binet.hexagon.general
 
 case class ArrowDraftEnd(
-  sourceDotIdentifier: DotIdentifier,
+  sourceDotReference: DotReference,
   previousSourceArrowReference: ArrowReference,
-  targetDotIdentifier: DotIdentifier,
+  targetDotReference: DotReference,
   previousTargetArrowReference: ArrowReference
 )
 
 object ArrowDraftEnd:
-  
+
   given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_REFERENCE, ENTRY, FACTORY](using
-    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
+    general.dictionary.Append[DICTIONARY, ADDRESS, ENTRY],
     general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
     general.dotReference.GetAddress[DOT_REFERENCE, ADDRESS],
     general.arrowReference.GetAddressOption[ARROW_REFERENCE, ADDRESS]
@@ -20,17 +20,17 @@ object ArrowDraftEnd:
     factory: FACTORY
   ): general.arrowDraftEnd.CreateArrow[ArrowDraftEnd, ARROW, DICTIONARY] with
 
-    override 
+    override
     def f(
-      arrowDraftEnd: ArrowDraftEnd, 
+      arrowDraftEnd: ArrowDraftEnd,
       dictionary: DICTIONARY
     ): Either[String, (DICTIONARY, ARROW)] =
 
-      val addressOptions = (
-        Some(arrowDraftEnd.sourceDotIdentifier.getAddress),
+      val addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS]) = (
+        Some(arrowDraftEnd.sourceDotReference.getAddress),
         arrowDraftEnd.previousSourceArrowReference.getAddressOption,
         None,
-        Some(arrowDraftEnd.targetDotIdentifier.getAddress),
+        Some(arrowDraftEnd.targetDotReference.getAddress),
         arrowDraftEnd.previousTargetArrowReference.getAddressOption,
         None
       )

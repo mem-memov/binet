@@ -15,6 +15,17 @@ case class Dot(
 
 object Dot:
 
+  given (using
+    general.dotReference.InDot[DotReference]
+  ): general.dot.IsDot[Dot] with
+
+    override
+    def f(
+      dot: Dot
+    ): Boolean =
+
+      dot.identifier.inDot
+
   given [FACTORY, VERTEX](using
     general.factory.MakeVertex[FACTORY, DotReference, VERTEX]
   )(using
@@ -126,7 +137,7 @@ object Dot:
         (modifiedNetwork, modifiedDot)
 
   given [ARROW_DRAFT_BEGIN, FACTORY](using
-    general.factory.MakeArrowDraftBegin[FACTORY, ARROW_DRAFT_BEGIN, ArrowReference, DotIdentifier]
+    general.factory.MakeArrowDraftBegin[FACTORY, ARROW_DRAFT_BEGIN, ArrowReference, DotReference]
   )(using
     factory: FACTORY
   ): general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN] with

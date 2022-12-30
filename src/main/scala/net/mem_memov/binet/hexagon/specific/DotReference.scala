@@ -8,6 +8,17 @@ case class DotReference(
 
 object DotReference:
 
+  given [ADDRESS](using
+    general.entry.GetContent[Entry, ADDRESS]
+  ): general.dotReference.GetAddress[DotReference, ADDRESS] with
+
+    override
+    def f(
+      dotReference: DotReference
+    ): ADDRESS =
+
+      dotReference.entry.getContent
+
   given (using
     general.entry.ContentEqualsPath[Entry]
   ): general.dotReference.InArrow[DotReference] with
@@ -30,8 +41,8 @@ object DotReference:
 
       dotReference.entry.contentEqualsPath
   
-  given [ADDRESS, DICTIONARY, DOT](using
-    general.dictionary.Read[DICTIONARY, ADDRESS, Entry],
+  given [FACTORY, ADDRESS, DICTIONARY, DOT](using
+    general.dictionary.Read[DICTIONARY, Entry],
     general.entry.GetContent[Entry, ADDRESS],
     general.factory.MakeDot[FACTORY, DOT, Entry],
     general.dot.IsDot[Dot]

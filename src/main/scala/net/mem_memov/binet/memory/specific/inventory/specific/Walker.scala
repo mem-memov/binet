@@ -43,4 +43,4 @@ object Walker:
                 content = content
               )
             )
-            f(newResult, origin.increment(), process)
+            f(newResult, origin.increment, process)

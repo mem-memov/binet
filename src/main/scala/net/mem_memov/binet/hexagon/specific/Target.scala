@@ -16,8 +16,7 @@ object Target:
     general.dot.IncrementSourceCount[Dot, NETWORK],
     general.dot.EndArrowDraft[Dot, ARROW_DRAFT_BEGIN, ARROW_DRAFT_END],
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
-    general.arrow.SetNextSourceArrow[ARROW, NETWORK],
-    target.general.arrowEntry.Update[ARROW_ENTRY, Dot, ENTRY]
+    general.arrow.SetNextSourceArrow[ARROW, NETWORK]
   )(using
     arrowEntry: ARROW_ENTRY
   ): general.target.CreateArrowFromSource[Target, ARROW, ARROW_DRAFT_BEGIN, NETWORK] with

@@ -8,6 +8,23 @@ case class ArrowReference(
 
 object ArrowReference:
 
+  given [ADDRESS](using
+    general.entry.GetContent[Entry, ADDRESS],
+    general.entry.IsContentEmpty[Entry]
+  ): general.arrowReference.GetAddressOption[ArrowReference, ADDRESS] with
+
+    override
+    def f(
+      arrowReference: ArrowReference
+    ): Option[ADDRESS] =
+
+      if arrowReference.entry.isContentEmpty then
+        None
+      else
+        Some(arrowReference.entry.getContent)
+
+
+
   given [ARROW, DICTIONARY, FACTORY](using
     general.dictionary.Read[DICTIONARY, Entry],
     general.factory.MakeArrow[FACTORY, ARROW, Entry],

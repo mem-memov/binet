@@ -71,8 +71,8 @@ object Network:
 
       dotReference.readDot(network.dictionary)
 
-  given [ADDRESS, ENTRY](using
-    general.dictionary.Update[Dictionary, ADDRESS, ENTRY],
+  given [ENTRY](using
+    general.dictionary.Update[Dictionary, ENTRY],
     general.entry.Save[ENTRY, Dictionary]
   ): general.network.UpdateEntry[Network, ENTRY] with
 

@@ -11,7 +11,7 @@ object Vertex:
   given [DOT, NETWORK, SOURCE](using
     general.network.ReadDot[NETWORK, DotReference, DOT],
     general.dot.ToSource[DOT, SOURCE]
-  ): general.vertex.ToSource[Vertex, SOURCE] with
+  ): general.vertex.ToSource[Vertex, NETWORK, SOURCE] with
 
     override
     def f(
@@ -26,7 +26,7 @@ object Vertex:
   given [DOT, NETWORK, TARGET](using
     general.network.ReadDot[NETWORK, DotReference, DOT],
     general.dot.ToTarget[DOT, TARGET]
-  ): general.vertex.ToTarget[Vertex, TARGET] with
+  ): general.vertex.ToTarget[Vertex, NETWORK, TARGET] with
 
     override
     def f(
