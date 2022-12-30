@@ -42,9 +42,7 @@ object Graph:
       graph: Graph,
       sourceVertex: VERTEX,
       targetVertex: VERTEX
-    ): Either[String, (Graph, VERTEX, VERTEX)] =
-
-
+    ): Either[String, Graph] =
 
       for {
         source <- sourceVertex.toSource(graph.network)
@@ -53,17 +51,14 @@ object Graph:
             source.hasTarget(target, graph.network)
           else
             target.hasSource(source, graph.network)
-        connectionResult <- if alreadyConnected then
+        modifiedNetwork <- if alreadyConnected then
             Right((graph.network, sourceVertex, targetVertex))
           else
             source.createArrowToTarget(target, graph.network).map {
-              case (modifiedNetwork, modifiedSource, modifiedTarget) =>
-                (modifiedNetwork, modifiedSource.toVertex, modifiedTarget.toVertex)
+              case (modifiedNetwork, _, _) => modifiedNetwork
             }
       } yield
-        val (modifiedNetwork, modifiedSourceVertex, modifiedTargetVertex) = connectionResult
-        val modifiedGraph = graph.copy(network = modifiedNetwork)
-        (modifiedGraph, modifiedSourceVertex, modifiedTargetVertex)
+        graph.copy(network = modifiedNetwork)
 
   given [SOURCE, TARGET, VERTEX](using
     general.vertex.ToTarget[VERTEX, Network, TARGET],
