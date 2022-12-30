@@ -55,7 +55,7 @@ object Network:
     def f(
       network: Network,
       arrowReference: ARROW_REFERENCE
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       arrowReference.readArrow(network.dictionary)
 

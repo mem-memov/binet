@@ -113,24 +113,27 @@ object Dictionary:
       
   given [ADDRESS, ENTRY, FACTORY](using
     memory.general.inventory.Read[Inventory, ADDRESS],
-    general.factory.MakeEntry[FACTORY, ADDRESS, ENTRY]
+    general.factory.MakeEntry[FACTORY, ADDRESS, ENTRY],
+    general.entry.GetContent[ENTRY, ADDRESS]
   )(using
     factory: FACTORY
-  ): general.dictionary.Read[Dictionary, ADDRESS, ENTRY] with
+  ): general.dictionary.Read[Dictionary, ENTRY] with
 
     override 
     def f(
       dictionary: Dictionary,
-      path: ADDRESS
+      pathEntry: ENTRY
     ): Either[String, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY)] =
 
+      val path = pathEntry.getContent
+
       for {
-        content1 <- dictionary.inventories(0).read(address)
-        content2 <- dictionary.inventories(1).read(address)
-        content3 <- dictionary.inventories(2).read(address)
-        content4 <- dictionary.inventories(3).read(address)
-        content5 <- dictionary.inventories(4).read(address)
-        content6 <- dictionary.inventories(5).read(address)
+        content1 <- dictionary.inventories(0).read(path)
+        content2 <- dictionary.inventories(1).read(path)
+        content3 <- dictionary.inventories(2).read(path)
+        content4 <- dictionary.inventories(3).read(path)
+        content5 <- dictionary.inventories(4).read(path)
+        content6 <- dictionary.inventories(5).read(path)
       } yield (
         factory.makeEntry(general.Position.One, path, content1),
         factory.makeEntry(general.Position.Two, path, content2),

@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.dictionary
 
-trait Read[DICTIONARY, ADDRESS, ENTRY]:
+trait Read[DICTIONARY, ENTRY]:
 
   def f(
     dictionary: DICTIONARY,
-    path: ADDRESS
+    pathEntry: ENTRY
   ): Either[String, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY)]
 
   extension (dictionary: DICTIONARY)
 
     def read(
-      path: ADDRESS
+      pathEntry: ENTRY
     ): Either[String, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY)] =
 
-      f(dictionary, path)
+      f(dictionary, pathEntry)

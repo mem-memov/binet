@@ -55,14 +55,14 @@ object Dot:
       factory.makeTarget(dot)
 
   given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, Address, ARROW]
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.dot.GetRelationArrow[Dot, ARROW, NETWORK] with
 
     override
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
       network.readArrow(dot.relationArrowReference)
 
@@ -87,6 +87,7 @@ object Dot:
       dot: Dot,
       network: NETWORK
     ): Either[String, Option[ARROW]] =
+
 
       network.readArrow(dot.targetArrowReference)
 

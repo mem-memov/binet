@@ -100,3 +100,14 @@ object Entry:
       import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
       entry.content > theOther.content
+
+  given (using
+    memory.general.address.IsZero[Address]
+  ): general.entry.IsContentEmpty[Entry] with
+
+    override
+    def f(
+      entry: Entry
+    ): Boolean =
+
+      entry.content.isZero

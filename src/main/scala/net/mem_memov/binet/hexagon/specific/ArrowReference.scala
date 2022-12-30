@@ -8,11 +8,11 @@ case class ArrowReference(
 
 object ArrowReference:
 
-  given [ADDRESS, ARROW, DICTIONARY, FACTORY](using
-    general.dictionary.Read[Dictionary, ADDRESS, Entry],
+  given [ARROW, DICTIONARY, FACTORY](using
+    general.dictionary.Read[Dictionary, Entry],
     general.factory.MakeArrow[FACTORY, ARROW, Entry],
     general.arrow.IsArrow[ARROW],
-    general.entry.GetContent[Entry, ADDRESS],
+    general.entry.IsContentEmpty[Entry]
   )(using
     factory: FACTORY
   ): general.arrowReference.ReadArrow[ArrowReference, ARROW, DICTIONARY] with
@@ -21,14 +21,17 @@ object ArrowReference:
     def f(
       arrowReference: ArrowReference,
       dictionary: DICTIONARY
-    ): Either[String, ARROW] =
+    ): Either[String, Option[ARROW]] =
 
-      for {
-        entries <- dictionary.read(arrowReference.entry.getContent)
-        arrow <-
-          val arrow = factory.makeArrow(entries)
-          if arrow.isArrow then
-            Right(arrow)
-          else
-            Left("Not an arrow")
-      } yield arrow
+      if arrowReference.entry.isContentEmpty then
+        Right(None)
+      else
+        for {
+          entries <- dictionary.read(arrowReference.entry)
+          arrow <-
+            val arrow = factory.makeArrow(entries)
+            if arrow.isArrow then
+              Right(arrow)
+            else
+              Left("Not an arrow")
+        } yield Some(arrow)
