@@ -86,3 +86,17 @@ object Entry:
     ): Either[String, DICTIONARY] =
 
       dictionary.update(entry)
+
+  given (using
+    Ordering[Address]
+  ): general.entry.ContentIsLarger[Entry] with
+
+    override
+    def f(
+      entry: Entry,
+      theOther: Entry
+    ): Boolean =
+
+      import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
+
+      entry.content > theOther.content

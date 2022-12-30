@@ -136,3 +136,15 @@ object Source:
     ): VERTEX =
 
       source.dot.toVertex
+
+  given [TARGET](using
+    general.target.HasMoreSources[TARGET, Dot]
+  ): general.source.IsSmallerThanTarget[Source, TARGET] with
+
+    override
+    def f(
+      source: Source,
+      target: TARGET
+    ): Boolean =
+
+      target.hasMoreSources(source.dot)

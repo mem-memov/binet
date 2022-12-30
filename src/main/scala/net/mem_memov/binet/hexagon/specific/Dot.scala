@@ -203,6 +203,16 @@ object Dot:
 
       factory.makeArrowDraftBegin(dot.identifier, dot.sourceArrowReference)
 
-    
+  given (using
+    general.counter.IsLarger[Counter]
+  ):general.dot.HasMoreSources[Dot, Counter] with
+
+    override 
+    def f(
+      dot: Dot,
+      counter: Dot
+    ): Boolean =
+
+      dot.sourceCounter.isLarger(counter)
       
       

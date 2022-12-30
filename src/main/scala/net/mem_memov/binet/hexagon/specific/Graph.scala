@@ -31,10 +31,8 @@ object Graph:
     general.vertex.ToTarget[VERTEX, Network, TARGET],
     general.source.CreateArrowToTarget[SOURCE, Network, TARGET],
     general.source.HasTarget[SOURCE, Network, TARGET],
-    general.source.CountTargets[SOURCE, ADDRESS],
-    general.target.CountSources[TARGET, ADDRESS],
-    general.target.HasSource[TARGET, Network, SOURCE],
-    Ordering[ADDRESS]
+    general.source.IsSmallerThanTarget[SOURCE, TARGET],
+    general.target.HasSource[TARGET, Network, SOURCE]
   ): general.graph.ConnectVertices[Graph, VERTEX] with
 
     override
@@ -44,12 +42,12 @@ object Graph:
       targetVertex: VERTEX
     ): Either[String, (Graph, VERTEX, VERTEX)] =
 
-      import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
+      
 
       for {
         source <- sourceVertex.toSource(graph.network)
         target <- targetVertex.toTarget(graph.network)
-        alreadyConnected <- if source.countTargets < target.countSources then
+        alreadyConnected <- if source.isSmallerThanTarget(target) then
             source.hasTarget(target, graph.network)
           else
             target.hasSource(source, graph.network)

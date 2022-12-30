@@ -37,3 +37,13 @@ object Counter:
       } yield
         val modifiedCounter = counter.copy(entry = modifiedEntry)
         (modifiedDictionary, modifiedCounter)
+
+  given general.counter.IsLarger[Counter] with
+
+    override 
+    def f(
+      counter: Counter, 
+      theOther: Counter
+    ): Boolean = 
+      
+      
