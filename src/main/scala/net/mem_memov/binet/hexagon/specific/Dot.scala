@@ -164,7 +164,7 @@ object Dot:
     def f(
       dot: Dot,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, (NETWORK, Dot)] =
 
       for {
         incrementResult <- dot.sourceCounter.increment(network)

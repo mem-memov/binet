@@ -6,13 +6,13 @@ trait ConnectVertices[GRAPH, VERTEX]:
     graph: GRAPH,
     sourceVertex: VERTEX,
     targetVertex: VERTEX
-  ): Either[String, GRAPH]
+  ): Either[String, (GRAPH, VERTEX, VERTEX)]
 
   extension (graph: GRAPH)
 
     def connectVertices(
       sourceVertex: VERTEX,
       targetVertex: VERTEX
-    ): Either[String, GRAPH] =
+    ): Either[String, (GRAPH, VERTEX, VERTEX)] =
 
       f(graph, sourceVertex, targetVertex)

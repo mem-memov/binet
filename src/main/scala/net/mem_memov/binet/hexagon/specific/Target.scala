@@ -38,7 +38,7 @@ object Target:
       target: Target,
       arrowDraftBegin: ARROW_DRAFT_BEGIN,
       network: NETWORK
-    ): Either[String, (NETWORK, ARROW)] =
+    ): Either[String, (NETWORK, Target, ARROW)] =
 
       val arrowDraftEnd = target.dot.endArrowDraft(arrowDraftBegin)
 
@@ -46,12 +46,15 @@ object Target:
         previousArrowOption <- target.dot.getSourceArrow(network)
         createArrowResult <- network.createArrow(arrowDraftEnd)
         (network1, arrow) = createArrowResult
-        network2 <- target.dot.setSourceArrow(arrow, network1)
-        network3 <- target.dot.incrementSourceCount(network2)
-        network4 <- previousArrowOption match
+        setSourceArrowResult <- target.dot.setSourceArrow(arrow, network1)
+        (network2, dot2) <- setSourceArrowResult
+        incrementSourceCountResult <- dot2.incrementSourceCount(network2)
+        (network3, dot3) <- incrementSourceCountResult
+        setNextSourceArrowResult <- previousArrowOption match
           case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network3)
-          case None => Right(network3)
-      } yield (network4, arrow)
+          case None => Right(network3, previousArrow)
+        (network4, _) = setNextSourceArrowResult
+      } yield (network4, target.copy(dot = dot4), arrow)
 
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],

@@ -42,7 +42,7 @@ object Graph:
       graph: Graph,
       sourceVertex: VERTEX,
       targetVertex: VERTEX
-    ): Either[String, Graph] =
+    ): Either[String, (Graph, VERTEX, VERTEX)] =
 
       import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
@@ -53,11 +53,14 @@ object Graph:
             source.hasTarget(target, graph.network)
           else
             target.hasSource(source, graph.network)
-        modifiedNetwork <- if alreadyConnected then
-            Right(graph.network)
+        connectionResult <- if alreadyConnected then
+            Right((graph.network, sourceVertex, targetVertex))
           else
             source.createArrowToTarget(target, graph.network)
-      } yield graph.copy(network = modifiedNetwork)
+      } yield 
+        val (modifiedNetwork, modifiedSourceVertex, modifiedTargetVertex) = connectionResult
+        val modifiedGraph = graph.copy(network = modifiedNetwork)
+        (modifiedGraph, modifiedSourceVertex, modifiedTargetVertex)
 
   given [SOURCE, TARGET, VERTEX](using
     general.vertex.ToTarget[VERTEX, Network, TARGET],

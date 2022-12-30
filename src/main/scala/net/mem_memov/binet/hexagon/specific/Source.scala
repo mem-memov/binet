@@ -34,20 +34,22 @@ object Source:
       source: Source,
       target: TARGET,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, (NETWORK, Source, TARGET)] =
 
       for {
         previousArrowOption <- source.dot.getTargetArrow(network)
         createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
-        (network1, arrow) = createArrowResult
-        network2 <- source.dot.setTargetArrow(arrow, network1)
+        (network1, target1, arrow) = createArrowResult
+        setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
+        (network2, dot2) = setTargetArrowResult
         incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
-        (network3, dot1) = incrementTargetCountResult
-        network4 <- previousArrowOption match
-          case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network)
-          case None => Right(network3)
-      } yield 
-        network4
+        (network3, dot3) = incrementTargetCountResult
+        setNextTargetArrowResult <- previousArrowOption match
+          case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network3)
+          case None => Right(network3, previousArrow)
+        (network4, _) = setNextTargetArrowResult
+      } yield
+        (network4, source.copy(dot = dot3), target1)
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
