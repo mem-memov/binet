@@ -121,7 +121,7 @@ object Factory:
 
     override def f(): Address = memoryFactory.zeroAddress()
 
-  given general.factory.MakeArrowDraftBegin[Factory, ArrowDraftBegin, DotReference, ArrowReference] with
+  given general.factory.MakeArrowDraftBegin[Factory, ArrowDraftBegin, ArrowReference, DotReference] with
 
     override
     def f(
@@ -134,7 +134,7 @@ object Factory:
         previousSourceArrowReference
       )
 
-  given general.factory.MakeArrowDraftEnd[Factory, ArrowDraftEnd, DotReference, ArrowReference] with
+  given general.factory.MakeArrowDraftEnd[Factory, ArrowDraftEnd, ArrowReference, DotReference] with
 
     override
     def f(

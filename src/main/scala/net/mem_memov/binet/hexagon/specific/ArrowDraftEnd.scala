@@ -39,7 +39,7 @@ object ArrowDraftEnd:
         previousTargetArrowAddressOption,
         Option.empty[ADDRESS]
       )
-      
+
       for {
         appendResult <- dictionary.append(addressOptions)
         (modifiedDictionary, entries) = appendResult
