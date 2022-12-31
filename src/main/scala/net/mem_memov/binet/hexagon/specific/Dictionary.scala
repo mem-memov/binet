@@ -27,7 +27,7 @@ object Dictionary:
     memory.general.inventory.Append[Inventory, ADDRESS],
     memory.general.inventory.GetNext[Inventory, ADDRESS],
     general.factory.MakeEntry[FACTORY, ADDRESS, ENTRY],
-    general.factory.ZeroAddress[FACTORY, ADDRESS]
+    general.factory.TakeZeroAddress[FACTORY, ADDRESS]
   )(using
     factory: FACTORY
   ): general.dictionary.Append[Dictionary, ADDRESS, ENTRY] with
@@ -38,7 +38,7 @@ object Dictionary:
       addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS])
     ): Either[String, (Dictionary, (ENTRY, ENTRY, ENTRY, ENTRY, ENTRY, ENTRY))] =
 
-      val zeroAddress = factory.zeroAddress
+      val zeroAddress = factory.takeZeroAddress
       val path = dictionary.inventories(0).getNext()
 
       val content1 = addressOptions(0).getOrElse(zeroAddress)

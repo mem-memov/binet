@@ -75,49 +75,39 @@ object Factory:
 
     override
     def f(
-      sourceDotEntry: Entry,
-      previousSourceArrowEntry: Entry,
-      nextSourceArrowEntry: Entry,
-      targetDotEntry: Entry,
-      previousTargetArrowEntry: Entry,
-      nextTargetArrowEntry: Entry
+      entries: (Entry, Entry, Entry, Entry, Entry, Entry)
     ): Arrow =
 
       Arrow(
-        DotReference(sourceDotEntry),
-        ArrowReference(previousSourceArrowEntry),
-        ArrowReference(nextSourceArrowEntry),
-        DotReference(targetDotEntry),
-        ArrowReference(previousTargetArrowEntry),
-        ArrowReference(nextTargetArrowEntry)
+        DotReference(entries(0)),
+        ArrowReference(entries(1)),
+        ArrowReference(entries(2)),
+        DotReference(entries(3)),
+        ArrowReference(entries(4)),
+        ArrowReference(entries(5))
       )
 
   given general.factory.MakeDot[Factory, Dot, Entry] with
 
     override
     def f(
-      identifierEntry: Entry,
-      relationArrowEntry: Entry,
-      sourceCounterEntry: Entry,
-      targetCounterEntry: Entry,
-      sourceArrowEntry: Entry,
-      targetArrowEntry: Entry
+      entries: (Entry, Entry, Entry, Entry, Entry, Entry)
     ): Dot =
 
       Dot(
-        DotReference(identifierEntry),
-        ArrowReference(relationArrowEntry),
-        Counter(sourceCounterEntry),
-        Counter(targetCounterEntry),
-        ArrowReference(sourceArrowEntry),
-        ArrowReference(targetArrowEntry)
+        DotReference(entries(0)),
+        ArrowReference(entries(1)),
+        Counter(entries(2)),
+        Counter(entries(3)),
+        ArrowReference(entries(4)),
+        ArrowReference(entries(5))
       )
 
   given [MEMORY_FACTORY](using
     memory.general.factory.ZeroAddress[MEMORY_FACTORY, Address]
   )(using
     memoryFactory: MEMORY_FACTORY
-  ): general.factory.ZeroAddress[Factory, Address] with
+  ): general.factory.TakeZeroAddress[Factory, Address] with
 
     override def f(): Address = memoryFactory.zeroAddress()
 

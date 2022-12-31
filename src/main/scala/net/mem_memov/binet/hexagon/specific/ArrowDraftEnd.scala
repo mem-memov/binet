@@ -11,11 +11,11 @@ case class ArrowDraftEnd(
 
 object ArrowDraftEnd:
 
-  given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_REFERENCE, ENTRY, FACTORY](using // TODO: remove cyclic references
-    => general.dictionary.Append[DICTIONARY, ADDRESS, ENTRY],
-    => general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
-    => general.dotReference.GetAddress[DOT_REFERENCE, ADDRESS],
-    => general.arrowReference.GetAddressOption[ARROW_REFERENCE, ADDRESS]
+  given [ADDRESS, ARROW, DICTIONARY, ENTRY, FACTORY](using
+    general.dictionary.Append[DICTIONARY, ADDRESS, ENTRY],
+    general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
+    general.dotReference.GetAddress[DotReference, ADDRESS],
+    general.arrowReference.GetAddressOption[ArrowReference, ADDRESS]
   )(using
     factory: FACTORY
   ): general.arrowDraftEnd.CreateArrow[ArrowDraftEnd, ARROW, DICTIONARY] with
@@ -27,9 +27,9 @@ object ArrowDraftEnd:
     ): Either[String, (DICTIONARY, ARROW)] =
 
       val sourceDotAddress = arrowDraftEnd.sourceDotReference.getAddress
-      val previousSourceArrowAddressOption: Option[ADDRESS] = arrowDraftEnd.previousSourceArrowReference.getAddressOption
-      val targetDotAddress: ADDRESS = arrowDraftEnd.targetDotReference.getAddress
-      val previousTargetArrowAddressOption: Option[ADDRESS] = arrowDraftEnd.previousTargetArrowReference.getAddressOption
+      val previousSourceArrowAddressOption = arrowDraftEnd.previousSourceArrowReference.getAddressOption
+      val targetDotAddress = arrowDraftEnd.targetDotReference.getAddress
+      val previousTargetArrowAddressOption = arrowDraftEnd.previousTargetArrowReference.getAddressOption
 
       val addressOptions = (
         Option(sourceDotAddress),

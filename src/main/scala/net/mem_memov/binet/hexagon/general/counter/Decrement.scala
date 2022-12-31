@@ -5,12 +5,12 @@ trait Decrement[COUNTER, NETWORK]:
   def f(
     counter: COUNTER,
     network: NETWORK
-  ): COUNTER
+  ): Either[String, (NETWORK, COUNTER)]
 
   extension (counter: COUNTER)
 
     def decrement(
       network: NETWORK
-    ): COUNTER =
+    ): Either[String, (NETWORK, COUNTER)] =
 
       f(counter, network)

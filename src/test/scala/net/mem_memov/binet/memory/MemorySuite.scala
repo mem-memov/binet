@@ -24,7 +24,7 @@ class MemorySuite extends munit.FunSuite:
 
     for {
       modifiedInventory <- inventory.append(start)
-    } yield assert(modifiedInventory.next equiv start.increment())
+    } yield assert(modifiedInventory.next equiv start.increment)
 
     for {
       content <- inventory.read(start)

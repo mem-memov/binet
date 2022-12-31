@@ -22,7 +22,7 @@ class IncrementSuite extends munit.FunSuite:
 
     val address = Address(originalIndices)
 
-    val result = address.increment()
+    val result = address.increment
 
     assert(result.parts.equals(incrementedIndices))
   }
