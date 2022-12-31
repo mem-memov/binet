@@ -6,7 +6,7 @@ import net.mem_memov.binet.memory
 
 case class Dot(
   identifier: DotReference,
-  relationArrowReference: ArrowReference,
+  relations: RelationReference,
   sourceCounter: Counter,
   targetCounter: Counter,
   sourceArrowReference: ArrowReference,
@@ -75,7 +75,7 @@ object Dot:
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
-      network.readArrow(dot.relationArrowReference)
+      network.readArrow(dot.relations)
 
   given [ARROW, FETCHER, NETWORK](using
     general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
