@@ -107,18 +107,20 @@ object Arrow:
 
       sourceDot.isReferencedBy(arrow.sourceDotReference)
 
-  given general.arrow.HasTargetDot[Arrow, Address] with
+  given [DOT](using
+    general.dot.IsReferencedBy[DOT, DotReference]
+  ): general.arrow.HasTargetDot[Arrow, DOT] with
 
     override
     def f(
       arrow: Arrow,
-      targetDotAddress: Address
+      targetDot: DOT
     ): Boolean =
 
-      arrow.entry.address4 == targetDotAddress
+      targetDot.isReferencedBy(arrow.targetDotReference)
 
   given [NETWORK](using
-    general.network.UpdateEntry[NETWORK, Arrow]
+    general.arrow.SetReference[Arrow, ArrowReference, NETWORK]
   ): general.arrow.SetNextSourceArrow[Arrow, NETWORK] with
 
     override
@@ -126,12 +128,24 @@ object Arrow:
       arrow: Arrow,
       nextSourceArrow: Arrow,
       network: NETWORK
-    ): Either[String, NETWORK] =
-
-      val modifiedEntry = arrow.entry.copy(address3 = arrow.address)
-      val modifiedArrow = arrow.copy(entry = modifiedEntry)
+    ): Either[String, (NETWORK, Arrow)] =
 
       for {
-        modifiedNetwork <- network.updateEntry(modifiedArrow)
-      } yield modifiedNetwork
+        result <- nextSourceArrow.setReference(arrow.nextSourceArrowReference, network)
+        (modifiedNetwork, modifiedNextSourceArrowReference) = result
+      } yield
+        val modifiedArrow = arrow.copy(nextSourceArrowReference = modifiedNextSourceArrowReference)
+        (modifiedNetwork, modifiedArrow)
 
+  given [NETWORK](using
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
+  ): general.arrow.SetReference[Arrow, ArrowReference, NETWORK] with
+
+    override
+    def f(
+      arrow: Arrow,
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, ArrowReference)] =
+
+      arrowReference.referencePath(arrow.sourceDotReference, network)

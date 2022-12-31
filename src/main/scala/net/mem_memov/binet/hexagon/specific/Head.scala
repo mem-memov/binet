@@ -25,10 +25,9 @@ object Head:
         optionArrow <- head.arrow.getNextTargetArrow(network)
       } yield optionArrow.map(_.toHead)
 
-  given [ADDRESS, TARGET](using
-      general.dot.GetAddress[TARGET, ADDRESS],
-      general.arrow.HasTargetDot[Arrow, ADDRESS]
-    ): general.head.HasTarget[Head, TARGET] with
+  given [TARGET](using
+    general.target.InArrowHead[TARGET, Arrow]
+  ): general.head.HasTarget[Head, TARGET] with
 
     override
     def f(
@@ -36,7 +35,7 @@ object Head:
       target: TARGET
     ): Boolean =
 
-      head.arrow.hasTargetDot(target.getAddress)
+      target.inArrowHead(head.arrow)
 
   given [NETWORK, TARGET](using
     general.head.ReadTarget[Head, NETWORK, TARGET],

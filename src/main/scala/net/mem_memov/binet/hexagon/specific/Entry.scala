@@ -123,3 +123,20 @@ object Entry:
       import scala.math.Ordering.Implicits.infixOrderingOps // enables address comparison operators
 
       entry.content == theOther.content
+
+  given [NETWORK](using
+    general.network.UpdateEntry[NETWORK, Entry]
+  ): general.entry.SetContentWithPath[Entry, NETWORK] with
+
+    override
+    def f(
+      entry: Entry,
+      pathEntry: Entry,
+      network: NETWORK
+    ): Either[String, (NETWORK, Entry)] =
+
+      val modifiedEntry = entry.copy(content = pathEntry.path)
+
+      for {
+        modifiedNetwork <- network.updateEntry(modifiedEntry)
+      } yield (modifiedNetwork, modifiedEntry)

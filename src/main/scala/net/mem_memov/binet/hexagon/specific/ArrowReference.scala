@@ -52,3 +52,22 @@ object ArrowReference:
             else
               Left("Not an arrow")
         } yield Some(arrow)
+
+  given [DOT_REFERENCE, NETWORK](using
+    general.dotReference.LendPath[DOT_REFERENCE, Entry, NETWORK]
+  ): general.arrowReference.ReferencePath[ArrowReference, DOT_REFERENCE, NETWORK] with
+
+    override
+    def f(
+      arrowReference: ArrowReference,
+      dotReference: DOT_REFERENCE,
+      network: NETWORK
+    ): Either[String, (NETWORK, ArrowReference)] =
+
+      for {
+        result <- dotReference.lendPath(arrowReference.entry, network)
+        (modifiedNetwork, modifiedEntry) = result
+      } yield
+        val modifiedArrowReference = arrowReference.copy(entry = modifiedEntry)
+        (modifiedNetwork, modifiedArrowReference)
+

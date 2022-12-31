@@ -25,8 +25,8 @@ object Tail:
         optionArrow <- tail.arrow.getNextSourceArrow(network)
       } yield optionArrow.map(_.toTail)
 
-  given [ADDRESS, SOURCE](using
-    general.source.InArrowTail[SOURCE]
+  given [SOURCE](using
+    general.source.InArrowTail[SOURCE, Arrow]
   ): general.tail.HasSource[Tail, SOURCE] with
 
     override

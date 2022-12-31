@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.arrow
 
-trait HasTargetDot[ARROW, ADDRESS]:
+trait HasTargetDot[ARROW, DOT]:
 
   def f(
     arrow: ARROW,
-    targetDotAddress: ADDRESS
+    targetDot: DOT
   ): Boolean
 
   extension (arrow: ARROW)
 
     def hasTargetDot(
-      targetDotAddress: ADDRESS
+      targetDot: DOT
     ): Boolean =
 
-      f(arrow, targetDotAddress)
+      f(arrow, targetDot)

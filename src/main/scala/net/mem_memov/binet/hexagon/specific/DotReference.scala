@@ -69,10 +69,23 @@ object DotReference:
     general.entry.SameContent[Entry]
   ): general.dotReference.InSameDirection[DotReference] with
 
-    override 
+    override
     def f(
-      dotReference: DotReference, 
+      dotReference: DotReference,
       theOther: DotReference
     ): Boolean =
 
       dotReference.entry.sameContent(theOther.entry)
+
+  given [NETWORK](using
+    general.entry.SetContentWithPath[Entry, NETWORK]
+  ): general.dotReference.LendPath[DotReference, Entry, NETWORK] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      entry: Entry,
+      network: NETWORK
+    ): Either[String, (NETWORK, Entry)] =
+
+      entry.setContentWithPath(dotReference.entry, network)
