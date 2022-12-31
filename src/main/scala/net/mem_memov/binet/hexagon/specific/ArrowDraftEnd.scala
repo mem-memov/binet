@@ -11,11 +11,11 @@ case class ArrowDraftEnd(
 
 object ArrowDraftEnd:
 
-  given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_REFERENCE, ENTRY, FACTORY](using
-    general.dictionary.Append[DICTIONARY, ADDRESS, ENTRY],
-    general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
-    general.dotReference.GetAddress[DOT_REFERENCE, ADDRESS],
-    general.arrowReference.GetAddressOption[ARROW_REFERENCE, ADDRESS]
+  given [ADDRESS, ARROW_REFERENCE, ARROW, DICTIONARY, DOT_REFERENCE, ENTRY, FACTORY](using // TODO: remove cyclic references
+    => general.dictionary.Append[DICTIONARY, ADDRESS, ENTRY],
+    => general.factory.MakeArrow[FACTORY, ARROW, ENTRY],
+    => general.dotReference.GetAddress[DOT_REFERENCE, ADDRESS],
+    => general.arrowReference.GetAddressOption[ARROW_REFERENCE, ADDRESS]
   )(using
     factory: FACTORY
   ): general.arrowDraftEnd.CreateArrow[ArrowDraftEnd, ARROW, DICTIONARY] with
@@ -26,13 +26,18 @@ object ArrowDraftEnd:
       dictionary: DICTIONARY
     ): Either[String, (DICTIONARY, ARROW)] =
 
-      val addressOptions: (Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS], Option[ADDRESS]) = (
-        Some(arrowDraftEnd.sourceDotReference.getAddress),
-        arrowDraftEnd.previousSourceArrowReference.getAddressOption,
-        None,
-        Some(arrowDraftEnd.targetDotReference.getAddress),
-        arrowDraftEnd.previousTargetArrowReference.getAddressOption,
-        None
+      val sourceDotAddress = arrowDraftEnd.sourceDotReference.getAddress
+      val previousSourceArrowAddressOption: Option[ADDRESS] = arrowDraftEnd.previousSourceArrowReference.getAddressOption
+      val targetDotAddress: ADDRESS = arrowDraftEnd.targetDotReference.getAddress
+      val previousTargetArrowAddressOption: Option[ADDRESS] = arrowDraftEnd.previousTargetArrowReference.getAddressOption
+
+      val addressOptions = (
+        Option(sourceDotAddress),
+        previousSourceArrowAddressOption,
+        Option.empty[ADDRESS],
+        Option(targetDotAddress),
+        previousTargetArrowAddressOption,
+        Option.empty[ADDRESS]
       )
       
       for {
