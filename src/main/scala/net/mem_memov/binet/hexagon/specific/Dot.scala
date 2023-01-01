@@ -5,8 +5,8 @@ import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory
 
 case class Dot(
-  identifier: DotReference,
-  relations: RelationReference,
+  identifierDotReference: DotReference,
+  nextDotReference: DotReference,
   sourceCounter: Counter,
   targetCounter: Counter,
   sourceArrowReference: ArrowReference,
@@ -24,7 +24,7 @@ object Dot:
       dot: Dot
     ): Boolean =
 
-      dot.identifier.inDot
+      dot.identifierDotReference.inDot
 
   given [FACTORY, VERTEX](using
     general.factory.MakeVertex[FACTORY, DotReference, VERTEX]
@@ -37,7 +37,7 @@ object Dot:
       dot: Dot
     ): VERTEX =
 
-      factory.makeVertex(dot.identifier)
+      factory.makeVertex(dot.identifierDotReference)
 
   given [FACTORY, SOURCE](using
     general.factory.MakeSource[FACTORY, Dot, SOURCE]
@@ -64,18 +64,6 @@ object Dot:
     ): TARGET =
 
       factory.makeTarget(dot)
-
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
-  ): general.dot.GetRelationArrow[Dot, ARROW, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, Option[ARROW]] =
-
-      network.readArrow(dot.relations)
 
   given [ARROW, FETCHER, NETWORK](using
     general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
@@ -147,7 +135,7 @@ object Dot:
       dot: Dot
     ): ARROW_DRAFT_BEGIN =
 
-      factory.makeArrowDraftBegin(dot.identifier, dot.sourceArrowReference)
+      factory.makeArrowDraftBegin(dot.identifierDotReference, dot.sourceArrowReference)
 
   given (using
     general.counter.IsLarger[Counter]
@@ -160,15 +148,15 @@ object Dot:
     ): Boolean =
 
       dot.sourceCounter.isLarger(theOther.targetCounter)
-      
+
   given (using
     general.dotReference.InSameDirection[DotReference]
   ): general.dot.IsReferencedBy[Dot, DotReference] with
 
-    override 
+    override
     def f(
-      dot: Dot, 
+      dot: Dot,
       dotReference: DotReference
     ): Boolean =
 
-      dot.identifier.inSameDirection(dotReference)
+      dot.identifierDotReference.inSameDirection(dotReference)

@@ -96,7 +96,7 @@ object Factory:
 
       Dot(
         DotReference(entries(0)),
-        ArrowReference(entries(1)),
+        DotReference(entries(1)),
         Counter(entries(2)),
         Counter(entries(3)),
         ArrowReference(entries(4)),
