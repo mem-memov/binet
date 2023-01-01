@@ -93,3 +93,24 @@ object Graph:
         source <- sourceVertex.toSource(graph.network)
         targets <- source.readTargets(graph.network)
       } yield targets.map(_.toVertex)
+
+  given [PREDECESSOR, SUCCESSOR, VERTEX](using
+    general.vertex.ToPredecessor[VERTEX, Network, PREDECESSOR],
+    general.vertex.ToSuccessor[VERTEX, Network, SUCCESSOR],
+    general.successor.Follow[SUCCESSOR, Network, PREDECESSOR]
+  ): general.graph.SetNext[Graph, VERTEX] with // with rings in mind
+
+    override
+    def f(
+      graph: Graph,
+      predecessorVertex: VERTEX,
+      successorVertex: VERTEX
+    ): Either[String, Graph] =
+
+      for {
+        predecessor <- predecessorVertex.toPredecessor(graph.network)
+        successor <- successorVertex.toSuccessor(graph.network)
+        result <- successor.follow(predecessor, graph.network)
+        (modifiedNetwork, _) = result
+      } yield
+        graph.copy(network = modifiedNetwork)

@@ -89,3 +89,21 @@ object DotReference:
     ): Either[String, (NETWORK, Entry)] =
 
       entry.setContentWithPath(dotReference.entry, network)
+
+  given [NETWORK](using
+    general.dotReference.LendPath[DotReference, Entry, NETWORK]
+  ): general.dotReference.ReferencePath[DotReference, NETWORK] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      mentionedDotReference: DotReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, DotReference)] =
+
+      for {
+        result <- mentionedDotReference.lendPath(dotReference.entry, network)
+        (modifiedNetwork, modifiedEntry) = result
+      } yield
+        val modifiedDotReference = dotReference.copy(entry = modifiedEntry)
+        (modifiedNetwork, modifiedDotReference)

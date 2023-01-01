@@ -160,3 +160,33 @@ object Dot:
     ): Boolean =
 
       dot.identifierDotReference.inSameDirection(dotReference)
+
+  given [NETWORK](using
+    general.dot.SetNextDot[Dot, DotReference, NETWORK]
+  ): general.dot.GiveIdentifierToPredecessor[Dot, NETWORK] with
+
+    override def f(
+      dot: Dot,
+      predecessorDot: Dot,
+      network: NETWORK
+    ): Either[String, (NETWORK, Dot)] =
+
+      predecessorDot.setNextDot(dot.identifierDotReference, network)
+
+  given [NETWORK](using
+    general.dotReference.ReferencePath[DotReference, NETWORK]
+  ): general.dot.SetNextDot[Dot, DotReference, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      identifierDotReference: DotReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, Dot)] =
+
+      for {
+        result <- dot.nextDotReference.referencePath(identifierDotReference, network)
+        (modifiedNetwork, modifiedDotReference) = result
+      } yield
+        val modifiedDot = dot.copy(nextDotReference = modifiedDotReference)
+        (modifiedNetwork, modifiedDot)

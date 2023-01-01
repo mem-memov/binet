@@ -140,3 +140,21 @@ object Factory:
         targetDotReference,
         previousTargetArrowReference
       )
+
+  given general.factory.MakePredecessor[Factory, Dot, Predecessor] with
+
+    override
+    def f(
+      dot: Dot
+    ): Predecessor =
+
+      Predecessor(dot)
+
+  given general.factory.MakeSuccessor[Factory, Dot, Successor] with
+
+    override
+    def f(
+      dot: Dot
+    ): Successor =
+
+      Successor(dot)
