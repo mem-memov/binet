@@ -20,3 +20,14 @@ object Successor:
     ): Either[String, (NETWORK, PREDECESSOR)] =
 
       predecessor.precede(successor.dot, network)
+
+  given [FACTORY, VERTEX](using
+    general.dot.ToVertex[Dot, VERTEX]
+  ): general.successor.ToVertex[Successor, VERTEX] with
+
+    override
+    def f(
+      successor: Successor
+    ): VERTEX =
+
+      successor.dot.toVertex

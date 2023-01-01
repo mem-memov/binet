@@ -114,3 +114,20 @@ object Graph:
         (modifiedNetwork, _) = result
       } yield
         graph.copy(network = modifiedNetwork)
+
+  given [PREDECESSOR, SUCCESSOR, VERTEX](using
+    general.vertex.ToPredecessor[VERTEX, Network, PREDECESSOR],
+    general.successor.ToVertex[SUCCESSOR, VERTEX],
+    general.predecessor.ReadSuccessors[PREDECESSOR, Network, SUCCESSOR]
+  ): general.graph.ReadCluster[Graph, VERTEX] with
+
+    override
+    def f(
+      graph: Graph,
+      startVertex: VERTEX
+    ): Either[String, Vector[VERTEX]] =
+
+      for {
+        predecessor <- startVertex.toPredecessor(graph.network)
+        successors <- predecessor.readSuccessors(graph.network)
+      } yield successors.map(_.toVertex)

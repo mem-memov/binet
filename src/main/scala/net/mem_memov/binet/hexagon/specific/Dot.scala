@@ -65,7 +65,25 @@ object Dot:
 
       factory.makeTarget(dot)
 
-  given [ARROW, FETCHER, NETWORK](using
+  given [NETWORK](using
+    general.network.ReadDot[NETWORK, DotReference, Dot],
+    general.dotReference.IsEmpty[DotReference]
+  ): general.dot.GetNextDot[Dot, NETWORK] with
+
+    override
+    def f(
+      dot: Dot,
+      network: NETWORK
+    ): Either[String, Option[Dot]] =
+
+      if dot.nextDotReference.isEmpty then
+        Right(None)
+      else
+        for {
+          nextDot <- network.readDot(dot.nextDotReference)
+        } yield Some(nextDot)
+  
+  given [ARROW, NETWORK](using
     general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
 
@@ -86,7 +104,6 @@ object Dot:
       dot: Dot,
       network: NETWORK
     ): Either[String, Option[ARROW]] =
-
 
       network.readArrow(dot.targetArrowReference)
 

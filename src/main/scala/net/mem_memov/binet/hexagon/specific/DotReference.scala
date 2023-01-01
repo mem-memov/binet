@@ -107,3 +107,14 @@ object DotReference:
       } yield
         val modifiedDotReference = dotReference.copy(entry = modifiedEntry)
         (modifiedNetwork, modifiedDotReference)
+
+  given (using
+    general.entry.IsContentEmpty[Entry]
+  ): general.dotReference.IsEmpty[DotReference] with
+
+    override
+    def f(
+      dotReference: DotReference
+    ): Boolean =
+
+      dotReference.entry.isContentEmpty
