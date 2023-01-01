@@ -2,6 +2,8 @@ package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
 
+import scala.annotation.tailrec
+
 case class Predecessor(
   dot: Dot
 )
@@ -27,7 +29,9 @@ object Predecessor:
         (modifiedNetwork, modifiedPredecessor)
 
   given [NETWORK, SUCCESSOR](using
-    general.dot.GetNextDot[Dot, NETWORK]
+    general.dot.GetNextDot[Dot, NETWORK],
+    general.dot.ToPredecessor[Dot, Predecessor],
+    general.dot.ToSuccessor[Dot, SUCCESSOR]
   ): general.predecessor.ReadSuccessors[Predecessor, NETWORK, SUCCESSOR] with
 
     override def f(
@@ -35,6 +39,23 @@ object Predecessor:
       network: NETWORK
     ): Either[String, Vector[SUCCESSOR]] =
 
-      for {
-        nextDotOption <- predecessor.dot.getNextDot(network)
-      } yield ???
+      @tailrec
+      def g(
+        predecessor: Predecessor,
+        network: NETWORK,
+        firstPredecessor: Predecessor,
+        successors: Vector[SUCCESSOR]
+      ): Either[String, Vector[SUCCESSOR]] =
+
+        predecessor.dot.getNextDot(network) match
+          case Left(error) => Left(error)
+          case Right(nextDotOption) => nextDotOption match
+            case None => Right(successors)
+            case Some(nextDot) =>
+              val predecessor = nextDot.toPredecessor
+              if predecessor == firstPredecessor then
+                Right(successors)
+              else
+                g(nextDot.toPredecessor, network, firstPredecessor, successors :+ nextDot.toSuccessor)
+
+      g(predecessor, network, predecessor, Vector(predecessor.dot.toSuccessor))

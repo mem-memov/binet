@@ -65,6 +65,32 @@ object Dot:
 
       factory.makeTarget(dot)
 
+  given [FACTORY, PREDECESSOR](using
+    general.factory.MakePredecessor[FACTORY, Dot, PREDECESSOR]
+  )(using
+    factory: FACTORY
+  ): general.dot.ToPredecessor[Dot, PREDECESSOR] with
+
+    override
+    def f(
+      dot: Dot
+    ): PREDECESSOR =
+
+      factory.makePredecessor(dot)
+
+  given [FACTORY, SUCCESSOR](using
+    general.factory.MakeSuccessor[FACTORY, Dot, SUCCESSOR]
+  )(using
+    factory: FACTORY
+  ): general.dot.ToSuccessor[Dot, SUCCESSOR] with
+
+    override
+    def f(
+      dot: Dot
+    ): SUCCESSOR =
+
+      factory.makeSuccessor(dot)
+
   given [NETWORK](using
     general.network.ReadDot[NETWORK, DotReference, Dot],
     general.dotReference.IsEmpty[DotReference]
@@ -82,7 +108,7 @@ object Dot:
         for {
           nextDot <- network.readDot(dot.nextDotReference)
         } yield Some(nextDot)
-  
+
   given [ARROW, NETWORK](using
     general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
