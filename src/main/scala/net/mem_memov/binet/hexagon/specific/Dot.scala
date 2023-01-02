@@ -7,10 +7,8 @@ import net.mem_memov.binet.memory
 case class Dot(
   identifierDotReference: DotReference,
   nextDotReference: DotReference,
-  sourceCounter: Counter,
-  targetCounter: Counter,
-  sourceArrowReference: ArrowReference,
-  targetArrowReference: ArrowReference
+  source: Source,
+  target: Target
 )
 
 object Dot:
@@ -39,31 +37,23 @@ object Dot:
 
       factory.makeVertex(dot.identifierDotReference)
 
-  given [FACTORY, SOURCE](using
-    general.factory.MakeSource[FACTORY, Dot, SOURCE]
-  )(using
-    factory: FACTORY
-  ): general.dot.ToSource[Dot, SOURCE] with
+  given general.dot.ToSource[Dot, Source] with
 
     override
     def f(
       dot: Dot
-    ): SOURCE =
+    ): Source =
 
-      factory.makeSource(dot)
+      dot.source
 
-  given [FACTORY, TARGET](using
-    general.factory.MakeTarget[FACTORY, Dot, TARGET]
-  )(using
-    factory: FACTORY
-  ): general.dot.ToTarget[Dot, TARGET] with
+  given general.dot.ToTarget[Dot, Target] with
 
     override
     def f(
       dot: Dot
-    ): TARGET =
+    ): Target =
 
-      factory.makeTarget(dot)
+      dot.target
 
   given [FACTORY, PREDECESSOR](using
     general.factory.MakePredecessor[FACTORY, Dot, PREDECESSOR]

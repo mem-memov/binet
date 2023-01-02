@@ -6,13 +6,13 @@ trait DeleteArrowToSource[TARGET, NETWORK, SOURCE]:
     target: TARGET,
     source: SOURCE,
     network: NETWORK
-  ): Either[String, (NETWORK, TARGET)]
+  ): Either[String, NETWORK]
 
   extension (target: TARGET)
 
     def deleteArrowToSource(
       source: SOURCE,
       network: NETWORK
-    ): Either[String, (NETWORK, TARGET)] =
+    ): Either[String, NETWORK] =
 
       f(target, source, network)

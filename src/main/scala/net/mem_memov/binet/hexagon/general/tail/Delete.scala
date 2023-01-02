@@ -1,17 +1,16 @@
 package net.mem_memov.binet.hexagon.general.tail
 
-trait ReadSource[TAIL, NETWORK, SOURCE]:
+trait Delete[TAIL, NETWORK]:
 
   def f(
     tail: TAIL,
     network: NETWORK
-  ): Either[String, SOURCE]
+  ): Either[String, NETWORK]
 
   extension (tail: TAIL)
 
-    def readSource(
+    def delete(
       network: NETWORK
-    ): Either[String, SOURCE] =
+    ): Either[String, NETWORK] =
 
       f(tail, network)
-

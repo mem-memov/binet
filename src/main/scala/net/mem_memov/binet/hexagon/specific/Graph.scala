@@ -151,7 +151,7 @@ object Graph:
         source <- sourceVertex.toSource(graph.network)
         target <- targetVertex.toTarget(graph.network)
         modifiedNetwork <- if source.isSmallerThanTarget(target) then
-            source.deleteArrowToTarget(target, graph.network).map(result => result._1)
+            source.deleteArrowToTarget(target, graph.network)
           else
-            target.deleteArrowToSource(source, graph.network).map(result => result._1)
+            target.deleteArrowToSource(source, graph.network)
       } yield graph.copy(network = modifiedNetwork)

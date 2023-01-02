@@ -33,24 +33,6 @@ object Factory:
 
     override def f(): Network = network
 
-  given general.factory.MakeSource[Factory, Dot, Source] with
-
-    override
-    def f(
-      dot: Dot
-    ): Source =
-
-      Source(dot)
-
-  given general.factory.MakeTarget[Factory, Dot, Target] with
-
-    override
-    def f(
-      dot: Dot
-    ): Target =
-
-      Target(dot)
-
   given general.factory.MakeVertex[Factory, DotReference, Vertex] with
 
     override
@@ -79,12 +61,16 @@ object Factory:
     ): Arrow =
 
       Arrow(
-        DotReference(entries(0)),
-        ArrowReference(entries(1)),
-        ArrowReference(entries(2)),
-        DotReference(entries(3)),
-        ArrowReference(entries(4)),
-        ArrowReference(entries(5))
+        Tail(
+          DotReference(entries(0)),
+          ArrowReference(entries(1)),
+          ArrowReference(entries(2))
+        ),
+        Head(
+          DotReference(entries(3)),
+          ArrowReference(entries(4)),
+          ArrowReference(entries(5))
+        )
       )
 
   given general.factory.MakeDot[Factory, Dot, Entry] with
@@ -97,10 +83,16 @@ object Factory:
       Dot(
         DotReference(entries(0)),
         DotReference(entries(1)),
-        Counter(entries(2)),
-        Counter(entries(3)),
-        ArrowReference(entries(4)),
-        ArrowReference(entries(5))
+        Source(
+          DotReference(entries(0)),
+          Counter(entries(2)),
+          ArrowReference(entries(4)),
+        ),
+        Target(
+          DotReference(entries(0)),
+          Counter(entries(3)),
+          ArrowReference(entries(5))
+        )
       )
 
   given [MEMORY_FACTORY](using

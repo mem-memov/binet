@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.head
 
-trait ReadTarget[HEAD, NETWORK, TARGET]:
+trait Delete[HEAD, NETWORK]:
 
   def f(
     head: HEAD,
     network: NETWORK
-  ): Either[String, TARGET]
+  ): Either[String, NETWORK]
 
   extension (head: HEAD)
 
-    def readTarget(
+    def delete(
       network: NETWORK
-    ): Either[String, TARGET] =
+    ): Either[String, NETWORK] =
 
       f(head, network)

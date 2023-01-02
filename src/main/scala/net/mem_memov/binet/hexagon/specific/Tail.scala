@@ -5,13 +5,15 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Tail(
-  arrow: Arrow
+  dotReference: DotReference,
+  previousArrowReference: ArrowReference,
+  nextArrowReference: ArrowReference
 )
 
 object Tail:
 
-  given [NETWORK](using
-    general.arrow.GetNextSourceArrow[Arrow, NETWORK],
+  given [ARROW, NETWORK](using
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
     general.arrow.ToTail[Arrow, Tail]
   ): general.tail.GetNext[Tail, NETWORK] with
 
@@ -22,8 +24,8 @@ object Tail:
     ): Either[String, Option[Tail]] =
 
       for {
-        optionArrow <- tail.arrow.getNextSourceArrow(network)
-      } yield optionArrow.map(_.toTail)
+        optionArrow <- network.readArrow(tail.nextArrowReference)
+      } yield optionArrow.toTail
 
   given [SOURCE](using
     general.source.InArrowTail[SOURCE, Arrow]
@@ -36,25 +38,39 @@ object Tail:
     ): Boolean =
 
       source.inArrowTail(tail.arrow)
+      
+      
+  given [ARROW, NETWORK, SOURCE]: general.tail.FindArrow[Tail, ARROW, NETWORK, SOURCE] with
 
-  given [DOT, NETWORK, SOURCE](using
-    general.arrow.GetSourceDot[Arrow, DOT, NETWORK],
-    general.dot.ToSource[DOT, SOURCE]
-  ): general.tail.ReadSource[Tail, NETWORK, SOURCE] with
-
-    override
+    override 
     def f(
-      tail: Tail,
+      tail: Tail, 
+      source: SOURCE, 
       network: NETWORK
-    ): Either[String, SOURCE] =
+    ): Either[String, Option[ARROW]] =
 
-      for {
-        dot <- tail.arrow.getSourceDot(network)
-      } yield dot.toSource
+      val dotEither = network.readDot(tail.dotReference)
+      dotEither match
+        case Left(error) => Left(error)
+        case Right(dot) => ???
+      
+      
+//      dotEither match
+//        case Left(error) => Left(error)
+//        case Right(dot) =>
+//          val nextArrowOptionEither = network.readArrow(tail.nextArrowReference)
+//          nextArrowOptionEither match
+//            case Left(error) => Left(error)
+//            case Right(nextArrowOption) =>
+//              nextArrowOption match
+//                case Some(nextArrow) => f(nextArrow.toTail, network, dot.toSource :: sources)
+//                case None => Right(dot.toSource :: sources)
 
-  given [NETWORK, SOURCE](using
-    general.tail.ReadSource[Tail, NETWORK, SOURCE],
-    general.tail.GetNext[Tail, NETWORK]
+  given [ARROW, DOT, NETWORK, SOURCE](using
+    general.network.ReadDot[NETWORK, DOT, DotReference],
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+    general.dot.ToSource[DOT, SOURCE],
+    general.arrow.ToTail[ARROW, Tail]
   ): general.tail.CollectSources[Tail, NETWORK, SOURCE] with
 
     @tailrec
@@ -66,14 +82,66 @@ object Tail:
       sources: List[SOURCE]
     ): Either[String, List[SOURCE]] =
 
-      val sourceEither = tail.readSource(network)
-      sourceEither match
+      val dotEither = network.readDot(tail.dotReference)
+      dotEither match
         case Left(error) => Left(error)
-        case Right(source) =>
-          val nextTailOptionEither = tail.getNext(network)
-          nextTailOptionEither match
+        case Right(dot) =>
+          val nextArrowOptionEither = network.readArrow(tail.nextArrowReference)
+          nextArrowOptionEither match
             case Left(error) => Left(error)
-            case Right(nextTailOption) =>
-              nextTailOption match
-                case Some(nextTail) => f(nextTail, network, source :: sources)
-                case None => Right(source :: sources)
+            case Right(nextArrowOption) =>
+              nextArrowOption match
+                case Some(nextArrow) => f(nextArrow.toTail, network, dot.toSource :: sources)
+                case None => Right(dot.toSource :: sources)
+
+  given [DOT, NETWORK](using
+    general.network.ReadArrow[NETWORK, Arrow, ArrowReference],
+    general.network.ReadDot[NETWORK, DOT, DotReference],
+    general.arrow.SetNextSourceArrow[Arrow, NETWORK],
+    general.arrow.SetPreviousSourceArrow[Arrow, NETWORK],
+    general.arrow.DeleteNextSourceArrow[Arrow, NETWORK],
+    general.arrow.DeletePreviousSourceArrow[Arrow, NETWORK],
+    general.dot.SetSourceArrow[DOT, Arrow, NETWORK],
+    general.dot.DeleteSourceArrow[DOT, NETWORK]
+  ): general.tail.Delete[Tail, NETWORK] with
+
+    override
+    def f(
+      tail: Tail,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      for {
+        sourceDot <- network.readDot(tail.dotReference)
+        previousSourceArrowOption <- network.readArrow(tail.previousArrowReference)
+        nextSourceArrowOption <- network.readArrow(tail.nextArrowReference)
+        modifiedNetwork <- previousSourceArrowOption match
+          case Some(previousSourceArrow) =>
+            nextSourceArrowOption match
+              case Some(nextSourceArrow) =>
+                for {
+                  setNextSourceArrowResult <- previousSourceArrow.setNextSourceArrow(nextSourceArrow, network)
+                  (network1, _) = setNextSourceArrowResult
+                  setPreviousSourceArrowResult <- nextSourceArrow.setPreviousSourceArrow(previousSourceArrow, network1)
+                  (network2, _) = setPreviousSourceArrowResult
+                } yield network2
+              case None =>
+                for {
+                  deleteNextSourceArrowResult <- previousSourceArrow.deleteNextSourceArrow(network)
+                  (network1, _) = deleteNextSourceArrowResult
+                } yield network1
+          case None =>
+            nextSourceArrowOption match
+              case Some(nextSourceArrow) =>
+                for {
+                  setSourceArrowResult <- sourceDot.setSourceArrow(nextSourceArrow, network)
+                  (network1, _) = setSourceArrowResult
+                  deletePreviousSourceArrowResult <- nextSourceArrow.deletePreviousSourceArrow(network1)
+                  (network2, _) = deletePreviousSourceArrowResult
+                } yield network2
+              case None =>
+                for {
+                  deleteSourceArrowResult <- sourceDot.deleteSourceArrow(network)
+                  (network1, _) = deleteSourceArrowResult
+                } yield network1
+      } yield modifiedNetwork

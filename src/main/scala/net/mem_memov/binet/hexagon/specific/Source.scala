@@ -4,7 +4,9 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Source(
-  dot: Dot
+  dotReference: DotReference,
+  counter: Counter,
+  arrowReference: ArrowReference
 )
 
 object Source:
@@ -12,10 +14,10 @@ object Source:
   given [ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ADDRESS, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
-    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.dot.IncrementTargetCount[Dot, NETWORK],
     general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN],
-    general.arrow.SetNextTargetArrow[ARROW, NETWORK]
+    general.arrow.SetNextTargetArrow[ARROW, NETWORK],
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -26,7 +28,7 @@ object Source:
     ): Either[String, (NETWORK, Source, TARGET)] =
 
       for {
-        previousArrowOption <- source.dot.getTargetArrow(network)
+        previousArrowOption <- network.readArrow(source.arrowReference)
         createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
         (network1, target1, arrow) = createArrowResult
         setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
@@ -151,15 +153,15 @@ object Source:
       source: Source,
       target: TARGET,
       network: NETWORK
-    ): Either[String, (NETWORK, Source)] =
+    ): Either[String, NETWORK] =
 
       for {
         targetArrowOption <- source.dot.getTargetArrow(network)
         arrowToTargetOption <- targetArrowOption match
           case Some(targetArrow) => targetArrow.toHead.findArrowToTarget(target, network)
           case None => Right(None)
-        result <- arrowToTargetOption match {
+        modifiedNetwork <- arrowToTargetOption match {
           case Some(arrowToTarget) => arrowToTarget.delete(network)
-          case None => Right(())
+          case None => Right(network)
         }
-      } yield ???
+      } yield modifiedNetwork
