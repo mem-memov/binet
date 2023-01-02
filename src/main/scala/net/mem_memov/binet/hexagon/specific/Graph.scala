@@ -131,3 +131,27 @@ object Graph:
         predecessor <- startVertex.toPredecessor(graph.network)
         successors <- predecessor.readSuccessors(graph.network)
       } yield successors.map(_.toVertex)
+
+  given [TARGET, SOURCE, VERTEX](using
+    general.vertex.ToSource[VERTEX, Network, SOURCE],
+    general.vertex.ToTarget[VERTEX, Network, TARGET],
+    general.source.IsSmallerThanTarget[SOURCE, TARGET],
+    general.source.DeleteArrowToTarget[SOURCE, Network, TARGET],
+    general.target.DeleteArrowToSource[TARGET, Network, SOURCE]
+  ): general.graph.DisconnectVertices[Graph, VERTEX] with
+
+    override
+    def f(
+      graph: Graph,
+      sourceVertex: VERTEX,
+      targetVertex: VERTEX
+    ): Either[String, Graph] =
+
+      for {
+        source <- sourceVertex.toSource(graph.network)
+        target <- targetVertex.toTarget(graph.network)
+        modifiedNetwork <- if source.isSmallerThanTarget(target) then
+            source.deleteArrowToTarget(target, graph.network).map(result => result._1)
+          else
+            target.deleteArrowToSource(source, graph.network).map(result => result._1)
+      } yield graph.copy(network = modifiedNetwork)

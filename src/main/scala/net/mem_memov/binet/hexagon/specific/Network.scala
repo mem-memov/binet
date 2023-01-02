@@ -61,7 +61,7 @@ object Network:
 
   given [DOT_REFERENCE, DOT](using
     general.dotReference.ReadDot[DOT_REFERENCE, Dictionary, DOT]
-  ): general.network.ReadDot[Network, DOT_REFERENCE, DOT] with
+  ): general.network.ReadDot[Network, DOT, DOT_REFERENCE] with
 
     override
     def f(

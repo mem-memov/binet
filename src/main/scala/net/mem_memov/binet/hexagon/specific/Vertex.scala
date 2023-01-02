@@ -9,7 +9,7 @@ case class Vertex(
 object Vertex:
 
   given [DOT, NETWORK, SOURCE](using
-    general.network.ReadDot[NETWORK, DotReference, DOT],
+    general.network.ReadDot[NETWORK, DOT, DotReference],
     general.dot.ToSource[DOT, SOURCE]
   ): general.vertex.ToSource[Vertex, NETWORK, SOURCE] with
 
@@ -24,7 +24,7 @@ object Vertex:
       } yield dot.toSource
 
   given [DOT, NETWORK, TARGET](using
-    general.network.ReadDot[NETWORK, DotReference, DOT],
+    general.network.ReadDot[NETWORK, DOT, DotReference],
     general.dot.ToTarget[DOT, TARGET]
   ): general.vertex.ToTarget[Vertex, NETWORK, TARGET] with
 

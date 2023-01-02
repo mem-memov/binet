@@ -6,13 +6,13 @@ trait SetPreviousSourceArrow[ARROW, NETWORK]:
     arrow: ARROW,
     previousSourceArrow: ARROW,
     network: NETWORK
-  ): Either[String, NETWORK]
+  ): Either[String, (NETWORK, ARROW)]
 
   extension (arrow: ARROW)
 
     def setPreviousSourceArrow(
       previousSourceArrow: ARROW,
       network: NETWORK
-    ): Either[String, NETWORK] =
+    ): Either[String, (NETWORK, ARROW)] =
 
       f(arrow, previousSourceArrow, network)

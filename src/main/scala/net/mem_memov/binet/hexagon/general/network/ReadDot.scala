@@ -1,6 +1,6 @@
 package net.mem_memov.binet.hexagon.general.network
 
-trait ReadDot[NETWORK, DOT_REFERENCE, DOT]:
+trait ReadDot[NETWORK, DOT, DOT_REFERENCE]:
 
   def f(
     network: NETWORK,

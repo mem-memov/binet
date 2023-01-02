@@ -138,3 +138,28 @@ object Source:
     ): Boolean =
 
       arrow.hasSourceDot(source.dot)
+
+  given [ARROW, HEAD, NETWORK, TARGET](using
+    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
+    general.arrow.ToHead[ARROW, HEAD],
+    general.arrow.Delete[ARROW, NETWORK],
+    general.head.FindArrowToTarget[HEAD, ARROW, NETWORK, TARGET]
+  ): general.source.DeleteArrowToTarget[Source, NETWORK, TARGET] with
+
+    override
+    def f(
+      source: Source,
+      target: TARGET,
+      network: NETWORK
+    ): Either[String, (NETWORK, Source)] =
+
+      for {
+        targetArrowOption <- source.dot.getTargetArrow(network)
+        arrowToTargetOption <- targetArrowOption match
+          case Some(targetArrow) => targetArrow.toHead.findArrowToTarget(target, network)
+          case None => Right(None)
+        result <- arrowToTargetOption match {
+          case Some(arrowToTarget) => arrowToTarget.delete(network)
+          case None => Right(())
+        }
+      } yield ???

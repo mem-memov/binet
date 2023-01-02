@@ -92,7 +92,7 @@ object Dot:
       factory.makeSuccessor(dot)
 
   given [NETWORK](using
-    general.network.ReadDot[NETWORK, DotReference, Dot],
+    general.network.ReadDot[NETWORK, Dot, DotReference],
     general.dotReference.IsEmpty[DotReference]
   ): general.dot.GetNextDot[Dot, NETWORK] with
 
