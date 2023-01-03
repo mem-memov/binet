@@ -11,13 +11,15 @@ case class Source(
 
 object Source:
 
-  given [ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ADDRESS, ENTRY, NETWORK, TARGET](using
+  given [ADDRESS, ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
     general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
     general.dot.IncrementTargetCount[Dot, NETWORK],
     general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN],
     general.arrow.SetNextTargetArrow[ARROW, NETWORK],
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+    general.dotReference.GetAddress[DotReference, ADDRESS],
+    general.arrowReference.GetAddressOption[ArrowReference, ADDRESS]
   ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -25,12 +27,12 @@ object Source:
       source: Source,
       target: TARGET,
       network: NETWORK
-    ): Either[String, (NETWORK, Source, TARGET)] =
+    ): Either[String, NETWORK] =
 
       for {
         previousArrowOption <- network.readArrow(source.arrowReference)
-        createArrowResult <- target.createArrowFromSource(source.dot.beginArrowDraft, network)
-        (network1, target1, arrow) = createArrowResult
+        createArrowResult <- target.createArrowFromSource(source.dotReference.getAddress, source.arrowReference.getAddressOption, network)
+        (network1, arrow) = createArrowResult
         setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
         (network2, dot2) = setTargetArrowResult
         incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
@@ -40,12 +42,12 @@ object Source:
           case None => Right(network3, arrow)
         (network4, _) = setNextTargetArrowResult
       } yield
-        (network4, source.copy(dot = dot3), target1)
+        network4
 
   given [ARROW, HEAD, NETWORK, TARGET](using
-    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
-    general.target.IsInHeads[TARGET, HEAD, NETWORK]
+    general.target.IsInHeads[TARGET, HEAD, NETWORK],
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.source.HasTarget[Source, NETWORK, TARGET] with
 
     override
@@ -56,14 +58,14 @@ object Source:
     ): Either[String, Boolean] =
 
       for {
-        optionArrow <- source.dot.getTargetArrow(network)
+        optionArrow <- network.readArrow(source.arrowReference)
         hasTarget <- optionArrow match
           case None => Right(false)
           case Some(arrow) => target.isInHeads(arrow.toHead, network)
       } yield hasTarget
 
   given [NETWORK, TAIL](using
-    general.tail.HasSource[TAIL, Source],
+    general.tail.ReferencesDot[TAIL, Source],
     general.tail.GetNext[TAIL, NETWORK]
   ): general.source.IsInTails[Source, NETWORK, TAIL] with
 
@@ -76,7 +78,7 @@ object Source:
       network: NETWORK
     ): Either[String, Boolean] =
 
-      if tail.hasSource(source) then
+      if tail.referencesDot(source.dotReference) then
         Right(true)
       else
         val eitherOptionTail = tail.getNext(network)
@@ -118,7 +120,7 @@ object Source:
       source.dot.toVertex
 
   given [TARGET](using
-    general.target.HasMoreSources[TARGET, Dot]
+    general.target.HasMoreHeads[TARGET, Counter]
   ): general.source.IsSmallerThanTarget[Source, TARGET] with
 
     override
@@ -127,7 +129,7 @@ object Source:
       target: TARGET
     ): Boolean =
 
-      target.hasMoreSources(source.dot)
+      target.hasMoreHeads(source.counter)
       
   given [ARROW](using
     general.arrow.HasSourceDot[ARROW, Dot]

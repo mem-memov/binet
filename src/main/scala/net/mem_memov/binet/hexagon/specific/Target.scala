@@ -6,50 +6,51 @@ import scala.annotation.tailrec
 
 case class Target(
   dotReference: DotReference,
-  targetCounter: Counter,
-  targetArrowReference: ArrowReference
+  counter: Counter,
+  arrowReference: ArrowReference
 )
 
 object Target:
 
-  given [ADDRESS, ARROW, ARROW_DRAFT_BEGIN, ARROW_DRAFT_END, ARROW_ENTRY, ENTRY, NETWORK](using
-    general.network.CreateArrow[NETWORK, ARROW, ARROW_DRAFT_END],
-    general.dot.SetSourceArrow[Dot, ARROW, NETWORK],
-    general.dot.IncrementSourceCount[Dot, NETWORK],
-    general.dot.EndArrowDraft[Dot, ARROW_DRAFT_BEGIN, ARROW_DRAFT_END],
-    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
-    general.arrow.SetNextSourceArrow[ARROW, NETWORK]
+  given [ADDRESS, ARROW, ARROW_ENTRY, ENTRY, HEAD, NETWORK](using
+    general.arrow.SetNextSourceArrow[ARROW, NETWORK],
+    general.arrow.ToHead[ARROW, HEAD],
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+    general.dotReference.GetAddress[DotReference, ADDRESS],
+    general.arrowReference.GetAddressOption[ArrowReference, ADDRESS],
+    general.counter.Increment[Counter, NETWORK]
   )(using
     arrowEntry: ARROW_ENTRY
-  ): general.target.CreateArrowFromSource[Target, ARROW, ARROW_DRAFT_BEGIN, NETWORK] with
+  ): general.target.CreateArrowFromSource[Target, ADDRESS, ARROW, NETWORK] with
 
     override 
     def f(
       target: Target,
-      arrowDraftBegin: ARROW_DRAFT_BEGIN,
+      sourceDotAddress: ADDRESS,
+      sourceArrowAddressOption: Option[ADDRESS],
       network: NETWORK
     ): Either[String, (NETWORK, Target, ARROW)] =
 
       val arrowDraftEnd = target.dot.endArrowDraft(arrowDraftBegin)
 
       for {
-        previousArrowOption <- target.dot.getSourceArrow(network)
-        createArrowResult <- network.createArrow(arrowDraftEnd)
-        (network1, arrow) = createArrowResult
-        setSourceArrowResult <- target.dot.setSourceArrow(arrow, network1)
-        (network2, dot2) = setSourceArrowResult
-        incrementSourceCountResult <- dot2.incrementSourceCount(network2)
-        (network3, dot3) = incrementSourceCountResult
-        setNextSourceArrowResult <- previousArrowOption match
-          case Some(previousArrow) => previousArrow.setNextSourceArrow(arrow, network3)
+        previousArrowOption <- network.readArrow(target.arrowReference)
+        result1 <- network.createArrow(sourceDotAddress, sourceArrowAddressOption, target.dotReference.getAddress, target.arrowReference.getAddressOption)
+        (network1, arrow) = result1
+        result2 <- arrow.getReferencedBy(target.arrowReference)
+        (network2, modifiedArrowReference) = result2
+        result3 <- target.counter.increment(network2)
+        (network3, modifiedCounter) = result3
+        modifiedNetwork <- previousArrowOption match
+          case Some(previousArrow) => previousArrow.toHead.follow(arrow.toHead, result4)
           case None => Right(network3, arrow)
-        (network4, _) = setNextSourceArrowResult
-      } yield (network4, target.copy(dot = dot3), arrow)
+      } yield (modifiedNetwork, arrow)
 
   given [ARROW, NETWORK, SOURCE, TAIL](using
     general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
     general.source.IsInTails[SOURCE, NETWORK, TAIL],
-    general.arrow.ToTail[ARROW, TAIL]
+    general.arrow.ToTail[ARROW, TAIL],
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
   ): general.target.HasSource[Target, NETWORK, SOURCE] with
 
     override
@@ -60,14 +61,14 @@ object Target:
     ): Either[String, Boolean] =
 
       for {
-        optionArrow <- target.dot.getSourceArrow(network)
+        optionArrow <- network.readArrow(target.arrowReference)
         hasTarget <- optionArrow match
           case None => Right(false)
           case Some(arrow) => source.isInTails(arrow.toTail, network)
       } yield hasTarget
 
   given [HEAD, NETWORK](using
-    general.head.HasTarget[HEAD, Target],
+    general.head.ReferencesDot[HEAD, Target],
     general.head.GetNext[HEAD, NETWORK],
   ): general.target.IsInHeads[Target, HEAD, NETWORK] with
 
@@ -80,7 +81,7 @@ object Target:
       network: NETWORK
     ): Either[String, Boolean] =
 
-      if head.hasTarget(target) then
+      if head.referencesDot(target.dotReference) then
         Right(true)
       else
         val eitherOptionHead = head.getNext(network)
@@ -122,15 +123,15 @@ object Target:
       target.dot.toVertex
 
   given (using
-    general.dot.HasMoreSourcesThanTheOtherTargets[Dot]
-  ): general.target.HasMoreSources[Target, Dot] with
+    general.counter.IsLarger[Counter]
+  ): general.target.HasMoreHeads[Target, Counter] with
 
     override def f(
       target: Target,
-      sourceDot: Dot
+      counter: Counter
     ): Boolean =
 
-      target.dot.hasMoreSourcesThanTheOtherTargets(sourceDot)
+      target.counter(counter)
 
   given [ARROW](using
     general.arrow.HasTargetDot[ARROW, Dot]

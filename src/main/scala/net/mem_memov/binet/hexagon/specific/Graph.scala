@@ -20,10 +20,10 @@ object Graph:
 
       for {
         createDotResult <- graph.network.createDot()
-        (network1, dot) = createDotResult
+        (modifiedNetwork, dot) = createDotResult
       } yield
         val vertex = dot.toVertex
-        val modifiedGraph = graph.copy(network = network1)
+        val modifiedGraph = graph.copy(network = modifiedNetwork)
         (modifiedGraph, vertex)
 
   given [ADDRESS, SOURCE, TARGET, VERTEX](using
@@ -54,9 +54,7 @@ object Graph:
         modifiedNetwork <- if alreadyConnected then
             Right(graph.network)
           else
-            source.createArrowToTarget(target, graph.network).map {
-              case (modifiedNetwork, _, _) => modifiedNetwork
-            }
+            source.createArrowToTarget(target, graph.network)
       } yield
         graph.copy(network = modifiedNetwork)
 

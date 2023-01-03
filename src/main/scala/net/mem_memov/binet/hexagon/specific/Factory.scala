@@ -103,36 +103,6 @@ object Factory:
 
     override def f(): Address = memoryFactory.zeroAddress()
 
-  given general.factory.MakeArrowDraftBegin[Factory, ArrowDraftBegin, ArrowReference, DotReference] with
-
-    override
-    def f(
-      sourceDotReference: DotReference,
-      previousSourceArrowReference: ArrowReference
-    ): ArrowDraftBegin =
-
-      ArrowDraftBegin(
-        sourceDotReference,
-        previousSourceArrowReference
-      )
-
-  given general.factory.MakeArrowDraftEnd[Factory, ArrowDraftEnd, ArrowReference, DotReference] with
-
-    override
-    def f(
-      sourceDotReference: DotReference,
-      previousSourceArrowReference: ArrowReference,
-      targetDotReference: DotReference,
-      previousTargetArrowReference: ArrowReference
-    ): ArrowDraftEnd =
-
-      ArrowDraftEnd(
-        sourceDotReference,
-        previousSourceArrowReference,
-        targetDotReference,
-        previousTargetArrowReference
-      )
-
   given general.factory.MakePredecessor[Factory, Dot, Predecessor] with
 
     override

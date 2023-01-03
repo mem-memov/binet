@@ -6,14 +6,14 @@ trait CreateArrowToTarget[SOURCE, NETWORK, TARGET]:
     source: SOURCE,
     target: TARGET,
     network: NETWORK
-  ): Either[String, (NETWORK, SOURCE, TARGET)]
+  ): Either[String, NETWORK]
 
   extension (source: SOURCE)
 
     def createArrowToTarget(
       target: TARGET,
       network: NETWORK
-    ): Either[String, (NETWORK, SOURCE, TARGET)] =
+    ): Either[String, NETWORK] =
 
       f(source, target, network)
 

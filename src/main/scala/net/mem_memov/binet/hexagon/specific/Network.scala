@@ -10,20 +10,36 @@ case class Network(
 
 object Network:
 
-  given [ARROW, ARROW_DRAFT_END](using
-    general.arrowDraftEnd.CreateArrow[ARROW_DRAFT_END, ARROW, Dictionary]
-  ): general.network.CreateArrow[Network, ARROW, ARROW_DRAFT_END] with
+  given [ADDRESS, ARROW, ENTRY, FACTORY](using
+    general.dictionary.Append[Dictionary, ADDRESS, ENTRY],
+    general.factory.MakeArrow[FACTORY, ARROW, ENTRY]
+  )(using
+    factory: FACTORY
+  ): general.network.CreateArrow[Network, ADDRESS, ARROW] with
 
     override
     def f(
       network: Network,
-      arrowDraftEnd: ARROW_DRAFT_END
+      sourceDotAddress: ADDRESS,
+      sourceArrowAddressOption: Option[ADDRESS],
+      targetDotAddress: ADDRESS,
+      targetArrowAddressOption: Option[ADDRESS]
     ): Either[String, (Network, ARROW)] =
 
+      val addressOptions = (
+        Option(sourceDotAddress),
+        Option.empty[ADDRESS],
+        sourceArrowAddressOption,
+        Option(targetDotAddress),
+        Option.empty[ADDRESS],
+        targetArrowAddressOption
+      )
+
       for {
-        result <- arrowDraftEnd.createArrow(network.dictionary)
-        (modifiedDictionary, arrow) = result
+        appendResult <- network.dictionary.append(addressOptions)
+        (modifiedDictionary, entries) = appendResult
       } yield
+        val arrow = factory.makeArrow(entries)
         val modifiedNetwork = network.copy(dictionary = modifiedDictionary)
         (modifiedNetwork, arrow)
 

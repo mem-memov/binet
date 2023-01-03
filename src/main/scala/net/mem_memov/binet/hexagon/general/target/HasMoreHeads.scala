@@ -1,16 +1,16 @@
 package net.mem_memov.binet.hexagon.general.target
 
-trait HasMoreSources[TARGET, DOT]:
+trait HasMoreHeads[TARGET, COUNTER]:
 
   def f(
     target: TARGET,
-    sourceDot: DOT
+    counter: COUNTER
   ): Boolean
 
   extension (target: TARGET)
 
-    def hasMoreSources(
-      sourceDot: DOT
+    def hasMoreHeads(
+      counter: COUNTER
     ): Boolean =
 
-      f(target, sourceDot)
+      f(target, counter)

@@ -180,3 +180,15 @@ object Arrow:
 
       arrow.head
 
+  given [ARROW_REFERENCE, NETWORK](using
+    general.tail.GetReferencedBy[Tail, ARROW_REFERENCE, NETWORK]
+  ): general.arrow.GetReferencedBy[Arrow, ARROW_REFERENCE, NETWORK] with
+
+    override 
+    def f(
+      arrow: Arrow, 
+      arrowReference: ARROW_REFERENCE, 
+      network: NETWORK
+    ): Either[String, (NETWORK, ARROW_REFERENCE)] =
+
+      arrow.tail.getReferencedBy(arrowReference, network)

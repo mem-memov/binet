@@ -28,16 +28,16 @@ object Head:
       } yield optionArrow.map(_.toHead)
 
   given [TARGET](using
-    general.target.InArrowHead[TARGET, Arrow]
-  ): general.head.HasTarget[Head, TARGET] with
+    general.dotReference.InSameDirection[DotReference]
+  ): general.head.ReferencesDot[Head, DotReference] with
 
     override
     def f(
       head: Head,
-      target: TARGET
+      dotReference: DotReference
     ): Boolean =
 
-      target.inArrowHead(head.arrow)
+      head.dotReference.inSameDirection(dotReference)
 
   given [NETWORK, TARGET](using
     general.head.ReadTarget[Head, NETWORK, TARGET],
@@ -117,4 +117,14 @@ object Head:
                 } yield network1
       } yield modifiedNetwork
 
+  given [NETWORK]: general.head.Follow[Head, NETWORK] with
 
+    override 
+    def f(
+      head: Head, 
+      previousHead: Head, 
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      previousHead.nextArrowReference
+      head.previousArrowReference

@@ -25,27 +25,29 @@ object Tail:
 
       for {
         optionArrow <- network.readArrow(tail.nextArrowReference)
-      } yield optionArrow.toTail
+        optionTail <- optionArrow match
+          case Some(arrow) => arrow.toTail
+          case None => Right(None)
+      } yield optionTail
 
   given [SOURCE](using
-    general.source.InArrowTail[SOURCE, Arrow]
-  ): general.tail.HasSource[Tail, SOURCE] with
+    general.dotReference.InSameDirection[DotReference]
+  ): general.tail.ReferencesDot[Tail, DotReference] with
 
     override
     def f(
       tail: Tail,
-      source: SOURCE
+      dotReference: DotReference
     ): Boolean =
 
-      source.inArrowTail(tail.arrow)
-      
-      
+      tail.dotReference.inSameDirection(dotReference)
+
   given [ARROW, NETWORK, SOURCE]: general.tail.FindArrow[Tail, ARROW, NETWORK, SOURCE] with
 
-    override 
+    override
     def f(
-      tail: Tail, 
-      source: SOURCE, 
+      tail: Tail,
+      source: SOURCE,
       network: NETWORK
     ): Either[String, Option[ARROW]] =
 
@@ -53,8 +55,8 @@ object Tail:
       dotEither match
         case Left(error) => Left(error)
         case Right(dot) => ???
-      
-      
+
+
 //      dotEither match
 //        case Left(error) => Left(error)
 //        case Right(dot) =>
@@ -145,3 +147,16 @@ object Tail:
                   (network1, _) = deleteSourceArrowResult
                 } yield network1
       } yield modifiedNetwork
+
+  given [NETWORK](using
+    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+  ): general.tail.GetReferencedBy[Tail, ArrowReference, NETWORK] with
+
+    override
+    def f(
+      tail: Tail,
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, ArrowReference)] =
+
+      arrowReference.referencePath(tail.dotReference, network)
