@@ -61,16 +61,12 @@ object Factory:
     ): Arrow =
 
       Arrow(
-        Tail(
-          DotReference(entries(0)),
-          ArrowReference(entries(1)),
-          ArrowReference(entries(2))
-        ),
-        Head(
-          DotReference(entries(3)),
-          ArrowReference(entries(4)),
-          ArrowReference(entries(5))
-        )
+        DotReference(entries(0)),
+        ArrowReference(entries(1)),
+        ArrowReference(entries(2)),
+        DotReference(entries(3)),
+        ArrowReference(entries(4)),
+        ArrowReference(entries(5))
       )
 
   given general.factory.MakeDot[Factory, Dot, Entry] with
@@ -83,16 +79,10 @@ object Factory:
       Dot(
         DotReference(entries(0)),
         DotReference(entries(1)),
-        Source(
-          DotReference(entries(0)),
-          Counter(entries(2)),
-          ArrowReference(entries(4)),
-        ),
-        Target(
-          DotReference(entries(0)),
-          Counter(entries(3)),
-          ArrowReference(entries(5))
-        )
+        Counter(entries(2)),
+        Counter(entries(3)),
+        ArrowReference(entries(4)),
+        ArrowReference(entries(5))
       )
 
   given [MEMORY_FACTORY](using
@@ -179,7 +169,7 @@ object Factory:
         tailDotReference,
         previousTailArrowReference,
         nextTailArrowReference,
-        headDotReference:,
+        headDotReference,
         previousHeadArrowReference,
         nextHeadArrowReference
       )
@@ -200,7 +190,7 @@ object Factory:
         tailDotReference,
         previousTailArrowReference,
         nextTailArrowReference,
-        headDotReference:,
+        headDotReference,
         previousHeadArrowReference,
         nextHeadArrowReference
       )
