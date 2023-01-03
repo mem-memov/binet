@@ -1,18 +1,18 @@
 package net.mem_memov.binet.hexagon.general.head
 
-trait FindArrowToTarget[HEAD, ARROW, NETWORK, TARGET]:
+trait FindTarget[HEAD, NETWORK, TARGET]:
   
   def f(
     head: HEAD,
     target: TARGET,
     network: NETWORK
-  ): Either[String, Option[ARROW]]
+  ): Either[String, Option[HEAD]]
   
   extension (head: HEAD)
     
-    def findArrowToTarget(
+    def findTarget(
       target: TARGET,
       network: NETWORK
-    ): Either[String, Option[ARROW]] =
+    ): Either[String, Option[HEAD]] =
 
       f(head, target, network)

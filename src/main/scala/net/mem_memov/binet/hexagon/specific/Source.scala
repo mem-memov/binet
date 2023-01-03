@@ -154,7 +154,8 @@ object Source:
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
     general.arrow.Delete[ARROW, NETWORK],
-    general.head.FindArrowToTarget[HEAD, ARROW, NETWORK, TARGET]
+    general.head.FindTarget[HEAD, ARROW, NETWORK, TARGET],
+    general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK]
   ): general.source.DeleteArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -165,12 +166,12 @@ object Source:
     ): Either[String, NETWORK] =
 
       for {
-        targetArrowOption <- source.dot.getTargetArrow(network)
-        arrowToTargetOption <- targetArrowOption match
-          case Some(targetArrow) => targetArrow.toHead.findArrowToTarget(target, network)
+        firstHeadOption <- source.targetArrowReference.readHead(network)
+        foundHeadOption <- firstHeadOption match
+          case Some(firstHead) => firstHead.findTarget(target, network)
           case None => Right(None)
-        modifiedNetwork <- arrowToTargetOption match {
-          case Some(arrowToTarget) => arrowToTarget.delete(network)
+        modifiedNetwork <- foundHeadOption match {
+          case Some(foundHead) => foundHead.delete(network)
           case None => Right(network)
         }
       } yield modifiedNetwork
