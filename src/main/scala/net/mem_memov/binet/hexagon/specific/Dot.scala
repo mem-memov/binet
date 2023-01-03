@@ -123,64 +123,6 @@ object Dot:
           nextDot <- network.readDot(dot.nextDotReference)
         } yield Some(nextDot)
 
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
-  ): general.dot.GetSourceArrow[Dot, ARROW, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, Option[ARROW]] =
-
-      network.readArrow(dot.sourceArrowReference)
-
-  given [ARROW, NETWORK](using
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
-  ): general.dot.GetTargetArrow[Dot, ARROW, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, Option[ARROW]] =
-
-      network.readArrow(dot.targetArrowReference)
-
-  given [NETWORK](using
-    general.counter.Increment[Counter, NETWORK]
-  ): general.dot.IncrementSourceCount[Dot, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, (NETWORK, Dot)] =
-
-      for {
-        incrementResult <- dot.sourceCounter.increment(network)
-        (modifiedNetwork, modifiedCounter) = incrementResult
-      } yield
-        val modifiedDot = dot.copy(targetCounter = modifiedCounter)
-        (modifiedNetwork, modifiedDot)
-
-  given [NETWORK](using
-    general.counter.Increment[Counter, NETWORK]
-  ): general.dot.IncrementTargetCount[Dot, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, (NETWORK, Dot)] =
-
-      for {
-        incrementResult <- dot.targetCounter.increment(network)
-        (modifiedNetwork, modifiedCounter) = incrementResult
-      } yield
-        val modifiedDot = dot.copy(targetCounter = modifiedCounter)
-        (modifiedNetwork, modifiedDot)
-
   given (using
     general.counter.IsLarger[Counter]
   ):general.dot.HasMoreSourcesThanTheOtherTargets[Dot] with

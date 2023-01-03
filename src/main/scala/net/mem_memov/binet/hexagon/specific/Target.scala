@@ -102,10 +102,9 @@ object Target:
               case None => Right(false)
               case Some(head) => f(target, head, network)
 
-  given [ARROW, NETWORK, SOURCE, TAIL](using
-    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
-    general.arrow.ToTail[ARROW, TAIL],
+  given [ARROW, HEAD, NETWORK, SOURCE, TAIL](using
     general.tail.CollectSources[TAIL, NETWORK, SOURCE],
+    general.arrowReference.ReadTail[ArrowReference, NETWORK, TAIL]
   ): general.target.ReadSources[Target, NETWORK, SOURCE] with
 
     override
@@ -115,9 +114,9 @@ object Target:
     ): Either[String, List[SOURCE]] =
 
       for {
-        sourceArrowOption <- target.dot.getSourceArrow(network)
-        sources <- sourceArrowOption match
-          case Some(sourceArrow) => sourceArrow.toTail.collectSources(network, List.empty[SOURCE])
+        tailOption <- target.sourceArrowReference.readTail(network)
+        sources <- tailOption match
+          case Some(tail) => tail.collectSources(network, List.empty[SOURCE])
           case None => Right(List.empty[SOURCE])
       } yield sources
 

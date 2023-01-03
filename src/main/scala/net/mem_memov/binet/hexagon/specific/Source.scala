@@ -47,7 +47,7 @@ object Source:
         modifiedNetwork <- nextTailOption match
           case Some(nextTail) => nextTail.follow(tail, network3)
           case None => Right(network3)
-        
+
       } yield modifiedNetwork
 
   given [ARROW, HEAD, NETWORK, TARGET](using
@@ -99,6 +99,7 @@ object Source:
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
     general.arrow.ToHead[ARROW, HEAD],
     general.head.CollectTargets[HEAD, NETWORK, TARGET],
+    general.arrowReference.ReadHead[ArrowReference, NETWORK, HEAD]
   ): general.source.ReadTargets[Source, NETWORK, TARGET] with
 
     override
@@ -108,9 +109,9 @@ object Source:
     ): Either[String, List[TARGET]] =
 
       for {
-        targetArrowOption <- source.dot.getTargetArrow(network)
-        targets <- targetArrowOption match
-          case Some(targetArrow) => targetArrow.toHead.collectTargets(network, List.empty[TARGET])
+        headOption <- source.targetArrowReference.readHead(network)
+        targets <- headOption match
+          case Some(head) => head.collectTargets(network, List.empty[TARGET])
           case None => Right(List.empty[TARGET])
       } yield targets
 
