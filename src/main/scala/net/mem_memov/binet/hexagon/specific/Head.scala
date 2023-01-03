@@ -153,3 +153,16 @@ object Head:
 
       previousHead.nextArrowReference
       head.previousArrowReference
+
+  given [NETWORK](using
+    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+  ): general.tail.GetReferencedBy[Head, ArrowReference, NETWORK] with
+
+    override
+    def f(
+      head: Head,
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, ArrowReference)] =
+
+      arrowReference.referencePath(head.tailDotReference, network)

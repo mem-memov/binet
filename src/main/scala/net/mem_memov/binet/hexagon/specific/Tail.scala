@@ -162,7 +162,7 @@ object Tail:
       network: NETWORK
     ): Either[String, (NETWORK, ArrowReference)] =
 
-      arrowReference.referencePath(tail.dotReference, network)
+      arrowReference.referencePath(tail.tailDotReference, network)
 
   given [NETWORK](using
     general.arrowReference.ReferencePath[ArrowReference, NETWORK]

@@ -23,7 +23,8 @@ object Target:
     general.arrowReference.GetAddressOption[ArrowReference, ADDRESS],
     general.counter.Increment[Counter, NETWORK],
     general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK],
-    general.network.CreateHead[NETWORK, ADDRESS, HEAD]
+    general.network.CreateHead[NETWORK, ADDRESS, HEAD],
+    general.head.GetReferencedBy[HEAD, ArrowReference, NETWORK]
   )(using
     arrowEntry: ARROW_ENTRY
   ): general.target.CreateTailFromSource[Target, ADDRESS, NETWORK, TAIL] with
@@ -43,7 +44,7 @@ object Target:
         result1 <- network.createHead(sourceDotAddress, sourceArrowAddressOption, target.dotReference.getAddress, target.targetArrowReference.getAddressOption)
         (network1, head) = result1
 
-        result2 <- arrow.getReferencedBy(target.arrowReference, network1) //
+        result2 <- head.getReferencedBy(target.targetArrowReference, network1)
         (network2, _) = result2
 
         result3 <- target.counter.increment(network2)
