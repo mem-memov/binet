@@ -181,19 +181,6 @@ object Dot:
         val modifiedDot = dot.copy(targetCounter = modifiedCounter)
         (modifiedNetwork, modifiedDot)
 
-  given [ARROW_DRAFT_BEGIN, FACTORY](using
-    general.factory.MakeArrowDraftBegin[FACTORY, ARROW_DRAFT_BEGIN, ArrowReference, DotReference]
-  )(using
-    factory: FACTORY
-  ): general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN] with
-
-    override
-    def f(
-      dot: Dot
-    ): ARROW_DRAFT_BEGIN =
-
-      factory.makeArrowDraftBegin(dot.identifierDotReference, dot.sourceArrowReference)
-
   given (using
     general.counter.IsLarger[Counter]
   ):general.dot.HasMoreSourcesThanTheOtherTargets[Dot] with

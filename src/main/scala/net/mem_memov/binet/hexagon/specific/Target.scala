@@ -34,19 +34,23 @@ object Target:
       network: NETWORK
     ): Either[String, (NETWORK, Target, ARROW)] =
 
-      val arrowDraftEnd = target.dot.endArrowDraft(arrowDraftBegin)
-
       for {
+        
         previousArrowOption <- network.readArrow(target.targetArrowReference)
+        
         result1 <- network.createArrow(sourceDotAddress, sourceArrowAddressOption, target.dotReference.getAddress, target.targetArrowReference.getAddressOption)
         (network1, arrow) = result1
+        
         result2 <- arrow.getReferencedBy(target.arrowReference)
         (network2, modifiedArrowReference) = result2
+        
         result3 <- target.counter.increment(network2)
         (network3, modifiedCounter) = result3
+        
         modifiedNetwork <- previousArrowOption match
           case Some(previousArrow) => previousArrow.toHead.follow(arrow.toHead, result4)
           case None => Right(network3, arrow)
+          
       } yield (modifiedNetwork, arrow)
 
   given [ARROW, NETWORK, SOURCE, TAIL](using

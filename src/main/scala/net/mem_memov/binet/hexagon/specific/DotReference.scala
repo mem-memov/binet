@@ -65,6 +65,36 @@ object DotReference:
             Left("Not a dot")
       } yield dot
 
+  given [DOT, NETWORK, SOURCE](using
+    general.network.ReadDot[NETWORK, DOT, DotReference],
+    general.dot.ToSource[DOT, SOURCE]
+  ): general.dotReference.ReadSource[DotReference, NETWORK, SOURCE] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      network: NETWORK
+    ): Either[String, SOURCE] =
+
+      for {
+        dot <- network.readDot(dotReference)
+      } yield dot.toSource
+
+  given [DOT, NETWORK, TARGET](using
+    general.network.ReadDot[NETWORK, DOT, DotReference],
+    general.dot.ToTarget[DOT, TARGET]
+  ): general.dotReference.ReadTarget[DotReference, NETWORK, TARGET] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      network: NETWORK
+    ): Either[String, TARGET] =
+
+      for {
+        dot <- network.readDot(dotReference)
+      } yield dot.toTarget
+
   given (using
     general.entry.SameContent[Entry]
   ): general.dotReference.InSameDirection[DotReference] with

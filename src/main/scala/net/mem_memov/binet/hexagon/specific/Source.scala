@@ -16,10 +16,8 @@ object Source:
 
   given [ADDRESS, ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ENTRY, NETWORK, TARGET](using
     general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
-    general.dot.SetTargetArrow[Dot, ARROW, NETWORK],
-    general.dot.IncrementTargetCount[Dot, NETWORK],
-    general.dot.BeginArrowDraft[Dot, ARROW_DRAFT_BEGIN],
     general.arrow.SetNextTargetArrow[ARROW, NETWORK],
+    general.arrow.Get
     general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
     general.dotReference.GetAddress[DotReference, ADDRESS],
     general.arrowReference.GetAddressOption[ArrowReference, ADDRESS]
@@ -33,17 +31,23 @@ object Source:
     ): Either[String, NETWORK] =
 
       for {
+        
         previousArrowOption <- network.readArrow(source.sourceArrowReference)
+        
         createArrowResult <- target.createArrowFromSource(source.dotReference.getAddress, source.sourceArrowReference.getAddressOption, network)
         (network1, arrow) = createArrowResult
+        
         setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
         (network2, dot2) = setTargetArrowResult
+        
         incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
         (network3, dot3) = incrementTargetCountResult
+        
         setNextTargetArrowResult <- previousArrowOption match
           case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network3)
           case None => Right(network3, arrow)
         (network4, _) = setNextTargetArrowResult
+        
       } yield
         network4
 

@@ -53,6 +53,36 @@ object ArrowReference:
               Left("Not an arrow")
         } yield Some(arrow)
 
+  given [ARROW, HEAD, NETWORK](using
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+    general.arrow.ToHead[ARROW, HEAD]
+  ): general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK] with
+
+    override
+    def f(
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, Option[HEAD]] =
+
+      for {
+        optionArrow <- network.readArrow(arrowReference)
+      } yield optionArrow.map(_.toHead)
+
+  given [ARROW, TAIL, NETWORK](using
+    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+    general.arrow.ToTail[ARROW, TAIL]
+  ): general.arrowReference.ReadTail[ArrowReference, NETWORK, TAIL] with
+
+    override
+    def f(
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, Option[TAIL]] =
+
+      for {
+        optionArrow <- network.readArrow(arrowReference)
+      } yield optionArrow.map(_.toTail)
+
   given [DOT_REFERENCE, NETWORK](using
     general.dotReference.LendPath[DOT_REFERENCE, Entry, NETWORK]
   ): general.arrowReference.ReferencePath[ArrowReference, DOT_REFERENCE, NETWORK] with
