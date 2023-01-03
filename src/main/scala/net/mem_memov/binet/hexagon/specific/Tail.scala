@@ -5,9 +5,12 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Tail(
-  dotReference: DotReference,
-  previousArrowReference: ArrowReference,
-  nextArrowReference: ArrowReference
+  tailDotReference: DotReference,
+  previousTailArrowReference: ArrowReference,
+  nextTailArrowReference: ArrowReference,
+  headDotReference: DotReference,
+  previousHeadArrowReference: ArrowReference,
+  nextHeadArrowReference: ArrowReference
 )
 
 object Tail:

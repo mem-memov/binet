@@ -5,9 +5,12 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Head(
-  dotReference: DotReference,
-  previousArrowReference: ArrowReference,
-  nextArrowReference: ArrowReference
+  tailDotReference: DotReference,
+  previousTailArrowReference: ArrowReference,
+  nextTailArrowReference: ArrowReference,
+  headDotReference: DotReference,
+  previousHeadArrowReference: ArrowReference,
+  nextHeadArrowReference: ArrowReference
 )
 
 object Head:
@@ -117,12 +120,14 @@ object Head:
                 } yield network1
       } yield modifiedNetwork
 
-  given [NETWORK]: general.head.Follow[Head, NETWORK] with
+  given [NETWORK](using
+    general.arrowReference.
+  ): general.head.Follow[Head, NETWORK] with
 
-    override 
+    override
     def f(
-      head: Head, 
-      previousHead: Head, 
+      head: Head,
+      previousHead: Head,
       network: NETWORK
     ): Either[String, NETWORK] =
 

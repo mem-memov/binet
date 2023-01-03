@@ -120,3 +120,87 @@ object Factory:
     ): Successor =
 
       Successor(dot)
+
+  given general.factory.MakeSource[Factory, ArrowReference, Counter, DotReference, Source] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      nextDotReference: DotReference,
+      sourceCounter: Counter,
+      targetCounter: Counter,
+      sourceArrowReference: ArrowReference,
+      targetArrowReference: ArrowReference
+    ): Source =
+
+      Source(
+        dotReference,
+        nextDotReference,
+        sourceCounter,
+        targetCounter,
+        sourceArrowReference,
+        targetArrowReference
+      )
+
+  given general.factory.MakeTarget[Factory, ArrowReference, Counter, DotReference, Target] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      nextDotReference: DotReference,
+      sourceCounter: Counter,
+      targetCounter: Counter,
+      sourceArrowReference: ArrowReference,
+      targetArrowReference: ArrowReference
+    ): Target =
+
+      Target(
+        dotReference,
+        nextDotReference,
+        sourceCounter,
+        targetCounter,
+        sourceArrowReference,
+        targetArrowReference
+      )
+
+  given general.factory.MakeHead[Factory, ArrowReference, DotReference, Head] with
+
+    override
+    def f(
+      tailDotReference: DotReference,
+      previousTailArrowReference: ArrowReference,
+      nextTailArrowReference: ArrowReference,
+      headDotReference: DotReference,
+      previousHeadArrowReference: ArrowReference,
+      nextHeadArrowReference: ArrowReference
+    ): Head =
+
+      Head(
+        tailDotReference,
+        previousTailArrowReference,
+        nextTailArrowReference,
+        headDotReference:,
+        previousHeadArrowReference,
+        nextHeadArrowReference
+      )
+
+  given general.factory.MakeTail[Factory, ArrowReference, DotReference, Tail] with
+
+    override
+    def f(
+      tailDotReference: DotReference,
+      previousTailArrowReference: ArrowReference,
+      nextTailArrowReference: ArrowReference,
+      headDotReference: DotReference,
+      previousHeadArrowReference: ArrowReference,
+      nextHeadArrowReference: ArrowReference
+    ): Tail =
+
+      Tail(
+        tailDotReference,
+        previousTailArrowReference,
+        nextTailArrowReference,
+        headDotReference:,
+        previousHeadArrowReference,
+        nextHeadArrowReference
+      )

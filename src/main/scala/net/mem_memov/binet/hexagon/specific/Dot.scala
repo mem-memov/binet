@@ -5,10 +5,12 @@ import net.mem_memov.binet.memory.specific.Address
 import net.mem_memov.binet.memory
 
 case class Dot(
-  identifierDotReference: DotReference,
+  dotReference: DotReference,
   nextDotReference: DotReference,
-  source: Source,
-  target: Target
+  sourceCounter: Counter,
+  targetCounter: Counter,
+  sourceArrowReference: ArrowReference,
+  targetArrowReference: ArrowReference
 )
 
 object Dot:
@@ -22,7 +24,7 @@ object Dot:
       dot: Dot
     ): Boolean =
 
-      dot.identifierDotReference.inDot
+      dot.dotReference.inDot
 
   given [FACTORY, VERTEX](using
     general.factory.MakeVertex[FACTORY, DotReference, VERTEX]
@@ -37,23 +39,45 @@ object Dot:
 
       factory.makeVertex(dot.identifierDotReference)
 
-  given general.dot.ToSource[Dot, Source] with
+  given [FACTORY, SOURCE](using
+    general.factory.MakeSource[FACTORY, ARROW_REFERENCE, DOT_REFERENCE, SOURCE]
+  )(using
+    factory: FACTORY
+  ): general.dot.ToSource[Dot, SOURCE] with
 
     override
     def f(
       dot: Dot
-    ): Source =
+    ): SOURCE =
 
-      dot.source
+      factory.makeSource(
+        dot.dotReference,
+        dot.nextDotReference,
+        dot.sourceCounter,
+        dot.targetCounter,
+        dot.sourceArrowReference,
+        dot.targetArrowReference
+      )
 
-  given general.dot.ToTarget[Dot, Target] with
+  given [FACTORY, TARGET](using
+    general.factory.MakeTargete[FACTORY, ARROW_REFERENCE, DOT_REFERENCE, TARGET]
+  )(using
+    factory: FACTORY
+  ): general.dot.ToTarget[Dot, TARGET] with
 
     override
     def f(
       dot: Dot
-    ): Target =
+    ): TARGET =
 
-      dot.target
+      factory.makeTarget(
+        dot.dotReference,
+        dot.nextDotReference,
+        dot.sourceCounter,
+        dot.targetCounter,
+        dot.sourceArrowReference,
+        dot.targetArrowReference
+      )
 
   given [FACTORY, PREDECESSOR](using
     general.factory.MakePredecessor[FACTORY, Dot, PREDECESSOR]

@@ -5,8 +5,12 @@ import net.mem_memov.binet.hexagon.{general, specific}
 import net.mem_memov.binet.memory.specific.Address
 
 case class Arrow(
-  tail: Tail,
-  head: Head
+  tailDotReference: DotReference,
+  previousTailArrowReference: ArrowReference,
+  nextTailArrowReference: ArrowReference,
+  headDotReference: DotReference,
+  previousHeadArrowReference: ArrowReference,
+  nextHeadArrowReference: ArrowReference
 )
 
 object Arrow:

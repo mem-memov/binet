@@ -5,9 +5,12 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Target(
-  dotReference: DotReference,
-  counter: Counter,
-  arrowReference: ArrowReference
+  identifierDotReference: DotReference,
+  nextDotReference: DotReference,
+  sourceCounter: Counter,
+  sourceArrowReference: ArrowReference,
+  targetCounter: Counter,
+  targetArrowReference: ArrowReference
 )
 
 object Target:
