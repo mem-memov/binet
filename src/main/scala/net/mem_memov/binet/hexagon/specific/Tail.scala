@@ -163,3 +163,16 @@ object Tail:
     ): Either[String, (NETWORK, ArrowReference)] =
 
       arrowReference.referencePath(tail.dotReference, network)
+
+  given [NETWORK](using
+    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+  ): general.tail.Follow[Tail, NETWORK] with
+
+    override
+    def f(
+      tail: Tail,
+      previousTail: Tail,
+      network: NETWORK
+    ): Either[String, NETWORK] =
+
+      previousTail.nextTailArrowReference.referencePath(tail.dotReference, network))

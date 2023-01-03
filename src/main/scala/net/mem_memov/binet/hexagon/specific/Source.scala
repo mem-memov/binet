@@ -14,13 +14,14 @@ case class Source(
 
 object Source:
 
-  given [ADDRESS, ARROW, ARROW_DRAFT_BEGIN, ARROW_ENTRY, ENTRY, NETWORK, TARGET](using
-    general.target.CreateArrowFromSource[TARGET, ARROW, ARROW_DRAFT_BEGIN, NETWORK],
-    general.arrow.SetNextTargetArrow[ARROW, NETWORK],
-    general.arrow.Get
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+  given [ADDRESS, ARROW, NETWORK, TARGET, TAIL](using
     general.dotReference.GetAddress[DotReference, ADDRESS],
-    general.arrowReference.GetAddressOption[ArrowReference, ADDRESS]
+    general.arrowReference.GetAddressOption[ArrowReference, ADDRESS],
+    general.arrowReference.ReadTail[ArrowReference, NETWORK, TAIL],
+    general.tail.Follow[TAIL, NETWORK],
+    general.tail.GetReferencedBy[TAIL, ArrowReference, NETWORK],
+    general.counter.Increment[Counter, NETWORK],
+    general.target.CreateTailFromSource[TARGET, ADDRESS, NETWORK, TAIL]
   ): general.source.CreateArrowToTarget[Source, NETWORK, TARGET] with
 
     override
@@ -31,25 +32,23 @@ object Source:
     ): Either[String, NETWORK] =
 
       for {
+
+        nextTailOption <- source.sourceArrowReference.readTail(network)
+
+        result1 <- target.createTailFromSource(source.dotReference.getAddress, source.sourceArrowReference.getAddressOption, network)
+        (network1, tail) = result1
+
+        result2 <- tail.getReferencedBy(source.sourceArrowReference, network1)
+        (network2, _) = result2
+
+        result3 <- source.sourceCounter.increment(network)
+        (network3, _) = result3
+
+        modifiedNetwork <- nextTailOption match
+          case Some(nextTail) => nextTail.follow(tail, network3)
+          case None => Right(network3)
         
-        previousArrowOption <- network.readArrow(source.sourceArrowReference)
-        
-        createArrowResult <- target.createArrowFromSource(source.dotReference.getAddress, source.sourceArrowReference.getAddressOption, network)
-        (network1, arrow) = createArrowResult
-        
-        setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
-        (network2, dot2) = setTargetArrowResult
-        
-        incrementTargetCountResult <- source.dot.incrementTargetCount(network2)
-        (network3, dot3) = incrementTargetCountResult
-        
-        setNextTargetArrowResult <- previousArrowOption match
-          case Some(previousArrow) => previousArrow.setNextTargetArrow(arrow, network3)
-          case None => Right(network3, arrow)
-        (network4, _) = setNextTargetArrowResult
-        
-      } yield
-        network4
+      } yield modifiedNetwork
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.arrow.ToHead[ARROW, HEAD],

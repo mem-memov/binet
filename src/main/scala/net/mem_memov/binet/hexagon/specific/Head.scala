@@ -15,6 +15,26 @@ case class Head(
 
 object Head:
 
+  given [FACTORY, TAIL](using
+    general.factory.MakeTail[FACTORY, ArrowReference, DotReference, TAIL]
+  )(using
+    factory: FACTORY
+  ): general.head.ToTail[Head, TAIL] with
+
+    override
+    def f(
+      head: Head
+    ): TAIL =
+
+      factory.makeTail(
+        head.tailDotReference,
+        head.previousTailArrowReference,
+        head.nextTailArrowReference,
+        head.headDotReference,
+        head.previousHeadArrowReference,
+        head.nextHeadArrowReference
+      )
+
   given [NETWORK](using
     general.arrow.GetNextTargetArrow[Arrow, NETWORK],
     general.arrow.ToHead[Arrow, Head]
