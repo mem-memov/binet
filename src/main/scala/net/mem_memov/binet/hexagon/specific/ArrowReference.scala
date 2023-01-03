@@ -101,3 +101,22 @@ object ArrowReference:
         val modifiedArrowReference = arrowReference.copy(entry = modifiedEntry)
         (modifiedNetwork, modifiedArrowReference)
 
+  given [NETWORK](using
+    general.entry.ClearContent[Entry],
+    general.network.UpdateEntry[NETWORK, Entry]
+  ): general.arrowReference.Clear[ArrowReference, NETWORK] with
+
+    override
+    def f(
+      arrowReference: ArrowReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, ArrowReference)] =
+
+      val cleanEntry = arrowReference.entry.clearContent
+
+      for {
+        result <- network.updateEntry(arrowReference.entry)
+        (modifiedNetwork, modifiedEntry) = result
+      } yield
+        val modifiedArrowReference = arrowReference.copy(entry = modifiedEntry)
+        (modifiedNetwork, modifiedArrowReference)

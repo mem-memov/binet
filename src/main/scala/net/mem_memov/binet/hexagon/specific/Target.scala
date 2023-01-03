@@ -153,3 +153,38 @@ object Target:
     ): Boolean =
 
       arrow.hasTargetDot(target.dot)
+
+  given [NETWORK](using
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
+  ): general.target.ReferenceHead[Target, DotReference, NETWORK] with
+
+    override
+    def f(
+      target: Target,
+      dotReference: DotReference,
+      network: NETWORK
+    ): Either[String, (NETWORK, Target)] =
+
+      for {
+        result <- target.targetArrowReference.referencePath(dotReference, network)
+        (modifiedNetwork, modifiedArrowReference) = result
+      } yield
+        val modifiedTarget = target.copy(targetArrowReference = modifiedArrowReference)
+        (modifiedNetwork, modifiedTarget)
+
+  given [NETWORK](using
+    general.arrowReference.Clear[ArrowReference, NETWORK]
+  ): general.target.ClearArrowReference[Target, NETWORK] with
+
+    override
+    def f(
+      target: Target,
+      network: NETWORK
+    ): Either[String, (NETWORK, Target)] =
+
+      for {
+        result <- target.targetArrowReference.clear(network)
+        (modifiedNetwork, modifiedArrowReference) = result
+      } yield
+        val modifiedTarget = target.copy(targetArrowReference = modifiedArrowReference)
+        (network, modifiedTarget)

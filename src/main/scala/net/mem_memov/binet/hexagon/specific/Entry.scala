@@ -140,3 +140,16 @@ object Entry:
       for {
         modifiedNetwork <- network.updateEntry(modifiedEntry)
       } yield (modifiedNetwork, modifiedEntry)
+
+  given [MEMORY_FACTORY](using
+    memory.general.factory.ZeroAddress[MEMORY_FACTORY, Address]
+  )(
+    memoryFactory: MEMORY_FACTORY
+  ): general.entry.ClearContent[Entry] with
+
+    override
+    def f(
+      entry: Entry
+    ): Entry =
+
+      entry.copy(content = memoryFactory.zeroAddress())
