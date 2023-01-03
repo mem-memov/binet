@@ -5,11 +5,11 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Target(
-  identifierDotReference: DotReference,
+  dotReference: DotReference,
   nextDotReference: DotReference,
   sourceCounter: Counter,
-  sourceArrowReference: ArrowReference,
   targetCounter: Counter,
+  sourceArrowReference: ArrowReference,
   targetArrowReference: ArrowReference
 )
 
@@ -26,7 +26,7 @@ object Target:
     arrowEntry: ARROW_ENTRY
   ): general.target.CreateArrowFromSource[Target, ADDRESS, ARROW, NETWORK] with
 
-    override 
+    override
     def f(
       target: Target,
       sourceDotAddress: ADDRESS,
@@ -37,8 +37,8 @@ object Target:
       val arrowDraftEnd = target.dot.endArrowDraft(arrowDraftBegin)
 
       for {
-        previousArrowOption <- network.readArrow(target.arrowReference)
-        result1 <- network.createArrow(sourceDotAddress, sourceArrowAddressOption, target.dotReference.getAddress, target.arrowReference.getAddressOption)
+        previousArrowOption <- network.readArrow(target.targetArrowReference)
+        result1 <- network.createArrow(sourceDotAddress, sourceArrowAddressOption, target.dotReference.getAddress, target.targetArrowReference.getAddressOption)
         (network1, arrow) = result1
         result2 <- arrow.getReferencedBy(target.arrowReference)
         (network2, modifiedArrowReference) = result2

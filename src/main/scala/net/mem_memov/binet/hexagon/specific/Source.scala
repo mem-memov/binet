@@ -4,11 +4,11 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Source(
-  identifierDotReference: DotReference,
+  dotReference: DotReference,
   nextDotReference: DotReference,
   sourceCounter: Counter,
-  sourceArrowReference: ArrowReference,
   targetCounter: Counter,
+  sourceArrowReference: ArrowReference,
   targetArrowReference: ArrowReference
 )
 
@@ -33,8 +33,8 @@ object Source:
     ): Either[String, NETWORK] =
 
       for {
-        previousArrowOption <- network.readArrow(source.arrowReference)
-        createArrowResult <- target.createArrowFromSource(source.dotReference.getAddress, source.arrowReference.getAddressOption, network)
+        previousArrowOption <- network.readArrow(source.sourceArrowReference)
+        createArrowResult <- target.createArrowFromSource(source.dotReference.getAddress, source.sourceArrowReference.getAddressOption, network)
         (network1, arrow) = createArrowResult
         setTargetArrowResult <- source.dot.setTargetArrow(arrow, network1)
         (network2, dot2) = setTargetArrowResult
@@ -132,7 +132,7 @@ object Source:
       target: TARGET
     ): Boolean =
 
-      target.hasMoreHeads(source.counter)
+      target.hasMoreHeads(source.sourceCounter)
       
   given [ARROW](using
     general.arrow.HasSourceDot[ARROW, Dot]
