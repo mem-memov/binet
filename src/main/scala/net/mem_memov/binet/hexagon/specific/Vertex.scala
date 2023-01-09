@@ -1,9 +1,10 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.general
+import net.mem_memov.binet.memory.specific.Address
 
 case class Vertex(
-  dotReference: DotReference
+  address: Address
 )
 
 object Vertex:
@@ -18,6 +19,10 @@ object Vertex:
       vertex: Vertex,
       network: NETWORK
     ): Either[String, SOURCE] =
+      
+      val dotReference = DotReference(Entry(
+        
+      ))
 
       for {
         dot <- network.readDot(vertex.dotReference)

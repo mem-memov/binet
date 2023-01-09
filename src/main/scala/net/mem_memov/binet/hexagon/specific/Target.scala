@@ -56,11 +56,9 @@ object Target:
 
       } yield (modifiedNetwork, head.toTail)
 
-  given [ARROW, NETWORK, SOURCE, TAIL](using
-    general.dot.GetSourceArrow[Dot, ARROW, NETWORK],
+  given [NETWORK, SOURCE, TAIL](using
     general.source.IsInTails[SOURCE, NETWORK, TAIL],
-    general.arrow.ToTail[ARROW, TAIL],
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
+    general.arrowReference.ReadTail[ArrowReference, NETWORK, TAIL]
   ): general.target.HasSource[Target, NETWORK, SOURCE] with
 
     override
@@ -71,14 +69,14 @@ object Target:
     ): Either[String, Boolean] =
 
       for {
-        optionArrow <- network.readArrow(target.arrowReference)
-        hasTarget <- optionArrow match
+        optionTail <- target.targetArrowReference.readTail(network)
+        hasTarget <- optionTail match
           case None => Right(false)
-          case Some(arrow) => source.isInTails(arrow.toTail, network)
+          case Some(tail) => source.isInTails(tail, network)
       } yield hasTarget
 
   given [HEAD, NETWORK](using
-    general.head.ReferencesDot[HEAD, Target],
+    general.head.ReferencesDot[HEAD, DotReference],
     general.head.GetNext[HEAD, NETWORK],
   ): general.target.IsInHeads[Target, HEAD, NETWORK] with
 
@@ -129,7 +127,7 @@ object Target:
       target: Target
     ): VERTEX =
 
-      target.dot.toVertex
+      target.dotReference.toVertex
 
   given (using
     general.counter.IsLarger[Counter]
@@ -140,19 +138,7 @@ object Target:
       counter: Counter
     ): Boolean =
 
-      target.counter(counter)
-
-  given [ARROW](using
-    general.arrow.HasTargetDot[ARROW, Dot]
-  ): general.target.InArrowHead[Target, ARROW] with
-
-    override
-    def f(
-      target: Target,
-      arrow: ARROW
-    ): Boolean =
-
-      arrow.hasTargetDot(target.dot)
+      target.targetCounter.isLarger(counter)
 
   given [NETWORK](using
     general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]

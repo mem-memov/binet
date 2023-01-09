@@ -50,10 +50,9 @@ object Source:
 
       } yield modifiedNetwork
 
-  given [ARROW, HEAD, NETWORK, TARGET](using
-    general.arrow.ToHead[ARROW, HEAD],
+  given [HEAD, NETWORK, TARGET](using
     general.target.IsInHeads[TARGET, HEAD, NETWORK],
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference]
+    general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK]
   ): general.source.HasTarget[Source, NETWORK, TARGET] with
 
     override
@@ -64,14 +63,14 @@ object Source:
     ): Either[String, Boolean] =
 
       for {
-        optionArrow <- network.readArrow(source.arrowReference)
-        hasTarget <- optionArrow match
+        optionHead <- source.sourceArrowReference.readHead(network)
+        hasTarget <- optionHead match
           case None => Right(false)
-          case Some(arrow) => target.isInHeads(arrow.toHead, network)
+          case Some(head) => target.isInHeads(head, network)
       } yield hasTarget
 
   given [NETWORK, TAIL](using
-    general.tail.ReferencesDot[TAIL, Source],
+    general.tail.ReferencesDot[TAIL, DotReference],
     general.tail.GetNext[TAIL, NETWORK]
   ): general.source.IsInTails[Source, NETWORK, TAIL] with
 
@@ -137,18 +136,6 @@ object Source:
     ): Boolean =
 
       target.hasMoreHeads(source.sourceCounter)
-      
-  given [ARROW](using
-    general.arrow.HasSourceDot[ARROW, Dot]
-  ): general.source.InArrowTail[Source, ARROW] with
-
-    override 
-    def f(
-      source: Source,
-      arrow: ARROW
-    ): Boolean =
-
-      arrow.hasSourceDot(source.dot)
 
   given [ARROW, HEAD, NETWORK, TARGET](using
     general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
