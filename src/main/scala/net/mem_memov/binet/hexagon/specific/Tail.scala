@@ -99,15 +99,14 @@ object Tail:
                 case Some(nextArrow) => f(nextArrow.toTail, network, dot.toSource :: sources)
                 case None => Right(dot.toSource :: sources)
 
-  given [DOT, NETWORK](using
-    general.network.ReadArrow[NETWORK, Arrow, ArrowReference],
-    general.network.ReadDot[NETWORK, DOT, DotReference],
-    general.arrow.SetNextSourceArrow[Arrow, NETWORK],
-    general.arrow.SetPreviousSourceArrow[Arrow, NETWORK],
-    general.arrow.DeleteNextSourceArrow[Arrow, NETWORK],
-    general.arrow.DeletePreviousSourceArrow[Arrow, NETWORK],
-    general.dot.SetSourceArrow[DOT, Arrow, NETWORK],
-    general.dot.DeleteSourceArrow[DOT, NETWORK]
+  given [DOT, NETWORK, SOURCE](using
+    general.dot.DeleteSourceArrow[DOT, NETWORK],
+    general.dotReference.ReadSource[DotReference, NETWORK, SOURCE],
+    general.arrowReference.ReadTail[ArrowReference, NETWORK, Tail],
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK],
+    general.arrowReference.Clear[ArrowReference, NETWORK],
+    general.source.ReferenceTail[SOURCE, DotReference, NETWORK],
+    general.source.ClearArrowReference[SOURCE, NETWORK]
   ): general.tail.Delete[Tail, NETWORK] with
 
     override
@@ -117,37 +116,37 @@ object Tail:
     ): Either[String, NETWORK] =
 
       for {
-        sourceDot <- network.readDot(tail.dotReference)
-        previousSourceArrowOption <- network.readArrow(tail.previousArrowReference)
-        nextSourceArrowOption <- network.readArrow(tail.nextArrowReference)
-        modifiedNetwork <- previousSourceArrowOption match
-          case Some(previousSourceArrow) =>
-            nextSourceArrowOption match
-              case Some(nextSourceArrow) =>
+        source <- tail.tailDotReference.readSource(network)
+        previousTailOption <- tail.previousTailArrowReference.readTail(network)
+        nextTailOption <- tail.nextTailArrowReference.readTail(network)
+        modifiedNetwork <- previousTailOption match
+          case Some(previousTail) =>
+            nextTailOption match
+              case Some(nextTail) =>
                 for {
-                  setNextSourceArrowResult <- previousSourceArrow.setNextSourceArrow(nextSourceArrow, network)
-                  (network1, _) = setNextSourceArrowResult
-                  setPreviousSourceArrowResult <- nextSourceArrow.setPreviousSourceArrow(previousSourceArrow, network1)
-                  (network2, _) = setPreviousSourceArrowResult
+                  result1 <- previousTail.nextTailArrowReference.referencePath(nextTail.tailDotReference, network)
+                  (network1, _) = result1
+                  result2 <- nextTail.previousTailArrowReference.referencePath(previousTail.tailDotReference, network1)
+                  (network2, _) = result2
                 } yield network2
               case None =>
                 for {
-                  deleteNextSourceArrowResult <- previousSourceArrow.deleteNextSourceArrow(network)
-                  (network1, _) = deleteNextSourceArrowResult
+                  result1 <- previousTail.nextTailArrowReference.clear(network)
+                  (network1, _) = result1
                 } yield network1
           case None =>
-            nextSourceArrowOption match
-              case Some(nextSourceArrow) =>
+            nextTailOption match
+              case Some(nextTail) =>
                 for {
-                  setSourceArrowResult <- sourceDot.setSourceArrow(nextSourceArrow, network)
-                  (network1, _) = setSourceArrowResult
-                  deletePreviousSourceArrowResult <- nextSourceArrow.deletePreviousSourceArrow(network1)
-                  (network2, _) = deletePreviousSourceArrowResult
+                  result1 <- source.referenceTail(nextTail.tailDotReference, network)
+                  (network1, _) = result1
+                  result2 <- nextTail.previousTailArrowReference.clear(network1)
+                  (network2, _) = result2
                 } yield network2
               case None =>
                 for {
-                  deleteSourceArrowResult <- sourceDot.deleteSourceArrow(network)
-                  (network1, _) = deleteSourceArrowResult
+                  result1 <- source.clearArrowReference(network)
+                  (network1, _) = result1
                 } yield network1
       } yield modifiedNetwork
 

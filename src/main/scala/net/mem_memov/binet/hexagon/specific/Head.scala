@@ -89,18 +89,13 @@ object Head:
                 case None => Right(target :: targets)
 
   given [DOT, NETWORK, TARGET](using
-    general.network.ReadArrow[NETWORK, Arrow, ArrowReference],
-    general.network.ReadDot[NETWORK, DOT, DotReference],
-    general.arrow.SetNextTargetArrow[Arrow, NETWORK],
-    general.arrow.SetPreviousTargetArrow[Arrow, NETWORK],
-    general.arrow.DeleteNextTargetArrow[Arrow, NETWORK],
-    general.arrow.DeletePreviousTargetArrow[Arrow, NETWORK],
-    general.dot.SetTargetArrow[DOT, Arrow, NETWORK],
     general.dot.DeleteTargetArrow[DOT, NETWORK],
     general.dotReference.ReadTarget[DotReference, NETWORK, TARGET],
     general.arrowReference.ReadHead[ArrowReference, Head, NETWORK],
     general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK],
-    general.arrowReference.Clear[ArrowReference, NETWORK]
+    general.arrowReference.Clear[ArrowReference, NETWORK],
+    general.target.ReferenceHead[TARGET, DotReference, NETWORK],
+    general.target.ClearArrowReference[TARGET, NETWORK]
   ): general.head.Delete[Head, NETWORK] with
 
     override
@@ -132,15 +127,15 @@ object Head:
             nextHeadOption match
               case Some(nextHead) =>
                 for {
-                  result1 <- target.referenceHead(nextHead.tailDotReference)
+                  result1 <- target.referenceHead(nextHead.tailDotReference, network)
                   (network1, _) = result1
-                  result2 <- target.clearArrowReference(network1)
+                  result2 <- nextHead.previousHeadArrowReference.clear(network)
                   (network2, _) = result2
                 } yield network2
               case None =>
                 for {
-                  deleteTargetArrowResult <- targetDot.deleteTargetArrow(network)
-                  (network1, _) = deleteTargetArrowResult
+                  result1 <- target.clearArrowReference(network)
+                  (network1, _) = result1
                 } yield network1
       } yield modifiedNetwork
 
