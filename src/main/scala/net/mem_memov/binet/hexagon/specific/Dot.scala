@@ -1,8 +1,6 @@
 package net.mem_memov.binet.hexagon.specific
 
 import net.mem_memov.binet.hexagon.{general, specific}
-import net.mem_memov.binet.memory.specific.Address
-import net.mem_memov.binet.memory
 
 case class Dot(
   dotReference: DotReference,
@@ -80,7 +78,7 @@ object Dot:
       )
 
   given [FACTORY, PREDECESSOR](using
-    general.factory.MakePredecessor[FACTORY, Dot, PREDECESSOR]
+    general.factory.MakePredecessor[FACTORY, ArrowReference, Counter, DotReference, PREDECESSOR]
   )(using
     factory: FACTORY
   ): general.dot.ToPredecessor[Dot, PREDECESSOR] with
@@ -90,10 +88,17 @@ object Dot:
       dot: Dot
     ): PREDECESSOR =
 
-      factory.makePredecessor(dot)
+      factory.makePredecessor(
+        dot.dotReference,
+        dot.nextDotReference,
+        dot.sourceCounter,
+        dot.targetCounter,
+        dot.sourceArrowReference,
+        dot.targetArrowReference
+      )
 
   given [FACTORY, SUCCESSOR](using
-    general.factory.MakeSuccessor[FACTORY, Dot, SUCCESSOR]
+    general.factory.MakeSuccessor[FACTORY, ArrowReference, Counter, DotReference, SUCCESSOR]
   )(using
     factory: FACTORY
   ): general.dot.ToSuccessor[Dot, SUCCESSOR] with
@@ -103,7 +108,14 @@ object Dot:
       dot: Dot
     ): SUCCESSOR =
 
-      factory.makeSuccessor(dot)
+      factory.makeSuccessor(
+        dot.dotReference,
+        dot.nextDotReference,
+        dot.sourceCounter,
+        dot.targetCounter,
+        dot.sourceArrowReference,
+        dot.targetArrowReference
+      )
 
   given [NETWORK](using
     general.network.ReadDot[NETWORK, Dot, DotReference],
@@ -146,18 +158,6 @@ object Dot:
     ): Boolean =
 
       dot.identifierDotReference.inSameDirection(dotReference)
-
-  given [NETWORK](using
-    general.dot.SetNextDot[Dot, DotReference, NETWORK]
-  ): general.dot.GiveIdentifierToPredecessor[Dot, NETWORK] with
-
-    override def f(
-      dot: Dot,
-      predecessorDot: Dot,
-      network: NETWORK
-    ): Either[String, (NETWORK, Dot)] =
-
-      predecessorDot.setNextDot(dot.identifierDotReference, network)
 
   given [NETWORK](using
     general.dotReference.ReferencePath[DotReference, NETWORK]

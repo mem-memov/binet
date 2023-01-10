@@ -1,18 +1,18 @@
 package net.mem_memov.binet.hexagon.general.predecessor
 
-trait Precede[PREDECESSOR, DOT, NETWORK]:
+trait Precede[PREDECESSOR, DOT_REFERENCE, NETWORK]:
 
   def f(
     predecessor: PREDECESSOR,
-    successorDot: DOT,
+    successorDotReference: DOT_REFERENCE,
     network: NETWORK
   ): Either[String, (NETWORK, PREDECESSOR)]
 
   extension (predecessor: PREDECESSOR)
 
     def precede(
-      successorDot: DOT,
+      successorDotReference: DOT_REFERENCE,
       network: NETWORK
     ): Either[String, (NETWORK, PREDECESSOR)] =
 
-      f(predecessor, successorDot, network)
+      f(predecessor, successorDotReference, network)

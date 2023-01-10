@@ -93,23 +93,47 @@ object Factory:
 
     override def f(): Address = memoryFactory.zeroAddress()
 
-  given general.factory.MakePredecessor[Factory, Dot, Predecessor] with
+  given general.factory.MakePredecessor[Factory, ArrowReference, Counter, DotReference, Predecessor] with
 
     override
     def f(
-      dot: Dot
+      dotReference: DotReference,
+      nextDotReference: DotReference,
+      sourceCounter: Counter,
+      targetCounter: Counter,
+      sourceArrowReference: ArrowReference,
+      targetArrowReference: ArrowReference
     ): Predecessor =
 
-      Predecessor(dot)
+      Predecessor(
+        dotReference,
+        nextDotReference,
+        sourceCounter,
+        targetCounter,
+        sourceArrowReference,
+        targetArrowReference
+      )
 
-  given general.factory.MakeSuccessor[Factory, Dot, Successor] with
+  given general.factory.MakeSuccessor[Factory, ArrowReference, Counter, DotReference, Successor] with
 
     override
     def f(
-      dot: Dot
+      dotReference: DotReference,
+      nextDotReference: DotReference,
+      sourceCounter: Counter,
+      targetCounter: Counter,
+      sourceArrowReference: ArrowReference,
+      targetArrowReference: ArrowReference
     ): Successor =
 
-      Successor(dot)
+      Successor(
+        dotReference,
+        nextDotReference,
+        sourceCounter,
+        targetCounter,
+        sourceArrowReference,
+        targetArrowReference
+      )
 
   given general.factory.MakeSource[Factory, ArrowReference, Counter, DotReference, Source] with
 

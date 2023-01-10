@@ -3,13 +3,18 @@ package net.mem_memov.binet.hexagon.specific
 import net.mem_memov.binet.hexagon.general
 
 case class Successor(
-  dot: Dot
+  dotReference: DotReference,
+  nextDotReference: DotReference,
+  sourceCounter: Counter,
+  targetCounter: Counter,
+  sourceArrowReference: ArrowReference,
+  targetArrowReference: ArrowReference
 )
 
 object Successor:
 
   given [NETWORK, PREDECESSOR](using
-    general.predecessor.Precede[PREDECESSOR, Dot, NETWORK]
+    general.predecessor.Precede[PREDECESSOR, DotReference, NETWORK]
   ): general.successor.Follow[Successor, NETWORK, PREDECESSOR] with
 
     override
@@ -19,10 +24,10 @@ object Successor:
       network: NETWORK
     ): Either[String, (NETWORK, PREDECESSOR)] =
 
-      predecessor.precede(successor.dot, network)
+      predecessor.precede(successor.dotReference, network)
 
   given [FACTORY, VERTEX](using
-    general.dot.ToVertex[Dot, VERTEX]
+    general.dotReference.ToVertex[DotReference, VERTEX]
   ): general.successor.ToVertex[Successor, VERTEX] with
 
     override
@@ -30,4 +35,4 @@ object Successor:
       successor: Successor
     ): VERTEX =
 
-      successor.dot.toVertex
+      successor.dotReference.toVertex

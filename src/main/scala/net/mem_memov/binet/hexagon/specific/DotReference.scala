@@ -95,6 +95,21 @@ object DotReference:
         dot <- network.readDot(dotReference)
       } yield dot.toTarget
 
+  given [DOT, NETWORK, SUCCESSOR](using
+    general.network.ReadDot[NETWORK, DOT, DotReference],
+    general.dot.ToSuccessor[DOT, SUCCESSOR]
+  ): general.dotReference.ReadSuccessor[DotReference, NETWORK, SUCCESSOR] with
+
+    override
+    def f(
+      dotReference: DotReference,
+      network: NETWORK
+    ): Either[String, SUCCESSOR] =
+
+      for {
+        dot <- network.readDot(dotReference)
+      } yield dot.toSuccessor
+
   given (using
     general.entry.SameContent[Entry]
   ): general.dotReference.InSameDirection[DotReference] with

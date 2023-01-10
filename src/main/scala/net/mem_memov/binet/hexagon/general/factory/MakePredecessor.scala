@@ -1,15 +1,32 @@
 package net.mem_memov.binet.hexagon.general.factory
 
-trait MakePredecessor[FACTORY, DOT, PREDECESSOR]:
+trait MakePredecessor[FACTORY, ARROW_REFERENCE, COUNTER, DOT_REFERENCE, PREDECESSOR]:
 
   def f(
-    dot: DOT
+    dotReference: DOT_REFERENCE,
+    nextDotReference: DOT_REFERENCE,
+    sourceCounter: COUNTER,
+    targetCounter: COUNTER,
+    sourceArrowReference: ARROW_REFERENCE,
+    targetArrowReference: ARROW_REFERENCE
   ): PREDECESSOR
 
   extension (factory: FACTORY)
 
     def makePredecessor(
-      dot: DOT
+      dotReference: DOT_REFERENCE,
+      nextDotReference: DOT_REFERENCE,
+      sourceCounter: COUNTER,
+      targetCounter: COUNTER,
+      sourceArrowReference: ARROW_REFERENCE,
+      targetArrowReference: ARROW_REFERENCE
     ): PREDECESSOR =
 
-      f(dot)
+      f(
+        dotReference,
+        nextDotReference,
+        sourceCounter,
+        targetCounter,
+        sourceArrowReference,
+        targetArrowReference
+      )

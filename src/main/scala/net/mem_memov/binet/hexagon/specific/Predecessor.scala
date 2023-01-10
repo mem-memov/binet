@@ -5,33 +5,40 @@ import net.mem_memov.binet.hexagon.general
 import scala.annotation.tailrec
 
 case class Predecessor(
-  dot: Dot
+  dotReference: DotReference,
+  nextDotReference: DotReference,
+  sourceCounter: Counter,
+  targetCounter: Counter,
+  sourceArrowReference: ArrowReference,
+  targetArrowReference: ArrowReference
 )
 
 object Predecessor:
 
   given [NETWORK](using
-    general.dot.GiveIdentifierToPredecessor[Dot, NETWORK]
-  ): general.predecessor.Precede[Predecessor, Dot, NETWORK] with
+    general.dotReference.ReferencePath[DotReference, NETWORK]
+  ): general.predecessor.Precede[Predecessor, DotReference, NETWORK] with
 
     override
     def f(
       predecessor: Predecessor,
-      successorDot: Dot,
+      successorDotReference: DotReference,
       network: NETWORK
     ): Either[String, (NETWORK, Predecessor)] =
 
       for {
-        result <- successorDot.giveIdentifierToPredecessor(predecessor.dot, network)
-        (modifiedNetwork, modifiedDot) = result
+        result <- predecessor.nextDotReference.referencePath(successorDotReference, network)
+        (modifiedNetwork, modifiedDotReference) = result
       } yield
-        val modifiedPredecessor = predecessor.copy(dot = modifiedDot)
+        val modifiedPredecessor = predecessor.copy(nextDotReference = modifiedDotReference)
         (modifiedNetwork, modifiedPredecessor)
 
   given [NETWORK, SUCCESSOR](using
     general.dot.GetNextDot[Dot, NETWORK],
     general.dot.ToPredecessor[Dot, Predecessor],
-    general.dot.ToSuccessor[Dot, SUCCESSOR]
+    general.dot.ToSuccessor[Dot, SUCCESSOR],
+    general.dotReference.IsEmpty[DotReference],
+    general.dotReference.R
   ): general.predecessor.ReadSuccessors[Predecessor, NETWORK, SUCCESSOR] with
 
     override def f(
@@ -47,15 +54,19 @@ object Predecessor:
         successors: Vector[SUCCESSOR]
       ): Either[String, Vector[SUCCESSOR]] =
 
-        predecessor.dot.getNextDot(network) match
-          case Left(error) => Left(error)
-          case Right(nextDotOption) => nextDotOption match
-            case None => Right(successors)
-            case Some(nextDot) =>
-              val predecessor = nextDot.toPredecessor
-              if predecessor == firstPredecessor then
-                Right(successors)
-              else
-                g(nextDot.toPredecessor, network, firstPredecessor, successors :+ nextDot.toSuccessor)
+        if predecessor.nextDotReference.isEmpty then
+          successors
+        else
+
+          predecessor.nextDotReference.(network) match
+            case Left(error) => Left(error)
+            case Right(nextDotOption) => nextDotOption match
+              case None => Right(successors)
+              case Some(nextDot) =>
+                val predecessor = nextDot.toPredecessor
+                if predecessor == firstPredecessor then
+                  Right(successors)
+                else
+                  g(nextDot.toPredecessor, network, firstPredecessor, successors :+ nextDot.toSuccessor)
 
       g(predecessor, network, predecessor, Vector(predecessor.dot.toSuccessor))
