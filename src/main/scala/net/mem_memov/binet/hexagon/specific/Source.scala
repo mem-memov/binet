@@ -94,9 +94,7 @@ object Source:
               case None => Right(false)
               case Some(tail) => f(source, tail, network)
 
-  given [ARROW, HEAD, NETWORK, TARGET](using
-    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
-    general.arrow.ToHead[ARROW, HEAD],
+  given [HEAD, NETWORK, TARGET](using
     general.head.CollectTargets[HEAD, NETWORK, TARGET],
     general.arrowReference.ReadHead[ArrowReference, NETWORK, HEAD]
   ): general.source.ReadTargets[Source, NETWORK, TARGET] with
@@ -137,12 +135,10 @@ object Source:
 
       target.hasMoreHeads(source.sourceCounter)
 
-  given [ARROW, HEAD, NETWORK, TARGET](using
-    general.dot.GetTargetArrow[Dot, ARROW, NETWORK],
-    general.arrow.ToHead[ARROW, HEAD],
-    general.arrow.Delete[ARROW, NETWORK],
-    general.head.FindTarget[HEAD, ARROW, NETWORK, TARGET],
-    general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK]
+  given [HEAD, NETWORK, TARGET](using
+    general.head.FindTarget[HEAD, NETWORK, TARGET],
+    general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK],
+    general.head.Delete[HEAD, NETWORK]
   ): general.source.DeleteArrowToTarget[Source, NETWORK, TARGET] with
 
     override

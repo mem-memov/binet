@@ -34,11 +34,10 @@ object Predecessor:
         (modifiedNetwork, modifiedPredecessor)
 
   given [NETWORK, SUCCESSOR](using
-    general.dot.GetNextDot[Dot, NETWORK],
-    general.dot.ToPredecessor[Dot, Predecessor],
-    general.dot.ToSuccessor[Dot, SUCCESSOR],
+    general.successor.ToPredecessor[SUCCESSOR, Predecessor],
+    general.predecessor.ToSuccessor[Predecessor, SUCCESSOR],
     general.dotReference.IsEmpty[DotReference],
-    general.dotReference.R
+    general.dotReference.ReadSuccessor[DotReference, NETWORK, SUCCESSOR]
   ): general.predecessor.ReadSuccessors[Predecessor, NETWORK, SUCCESSOR] with
 
     override def f(
@@ -55,18 +54,37 @@ object Predecessor:
       ): Either[String, Vector[SUCCESSOR]] =
 
         if predecessor.nextDotReference.isEmpty then
-          successors
+          Right(successors)
         else
-
-          predecessor.nextDotReference.(network) match
+          predecessor.nextDotReference.readSuccessor(network) match
             case Left(error) => Left(error)
-            case Right(nextDotOption) => nextDotOption match
+            case Right(successorOption) => successorOption match
               case None => Right(successors)
-              case Some(nextDot) =>
-                val predecessor = nextDot.toPredecessor
+              case Some(successor) =>
+                val predecessor = successor.toPredecessor
                 if predecessor == firstPredecessor then
                   Right(successors)
                 else
-                  g(nextDot.toPredecessor, network, firstPredecessor, successors :+ nextDot.toSuccessor)
+                  g(predecessor, network, firstPredecessor, successors :+ successor)
 
-      g(predecessor, network, predecessor, Vector(predecessor.dot.toSuccessor))
+      g(predecessor, network, predecessor, Vector(predecessor.toSuccessor))
+      
+  given [FACTORY, SUCCESSOR](using
+    general.factory.MakeSuccessor[FACTORY, ArrowReference, Counter, DotReference, SUCCESSOR]
+  )(using
+    factory: FACTORY
+  ): general.predecessor.ToSuccessor[Predecessor, SUCCESSOR] with
+
+    override 
+    def f(
+      predecessor: Predecessor
+    ): SUCCESSOR =
+
+      factory.makeSuccessor(
+        predecessor.dotReference,
+        predecessor.nextDotReference,
+        predecessor.sourceCounter,
+        predecessor.targetCounter,
+        predecessor.sourceArrowReference,
+        predecessor.targetArrowReference
+      )

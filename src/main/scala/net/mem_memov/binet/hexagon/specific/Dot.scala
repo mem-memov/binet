@@ -117,24 +117,6 @@ object Dot:
         dot.targetArrowReference
       )
 
-  given [NETWORK](using
-    general.network.ReadDot[NETWORK, Dot, DotReference],
-    general.dotReference.IsEmpty[DotReference]
-  ): general.dot.GetNextDot[Dot, NETWORK] with
-
-    override
-    def f(
-      dot: Dot,
-      network: NETWORK
-    ): Either[String, Option[Dot]] =
-
-      if dot.nextDotReference.isEmpty then
-        Right(None)
-      else
-        for {
-          nextDot <- network.readDot(dot.nextDotReference)
-        } yield Some(nextDot)
-
   given (using
     general.counter.IsLarger[Counter]
   ):general.dot.HasMoreSourcesThanTheOtherTargets[Dot] with

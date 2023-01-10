@@ -36,3 +36,23 @@ object Successor:
     ): VERTEX =
 
       successor.dotReference.toVertex
+
+  given [FACTORY, PREDECESSOR](using
+    general.factory.MakePredecessor[FACTORY, ArrowReference, Counter, DotReference, PREDECESSOR]
+  )(using
+    factory: FACTORY
+  ): general.successor.ToPredecessor[Successor, PREDECESSOR] with
+
+    override
+    def f(
+      successor: Successor
+    ): PREDECESSOR =
+
+      factory.makePredecessor(
+        successor.dotReference,
+        successor.nextDotReference,
+        successor.sourceCounter,
+        successor.targetCounter,
+        successor.sourceArrowReference,
+        successor.targetArrowReference
+      )

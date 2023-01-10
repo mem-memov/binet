@@ -15,10 +15,7 @@ case class Target(
 
 object Target:
 
-  given [ADDRESS, ARROW, HEAD, NETWORK, TAIL](using
-    general.arrow.SetNextSourceArrow[ARROW, NETWORK],
-    general.arrow.ToHead[ARROW, HEAD],
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
+  given [ADDRESS, HEAD, NETWORK, TAIL](using
     general.dotReference.GetAddress[DotReference, ADDRESS],
     general.arrowReference.GetAddressOption[ArrowReference, ADDRESS],
     general.counter.Increment[Counter, NETWORK],

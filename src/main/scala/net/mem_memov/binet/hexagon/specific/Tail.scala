@@ -149,7 +149,7 @@ object Tail:
       } yield modifiedNetwork
 
   given [NETWORK](using
-    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
   ): general.tail.GetReferencedBy[Tail, ArrowReference, NETWORK] with
 
     override
@@ -162,7 +162,7 @@ object Tail:
       arrowReference.referencePath(tail.tailDotReference, network)
 
   given [NETWORK](using
-    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
   ): general.tail.Follow[Tail, NETWORK] with
 
     override

@@ -21,49 +21,7 @@ object Arrow:
 
     override def f(arrow: Arrow): Boolean =
 
-      arrow.sourceDotReference.inArrow
-
-  given [DOT](using
-    general.dot.IsReferencedBy[DOT, DotReference]
-  ):general.arrow.HasSourceDot[Arrow, DOT] with
-
-    override
-    def f(
-      arrow: Arrow,
-      sourceDot: DOT
-    ): Boolean =
-
-      sourceDot.isReferencedBy(arrow.sourceDotReference)
-
-  given [DOT](using
-    general.dot.IsReferencedBy[DOT, DotReference]
-  ): general.arrow.HasTargetDot[Arrow, DOT] with
-
-    override
-    def f(
-      arrow: Arrow,
-      targetDot: DOT
-    ): Boolean =
-
-      targetDot.isReferencedBy(arrow.targetDotReference)
-
-  given [NETWORK](using
-    general.arrow.SetReference[Arrow, ArrowReference, NETWORK]
-  ): general.arrow.SetNextSourceArrow[Arrow, NETWORK] with
-
-    override
-    def f(
-      arrow: Arrow,
-      nextSourceArrow: Arrow,
-      network: NETWORK
-    ): Either[String, (NETWORK, Arrow)] =
-
-      for {
-        result <- nextSourceArrow.setReference(arrow.nextSourceArrowReference, network)
-        (modifiedNetwork, modifiedNextSourceArrowReference) = result
-      } yield
-        val modifiedArrow = arrow.copy(nextSourceArrowReference = modifiedNextSourceArrowReference)
-        (modifiedNetwork, modifiedArrow)
+      arrow.tailDotReference.inArrow
 
   given [NETWORK](using
     general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
@@ -76,51 +34,44 @@ object Arrow:
       network: NETWORK
     ): Either[String, (NETWORK, ArrowReference)] =
 
-      arrowReference.referencePath(arrow.sourceDotReference, network)
+      arrowReference.referencePath(arrow.tailDotReference, network)
 
-  given [DOT, NETWORK](using
-    general.tail.Delete[Tail, NETWORK],
-    general.head.Delete[Head, NETWORK]
-  ): general.arrow.Delete[Arrow, NETWORK] with
-
-    override
-    def f(
-      arrow: Arrow,
-      network: NETWORK
-    ): Either[String, NETWORK] =
-
-      for {
-        network1 <- arrow.tail.delete(network)
-        network2 <- arrow.head.delete(network1)
-      } yield network2
-
-  given general.arrow.ToTail[Arrow, Tail] with
+  given [FACTORY, TAIL](using
+    general.factory.MakeTail[FACTORY, ArrowReference, DotReference, TAIL]
+  )(using
+    factory: FACTORY
+  ): general.arrow.ToTail[Arrow, TAIL] with
 
     override
     def f(
       arrow: Arrow
-    ): Tail =
+    ): TAIL =
 
-      arrow.tail
+      factory.makeTail(
+        arrow.tailDotReference,
+        arrow.previousTailArrowReference,
+        arrow.nextTailArrowReference,
+        arrow.headDotReference,
+        arrow.previousHeadArrowReference,
+        arrow.nextHeadArrowReference
+      )
 
-  given general.arrow.ToHead[Arrow, Head] with
+  given [FACTORY, HEAD](using
+    general.factory.MakeHead[FACTORY, ArrowReference, DotReference, HEAD]
+  )(using
+    factory: FACTORY
+  ): general.arrow.ToHead[Arrow, HEAD] with
 
     override
     def f(
       arrow: Arrow
-    ): Head =
+    ): HEAD =
 
-      arrow.head
-
-  given [ARROW_REFERENCE, NETWORK](using
-    general.tail.GetReferencedBy[Tail, ARROW_REFERENCE, NETWORK]
-  ): general.arrow.GetReferencedBy[Arrow, ARROW_REFERENCE, NETWORK] with
-
-    override 
-    def f(
-      arrow: Arrow, 
-      arrowReference: ARROW_REFERENCE, 
-      network: NETWORK
-    ): Either[String, (NETWORK, ARROW_REFERENCE)] =
-
-      arrow.tail.getReferencedBy(arrowReference, network)
+      factory.makeHead(
+        arrow.tailDotReference,
+        arrow.previousTailArrowReference,
+        arrow.nextTailArrowReference,
+        arrow.headDotReference,
+        arrow.previousHeadArrowReference,
+        arrow.nextHeadArrowReference
+      )

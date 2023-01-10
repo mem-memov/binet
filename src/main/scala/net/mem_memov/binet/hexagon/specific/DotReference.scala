@@ -97,18 +97,22 @@ object DotReference:
 
   given [DOT, NETWORK, SUCCESSOR](using
     general.network.ReadDot[NETWORK, DOT, DotReference],
-    general.dot.ToSuccessor[DOT, SUCCESSOR]
+    general.dot.ToSuccessor[DOT, SUCCESSOR],
+    general.entry.IsContentEmpty[Entry]
   ): general.dotReference.ReadSuccessor[DotReference, NETWORK, SUCCESSOR] with
 
     override
     def f(
       dotReference: DotReference,
       network: NETWORK
-    ): Either[String, SUCCESSOR] =
+    ): Either[String, Option[SUCCESSOR]] =
 
-      for {
-        dot <- network.readDot(dotReference)
-      } yield dot.toSuccessor
+      if dotReference.entry.isContentEmpty then
+        Right(None)
+      else
+        for {
+          dot <- network.readDot(dotReference)
+        } yield Some(dot.toSuccessor)
 
   given (using
     general.entry.SameContent[Entry]
