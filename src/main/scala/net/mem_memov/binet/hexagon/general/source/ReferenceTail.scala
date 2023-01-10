@@ -10,7 +10,7 @@ trait ReferenceTail[SOURCE, DOT_REFERENCE, NETWORK]:
 
   extension (source: SOURCE)
 
-    def referenceHead(
+    def referenceTail(
       dotReference: DOT_REFERENCE,
       network: NETWORK
     ): Either[String, (NETWORK, SOURCE)] =

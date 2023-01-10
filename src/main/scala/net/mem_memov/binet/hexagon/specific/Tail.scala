@@ -72,10 +72,8 @@ object Tail:
 //                case None => Right(dot.toSource :: sources)
 
   given [ARROW, DOT, NETWORK, SOURCE](using
-    general.network.ReadDot[NETWORK, DOT, DotReference],
-    general.network.ReadArrow[NETWORK, ARROW, ArrowReference],
-    general.dot.ToSource[DOT, SOURCE],
-    general.arrow.ToTail[ARROW, Tail]
+    general.dotReference.ReadSource[DotReference, NETWORK, SOURCE],
+    general.arrowReference.ReadTail[ArrowReference, NETWORK, Tail]
   ): general.tail.CollectSources[Tail, NETWORK, SOURCE] with
 
     @tailrec
@@ -87,17 +85,17 @@ object Tail:
       sources: List[SOURCE]
     ): Either[String, List[SOURCE]] =
 
-      val dotEither = network.readDot(tail.dotReference)
-      dotEither match
+      val sourceEither = tail.tailDotReference.readSource(network)
+      sourceEither match
         case Left(error) => Left(error)
-        case Right(dot) =>
-          val nextArrowOptionEither = network.readArrow(tail.nextArrowReference)
-          nextArrowOptionEither match
+        case Right(source) =>
+          val nextTailOptionEither = tail.nextTailArrowReference.readTail(network)
+          nextTailOptionEither match
             case Left(error) => Left(error)
-            case Right(nextArrowOption) =>
-              nextArrowOption match
-                case Some(nextArrow) => f(nextArrow.toTail, network, dot.toSource :: sources)
-                case None => Right(dot.toSource :: sources)
+            case Right(nextTailOption) =>
+              nextTailOption match
+                case Some(nextTail) => f(nextTail, network, source :: sources)
+                case None => Right(source :: sources)
 
   given [DOT, NETWORK, SOURCE](using
     general.dot.DeleteSourceArrow[DOT, NETWORK],
@@ -174,4 +172,7 @@ object Tail:
       network: NETWORK
     ): Either[String, NETWORK] =
 
-      previousTail.nextTailArrowReference.referencePath(tail.dotReference, network))
+      for {
+        result <- previousTail.nextTailArrowReference.referencePath(tail.tailDotReference, network)
+        (modifiedNetwork, _) = result
+      } yield modifiedNetwork

@@ -24,9 +24,9 @@ object Target:
     general.counter.Increment[Counter, NETWORK],
     general.arrowReference.ReadHead[ArrowReference, HEAD, NETWORK],
     general.network.CreateHead[NETWORK, ADDRESS, HEAD],
-    general.head.GetReferencedBy[HEAD, ArrowReference, NETWORK]
-  )(using
-    arrowEntry: ARROW_ENTRY
+    general.head.GetReferencedBy[HEAD, ArrowReference, NETWORK],
+    general.head.Follow[HEAD, NETWORK],
+    general.head.ToTail[HEAD, TAIL]
   ): general.target.CreateTailFromSource[Target, ADDRESS, NETWORK, TAIL] with
 
     override
@@ -35,7 +35,7 @@ object Target:
       sourceDotAddress: ADDRESS,
       sourceArrowAddressOption: Option[ADDRESS],
       network: NETWORK
-    ): Either[String, (NETWORK, Target, ARROW)] =
+    ): Either[String, (NETWORK, TAIL)] =
 
       for {
 
@@ -47,12 +47,12 @@ object Target:
         result2 <- head.getReferencedBy(target.targetArrowReference, network1)
         (network2, _) = result2
 
-        result3 <- target.counter.increment(network2)
+        result3 <- target.targetCounter.increment(network2)
         (network3, _) = result3
 
         modifiedNetwork <- nextHeadOption match
           case Some(nextHead) => nextHead.follow(head, network3)
-          case None => Right(network3, arrow)
+          case None => Right(network3)
 
       } yield (modifiedNetwork, head.toTail)
 
@@ -119,7 +119,7 @@ object Target:
       } yield sources
 
   given [VERTEX](using
-    general.dot.ToVertex[Dot, VERTEX]
+    general.dotReference.ToVertex[DotReference, VERTEX]
   ): general.target.ToVertex[Target, VERTEX] with
 
     override

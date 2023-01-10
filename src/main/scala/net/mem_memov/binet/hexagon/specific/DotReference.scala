@@ -148,3 +148,16 @@ object DotReference:
     ): Boolean =
 
       dotReference.entry.isContentEmpty
+
+  given [FACTORY, VERTEX](using
+    general.factory.MakeVertex[FACTORY, DotReference, VERTEX]
+  )(using
+    factory: FACTORY
+  ): general.dotReference.ToVertex[DotReference, VERTEX] with
+
+    override
+    def f(
+      dotReference: DotReference
+    ): VERTEX =
+
+      factory.makeVertex(dotReference)
