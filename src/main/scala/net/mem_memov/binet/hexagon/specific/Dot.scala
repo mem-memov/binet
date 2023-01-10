@@ -40,7 +40,7 @@ object Dot:
       factory.makeVertex(dot.identifierDotReference)
 
   given [FACTORY, SOURCE](using
-    general.factory.MakeSource[FACTORY, ARROW_REFERENCE, DOT_REFERENCE, SOURCE]
+    general.factory.MakeSource[FACTORY, ArrowReference, Counter, DotReference, SOURCE]
   )(using
     factory: FACTORY
   ): general.dot.ToSource[Dot, SOURCE] with
@@ -60,7 +60,7 @@ object Dot:
       )
 
   given [FACTORY, TARGET](using
-    general.factory.MakeTargete[FACTORY, ARROW_REFERENCE, DOT_REFERENCE, TARGET]
+    general.factory.MakeTarget[FACTORY, ArrowReference, Counter, DotReference, TARGET]
   )(using
     factory: FACTORY
   ): general.dot.ToTarget[Dot, TARGET] with

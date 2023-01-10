@@ -36,8 +36,7 @@ object Head:
       )
 
   given [NETWORK](using
-    general.arrow.GetNextTargetArrow[Arrow, NETWORK],
-    general.arrow.ToHead[Arrow, Head]
+    general.arrowReference.ReadHead[ArrowReference, Head, NETWORK]
   ): general.head.GetNext[Head, NETWORK] with
 
     override
@@ -46,9 +45,7 @@ object Head:
       network: NETWORK
     ): Either[String, Option[Head]] =
 
-      for {
-        optionArrow <- head.arrow.getNextTargetArrow(network)
-      } yield optionArrow.map(_.toHead)
+      head.nextTailArrowReference.readHead(network)
 
   given [TARGET](using
     general.dotReference.InSameDirection[DotReference]
@@ -140,7 +137,7 @@ object Head:
       } yield modifiedNetwork
 
   given [NETWORK](using
-    general.arrowReference.
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
   ): general.head.Follow[Head, NETWORK] with
 
     override
@@ -150,11 +147,13 @@ object Head:
       network: NETWORK
     ): Either[String, NETWORK] =
 
-      previousHead.nextArrowReference
-      head.previousArrowReference
+      for {
+        result <- previousHead.nextHeadArrowReference.referencePath(head.tailDotReference, network)
+        (modifiedNetwork, _) = result
+      } yield modifiedNetwork
 
   given [NETWORK](using
-    general.arrowReference.ReferencePath[ArrowReference, NETWORK]
+    general.arrowReference.ReferencePath[ArrowReference, DotReference, NETWORK]
   ): general.tail.GetReferencedBy[Head, ArrowReference, NETWORK] with
 
     override

@@ -143,7 +143,7 @@ object Entry:
 
   given [MEMORY_FACTORY](using
     memory.general.factory.ZeroAddress[MEMORY_FACTORY, Address]
-  )(
+  )(using
     memoryFactory: MEMORY_FACTORY
   ): general.entry.ClearContent[Entry] with
 
